@@ -1,0 +1,155 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      src: url("assets/fonts/Inter-400.woff2") format("woff2");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "Inter";
+      src: url("assets/fonts/Inter-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 35%, #60a5fa 100%);
+    }
+    #card-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .card-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.7;
+    }
+    #card-blob-a {
+      width: 720px;
+      height: 720px;
+      left: 260px;
+      top: 80px;
+      background: #f0abfc;
+    }
+    #card-blob-b {
+      width: 760px;
+      height: 760px;
+      left: 980px;
+      top: 300px;
+      background: #93c5fd;
+    }
+    #card-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #card-panel {
+      width: 760px;
+      padding: 64px 72px 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(30px) saturate(140%);
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(60, 40, 140, 0.25);
+    }
+    #card-label {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #6e6e73;
+    }
+    #card-number {
+      font-size: 240px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #1d1d1f;
+      font-variant-numeric: tabular-nums;
+    }
+    #card-pill {
+      margin-top: 12px;
+      padding: 18px 40px;
+      border-radius: 999px;
+      background: #15803d;
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: 700;
+      opacity: 0;
+    }
+  </style>
+  <div
+    id="root"
+    data-composition-id="card"
+    data-width="1920"
+    data-height="1080"
+    data-composition-variables='[
+      {"id":"label","type":"string","label":"Label","default":"MY FIRST RENDER"},
+      {"id":"pill","type":"string","label":"Pill","default":"Made with Claude Code"}
+    ]'
+  >
+    <div id="card-bg" data-layout-allow-overflow>
+      <div id="card-blob-a" class="card-blob"></div>
+      <div id="card-blob-b" class="card-blob"></div>
+    </div>
+    <div id="card-stage">
+      <div id="card-panel">
+        <div id="card-label" data-var-text="label">MY FIRST RENDER</div>
+        <div id="card-number">0</div>
+        <div id="card-pill" data-var-text="pill">Made with Claude Code</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const numberEl = document.getElementById("card-number");
+      const count = { value: 0 };
+      const tl = gsap.timeline({ paused: true });
+
+      // Background blobs drift slowly for the whole video.
+      tl.fromTo("#card-blob-a", { x: 0, y: 0 }, { x: 120, y: 60, duration: 6, ease: "sine.inOut" }, 0);
+      tl.fromTo("#card-blob-b", { x: 0, y: 0 }, { x: -140, y: -50, duration: 6, ease: "sine.inOut" }, 0);
+
+      // The card rises in.
+      tl.fromTo(
+        "#card-panel",
+        { opacity: 0, y: 80, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+        0.1,
+      );
+
+      // The number counts from 0 to 100 over 2 seconds.
+      tl.fromTo(
+        count,
+        { value: 0 },
+        {
+          value: 100,
+          duration: 2,
+          ease: "power2.out",
+          onUpdate: () => {
+            numberEl.textContent = Math.round(count.value);
+          },
+        },
+        0.8,
+      );
+
+      // The green pill pops in at 4 seconds.
+      tl.fromTo(
+        "#card-pill",
+        { opacity: 0, scale: 0.4 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.5)" },
+        4,
+      );
+
+      window.__timelines["card"] = tl;
+    })();
+  </script>
+</template>
