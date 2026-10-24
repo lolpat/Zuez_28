@@ -32,9 +32,9 @@ Tally practice screens: a 60-second, 1920x1080, 30 fps kinetic promo. Cuts land 
 ## Sound (PROMPT 13)
 
 Kit sound effects from `assets/sfx/`, placed by `tools/gen_promo.py` so each one's peak lands one frame
-after its picture: a tick as each screen's caption line lands (12), a snap on each big word slam (9),
-and a chime on the end card. No sound on slides, exits or cuts, no whooshes, no counter (no numbers
-roll in this video). Measured on the render: −30.7 LUFS, true peak −11.9 dB, no clipping.
+after its picture: a tick as each screen's caption line lands (12) and a chime on the end card. No sound
+on slides, exits or cuts, no whooshes, no counter (no numbers roll in this video). Measured on the
+render: −19.6 LUFS, true peak −2 dB, no clipping. No music bed yet: drop a track in `assets/` to add one.
 
 ## Files
 
