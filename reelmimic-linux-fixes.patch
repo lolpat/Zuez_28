@@ -1,0 +1,23 @@
+diff --git a/app/server/runner.test.ts b/app/server/runner.test.ts
+index 8ddbb2a..eb447af 100644
+--- a/app/server/runner.test.ts
++++ b/app/server/runner.test.ts
+@@ -2,8 +2,11 @@
+ import { describe, test } from 'node:test';
+ import assert from 'node:assert/strict';
+ import * as R from './runner.ts';
++import { readFileSync } from 'node:fs';
+ 
+-const alive = (pid: number) => { try { process.kill(pid, 0); return true; } catch { return false; } };
++// a killed process whose parent is gone stays a zombie where PID 1 does not reap orphans (some containers): count that as dead
++const zombie = (pid: number) => { try { return readFileSync(`/proc/${pid}/stat`, 'utf8').split(') ')[1]?.[0] === 'Z'; } catch { return false; } };
++const alive = (pid: number) => { try { process.kill(pid, 0); return !zombie(pid); } catch { return false; } };
+ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+ 
+ describe('runner', () => {
+diff --git a/install.sh b/install.sh
+old mode 100644
+new mode 100755
+diff --git a/start.sh b/start.sh
+old mode 100644
+new mode 100755
