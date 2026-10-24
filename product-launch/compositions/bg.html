@@ -1,0 +1,58 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5f3ff 0%, #eef2ff 45%, #ecfeff 100%);
+    }
+    #bg-blobs {
+      position: absolute;
+      inset: 0;
+    }
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.65;
+    }
+    #bg-blob-a {
+      width: 760px;
+      height: 760px;
+      left: 120px;
+      top: 60px;
+      background: #c7d2fe;
+    }
+    #bg-blob-b {
+      width: 700px;
+      height: 700px;
+      left: 1080px;
+      top: 320px;
+      background: #fbcfe8;
+    }
+    #bg-blob-c {
+      width: 560px;
+      height: 560px;
+      left: 760px;
+      top: 40px;
+      background: #bae6fd;
+    }
+  </style>
+  <div id="root" data-composition-id="bg" data-width="1920" data-height="1080">
+    <div id="bg-blobs" data-layout-allow-overflow data-layout-ignore>
+      <div id="bg-blob-a" class="bg-blob"></div>
+      <div id="bg-blob-b" class="bg-blob"></div>
+      <div id="bg-blob-c" class="bg-blob"></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      // Slow drift behind every scene.
+      tl.fromTo("#bg-blob-a", { x: 0, y: 0 }, { x: 220, y: 90, duration: 12, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bg-blob-b", { x: 0, y: 0 }, { x: -260, y: -80, duration: 12, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bg-blob-c", { x: 0, y: 0 }, { x: 120, y: 160, duration: 12, ease: "sine.inOut" }, 0);
+      window.__timelines["bg"] = tl;
+    })();
+  </script>
+</template>

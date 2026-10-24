@@ -1,0 +1,146 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+    #profit-title {
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #1d1d1f;
+    }
+    #profit-title em {
+      font-style: normal;
+      color: #15803d;
+    }
+    #profit-window {
+      width: 1000px;
+      padding: 40px 60px 44px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(30px) saturate(140%);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 30px 80px rgba(67, 56, 202, 0.16);
+    }
+    .profit-label {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #6e6e73;
+      margin-bottom: 18px;
+    }
+    .profit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 0;
+      font-size: 36px;
+      color: #1d1d1f;
+      font-variant-numeric: tabular-nums;
+    }
+    .profit-row span:last-child {
+      font-weight: 700;
+    }
+    .profit-minus span:last-child {
+      color: #b91c1c;
+    }
+    #profit-rule {
+      height: 2px;
+      margin: 16px 0 20px;
+      background: #1d1d1f;
+      opacity: 0.12;
+    }
+    #profit-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #profit-total-label {
+      font-size: 40px;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+    #profit-total-value {
+      font-size: 84px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #15803d;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+  <div id="root" data-composition-id="profit" data-width="1920" data-height="1080">
+    <div id="profit-title">Shows <em>real profit</em> after fees, ads and refunds</div>
+    <div id="profit-window">
+      <div class="profit-label">THIS MONTH</div>
+      <div id="profit-revenue" class="profit-row"><span>Revenue</span><span>$48,200</span></div>
+      <div id="profit-fees" class="profit-row profit-minus"><span>Payment fees</span><span>−$1,402</span></div>
+      <div id="profit-ads" class="profit-row profit-minus"><span>Ad spend</span><span>−$9,860</span></div>
+      <div id="profit-refunds" class="profit-row profit-minus"><span>Refunds</span><span>−$2,118</span></div>
+      <div id="profit-rule"></div>
+      <div id="profit-total">
+        <span id="profit-total-label">Real profit</span>
+        <span id="profit-total-value">$48,200</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const totalEl = document.getElementById("profit-total-value");
+      const total = { value: 48200 };
+      const show = () => {
+        totalEl.textContent = "$" + Math.round(total.value).toLocaleString("en-US");
+      };
+      const tl = gsap.timeline({ paused: true });
+
+      // Whip in from the right.
+      tl.fromTo(
+        "#profit-title",
+        { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" },
+        0,
+      );
+      tl.fromTo(
+        "#profit-window",
+        { opacity: 0, x: 260, filter: "blur(12px)" },
+        { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" },
+        0,
+      );
+
+      // Each cost drops in and the profit figure falls with it: 48,200 → 34,820.
+      const steps = [
+        ["#profit-fees", 46798],
+        ["#profit-ads", 36938],
+        ["#profit-refunds", 34820],
+      ];
+      steps.forEach(([sel, value], i) => {
+        const at = 0.4 + i * 0.32;
+        tl.fromTo(sel, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, at);
+        tl.to(total, { value, duration: 0.3, ease: "power2.out", onUpdate: show }, at + 0.05);
+      });
+
+      // Land the total.
+      tl.fromTo(
+        "#profit-total-value",
+        { scale: 1 },
+        { scale: 1.06, duration: 0.15, ease: "power2.out", transformOrigin: "100% 50%" },
+        1.4,
+      );
+      tl.to("#profit-total-value", { scale: 1, duration: 0.3, ease: "power3.out" }, 1.55);
+
+      // Exit.
+      tl.to(
+        ["#profit-title", "#profit-window"],
+        { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" },
+        2.17,
+      );
+
+      window.__timelines["profit"] = tl;
+    })();
+  </script>
+</template>
