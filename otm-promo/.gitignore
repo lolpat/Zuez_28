@@ -1,0 +1,7 @@
+.hyperframes/
+node_modules/
+# Original screenshots hold other members' names/photos and an account number; only the
+# cleaned copies in assets/screens/ are committed.
+screenshots/
+renders/work-*/
+renders/.*hf-transaction*/

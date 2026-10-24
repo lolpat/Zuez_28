@@ -1,0 +1,89 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #08090a;
+    }
+    #xp-cam {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 867px;
+      height: 638px;
+    }
+    #xp-cam img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #xp-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(8, 9, 10, 0.98) 0%, rgba(8, 9, 10, 0.96) 38%, rgba(8, 9, 10, 0) 54%);
+    }
+    #xp-copy {
+      position: absolute;
+      left: 120px;
+      top: 0;
+      bottom: 0;
+      width: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 26px;
+    }
+    #xp-kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: #4d8dff;
+    }
+    #xp-line {
+      font-family: "Inter", sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: #ffffff;
+    }
+    .xp-word {
+      display: inline-block;
+    }
+  </style>
+  <div id="root" data-composition-id="xp" data-width="1920" data-height="1080">
+    <div id="xp-cam" data-layout-allow-overflow data-layout-ignore>
+      <img id="xp-img" src="assets/screens/xp-trips.png" alt="" />
+    </div>
+    <div id="xp-scrim" data-layout-ignore></div>
+    <div id="xp-copy">
+      <div id="xp-kicker">XP STORE</div>
+      <div id="xp-line"><span class="xp-word">Turn</span> <span class="xp-word">XP</span> <span class="xp-word">into</span> <span class="xp-word">real</span> <span class="xp-word">rewards.</span></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const shots = [{"t": 0, "x": 780.0, "y": 157.5, "scale": 1.1994}, {"t": 1.2, "x": 780.0, "y": 342.3, "scale": 1.1994}];
+      const sel = "#xp-cam";
+      // Arrive slightly large and settle on the first framing.
+      tl.fromTo(sel, { x: 717.6, y: 111.6, scale: 1.3433, transformOrigin: "0 0", filter: "blur(8px)" },
+        { x: 780.0, y: 157.5, scale: 1.1994, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+      // Fast moves to each next framing, with a blur peak mid-move.
+      shots.slice(1).forEach((s) => {
+        tl.to(sel, { x: s.x, y: s.y, scale: s.scale, duration: 0.45, ease: "power3.inOut" }, s.t);
+        tl.to(sel, { filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, s.t);
+        tl.to(sel, { filter: "blur(0px)", duration: 0.25, ease: "power2.out" }, s.t + 0.2);
+      });
+      // Copy: kicker, then the line word by word.
+      tl.fromTo("#xp-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.15);
+      tl.fromTo(".xp-word", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out", stagger: 0.067 }, 0.3);
+      // Zoom through on the way out; the cut lands on the beat.
+      tl.to(sel, { x: 624.0, y: 283.0, scale: 1.5592, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 2.2);
+      tl.to("#xp-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 2.3);
+      window.__timelines["xp"] = tl;
+    })();
+  </script>
+</template>
