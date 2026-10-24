@@ -2,7 +2,7 @@
 
 PROMPT 10 from the Motion Graphics starter kit, run on real Limitless screens instead of the kit's
 Tally practice screens: a 60-second, 1920x1080, 30 fps kinetic promo. Cuts land on a 120 BPM grid
-(every 0.5 s); there is no sound yet.
+(every 0.5 s).
 
 ## What's in it
 
@@ -28,6 +28,13 @@ Tally practice screens: a 60-second, 1920x1080, 30 fps kinetic promo. Cuts land 
 | 52–54.5 s | `board` | Leaderboard (member names and photos blurred) |
 | 54.5–57 s | `xp` | XP Store (the two trips only) |
 | 57–60 s | `end` | Logo, line, "Start your free trial", risk line |
+
+## Sound (PROMPT 13)
+
+Kit sound effects from `assets/sfx/`, placed by `tools/gen_promo.py` so each one's peak lands one frame
+after its picture: a tick as each screen's caption line lands (12), a snap on each big word slam (9),
+and a chime on the end card. No sound on slides, exits or cuts, no whooshes, no counter (no numbers
+roll in this video). Measured on the render: −30.7 LUFS, true peak −11.9 dB, no clipping.
 
 ## Files
 

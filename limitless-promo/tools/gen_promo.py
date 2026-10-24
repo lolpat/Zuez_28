@@ -337,6 +337,24 @@ def end(cid, dur):
       tl.fromTo("#end-risk", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.8);"""
     return wrap(cid, css, html, js)
 
+# Sound effects (PROMPT 13). Each clip starts so its peak lands one frame after its picture.
+FRAME = 1 / 30
+SFX_FILES = {  # name: (file, duration, seconds from file start to peak, volume)
+    "tick": ("assets/sfx/tick.wav", 0.09, 0.001, 1.0),
+    "snap": ("assets/sfx/snap.wav", 0.16, 0.005, 0.9),
+    "chime": ("assets/sfx/chime.wav", 0.95, 0.163, 0.8),
+}
+SFX = []  # (name, film second the picture happens)
+for kind, cid, start, dur, p in SCENES:
+    if kind == "screen":
+        SFX.append(("tick", start + 0.3))  # the caption line starts to land
+    elif kind == "word":
+        SFX.append(("snap", start))  # the big word slams in
+    elif kind == "hook":
+        SFX += [("snap", start + 0.5), ("snap", start + 2.0), ("snap", start + 2.5)]
+    elif kind == "end":
+        SFX.append(("chime", start))  # the last card
+
 
 hosts = []
 for kind, cid, start, dur, p in SCENES:
@@ -356,6 +374,19 @@ for kind, cid, start, dur, p in SCENES:
         data-width="1920"
         data-height="1080"
       ></div>""")
+
+for i, (name, at) in enumerate(SFX, 1):
+    file, length, peak, vol = SFX_FILES[name]
+    begin = round(at + FRAME - peak, 3)
+    hosts.append(f"""      <audio
+        id="sfx-{i:02d}-{name}"
+        class="clip"
+        src="{file}"
+        data-start="{begin}"
+        data-duration="{length}"
+        data-track-index="1"
+        data-volume="{vol}"
+      ></audio>""")
 
 index = f"""<!doctype html>
 <html lang="en" data-resolution="landscape">
