@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #08090a;
+    }
+    #w-auto-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    #w-auto-text {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 234px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .w-auto-ch {
+      display: inline-block;
+    }
+    #w-auto-bar {
+      width: 360px;
+      height: 14px;
+      border-radius: 7px;
+      background: #4d8dff;
+    }
+  </style>
+  <div id="root" data-composition-id="w-auto" data-width="1920" data-height="1080">
+    <div id="w-auto-stage">
+      <div id="w-auto-text">AUTOMATE</div>
+      <div id="w-auto-bar"></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#w-auto-text", { scaleY: 0.08, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.32, ease: "power4.out" }, 0);
+      tl.fromTo("#w-auto-bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.25);
+      tl.to("#w-auto-stage", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.33);
+      window.__timelines["w-auto"] = tl;
+    })();
+  </script>
+</template>

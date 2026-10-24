@@ -1,0 +1,56 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #08090a;
+    }
+    .hook-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Archivo Black", sans-serif;
+      color: #ffffff;
+      line-height: 0.95;
+      text-align: center;
+    }
+    .hook-big {
+      font-size: 250px;
+    }
+    .hook-mid {
+      font-size: 190px;
+    }
+    .hook-accent {
+      color: #4d8dff;
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+    <div id="hook-a" class="hook-screen">
+      <div id="hook-stop" class="hook-big">STOP</div>
+      <div id="hook-guess" class="hook-big hook-accent">GUESSING.</div>
+    </div>
+    <div id="hook-b" class="hook-screen">
+      <div id="hook-trade" class="hook-mid">TRADE GOLD</div>
+      <div id="hook-plan" class="hook-mid">WITH A <span class="hook-accent">PLAN.</span></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      // Screen 1: on screen from frame 0, then the second word slams in on the beat.
+      tl.fromTo("#hook-stop", { scale: 1.12 }, { scale: 1, duration: 0.3, ease: "power4.out" }, 0);
+      tl.fromTo("#hook-guess", { x: -700, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.5);
+      tl.to("#hook-a", { opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.83);
+      // Screen 2.
+      tl.fromTo("#hook-b", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 2);
+      tl.fromTo("#hook-trade", { scaleY: 0.08, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 2);
+      tl.fromTo("#hook-plan", { scale: 1.5, opacity: 0, filter: "blur(12px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 2.5);
+      tl.to("#hook-b", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 3.83);
+      window.__timelines["hook"] = tl;
+    })();
+  </script>
+</template>
