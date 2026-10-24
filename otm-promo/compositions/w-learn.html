@@ -44,7 +44,7 @@
       const tl = gsap.timeline({ paused: true });
       tl.fromTo(".w-learn-ch", { y: (i) => (i % 2 ? 160 : -160), opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "power4.out", stagger: 0.035 }, 0);
       tl.fromTo("#w-learn-bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.25);
-      tl.to("#w-learn-stage", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.33);
+      tl.to("#w-learn-stage", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 0.9799999999999999);
       window.__timelines["w-learn"] = tl;
     })();
   </script>

@@ -66,7 +66,7 @@
   <script>
     (() => {
       const tl = gsap.timeline({ paused: true });
-      const shots = [{"t": 0, "x": 286.0, "y": 184.7, "scale": 1.2094}, {"t": 1.2, "x": 286.0, "y": -482.7, "scale": 1.2094}];
+      const shots = [{"t": 0.0, "x": 286.0, "y": 184.7, "scale": 1.2094}, {"t": 0.594, "x": 286.0, "y": -482.7, "scale": 1.2094}];
       const sel = "#board-cam";
       // Arrive slightly large and settle on the first framing.
       tl.fromTo(sel, { x: 164.3, y: 142.0, scale: 1.3545, transformOrigin: "0 0", filter: "blur(8px)" },
@@ -81,8 +81,8 @@
       tl.fromTo("#board-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.15);
       tl.fromTo(".board-word", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out", stagger: 0.067 }, 0.3);
       // Zoom through on the way out; the cut lands on the beat.
-      tl.to(sel, { x: -18.2, y: -789.5, scale: 1.5722, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 2.2);
-      tl.to("#board-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 2.3);
+      tl.to(sel, { x: -18.2, y: -789.5, scale: 1.5722, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 1.442);
+      tl.to("#board-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 1.542);
       window.__timelines["board"] = tl;
     })();
   </script>

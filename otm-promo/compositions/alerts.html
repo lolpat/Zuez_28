@@ -66,7 +66,7 @@
   <script>
     (() => {
       const tl = gsap.timeline({ paused: true });
-      const shots = [{"t": 0, "x": 286.0, "y": -6.0, "scale": 1.2094}, {"t": 1.0, "x": 286.0, "y": -664.7, "scale": 1.2094}, {"t": 2.5, "x": 286.0, "y": -1427.3, "scale": 1.2094}];
+      const shots = [{"t": 0.0, "x": 286.0, "y": -6.0, "scale": 1.2094}, {"t": 0.966, "x": 286.0, "y": -664.7, "scale": 1.2094}, {"t": 2.414, "x": 286.0, "y": -1427.3, "scale": 1.2094}];
       const sel = "#alerts-cam";
       // Arrive slightly large and settle on the first framing.
       tl.fromTo(sel, { x: 164.3, y: -71.5, scale: 1.3545, transformOrigin: "0 0", filter: "blur(8px)" },
@@ -81,8 +81,8 @@
       tl.fromTo("#alerts-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.15);
       tl.fromTo(".alerts-word", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out", stagger: 0.067 }, 0.3);
       // Zoom through on the way out; the cut lands on the beat.
-      tl.to(sel, { x: -18.2, y: -2017.5, scale: 1.5722, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 3.7);
-      tl.to("#alerts-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 3.8);
+      tl.to(sel, { x: -18.2, y: -2017.5, scale: 1.5722, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 3.4970000000000003);
+      tl.to("#alerts-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 3.597);
       window.__timelines["alerts"] = tl;
     })();
   </script>

@@ -41,15 +41,14 @@
   <script>
     (() => {
       const tl = gsap.timeline({ paused: true });
-      // Screen 1: on screen from frame 0, then the second word slams in on the beat.
-      tl.fromTo("#hook-stop", { scale: 1.12 }, { scale: 1, duration: 0.3, ease: "power4.out" }, 0);
-      tl.fromTo("#hook-guess", { x: -700, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.5);
-      tl.to("#hook-a", { opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.83);
-      // Screen 2.
-      tl.fromTo("#hook-b", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 2);
-      tl.fromTo("#hook-trade", { scaleY: 0.08, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 2);
-      tl.fromTo("#hook-plan", { scale: 1.5, opacity: 0, filter: "blur(12px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 2.5);
-      tl.to("#hook-b", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 3.83);
+      // Screen 1, then screen 2, each word landing as the voice says it.
+      tl.fromTo("#hook-stop", { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 0);
+      tl.fromTo("#hook-guess", { x: -700, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.533);
+      tl.to("#hook-a", { opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.06);
+      tl.fromTo("#hook-b", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 1.23);
+      tl.fromTo("#hook-trade", { scaleY: 0.08, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 1.23);
+      tl.fromTo("#hook-plan", { scale: 1.5, opacity: 0, filter: "blur(12px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 1.63);
+      tl.to("#hook-b", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 3.104);
       window.__timelines["hook"] = tl;
     })();
   </script>

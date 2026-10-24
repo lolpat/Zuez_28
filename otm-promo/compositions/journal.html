@@ -66,7 +66,7 @@
   <script>
     (() => {
       const tl = gsap.timeline({ paused: true });
-      const shots = [{"t": 0, "x": 780.0, "y": 167.3, "scale": 1.2094}, {"t": 1.5, "x": 903.1, "y": -399.4, "scale": 0.9231}];
+      const shots = [{"t": 0.0, "x": 780.0, "y": 167.3, "scale": 1.2094}, {"t": 1.284, "x": 903.1, "y": -399.4, "scale": 0.9231}];
       const sel = "#journal-cam";
       // Arrive slightly large and settle on the first framing.
       tl.fromTo(sel, { x: 717.6, y: 122.6, scale: 1.3545, transformOrigin: "0 0", filter: "blur(8px)" },
@@ -81,8 +81,8 @@
       tl.fromTo("#journal-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.15);
       tl.fromTo(".journal-word", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out", stagger: 0.067 }, 0.3);
       // Zoom through on the way out; the cut lands on the beat.
-      tl.to(sel, { x: 784.0, y: -681.2, scale: 1.2001, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 3.7);
-      tl.to("#journal-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 3.8);
+      tl.to(sel, { x: 784.0, y: -681.2, scale: 1.2001, filter: "blur(10px)", duration: 0.28, ease: "power3.in" }, 2.3120000000000003);
+      tl.to("#journal-copy", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, 2.412);
       window.__timelines["journal"] = tl;
     })();
   </script>

@@ -42,7 +42,7 @@ SCENES = [
     ("word", "w-plan", 22.5, 1.5, dict(text="PLAN", mode="slide")),
     ("screen", "ai", 24, 4, dict(img="ai", kicker="LIMITLESS AI",
         line="Get entry, stop loss and two targets.",
-        shots=[(0, (300, 300, 570, 380)), (1.5, (335, 735, 500, 260))])),
+        shots=[(0, (300, 300, 570, 380)), (1.5, (335, 735, 500, 260)), (2.9, (505, 735, 330, 260))])),
     ("screen", "scan", 28, 3.5, dict(img="scanners", kicker="SCANNERS",
         line="New scanners on the way.",
         shots=[(0, (285, 540, 600, 560)), (1.5, (490, 690, 400, 400))])),
@@ -72,6 +72,29 @@ SCENES = [
         shots=[(0, (285, 835, 605, 445)), (1.2, (285, 835, 605, 230))])),
     ("end", "end", 60.5, 5, None),
 ]
+
+# The narration is the clock. Each scene starts LEAD seconds before its first word, measured in
+# assets/vo/narration.wav with ElevenLabs Scribe word timestamps; the file plays from VO_AT.
+VO_AT = 0.3
+LEAD = 0.15
+VO_END = 54.751  # last word ends
+CUES = {
+    "hook": 2.972, "dash": 6.246, "w-signals": 10.403, "alerts": 11.691, "w-auto": 15.488,
+    "auto": 16.544, "w-plan": 20.224, "ai": 21.339, "scan": 25.727, "w-learn": 28.13,
+    "academy": 29.28, "live": 31.961, "w-track": 34.458, "journal": 35.561, "coach": 38.173,
+    "risk": 41.366, "w-level": 45.023, "board": 45.8, "xp": 47.542, "end": 50.723,
+}
+HOOK_WORDS = {"guessing": 3.355, "start": 4.052, "plan": 5.399}  # narration seconds
+END_HOLD = 2.5  # the end card holds this long after the last word
+
+_starts = {cid: 0 if cid == "otm" else round(CUES[cid] + VO_AT - LEAD, 3) for _, cid, *_ in SCENES}
+TOTAL = round(VO_END + VO_AT + END_HOLD, 2)
+_order = [cid for _, cid, *_ in SCENES]
+SCENES = [(k, cid, _starts[cid],
+           round((_starts[_order[i + 1]] if i + 1 < len(_order) else TOTAL) - _starts[cid], 3), p)
+          for i, (k, cid, _, _, p) in enumerate(SCENES)]
+HOOK_AT = {w: round(t + VO_AT - _starts["hook"], 3) for w, t in HOOK_WORDS.items()}
+HOOK_AT["plan"] = min(HOOK_AT["plan"], round(HOOK_AT["start"] + 0.4, 3))  # long enough to read
 
 
 def cam(img, rect, mult=1.0):
@@ -166,6 +189,8 @@ def screen(cid, dur, p):
       <div id="{cid}-line">{words}</div>
     </div>"""
     shots = p["shots"]
+    squeeze = min(1, (dur - 0.9) / (shots[-1][0] + 0.5))
+    shots = [(round(t * squeeze, 3), r) for t, r in shots]
     first = cam(p["img"], shots[0][1])
     js = [f"      const shots = {json.dumps([dict(t=t, **cam(p['img'], r)) for t, r in shots])};",
           f'      const sel = "#{cid}-cam";',
@@ -273,15 +298,15 @@ def hook(cid, dur):
       <div id="hook-trade" class="hook-mid">TRADE GOLD</div>
       <div id="hook-plan" class="hook-mid">WITH A <span class="hook-accent">PLAN.</span></div>
     </div>"""
-    js = """      // Screen 1: on screen from frame 0, then the second word slams in on the beat.
-      tl.fromTo("#hook-stop", { scale: 1.12 }, { scale: 1, duration: 0.3, ease: "power4.out" }, 0);
-      tl.fromTo("#hook-guess", { x: -700, opacity: 0, filter: "blur(16px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.5);
-      tl.to("#hook-a", { opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 1.83);
-      // Screen 2.
-      tl.fromTo("#hook-b", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 2);
-      tl.fromTo("#hook-trade", { scaleY: 0.08, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, 2);
-      tl.fromTo("#hook-plan", { scale: 1.5, opacity: 0, filter: "blur(12px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 2.5);
-      tl.to("#hook-b", { opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }, 3.83);"""
+    g, b, pl = HOOK_AT["guessing"], HOOK_AT["start"], HOOK_AT["plan"]
+    js = f"""      // Screen 1, then screen 2, each word landing as the voice says it.
+      tl.fromTo("#hook-stop", {{ scale: 1.12, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }}, 0);
+      tl.fromTo("#hook-guess", {{ x: -700, opacity: 0, filter: "blur(16px)" }}, {{ x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }}, {g});
+      tl.to("#hook-a", {{ opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }}, {round(b - 0.17, 3)});
+      tl.fromTo("#hook-b", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.01 }}, {b});
+      tl.fromTo("#hook-trade", {{ scaleY: 0.08, opacity: 0 }}, {{ scaleY: 1, opacity: 1, duration: 0.3, ease: "power4.out" }}, {b});
+      tl.fromTo("#hook-plan", {{ scale: 1.5, opacity: 0, filter: "blur(12px)" }}, {{ scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }}, {pl});
+      tl.to("#hook-b", {{ opacity: 0, scale: 0.92, filter: "blur(10px)", duration: 0.15, ease: "power3.in" }}, {round(dur - 0.17, 3)});"""
     return wrap(cid, css, html, js)
 
 
@@ -312,7 +337,7 @@ def otm(cid, dur):
     </div>"""
     js = """      tl.fromTo("#otm-logo", { opacity: 0.5, scale: 0.92, filter: "blur(6px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0);
       tl.fromTo("#otm-presents", { opacity: 0, y: 24, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0.9);
-      tl.to("#otm-stage", { opacity: 0, scale: 0.94, filter: "blur(10px)", duration: 0.2, ease: "power3.in" }, 3.28);"""
+      tl.to("#otm-stage", { opacity: 0, scale: 0.94, filter: "blur(10px)", duration: 0.2, ease: "power3.in" }, EXIT_AT);""".replace("EXIT_AT", str(round(dur - 0.22, 3)))
     return wrap(cid, css, html, js)
 
 
@@ -413,33 +438,15 @@ for kind, cid, start, dur, p in SCENES:
     elif kind == "word":
         SFX.append(("snap", start))  # the big word slams in
     elif kind == "hook":
-        SFX += [("snap", start + 0.5), ("snap", start + 2.0), ("snap", start + 2.5)]
+        SFX += [("snap", start + HOOK_AT["guessing"]), ("snap", start + HOOK_AT["start"]), ("snap", start + HOOK_AT["plan"])]
     elif kind == "end":
         SFX.append(("chime", start))  # the last card
         SFX.append(("tick", start + 1.0))  # presented by Order The Market
     elif kind == "otm":
         SFX.append(("chime", start))  # the presenter's logo
 
-# Voiceover: ElevenLabs "Everett - Confident American Ads", one take cut into lines (assets/vo/).
-# (file, length, film second the clip starts): each line starts as its caption arrives.
-VO = [
-    ("otm-intro", 2.94, 0.3),  # Order The Market presents... Limitless.
-    ("vo-01", 0.793, 3.5),  # Stop guessing.
-    ("vo-02", 1.404, 5.45),  # Trade gold with a plan.
-    ("vo-03", 2.368, 7.8),  # See when Asia, London and New York open.
-    ("vo-04", 1.95, 13.3),  # Four signal rooms. Pick the one that fits.
-    ("vo-05", 2.159, 18.8),  # Connect once. Trades copy automatically.
-    ("vo-06", 2.277, 24.3),  # Get entry, stop loss and two targets.
-    ("vo-07", 1.155, 28.3),  # New scanners on the way.
-    ("vo-08", 1.766, 33.3),  # Courses from beginner to advanced.
-    ("vo-09", 1.617, 37.3),  # Trade live with coaches every week.
-    ("vo-10", 1.385, 42.8),  # Every trade logged in your journal.
-    ("vo-11", 2.357, 46.8),  # Nova, your AI coach, reviews your trading.
-    ("vo-12", 1.638, 50.3),  # The right lot size for your balance.
-    ("vo-13", 1.392, 55.8),  # Climb the monthly leaderboard.
-    ("vo-14", 2.019, 58.3),  # Turn XP into real rewards.
-    ("otm-end", 3.83, 60.5),  # Limitless. Start your free trial with Order The Market.
-]
+# Voiceover: ElevenLabs "Everett - Confident American Ads", one continuous take (assets/vo/narration.wav).
+VO = [("narration", 54.75, VO_AT)]
 
 hosts = []
 for kind, cid, start, dur, p in SCENES:
@@ -531,7 +538,7 @@ index = f"""<!doctype html>
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="65.5"
+      data-duration="{TOTAL}"
       data-width="1920"
       data-height="1080"
     >
