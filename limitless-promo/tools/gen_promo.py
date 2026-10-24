@@ -337,19 +337,45 @@ def end(cid, dur):
       tl.fromTo("#end-risk", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.8);"""
     return wrap(cid, css, html, js)
 
-# Sound effects (PROMPT 13). Each clip starts so its peak lands one frame after its picture.
+# Sound (PROMPT 13 + voiceover). Each clip starts so its peak lands one frame after its picture.
 FRAME = 1 / 30
-SFX_FILES = {  # name: (file, duration, seconds from file start to peak, volume)
-    "tick": ("assets/sfx/tick.wav", 0.09, 0.001, 3.5),
-    "chime": ("assets/sfx/chime.wav", 0.95, 0.163, 2.5),
+SFX_FILES = {  # name: (file, duration, seconds from file start to peak, volume under the voice)
+    "tick": ("assets/sfx/tick.wav", 0.09, 0.001, 1.6),
+    "snap": ("assets/sfx/snap.wav", 0.16, 0.005, 1.8),
+    "switch": ("assets/sfx/switch.wav", 0.14, 0.047, 1.4),
+    "chime": ("assets/sfx/chime.wav", 0.95, 0.163, 2.0),
 }
 SFX = []  # (name, film second the picture happens)
 for kind, cid, start, dur, p in SCENES:
     if kind == "screen":
-        SFX.append(("tick", start + 0.3))  # the caption line starts to land
+        SFX.append(("tick", start + 0.15))  # the kicker lands
+        SFX += [("switch", start + t) for t, _ in p["shots"][1:]]  # each camera move
+    elif kind == "word":
+        SFX.append(("snap", start))  # the big word slams in
+    elif kind == "hook":
+        SFX += [("snap", start + 0.5), ("snap", start + 2.0), ("snap", start + 2.5)]
     elif kind == "end":
         SFX.append(("chime", start))  # the last card
 
+# Voiceover: ElevenLabs "Everett - Confident American Ads", one take cut into lines (assets/vo/).
+# (file, length, film second the clip starts): each line starts as its caption arrives.
+VO = [
+    ("vo-01", 0.793, 0.0),  # Stop guessing.
+    ("vo-02", 1.404, 1.95),  # Trade gold with a plan.
+    ("vo-03", 2.368, 4.3),  # See when Asia, London and New York open.
+    ("vo-04", 1.95, 9.8),  # Four signal rooms. Pick the one that fits.
+    ("vo-05", 2.159, 15.3),  # Connect once. Trades copy automatically.
+    ("vo-06", 2.277, 20.8),  # Get entry, stop loss and two targets.
+    ("vo-07", 1.155, 24.8),  # New scanners on the way.
+    ("vo-08", 1.766, 29.8),  # Courses from beginner to advanced.
+    ("vo-09", 1.617, 33.8),  # Trade live with coaches every week.
+    ("vo-10", 1.385, 39.3),  # Every trade logged in your journal.
+    ("vo-11", 2.357, 43.3),  # Nova, your AI coach, reviews your trading.
+    ("vo-12", 1.638, 46.8),  # The right lot size for your balance.
+    ("vo-13", 1.392, 52.3),  # Climb the monthly leaderboard.
+    ("vo-14", 2.019, 54.8),  # Turn XP into real rewards.
+    ("vo-15", 2.461, 57.0),  # Limitless. Start your free trial.
+]
 
 hosts = []
 for kind, cid, start, dur, p in SCENES:
@@ -381,6 +407,17 @@ for i, (name, at) in enumerate(SFX, 1):
         data-duration="{length}"
         data-track-index="1"
         data-volume="{vol}"
+      ></audio>""")
+
+for name, length, at in VO:
+    hosts.append(f"""      <audio
+        id="{name}"
+        class="clip"
+        src="assets/vo/{name}.wav"
+        data-start="{at}"
+        data-duration="{length}"
+        data-track-index="2"
+        data-volume="1"
       ></audio>""")
 
 index = f"""<!doctype html>

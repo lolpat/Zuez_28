@@ -2,7 +2,7 @@
 
 PROMPT 10 from the Motion Graphics starter kit, run on real Limitless screens instead of the kit's
 Tally practice screens: a 60-second, 1920x1080, 30 fps kinetic promo. Cuts land on a 120 BPM grid
-(every 0.5 s).
+(every 0.5 s), with a voiceover and sound effects.
 
 ## What's in it
 
@@ -29,12 +29,18 @@ Tally practice screens: a 60-second, 1920x1080, 30 fps kinetic promo. Cuts land 
 | 54.5–57 s | `xp` | XP Store (the two trips only) |
 | 57–60 s | `end` | Logo, line, "Start your free trial", risk line |
 
-## Sound (PROMPT 13)
+## Sound
 
-Kit sound effects from `assets/sfx/`, placed by `tools/gen_promo.py` so each one's peak lands one frame
-after its picture: a tick as each screen's caption line lands (12) and a chime on the end card. No sound
-on slides, exits or cuts, no whooshes, no counter (no numbers roll in this video). Measured on the
-render: −19.6 LUFS, true peak −2 dB, no clipping. No music bed yet: drop a track in `assets/` to add one.
+**Voiceover:** ElevenLabs voice "Everett – Confident American Ads" (eleven_multilingual_v2) reads the
+captions. It was generated as one take with pauses, normalised to −16 LUFS, and cut into one clip per
+line (`assets/vo/vo-01.wav` … `vo-15.wav`); each clip starts as its caption arrives.
+
+**Effects** (kit `assets/sfx/`, placed so each peak lands one frame after its picture, sitting about
+10 dB under the voice): a tick as each screen's kicker lands (12), a soft switch on each camera move
+(13), a snap on each big word slam and hook word (9), and a chime on the end card.
+
+Placement for both lives in `tools/gen_promo.py` (`SFX_FILES`, `SFX`, `VO`). Measured on the render:
+−17.8 LUFS, true peak −1.4 dB, no clipping. No music bed yet: add a track to `assets/` to put one under it.
 
 ## Files
 
