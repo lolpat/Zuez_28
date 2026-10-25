@@ -21,3 +21,21 @@ Apply the code fixes with `git apply reelmimic-linux-fixes.patch` in a reelmimic
 - `./start.sh` serves http://localhost:4318; `/api/health` OK, the UI renders with no console errors
 - Smoke job: an original 12 s FFmpeg-generated reference plus a one-line brief, submitted through the UI. Not approved,
   so no 1–3.5 h production run was started.
+
+## Issues hit during a real production run
+4. **Wrong crop on a full-frame vertical reference.** The analyzer treated a 720×1280 reel as a phone screen
+   recording and cropped it to a 720×508 band, so the first plan was 1440×1016. Fix used: a chat message asking for
+   1080×1920 full frame. The planner re-ran the analysis without the crop.
+5. **A review step fails as "Missing output" when the reviewer keeps an existing file.** `turn.ts` requires each
+   output's mtime to be newer than the turn start. A reviewer that agrees with an existing, valid `review_*.json`
+   leaves it untouched, and the step fails. Fix used: "Retry this step" (`POST /api/projects/<id>/retry`), which
+   accepts existing outputs.
+6. **The plan usage limit isn't recognised.** Claude Code now says "You've hit your session limit", which the
+   `LIMIT` regex in `turn.ts` doesn't match. The job shows "The agent turn failed" instead of the usage-limit message.
+   Fix used: wait for the reset, then retry.
+7. **Nested agents inherit the parent Claude Code session.** If `start.sh` is launched from inside a Claude Code
+   session, every agent ReelMimic spawns inherits `CLAUDE_CODE_SESSION_ID` (and the related remote-session variables).
+   All of them then report the same session ID, and builders "resume" the wrong conversation. Fix: start the server
+   with those variables unset, e.g.
+   `env -u CLAUDE_CODE_SESSION_ID -u CLAUDE_CODE_REMOTE_SESSION_ID -u CLAUDE_CODE_REMOTE_SDK_URL -u CLAUDE_CODE_CHILD_SESSION -u CLAUDECODE -u CLAUDE_CODE_MESSAGING_SOCKET -u CLAUDE_CODE_MESSAGING_TOKEN -u CLAUDE_CODE_SESSION_ATTENDED ./start.sh`,
+   then clear `sessionId`/`sessions` in the project's `job.json`.
