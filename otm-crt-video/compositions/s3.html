@@ -1,0 +1,130 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s3-cam, #s3-shake { position: absolute; inset: 0; }
+    #s3-cam { transform-origin: 770px 700px; }
+    .s3-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s3-lyr { position: absolute; }
+    .s3-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s3-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s3-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s3-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s3-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s3-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s3-pop, #s3-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s3-pop { z-index: 80; opacity: 0; }
+    #s3-flash { z-index: 90; opacity: 0; }
+        #s3-sweep { left:35px; top:175px; width:1010px; height:217px; -webkit-mask-image:url(assets/layers/s3_title.png); mask-image:url(assets/layers/s3_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s3" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s3-cam">
+      <div id="s3-shake">
+                <img id="s3-plate" class="s3-full" src="assets/plates/s3.jpg" alt="" />
+        <div id="s3-title" class="s3-lyr" style="left:35px;top:175px;width:1010px;height:217px;overflow:visible;z-index:10"><img id="s3-title-img" src="assets/layers/s3_title.png" alt="" style="width:1010px;height:217px" /></div>
+        <div id="s3-char" class="s3-lyr" style="left:170px;top:1175px;width:850px;height:520px;overflow:hidden;z-index:11"><img id="s3-char-img" src="assets/layers/s3_char.png" alt="" style="width:850px;height:520px" /></div>
+        <div id="s3-t1" class="s3-lyr" style="left:50px;top:392px;width:1000px;height:50px;overflow:visible;z-index:12"><img id="s3-t1-img" src="assets/layers/s3_t1.png" alt="" style="width:1000px;height:50px" /></div>
+        <div id="s3-t2" class="s3-lyr" style="left:50px;top:442px;width:1000px;height:50px;overflow:visible;z-index:13"><img id="s3-t2-img" src="assets/layers/s3_t2.png" alt="" style="width:1000px;height:50px" /></div>
+        <div id="s3-dl" class="s3-lyr" style="left:30px;top:505px;width:500px;height:670px;overflow:visible;z-index:14"><img id="s3-dl-img" src="assets/layers/s3_dl.png" alt="" style="width:500px;height:670px" /></div>
+        <div id="s3-dr" class="s3-lyr" style="left:530px;top:505px;width:535px;height:670px;overflow:visible;z-index:15"><img id="s3-dr-img" src="assets/layers/s3_dr.png" alt="" style="width:535px;height:670px" /></div>
+        <div id="s3-x" class="s3-lyr" style="left:315px;top:895px;width:170px;height:160px;overflow:visible;z-index:16"><img id="s3-x-img" src="assets/layers/s3_x.png" alt="" style="width:170px;height:160px" /></div>
+        <div id="s3-ok" class="s3-lyr" style="left:835px;top:865px;width:190px;height:190px;overflow:visible;z-index:17"><img id="s3-ok-img" src="assets/layers/s3_ok.png" alt="" style="width:190px;height:190px" /></div>
+        <div id="s3-sp0-0" class="s3-spark" style="left:394px;top:970px;width:11px;height:11px;background:#ff2d3d"></div>
+        <div id="s3-sp0-1" class="s3-spark" style="left:396px;top:971px;width:8px;height:8px;background:#ff2d3d"></div>
+        <div id="s3-sp0-2" class="s3-spark" style="left:392px;top:968px;width:15px;height:15px;background:#ff2d3d"></div>
+        <div id="s3-sp0-3" class="s3-spark" style="left:394px;top:969px;width:12px;height:12px;background:#ff2d3d"></div>
+        <div id="s3-sp0-4" class="s3-spark" style="left:396px;top:970px;width:9px;height:9px;background:#ff2d3d"></div>
+        <div id="s3-sp0-5" class="s3-spark" style="left:392px;top:967px;width:16px;height:16px;background:#ff2d3d"></div>
+        <div id="s3-sp0-6" class="s3-spark" style="left:394px;top:968px;width:13px;height:13px;background:#ff2d3d"></div>
+        <div id="s3-sp0-7" class="s3-spark" style="left:395px;top:970px;width:10px;height:10px;background:#ff2d3d"></div>
+        <div id="s3-sp0-8" class="s3-spark" style="left:392px;top:966px;width:17px;height:17px;background:#ff2d3d"></div>
+        <div id="s3-sp0-9" class="s3-spark" style="left:393px;top:968px;width:14px;height:14px;background:#ff2d3d"></div>
+        <div id="s3-sp0-10" class="s3-spark" style="left:394px;top:970px;width:11px;height:11px;background:#ff2d3d"></div>
+        <div id="s3-sp0-11" class="s3-spark" style="left:396px;top:971px;width:8px;height:8px;background:#ff2d3d"></div>
+        <div id="s3-sp1-0" class="s3-spark" style="left:924px;top:954px;width:12px;height:12px;background:#22c55e"></div>
+        <div id="s3-sp1-1" class="s3-spark" style="left:926px;top:956px;width:9px;height:9px;background:#22c55e"></div>
+        <div id="s3-sp1-2" class="s3-spark" style="left:922px;top:952px;width:16px;height:16px;background:#22c55e"></div>
+        <div id="s3-sp1-3" class="s3-spark" style="left:924px;top:954px;width:13px;height:13px;background:#22c55e"></div>
+        <div id="s3-sp1-4" class="s3-spark" style="left:925px;top:955px;width:10px;height:10px;background:#22c55e"></div>
+        <div id="s3-sp1-5" class="s3-spark" style="left:922px;top:952px;width:17px;height:17px;background:#22c55e"></div>
+        <div id="s3-sp1-6" class="s3-spark" style="left:923px;top:953px;width:14px;height:14px;background:#22c55e"></div>
+        <div id="s3-sp1-7" class="s3-spark" style="left:924px;top:954px;width:11px;height:11px;background:#22c55e"></div>
+        <div id="s3-sp1-8" class="s3-spark" style="left:926px;top:956px;width:8px;height:8px;background:#22c55e"></div>
+        <div id="s3-sp1-9" class="s3-spark" style="left:922px;top:952px;width:15px;height:15px;background:#22c55e"></div>
+        <div id="s3-sp1-10" class="s3-spark" style="left:924px;top:954px;width:12px;height:12px;background:#22c55e"></div>
+        <div id="s3-sp1-11" class="s3-spark" style="left:926px;top:956px;width:9px;height:9px;background:#22c55e"></div>
+        <div id="s3-ring1" class="s3-ring" style="left:680px;top:610px"></div>
+        <div id="s3-ring2" class="s3-ring" style="left:680px;top:610px"></div>
+        <img id="s3-rgb-r" class="s3-full s3-rgb" src="assets/slides/s3_valid.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s3-rgb-c" class="s3-full s3-rgb" src="assets/slides/s3_valid.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s3-sweep"><div id="s3-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s3-pop"></div>
+    <div id="s3-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s3-cam", {scale: 1.45, filter: "blur(14px)"}, {scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out"}, 0);
+      tl.fromTo("#s3-flash", {opacity: 0.9}, {opacity: 0, duration: 0.22, ease: "power2.out"}, 0);
+      tl.fromTo("#s3-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s3-shake", 0.25, 22);
+      tl.fromTo("#s3-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s3-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s3-char-img", {y: 530}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s3-t1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 0.93);
+      tl.fromTo("#s3-t1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 0.93);
+      tl.fromTo("#s3-t2-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.41);
+      tl.fromTo("#s3-t2", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.41);
+      tl.fromTo("#s3-dl-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 2.52);
+      tl.fromTo("#s3-dl", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 2.52);
+      tl.fromTo("#s3-dr-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 3.64);
+      tl.fromTo("#s3-dr", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 3.64);
+      tl.fromTo("#s3-x", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 5.39);
+      shake(tl, "#s3-shake", 5.59, 14);
+      tl.fromTo("#s3-ok", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 6.82);
+      shake(tl, "#s3-shake", 7.02, 14);
+      tl.fromTo("#s3-sp0-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 157, y: 18, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 182, y: 132, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 72, y: 161, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -27, y: 242, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -118, y: 158, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -244, y: 106, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -218, y: -24, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -139, y: -100, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -96, y: -217, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 21, y: -189, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 154, y: -208, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp0-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 195, y: -85, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.59);
+      tl.fromTo("#s3-sp1-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 180, y: 93, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 146, y: 230, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 9, y: 224, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -80, y: 155, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -207, y: 132, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -196, y: 8, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -236, y: -122, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -117, y: -183, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -8, y: -169, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 111, y: -212, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 159, y: -101, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-sp1-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 259, y: -12, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.02);
+      tl.fromTo("#s3-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 7.90);
+      tl.fromTo("#s3-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 8.08);
+      tl.to("#s3-cam", {x: -1150, filter: "blur(18px)", duration: 0.32, ease: "power3.in"}, 8.48);
+      window.__timelines["s3"] = tl;
+    })();
+  </script>
+</template>

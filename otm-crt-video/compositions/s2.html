@@ -1,0 +1,93 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s2-cam, #s2-shake { position: absolute; inset: 0; }
+    #s2-cam { transform-origin: 615px 790px; }
+    .s2-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s2-lyr { position: absolute; }
+    .s2-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s2-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s2-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s2-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s2-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s2-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s2-pop, #s2-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s2-pop { z-index: 80; opacity: 0; }
+    #s2-flash { z-index: 90; opacity: 0; }
+        #s2-sweep { left:55px; top:180px; width:1010px; height:245px; -webkit-mask-image:url(assets/layers/s2_title.png); mask-image:url(assets/layers/s2_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s2" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s2-cam">
+      <div id="s2-shake">
+                <img id="s2-plate" class="s2-full" src="assets/plates/s2.jpg" alt="" />
+        <div id="s2-title" class="s2-lyr" style="left:55px;top:180px;width:1010px;height:245px;overflow:visible;z-index:10"><img id="s2-title-img" src="assets/layers/s2_title.png" alt="" style="width:1010px;height:245px" /></div>
+        <div id="s2-char" class="s2-lyr" style="left:0px;top:1075px;width:670px;height:590px;overflow:hidden;z-index:11"><img id="s2-char-img" src="assets/layers/s2_char.png" alt="" style="width:670px;height:590px" /></div>
+        <div id="s2-l1" class="s2-lyr" style="left:40px;top:440px;width:1000px;height:65px;overflow:visible;z-index:12"><img id="s2-l1-img" src="assets/layers/s2_l1.png" alt="" style="width:1000px;height:65px" /></div>
+        <div id="s2-l2" class="s2-lyr" style="left:40px;top:505px;width:1000px;height:57px;overflow:visible;z-index:13"><img id="s2-l2-img" src="assets/layers/s2_l2.png" alt="" style="width:1000px;height:57px" /></div>
+        <div id="s2-l3" class="s2-lyr" style="left:40px;top:562px;width:1000px;height:66px;overflow:visible;z-index:14"><img id="s2-l3-img" src="assets/layers/s2_l3.png" alt="" style="width:1000px;height:66px" /></div>
+        <div id="s2-c1" class="s2-lyr" style="left:420px;top:720px;width:140px;height:585px;overflow:visible;z-index:15"><img id="s2-c1-img" src="assets/layers/s2_c1.png" alt="" style="width:140px;height:585px" /></div>
+        <div id="s2-c2" class="s2-lyr" style="left:555px;top:640px;width:120px;height:305px;overflow:visible;z-index:16"><img id="s2-c2-img" src="assets/layers/s2_c2.png" alt="" style="width:120px;height:305px" /></div>
+        <div id="s2-c3" class="s2-lyr" style="left:675px;top:770px;width:130px;height:665px;overflow:visible;z-index:17"><img id="s2-c3-img" src="assets/layers/s2_c3.png" alt="" style="width:130px;height:665px" /></div>
+        <div id="s2-crth" class="s2-lyr" style="left:470px;top:715px;width:570px;height:45px;overflow:visible;z-index:18"><img id="s2-crth-img" src="assets/layers/s2_crth.png" alt="" style="width:570px;height:45px" /></div>
+        <div id="s2-crtl" class="s2-lyr" style="left:470px;top:1280px;width:570px;height:45px;overflow:visible;z-index:19"><img id="s2-crtl-img" src="assets/layers/s2_crtl.png" alt="" style="width:570px;height:45px" /></div>
+        <svg id="s2-hl" class="s2-full" viewBox="0 0 1080 1920" style="z-index:60" fill="none" stroke="#ff2d3d" stroke-width="9" stroke-linecap="round"><g id="s2-hl-g"><ellipse cx="615" cy="700" rx="78" ry="100" pathLength="1" /></g></svg>
+        <div id="s2-ring1" class="s2-ring" style="left:525px;top:700px"></div>
+        <div id="s2-ring2" class="s2-ring" style="left:525px;top:700px"></div>
+        <img id="s2-rgb-r" class="s2-full s2-rgb" src="assets/slides/s2_what.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s2-rgb-c" class="s2-full s2-rgb" src="assets/slides/s2_what.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s2-sweep"><div id="s2-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s2-pop"></div>
+    <div id="s2-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s2-cam", {scale: 1.45, filter: "blur(14px)"}, {scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out"}, 0);
+      tl.fromTo("#s2-flash", {opacity: 0.9}, {opacity: 0, duration: 0.22, ease: "power2.out"}, 0);
+      tl.fromTo("#s2-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s2-shake", 0.25, 22);
+      tl.fromTo("#s2-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s2-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s2-char-img", {y: 600}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s2-l1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.01);
+      tl.fromTo("#s2-l1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.01);
+      tl.fromTo("#s2-l2-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.57);
+      tl.fromTo("#s2-l2", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.57);
+      tl.fromTo("#s2-l3-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 2.14);
+      tl.fromTo("#s2-l3", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 2.14);
+      tl.fromTo("#s2-c1-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 3.63);
+      tl.fromTo("#s2-c1", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 3.63);
+      tl.fromTo("#s2-c2-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 4.57);
+      tl.fromTo("#s2-c2", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 4.57);
+      tl.fromTo("#s2-c3-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 5.51);
+      tl.fromTo("#s2-c3", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 5.51);
+      tl.fromTo("#s2-crth-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 6.82);
+      tl.fromTo("#s2-crth", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 6.82);
+      tl.fromTo("#s2-crtl-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 7.57);
+      tl.fromTo("#s2-crtl", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 7.57);
+      tl.fromTo("#s2-hl-g > *", {strokeDasharray: 1, strokeDashoffset: 1}, {strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut"}, 8.0);
+      tl.fromTo("#s2-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 8.70);
+      tl.fromTo("#s2-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 8.88);
+      tl.to("#s2-cam", {scale: 7, filter: "blur(16px)", duration: 0.45, ease: "power3.in"}, 9.15);
+      tl.fromTo("#s2-rgb-r", {opacity: 0, x: 0}, {opacity: 0.28, x: 22, duration: 0.12, ease: "steps(3)", immediateRender: false}, 9.24);
+      tl.fromTo("#s2-rgb-c", {opacity: 0, x: 0}, {opacity: 0.28, x: -22, duration: 0.12, ease: "steps(3)", immediateRender: false}, 9.24);
+      jitter(tl, "#s2-shake", 9.24);
+      window.__timelines["s2"] = tl;
+    })();
+  </script>
+</template>

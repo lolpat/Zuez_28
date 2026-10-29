@@ -1,0 +1,134 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s6-cam, #s6-shake { position: absolute; inset: 0; }
+    #s6-cam { transform-origin: 500px 1295px; }
+    .s6-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s6-lyr { position: absolute; }
+    .s6-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s6-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s6-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s6-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s6-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s6-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s6-pop, #s6-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s6-pop { z-index: 80; opacity: 0; }
+    #s6-flash { z-index: 90; opacity: 0; }
+        #s6-sweep { left:35px; top:180px; width:1010px; height:230px; -webkit-mask-image:url(assets/layers/s6_title.png); mask-image:url(assets/layers/s6_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s6" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s6-cam">
+      <div id="s6-shake">
+                <img id="s6-plate" class="s6-full" src="assets/plates/s6.jpg" alt="" />
+        <div id="s6-title" class="s6-lyr" style="left:35px;top:180px;width:1010px;height:230px;overflow:visible;z-index:10"><img id="s6-title-img" src="assets/layers/s6_title.png" alt="" style="width:1010px;height:230px" /></div>
+        <div id="s6-char" class="s6-lyr" style="left:585px;top:1125px;width:495px;height:575px;overflow:hidden;z-index:11"><img id="s6-char-img" src="assets/layers/s6_char.png" alt="" style="width:495px;height:575px" /></div>
+        <div id="s6-sub" class="s6-lyr" style="left:90px;top:412px;width:900px;height:86px;overflow:visible;z-index:12"><img id="s6-sub-img" src="assets/layers/s6_sub.png" alt="" style="width:900px;height:86px" /></div>
+        <div id="s6-fx" class="s6-lyr" style="left:50px;top:525px;width:340px;height:83px;overflow:visible;z-index:13"><img id="s6-fx-img" src="assets/layers/s6_fx.png" alt="" style="width:340px;height:83px" /></div>
+        <div id="s6-fxl" class="s6-lyr" style="left:100px;top:605px;width:845px;height:123px;overflow:visible;z-index:14"><img id="s6-fxl-img" src="assets/layers/s6_fxl.png" alt="" style="width:845px;height:123px" /></div>
+        <div id="s6-ix" class="s6-lyr" style="left:50px;top:770px;width:975px;height:88px;overflow:visible;z-index:15"><img id="s6-ix-img" src="assets/layers/s6_ix.png" alt="" style="width:975px;height:88px" /></div>
+        <div id="s6-ixl" class="s6-lyr" style="left:100px;top:855px;width:865px;height:67px;overflow:visible;z-index:16"><img id="s6-ixl-img" src="assets/layers/s6_ixl.png" alt="" style="width:865px;height:67px" /></div>
+        <div id="s6-note" class="s6-lyr" style="left:50px;top:960px;width:980px;height:138px;overflow:visible;z-index:17"><img id="s6-note-img" src="assets/layers/s6_note.png" alt="" style="width:980px;height:138px" /></div>
+        <div id="s6-ic1" class="s6-lyr" style="left:85px;top:1165px;width:270px;height:260px;overflow:visible;z-index:18"><img id="s6-ic1-img" src="assets/layers/s6_ic1.png" alt="" style="width:270px;height:260px" /></div>
+        <div id="s6-ic2" class="s6-lyr" style="left:365px;top:1165px;width:235px;height:260px;overflow:visible;z-index:19"><img id="s6-ic2-img" src="assets/layers/s6_ic2.png" alt="" style="width:235px;height:260px" /></div>
+        <div id="s6-sp0-0" class="s6-spark" style="left:214px;top:561px;width:11px;height:11px;background:#ff2d3d"></div>
+        <div id="s6-sp0-1" class="s6-spark" style="left:216px;top:562px;width:8px;height:8px;background:#ff2d3d"></div>
+        <div id="s6-sp0-2" class="s6-spark" style="left:212px;top:559px;width:15px;height:15px;background:#ff2d3d"></div>
+        <div id="s6-sp0-3" class="s6-spark" style="left:214px;top:560px;width:12px;height:12px;background:#ff2d3d"></div>
+        <div id="s6-sp0-4" class="s6-spark" style="left:216px;top:562px;width:9px;height:9px;background:#ff2d3d"></div>
+        <div id="s6-sp0-5" class="s6-spark" style="left:212px;top:558px;width:16px;height:16px;background:#ff2d3d"></div>
+        <div id="s6-sp0-6" class="s6-spark" style="left:214px;top:560px;width:13px;height:13px;background:#ff2d3d"></div>
+        <div id="s6-sp0-7" class="s6-spark" style="left:215px;top:562px;width:10px;height:10px;background:#ff2d3d"></div>
+        <div id="s6-sp0-8" class="s6-spark" style="left:212px;top:558px;width:17px;height:17px;background:#ff2d3d"></div>
+        <div id="s6-sp0-9" class="s6-spark" style="left:213px;top:560px;width:14px;height:14px;background:#ff2d3d"></div>
+        <div id="s6-sp0-10" class="s6-spark" style="left:214px;top:561px;width:11px;height:11px;background:#ff2d3d"></div>
+        <div id="s6-sp0-11" class="s6-spark" style="left:216px;top:562px;width:8px;height:8px;background:#ff2d3d"></div>
+        <div id="s6-sp1-0" class="s6-spark" style="left:532px;top:808px;width:12px;height:12px;background:#ff2d3d"></div>
+        <div id="s6-sp1-1" class="s6-spark" style="left:533px;top:810px;width:9px;height:9px;background:#ff2d3d"></div>
+        <div id="s6-sp1-2" class="s6-spark" style="left:530px;top:806px;width:16px;height:16px;background:#ff2d3d"></div>
+        <div id="s6-sp1-3" class="s6-spark" style="left:531px;top:808px;width:13px;height:13px;background:#ff2d3d"></div>
+        <div id="s6-sp1-4" class="s6-spark" style="left:532px;top:809px;width:10px;height:10px;background:#ff2d3d"></div>
+        <div id="s6-sp1-5" class="s6-spark" style="left:529px;top:806px;width:17px;height:17px;background:#ff2d3d"></div>
+        <div id="s6-sp1-6" class="s6-spark" style="left:530px;top:807px;width:14px;height:14px;background:#ff2d3d"></div>
+        <div id="s6-sp1-7" class="s6-spark" style="left:532px;top:808px;width:11px;height:11px;background:#ff2d3d"></div>
+        <div id="s6-sp1-8" class="s6-spark" style="left:534px;top:810px;width:8px;height:8px;background:#ff2d3d"></div>
+        <div id="s6-sp1-9" class="s6-spark" style="left:530px;top:806px;width:15px;height:15px;background:#ff2d3d"></div>
+        <div id="s6-sp1-10" class="s6-spark" style="left:532px;top:808px;width:12px;height:12px;background:#ff2d3d"></div>
+        <div id="s6-sp1-11" class="s6-spark" style="left:533px;top:810px;width:9px;height:9px;background:#ff2d3d"></div>
+        <div id="s6-ring1" class="s6-ring" style="left:410px;top:1205px"></div>
+        <div id="s6-ring2" class="s6-ring" style="left:410px;top:1205px"></div>
+        <img id="s6-rgb-r" class="s6-full s6-rgb" src="assets/slides/s6_time.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s6-rgb-c" class="s6-full s6-rgb" src="assets/slides/s6_time.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s6-sweep"><div id="s6-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s6-pop"></div>
+    <div id="s6-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s6-cam", {scale: 1.45, filter: "blur(14px)"}, {scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out"}, 0);
+      tl.fromTo("#s6-flash", {opacity: 0.9}, {opacity: 0, duration: 0.22, ease: "power2.out"}, 0);
+      tl.fromTo("#s6-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s6-shake", 0.25, 22);
+      tl.fromTo("#s6-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s6-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s6-char-img", {y: 585}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s6-sub-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.52);
+      tl.fromTo("#s6-sub", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.52);
+      tl.fromTo("#s6-fx", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 3.66);
+      shake(tl, "#s6-shake", 3.86, 14);
+      tl.fromTo("#s6-fxl-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 5.08);
+      tl.fromTo("#s6-fxl", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 5.08);
+      tl.fromTo("#s6-ix", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 7.58);
+      shake(tl, "#s6-shake", 7.78, 14);
+      tl.fromTo("#s6-ixl-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 9.0);
+      tl.fromTo("#s6-ixl", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 9.0);
+      tl.fromTo("#s6-note-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 10.79);
+      tl.fromTo("#s6-note", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 10.79);
+      tl.fromTo("#s6-ic1", {opacity: 0, scale: 0.2, rotation: 10}, {opacity: 1, scale: 1, rotation: 0, duration: 0.42, ease: "back.out(1.9)"}, 13.64);
+      tl.fromTo("#s6-ic2", {opacity: 0, scale: 0.2, rotation: 10}, {opacity: 1, scale: 1, rotation: 0, duration: 0.42, ease: "back.out(1.9)"}, 15.42);
+      tl.fromTo("#s6-sp0-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 191, y: 16, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 222, y: 118, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 88, y: 145, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -33, y: 217, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -144, y: 142, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -298, y: 96, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -266, y: -22, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -169, y: -90, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -118, y: -195, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 25, y: -170, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 188, y: -187, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp0-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 238, y: -76, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 3.86);
+      tl.fromTo("#s6-sp1-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 360, y: 81, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 291, y: 201, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 18, y: 195, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -160, y: 135, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -412, y: 115, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -391, y: 7, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -470, y: -107, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -234, y: -159, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -16, y: -147, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 220, y: -185, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 318, y: -88, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-sp1-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 517, y: -10, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 7.78);
+      tl.fromTo("#s6-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 18.00);
+      tl.fromTo("#s6-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 18.18);
+      tl.to("#s6-cam", {y: -2000, filter: "blur(18px)", duration: 0.32, ease: "power3.in"}, 18.58);
+      window.__timelines["s6"] = tl;
+    })();
+  </script>
+</template>
