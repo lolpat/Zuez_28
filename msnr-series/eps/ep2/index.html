@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Montserrat", sans-serif; }
+      #ep2-grid { position: absolute; inset: 0; opacity: 0.55;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 60px 60px; }
+      #ep2-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+      #ep2-shake { position: absolute; inset: 0; }
+      #ep2-logo { position: absolute; left: 395px; top: 60px; width: 290px; }
+      #ep2-series { position: absolute; left: 0; width: 1080px; top: 210px; text-align: center; font-size: 30px; font-weight: 700;
+        letter-spacing: 0.32em; color: #8a8f98; }
+      #ep2-title, #ep2-shine { position: absolute; left: 0; width: 1080px; top: 252px; text-align: center;
+        font-family: "Playfair Display", serif; font-weight: 700; font-size: 128px; line-height: 1; color: #fff; letter-spacing: 0.02em; }
+      #ep2-shine { color: transparent; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.0) 40%, #dfe1ff 50%, rgba(255,255,255,0) 60%, transparent 65%);
+        background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+      #ep2-sub { position: absolute; left: 0; width: 1080px; top: 440px; text-align: center; font-family: "Playfair Display", serif;
+        font-weight: 700; font-size: 50px; background: linear-gradient(90deg, #b3b7ff, #dfe1ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #ep2-diag { position: absolute; left: 0; top: 520px; width: 1080px; height: 500px; overflow: visible; }
+      #ep2-chart { position: absolute; left: 0; top: 1030px; width: 1080px; height: 380px; overflow: visible; }
+      .cap { position: absolute; left: 60px; width: 960px; top: 1428px; text-align: center; font-size: 50px; font-weight: 800; color: #fff;
+        line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }
+      #ep2-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
+      #ep2-end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
+      #ep2-end-logo { position: absolute; left: 110px; top: 560px; width: 860px; }
+      #ep2-end-cta { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+        font-size: 92px; color: #fff; }
+      #ep2-end-cta span { color: #2962FF; }
+      #ep2-end-note { position: absolute; left: 0; width: 1080px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+        letter-spacing: 0.12em; color: #8a8f98; }
+      #ep2-end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+      #ep2-end-foot img { width: 1080px; height: 255px; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ep2" data-start="0" data-duration="20.97" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="ep2-grid"></div>
+      <div id="ep2-cam"><div id="ep2-shake">
+        <img id="ep2-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep2-series">MSNR SERIES · 2/8</div>
+        <div id="ep2-title" data-layout-allow-occlusion>CLASSIC V</div>
+        <div id="ep2-shine" data-layout-allow-overlap data-layout-allow-occlusion>CLASSIC V</div>
+        <div id="ep2-sub">V-Level</div>
+        <svg id="ep2-diag" viewBox="0 0 1080 500">
+          <polyline id="ep2-e0" points="110,50 250,430 360,160 410,270 450,200 500,320 535,250 590,430 690,50" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1689.4" stroke-dashoffset="1689.4" opacity="0"/>
+          <polygon id="ep2-e0a" points="0,-14 26,0 0,14" fill="#ffffff" opacity="0" transform="translate(690,50) rotate(-75.3)"/>
+          <circle id="ep2-e1" cx="250" cy="430" r="15" fill="#b3b7ff" opacity="0"/>
+          <circle id="ep2-e1r" cx="250" cy="430" r="15" fill="none" stroke="#b3b7ff" stroke-width="4" opacity="0"/>
+          <line id="ep2-e2" x1="250" y1="430" x2="740" y2="430" stroke="#b3b7ff" stroke-width="4" stroke-dasharray="492" stroke-dashoffset="492"/>
+          <text id="ep2-e2t" x="740" y="416" text-anchor="end" fill="#b3b7ff" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">V-Level</text>
+          <circle id="ep2-e3" cx="590" cy="430" r="15" fill="#b3b7ff" opacity="0"/>
+          <circle id="ep2-e3r" cx="590" cy="430" r="15" fill="none" stroke="#b3b7ff" stroke-width="4" opacity="0"/>
+          <g id="ep2-e4" opacity="0" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="830" y1="155" x2="830" y2="425" stroke="#FFFFFF" stroke-width="4"/><rect x="800" y="190" width="60" height="210" fill="#FFFFFF"/></g>
+          <g id="ep2-e5" opacity="0" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="905" y1="50" x2="905" y2="420" stroke="#2962FF" stroke-width="4"/><rect x="875" y="80" width="60" height="320" fill="#2962FF"/></g>
+          <line id="ep2-e6" x1="770" y1="400" x2="1050" y2="400" stroke="#b3b7ff" stroke-width="4" stroke-dasharray="282" stroke-dashoffset="282"/>
+          <g id="ep2-e7" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="800" y="390" width="135" height="20" fill="#b3b7ff" fill-opacity="0.32" stroke="#b3b7ff" stroke-width="2"/></g>
+          <text id="ep2-e8" x="868" y="20" text-anchor="middle" fill="#bfc4cc" font-size="30" font-family="Montserrat" font-weight="800" opacity="0">close / open · not the wick</text>
+        </svg>
+        <svg id="ep2-chart" viewBox="0 0 1080 380">
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="101.9" y1="80.8" x2="101.9" y2="91.3" stroke="#2962FF" stroke-width="2.5"/><rect x="94.5" y="83.9" width="14.8" height="5.4" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="125.7" y1="81.5" x2="125.7" y2="105.6" stroke="#FFFFFF" stroke-width="2.5"/><rect x="118.3" y="83.9" width="14.8" height="17.5" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="149.6" y1="99.7" x2="149.6" y2="152.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="142.2" y="101.4" width="14.8" height="47.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="173.4" y1="142.3" x2="173.4" y2="208.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="166.0" y="148.5" width="14.8" height="53.5" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="197.2" y1="196.3" x2="197.2" y2="266.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="189.8" y="202.1" width="14.8" height="58.4" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="221.0" y1="258.4" x2="221.0" y2="291.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="213.6" y="260.4" width="14.8" height="29.8" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="244.9" y1="283.3" x2="244.9" y2="295.4" stroke="#FFFFFF" stroke-width="2.5"/><rect x="237.5" y="290.3" width="14.8" height="2.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="268.7" y1="272.2" x2="268.7" y2="297.5" stroke="#2962FF" stroke-width="2.5"/><rect x="261.3" y="273.7" width="14.8" height="18.0" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="292.5" y1="236.0" x2="292.5" y2="276.3" stroke="#2962FF" stroke-width="2.5"/><rect x="285.1" y="242.0" width="14.8" height="31.7" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="316.3" y1="198.3" x2="316.3" y2="247.7" stroke="#2962FF" stroke-width="2.5"/><rect x="308.9" y="200.3" width="14.8" height="41.7" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="340.1" y1="172.6" x2="340.1" y2="206.9" stroke="#2962FF" stroke-width="2.5"/><rect x="332.8" y="174.0" width="14.8" height="26.3" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="364.0" y1="158.9" x2="364.0" y2="175.5" stroke="#2962FF" stroke-width="2.5"/><rect x="356.6" y="164.9" width="14.8" height="9.1" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="387.8" y1="161.9" x2="387.8" y2="175.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="380.4" y="164.9" width="14.8" height="6.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="411.6" y1="165.0" x2="411.6" y2="184.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="404.2" y="171.0" width="14.8" height="11.3" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="435.4" y1="179.6" x2="435.4" y2="208.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="428.1" y="182.3" width="14.8" height="21.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="459.3" y1="196.0" x2="459.3" y2="218.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="451.9" y="203.4" width="14.8" height="12.8" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="483.1" y1="213.8" x2="483.1" y2="226.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="475.7" y="216.2" width="14.8" height="5.3" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="506.9" y1="215.0" x2="506.9" y2="230.4" stroke="#FFFFFF" stroke-width="2.5"/><rect x="499.5" y="221.5" width="14.8" height="2.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="530.7" y1="208.0" x2="530.7" y2="230.5" stroke="#2962FF" stroke-width="2.5"/><rect x="523.4" y="209.4" width="14.8" height="13.9" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="554.6" y1="197.5" x2="554.6" y2="211.4" stroke="#2962FF" stroke-width="2.5"/><rect x="547.2" y="201.9" width="14.8" height="7.4" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="578.4" y1="182.8" x2="578.4" y2="204.8" stroke="#2962FF" stroke-width="2.5"/><rect x="571.0" y="190.4" width="14.8" height="11.5" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="602.2" y1="173.5" x2="602.2" y2="197.1" stroke="#2962FF" stroke-width="2.5"/><rect x="594.8" y="177.2" width="14.8" height="13.2" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="626.0" y1="169.8" x2="626.0" y2="185.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="618.6" y="177.2" width="14.8" height="2.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="649.9" y1="173.8" x2="649.9" y2="197.5" stroke="#FFFFFF" stroke-width="2.5"/><rect x="642.5" y="178.4" width="14.8" height="13.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="673.7" y1="184.1" x2="673.7" y2="220.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="666.3" y="191.3" width="14.8" height="24.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="697.5" y1="208.1" x2="697.5" y2="240.6" stroke="#FFFFFF" stroke-width="2.5"/><rect x="690.1" y="215.4" width="14.8" height="22.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="721.3" y1="235.1" x2="721.3" y2="270.3" stroke="#FFFFFF" stroke-width="2.5"/><rect x="713.9" y="237.5" width="14.8" height="30.0" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="745.1" y1="263.5" x2="745.1" y2="292.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="737.8" y="267.5" width="14.8" height="20.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="769.0" y1="281.7" x2="769.0" y2="294.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="761.6" y="287.6" width="14.8" height="4.1" fill="#FFFFFF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="792.8" y1="257.2" x2="792.8" y2="299.2" stroke="#2962FF" stroke-width="2.5"/><rect x="785.4" y="260.5" width="14.8" height="31.2" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="816.6" y1="209.0" x2="816.6" y2="267.7" stroke="#2962FF" stroke-width="2.5"/><rect x="809.2" y="213.5" width="14.8" height="47.0" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="840.4" y1="152.8" x2="840.4" y2="217.2" stroke="#2962FF" stroke-width="2.5"/><rect x="833.1" y="156.8" width="14.8" height="56.7" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="864.3" y1="106.2" x2="864.3" y2="164.6" stroke="#2962FF" stroke-width="2.5"/><rect x="856.9" y="111.4" width="14.8" height="45.5" fill="#2962FF"/></g>
+<g class="ep2-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="888.1" y1="95.9" x2="888.1" y2="118.1" stroke="#2962FF" stroke-width="2.5"/><rect x="880.7" y="97.4" width="14.8" height="14.0" fill="#2962FF"/></g>
+<line id="ep2-cl0" x1="90" y1="291.7" x2="940" y2="291.7" stroke="#b3b7ff" stroke-width="3" stroke-dasharray="850" stroke-dashoffset="850"/>
+<text id="ep2-cl0t" x="944" y="300.7" fill="#b3b7ff" font-size="28" font-family="Montserrat" font-weight="700" opacity="0">V-Level</text>
+<g id="ep2-cm0" opacity="0"><polygon points="746.9705882352941,360.85092148056845 790.9705882352941,360.85092148056845 768.9705882352941,320.85092148056845" fill="#2962FF"/><text x="799.0" y="354.9" text-anchor="start" fill="#2962FF" font-size="30" font-family="Montserrat" font-weight="800">BUY</text></g>
+
+        </svg>
+        <div id="ep2-cap0" class="cap" data-layout-allow-overlap>Classic V. The V-Level.</div>
+        <div id="ep2-cap1" class="cap" data-layout-allow-overlap>Price drops into a low, bounces, and comes</div>
+        <div id="ep2-cap2" class="cap" data-layout-allow-overlap>back down to it, drawing the shape of a V.</div>
+        <div id="ep2-cap3" class="cap" data-layout-allow-overlap>The level sits where the bearish candle closes</div>
+        <div id="ep2-cap4" class="cap" data-layout-allow-overlap>and the bullish candle opens.</div>
+        <div id="ep2-cap5" class="cap" data-layout-allow-overlap>When price returns to the V-Level, treat it</div>
+        <div id="ep2-cap6" class="cap" data-layout-allow-overlap>as support, and look for buys.</div>
+      </div></div>
+      <div id="ep2-end">
+        <img id="ep2-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep2-end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="ep2-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="ep2-end-foot"><img id="ep2-end-foot-img" src="assets/footer.jpg" alt="" /></div>
+      </div>
+      <div id="ep2-flash"></div>
+      <audio id="ep2-audio" class="clip" src="assets/audio/mix_ep2.wav" data-start="0" data-duration="20.97" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+        function shake(t, amp) {
+          SX.forEach((v, i) => tl.to("#ep2-shake", { x: amp * v * (1 - i / 8), y: amp * SY[i] * (1 - i / 8), duration: 0.035, ease: "none" }, t + i * 0.035));
+          tl.to("#ep2-shake", { x: 0, y: 0, duration: 0.05 }, t + 0.28);
+        }
+                tl.fromTo("#ep2-cam", { scale: 1.12 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+        tl.fromTo("#ep2-logo", { opacity: 0.6, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#ep2-series", { opacity: 0, scaleX: 1.4, filter: "blur(6px)" }, { opacity: 1, scaleX: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.2);
+        tl.fromTo("#ep2-title", { opacity: 1, scale: 1.45, filter: "blur(3px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 0);
+        tl.fromTo("#ep2-flash", { opacity: 0.55 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, 0.12);
+        shake(0.2, 20);
+        tl.fromTo("#ep2-shine", { backgroundPosition: "100% 0%" }, { backgroundPosition: "0% 0%", duration: 0.9, ease: "power2.inOut" }, 0.55);
+        tl.fromTo("#ep2-sub", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power3.out" }, 0.45);
+        tl.fromTo("#ep2-e0", {opacity: 0, strokeDashoffset: 1689.4}, {opacity: 1, strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut"}, 3.16);
+        tl.fromTo("#ep2-e0a", {opacity: 0}, {opacity: 1, duration: 0.12}, 5.31);
+        tl.fromTo("#ep2-e1", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 3.81);
+        tl.fromTo("#ep2-e1r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 3.91);
+        tl.fromTo("#ep2-e2", {strokeDashoffset: 492}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 4.66);
+        tl.fromTo("#ep2-e2", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 5.26);
+        tl.fromTo("#ep2-e2t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 5.06);
+        tl.fromTo("#ep2-e3", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 5.06);
+        tl.fromTo("#ep2-e3r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 5.16);
+        tl.fromTo("#ep2-e4", {opacity: 0, scaleY: 0.1}, {opacity: 1, scaleY: 1, duration: 0.42, ease: "expo.out"}, 8.88);
+        tl.fromTo("#ep2-e5", {opacity: 0, scaleY: 0.1}, {opacity: 1, scaleY: 1, duration: 0.42, ease: "expo.out"}, 9.23);
+        tl.fromTo("#ep2-e6", {strokeDashoffset: 282}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 9.68);
+        tl.fromTo("#ep2-e6", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 10.28);
+        tl.fromTo("#ep2-e7", {opacity: 0, scaleX: 0.3}, {opacity: 1, scaleX: 1, duration: 0.4, ease: "expo.out"}, 9.88);
+        tl.fromTo("#ep2-e8", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 10.28);
+        tl.fromTo(".ep2-cc", {opacity: 0, scaleY: 0.2}, {opacity: 1, scaleY: 1, duration: 0.22, ease: "power2.out", stagger: 0.050}, 12.88);
+        tl.fromTo("#ep2-cl0", {strokeDashoffset: 850}, {strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut"}, 14.68);
+        tl.fromTo("#ep2-cl0t", {opacity: 0, x: -14}, {opacity: 1, x: 0, duration: 0.3, ease: "expo.out"}, 15.03);
+        tl.fromTo("#ep2-cm0", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)"}, 15.38);
+
+        tl.fromTo("#ep2-cap0", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 0.35);
+        tl.to("#ep2-cap0", {opacity: 0, duration: 0.08, ease: "none"}, 2.44);
+        tl.fromTo("#ep2-cap1", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 3.06);
+        tl.to("#ep2-cap1", {opacity: 0, duration: 0.08, ease: "none"}, 5.54);
+        tl.fromTo("#ep2-cap2", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 5.58);
+        tl.to("#ep2-cap2", {opacity: 0, duration: 0.08, ease: "none"}, 8.06);
+        tl.fromTo("#ep2-cap3", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 8.68);
+        tl.to("#ep2-cap3", {opacity: 0, duration: 0.08, ease: "none"}, 10.93);
+        tl.fromTo("#ep2-cap4", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 10.97);
+        tl.to("#ep2-cap4", {opacity: 0, duration: 0.08, ease: "none"}, 12.37);
+        tl.fromTo("#ep2-cap5", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 12.88);
+        tl.to("#ep2-cap5", {opacity: 0, duration: 0.08, ease: "none"}, 15.19);
+        tl.fromTo("#ep2-cap6", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 15.23);
+        tl.to("#ep2-cap6", {opacity: 0, duration: 0.08, ease: "none"}, 16.83);
+        tl.to("#ep2-cam", { scale: 1.6, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 17.17);
+        tl.fromTo("#ep2-flash", { opacity: 0.9 }, { opacity: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, 17.57);
+        tl.fromTo("#ep2-end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 17.57);
+        tl.to("#ep2-cam", { opacity: 0, duration: 0.05, ease: "none" }, 17.62);
+        tl.fromTo("#ep2-end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 17.67);
+        tl.fromTo("#ep2-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 18.27);
+        tl.fromTo("#ep2-end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 18.57);
+        tl.fromTo("#ep2-end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 18.47);
+        window.__timelines["ep2"] = tl;
+      })();
+    </script>
+  </body>
+</html>

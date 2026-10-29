@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Montserrat", sans-serif; }
+      #ep7-grid { position: absolute; inset: 0; opacity: 0.55;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 60px 60px; }
+      #ep7-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+      #ep7-shake { position: absolute; inset: 0; }
+      #ep7-logo { position: absolute; left: 395px; top: 60px; width: 290px; }
+      #ep7-series { position: absolute; left: 0; width: 1080px; top: 210px; text-align: center; font-size: 30px; font-weight: 700;
+        letter-spacing: 0.32em; color: #8a8f98; }
+      #ep7-title, #ep7-shine { position: absolute; left: 0; width: 1080px; top: 252px; text-align: center;
+        font-family: "Playfair Display", serif; font-weight: 700; font-size: 128px; line-height: 1; color: #fff; letter-spacing: 0.02em; }
+      #ep7-shine { color: transparent; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.0) 40%, #ff6b9a 50%, rgba(255,255,255,0) 60%, transparent 65%);
+        background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+      #ep7-sub { position: absolute; left: 0; width: 1080px; top: 440px; text-align: center; font-family: "Playfair Display", serif;
+        font-weight: 700; font-size: 50px; background: linear-gradient(90deg, #8e7cff, #ff6b9a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #ep7-diag { position: absolute; left: 0; top: 520px; width: 1080px; height: 500px; overflow: visible; }
+      #ep7-chart { position: absolute; left: 0; top: 1030px; width: 1080px; height: 380px; overflow: visible; }
+      .cap { position: absolute; left: 60px; width: 960px; top: 1428px; text-align: center; font-size: 50px; font-weight: 800; color: #fff;
+        line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }
+      #ep7-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
+      #ep7-end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
+      #ep7-end-logo { position: absolute; left: 110px; top: 560px; width: 860px; }
+      #ep7-end-cta { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+        font-size: 92px; color: #fff; }
+      #ep7-end-cta span { color: #2962FF; }
+      #ep7-end-note { position: absolute; left: 0; width: 1080px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+        letter-spacing: 0.12em; color: #8a8f98; }
+      #ep7-end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+      #ep7-end-foot img { width: 1080px; height: 255px; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ep7" data-start="0" data-duration="21.58" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="ep7-grid"></div>
+      <div id="ep7-cam"><div id="ep7-shake">
+        <img id="ep7-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep7-series">MSNR SERIES · 7/8</div>
+        <div id="ep7-title" data-layout-allow-occlusion>TRENDLINE</div>
+        <div id="ep7-shine" data-layout-allow-overlap data-layout-allow-occlusion>TRENDLINE</div>
+        <div id="ep7-sub">Touch · React · Break</div>
+        <svg id="ep7-diag" viewBox="0 0 1080 500">
+          <polyline id="ep7-e0" points="60,120 120,300 190,160 250,340 320,200 380,470" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="971.1" stroke-dashoffset="971.1" opacity="0"/>
+          <polygon id="ep7-e0a" points="0,-14 26,0 0,14" fill="#ffffff" opacity="0" transform="translate(380,470) rotate(77.5)"/>
+          <line id="ep7-e1" x1="60" y1="120" x2="470" y2="246" stroke="#ff6b9a" stroke-width="4" stroke-dasharray="430.9" stroke-dashoffset="430.9"/>
+          <line id="ep7-e2" x1="540" y1="10" x2="540" y2="490" stroke="#8a8f98" stroke-width="3" stroke-dasharray="10 12" opacity="0"/>
+          <polyline id="ep7-e3" points="600,470 650,300 700,420 770,240 830,380 890,160 940,346 1010,40" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1389.2" stroke-dashoffset="1389.2" opacity="0"/>
+          <polygon id="ep7-e3a" points="0,-14 26,0 0,14" fill="#ffffff" opacity="0" transform="translate(1010,40) rotate(-77.1)"/>
+          <line id="ep7-e4" x1="640" y1="438" x2="1040" y2="315" stroke="#ff6b9a" stroke-width="4" stroke-dasharray="420.5" stroke-dashoffset="420.5"/>
+          <circle id="ep7-e5" cx="60" cy="120" r="15" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e5r" cx="60" cy="120" r="15" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+          <circle id="ep7-e6" cx="190" cy="160" r="15" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e6r" cx="190" cy="160" r="15" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+          <circle id="ep7-e7" cx="320" cy="200" r="22" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e7r" cx="320" cy="200" r="22" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+          <circle id="ep7-e8" cx="700" cy="420" r="15" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e8r" cx="700" cy="420" r="15" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+          <circle id="ep7-e9" cx="830" cy="380" r="15" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e9r" cx="830" cy="380" r="15" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+          <circle id="ep7-e10" cx="940" cy="346" r="22" fill="#ff6b9a" opacity="0"/>
+          <circle id="ep7-e10r" cx="940" cy="346" r="22" fill="none" stroke="#ff6b9a" stroke-width="4" opacity="0"/>
+        </svg>
+        <svg id="ep7-chart" viewBox="0 0 1080 380">
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="100.1" y1="289.1" x2="100.1" y2="299.0" stroke="#2962FF" stroke-width="2.5"/><rect x="93.8" y="291.7" width="12.6" height="5.5" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="120.4" y1="276.2" x2="120.4" y2="296.8" stroke="#2962FF" stroke-width="2.5"/><rect x="114.1" y="278.1" width="12.6" height="13.6" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="140.6" y1="265.6" x2="140.6" y2="286.2" stroke="#2962FF" stroke-width="2.5"/><rect x="134.3" y="267.9" width="12.6" height="10.2" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="160.9" y1="240.9" x2="160.9" y2="270.0" stroke="#2962FF" stroke-width="2.5"/><rect x="154.6" y="249.1" width="12.6" height="18.8" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="181.1" y1="222.2" x2="181.1" y2="254.3" stroke="#2962FF" stroke-width="2.5"/><rect x="174.8" y="227.4" width="12.6" height="21.7" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="201.4" y1="214.9" x2="201.4" y2="233.3" stroke="#2962FF" stroke-width="2.5"/><rect x="195.1" y="223.1" width="12.6" height="4.3" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="221.6" y1="219.2" x2="221.6" y2="233.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="215.3" y="223.1" width="12.6" height="5.8" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="241.9" y1="222.9" x2="241.9" y2="239.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="235.6" y="228.9" width="12.6" height="7.5" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="262.1" y1="231.9" x2="262.1" y2="263.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="255.8" y="236.4" width="12.6" height="20.7" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="282.4" y1="254.0" x2="282.4" y2="265.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="276.1" y="257.0" width="12.6" height="2.0" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="302.6" y1="253.0" x2="302.6" y2="271.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="296.3" y="257.9" width="12.6" height="6.3" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="322.9" y1="246.2" x2="322.9" y2="266.2" stroke="#2962FF" stroke-width="2.5"/><rect x="316.6" y="252.2" width="12.6" height="12.0" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="343.1" y1="213.3" x2="343.1" y2="259.2" stroke="#2962FF" stroke-width="2.5"/><rect x="336.8" y="217.6" width="12.6" height="34.7" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="363.4" y1="183.3" x2="363.4" y2="223.5" stroke="#2962FF" stroke-width="2.5"/><rect x="357.1" y="190.3" width="12.6" height="27.2" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="383.6" y1="163.0" x2="383.6" y2="195.0" stroke="#2962FF" stroke-width="2.5"/><rect x="377.3" y="171.1" width="12.6" height="19.3" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="403.9" y1="163.1" x2="403.9" y2="178.6" stroke="#2962FF" stroke-width="2.5"/><rect x="397.6" y="168.2" width="12.6" height="2.8" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="424.1" y1="166.4" x2="424.1" y2="183.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="417.8" y="168.2" width="12.6" height="13.2" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="444.4" y1="174.1" x2="444.4" y2="206.3" stroke="#FFFFFF" stroke-width="2.5"/><rect x="438.1" y="181.4" width="12.6" height="20.8" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="464.6" y1="194.9" x2="464.6" y2="218.3" stroke="#FFFFFF" stroke-width="2.5"/><rect x="458.3" y="202.3" width="12.6" height="13.8" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="484.9" y1="210.5" x2="484.9" y2="230.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="478.6" y="216.0" width="12.6" height="7.5" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="505.1" y1="216.5" x2="505.1" y2="236.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="498.8" y="223.5" width="12.6" height="7.8" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="525.4" y1="202.8" x2="525.4" y2="239.2" stroke="#2962FF" stroke-width="2.5"/><rect x="519.1" y="208.6" width="12.6" height="22.8" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="545.6" y1="163.4" x2="545.6" y2="215.1" stroke="#2962FF" stroke-width="2.5"/><rect x="539.3" y="169.6" width="12.6" height="39.0" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="565.9" y1="130.7" x2="565.9" y2="177.5" stroke="#2962FF" stroke-width="2.5"/><rect x="559.6" y="136.1" width="12.6" height="33.4" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="586.1" y1="119.4" x2="586.1" y2="143.7" stroke="#2962FF" stroke-width="2.5"/><rect x="579.8" y="121.6" width="12.6" height="14.5" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="606.4" y1="115.6" x2="606.4" y2="131.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="600.1" y="121.6" width="12.6" height="3.3" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="626.6" y1="116.9" x2="626.6" y2="150.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="620.3" y="124.9" width="12.6" height="22.0" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="646.9" y1="139.9" x2="646.9" y2="163.6" stroke="#FFFFFF" stroke-width="2.5"/><rect x="640.6" y="146.9" width="12.6" height="15.0" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="667.1" y1="154.4" x2="667.1" y2="192.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="660.8" y="161.9" width="12.6" height="29.5" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="687.4" y1="188.6" x2="687.4" y2="202.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="681.1" y="191.4" width="12.6" height="7.0" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="707.6" y1="182.0" x2="707.6" y2="204.2" stroke="#2962FF" stroke-width="2.5"/><rect x="701.3" y="186.5" width="12.6" height="11.9" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="727.9" y1="154.8" x2="727.9" y2="189.5" stroke="#2962FF" stroke-width="2.5"/><rect x="721.6" y="159.4" width="12.6" height="27.1" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="748.1" y1="129.3" x2="748.1" y2="164.4" stroke="#2962FF" stroke-width="2.5"/><rect x="741.8" y="134.3" width="12.6" height="25.0" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="768.4" y1="88.1" x2="768.4" y2="139.7" stroke="#2962FF" stroke-width="2.5"/><rect x="762.1" y="96.0" width="12.6" height="38.3" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="788.6" y1="81.0" x2="788.6" y2="102.7" stroke="#2962FF" stroke-width="2.5"/><rect x="782.3" y="85.9" width="12.6" height="10.1" fill="#2962FF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="808.9" y1="82.5" x2="808.9" y2="113.3" stroke="#FFFFFF" stroke-width="2.5"/><rect x="802.6" y="85.9" width="12.6" height="22.0" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="829.1" y1="103.2" x2="829.1" y2="158.3" stroke="#FFFFFF" stroke-width="2.5"/><rect x="822.8" y="107.9" width="12.6" height="47.1" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="849.4" y1="147.7" x2="849.4" y2="217.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="843.1" y="155.0" width="12.6" height="58.7" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="869.6" y1="209.2" x2="869.6" y2="273.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="863.3" y="213.7" width="12.6" height="56.6" fill="#FFFFFF"/></g>
+<g class="ep7-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="889.9" y1="264.3" x2="889.9" y2="289.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="883.6" y="270.3" width="12.6" height="15.9" fill="#FFFFFF"/></g>
+<line id="ep7-ctl" x1="90" y1="308.0" x2="920" y2="164.1" stroke="#ff6b9a" stroke-width="3" stroke-dasharray="844.4" stroke-dashoffset="844.4"/>
+<circle id="ep7-ctm0" cx="302.6" cy="271.2" r="13" fill="#ff6b9a" opacity="0"/>
+<circle id="ep7-ctm1" cx="505.1" cy="236.0" r="13" fill="#ff6b9a" opacity="0"/>
+<circle id="ep7-ctm2" cx="687.4" cy="204.4" r="13" fill="#ff6b9a" opacity="0"/>
+<g id="ep7-cm0" opacity="0"><polygon points="867.875,198.3046756831987 911.875,198.3046756831987 889.875,238.3046756831987" fill="#ff4d5e"/><text x="919.9" y="228.3" text-anchor="start" fill="#ff4d5e" font-size="30" font-family="Montserrat" font-weight="800">SELL</text></g>
+
+        </svg>
+        <div id="ep7-cap0" class="cap" data-layout-allow-overlap>Trendlines.</div>
+        <div id="ep7-cap1" class="cap" data-layout-allow-overlap>Connect two swing highs, or two swing lows,</div>
+        <div id="ep7-cap2" class="cap" data-layout-allow-overlap>and extend the line.</div>
+        <div id="ep7-cap3" class="cap" data-layout-allow-overlap>The third touch is where price reacts:</div>
+        <div id="ep7-cap4" class="cap" data-layout-allow-overlap>a rejection under a falling line, a bounce</div>
+        <div id="ep7-cap5" class="cap" data-layout-allow-overlap>above a rising one.</div>
+        <div id="ep7-cap6" class="cap" data-layout-allow-overlap>When the line breaks, the move can be</div>
+        <div id="ep7-cap7" class="cap" data-layout-allow-overlap>fast. Combine it with a key level for</div>
+        <div id="ep7-cap8" class="cap" data-layout-allow-overlap>the strongest setups.</div>
+      </div></div>
+      <div id="ep7-end">
+        <img id="ep7-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep7-end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="ep7-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="ep7-end-foot"><img id="ep7-end-foot-img" src="assets/footer.jpg" alt="" /></div>
+      </div>
+      <div id="ep7-flash"></div>
+      <audio id="ep7-audio" class="clip" src="assets/audio/mix_ep7.wav" data-start="0" data-duration="21.58" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+        function shake(t, amp) {
+          SX.forEach((v, i) => tl.to("#ep7-shake", { x: amp * v * (1 - i / 8), y: amp * SY[i] * (1 - i / 8), duration: 0.035, ease: "none" }, t + i * 0.035));
+          tl.to("#ep7-shake", { x: 0, y: 0, duration: 0.05 }, t + 0.28);
+        }
+                tl.fromTo("#ep7-cam", { scale: 1.12 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+        tl.fromTo("#ep7-logo", { opacity: 0.6, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#ep7-series", { opacity: 0, scaleX: 1.4, filter: "blur(6px)" }, { opacity: 1, scaleX: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.2);
+        tl.fromTo("#ep7-title", { opacity: 1, scale: 1.45, filter: "blur(3px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 0);
+        tl.fromTo("#ep7-flash", { opacity: 0.55 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, 0.12);
+        shake(0.2, 20);
+        tl.fromTo("#ep7-shine", { backgroundPosition: "100% 0%" }, { backgroundPosition: "0% 0%", duration: 0.9, ease: "power2.inOut" }, 0.55);
+        tl.fromTo("#ep7-sub", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power3.out" }, 0.45);
+        tl.fromTo("#ep7-e0", {opacity: 0, strokeDashoffset: 971.1}, {opacity: 1, strokeDashoffset: 0, duration: 2.0, ease: "power1.inOut"}, 1.63);
+        tl.fromTo("#ep7-e0a", {opacity: 0}, {opacity: 1, duration: 0.12}, 3.58);
+        tl.fromTo("#ep7-e1", {strokeDashoffset: 430.9}, {strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut"}, 2.53);
+        tl.fromTo("#ep7-e2", {opacity: 0}, {opacity: 0.8, duration: 0.4}, 2.13);
+        tl.fromTo("#ep7-e3", {opacity: 0, strokeDashoffset: 1389.2}, {opacity: 1, strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut"}, 2.93);
+        tl.fromTo("#ep7-e3a", {opacity: 0}, {opacity: 1, duration: 0.12}, 5.08);
+        tl.fromTo("#ep7-e4", {strokeDashoffset: 420.5}, {strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut"}, 3.93);
+        tl.fromTo("#ep7-e5", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 5.89);
+        tl.fromTo("#ep7-e5r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 5.99);
+        tl.fromTo("#ep7-e6", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 6.14);
+        tl.fromTo("#ep7-e6r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 6.24);
+        tl.fromTo("#ep7-e7", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 6.49);
+        tl.fromTo("#ep7-e7r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 6.59);
+        tl.fromTo("#ep7-e8", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 7.49);
+        tl.fromTo("#ep7-e8r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 7.59);
+        tl.fromTo("#ep7-e9", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 7.74);
+        tl.fromTo("#ep7-e9r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 7.84);
+        tl.fromTo("#ep7-e10", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 8.09);
+        tl.fromTo("#ep7-e10r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 8.19);
+        tl.fromTo(".ep7-cc", {opacity: 0, scaleY: 0.2}, {opacity: 1, scaleY: 1, duration: 0.22, ease: "power2.out", stagger: 0.050}, 12.15);
+        tl.fromTo("#ep7-ctl", {strokeDashoffset: 844.4}, {strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut"}, 14.25);
+        tl.fromTo("#ep7-ctm0", {opacity: 0, scale: 2.4, transformOrigin: "50% 50%"}, {opacity: 0.85, scale: 1, duration: 0.3, ease: "back.out(2)"}, 14.65);
+        tl.fromTo("#ep7-ctm1", {opacity: 0, scale: 2.4, transformOrigin: "50% 50%"}, {opacity: 0.85, scale: 1, duration: 0.3, ease: "back.out(2)"}, 14.85);
+        tl.fromTo("#ep7-ctm2", {opacity: 0, scale: 2.4, transformOrigin: "50% 50%"}, {opacity: 0.85, scale: 1, duration: 0.3, ease: "back.out(2)"}, 15.05);
+        tl.fromTo("#ep7-cm0", {opacity: 0, y: -30}, {opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)"}, 14.95);
+
+        tl.fromTo("#ep7-cap0", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 0.35);
+        tl.to("#ep7-cap0", {opacity: 0, duration: 0.08, ease: "none"}, 1.06);
+        tl.fromTo("#ep7-cap1", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 1.53);
+        tl.to("#ep7-cap1", {opacity: 0, duration: 0.08, ease: "none"}, 4.12);
+        tl.fromTo("#ep7-cap2", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 4.16);
+        tl.to("#ep7-cap2", {opacity: 0, duration: 0.08, ease: "none"}, 5.34);
+        tl.fromTo("#ep7-cap3", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 5.89);
+        tl.to("#ep7-cap3", {opacity: 0, duration: 0.08, ease: "none"}, 8.07);
+        tl.fromTo("#ep7-cap4", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 8.11);
+        tl.to("#ep7-cap4", {opacity: 0, duration: 0.08, ease: "none"}, 10.52);
+        tl.fromTo("#ep7-cap5", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 10.56);
+        tl.to("#ep7-cap5", {opacity: 0, duration: 0.08, ease: "none"}, 11.62);
+        tl.fromTo("#ep7-cap6", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 12.15);
+        tl.to("#ep7-cap6", {opacity: 0, duration: 0.08, ease: "none"}, 14.19);
+        tl.fromTo("#ep7-cap7", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 14.23);
+        tl.to("#ep7-cap7", {opacity: 0, duration: 0.08, ease: "none"}, 16.26);
+        tl.fromTo("#ep7-cap8", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 16.30);
+        tl.to("#ep7-cap8", {opacity: 0, duration: 0.08, ease: "none"}, 17.44);
+        tl.to("#ep7-cam", { scale: 1.6, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 17.78);
+        tl.fromTo("#ep7-flash", { opacity: 0.9 }, { opacity: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, 18.18);
+        tl.fromTo("#ep7-end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 18.18);
+        tl.to("#ep7-cam", { opacity: 0, duration: 0.05, ease: "none" }, 18.23);
+        tl.fromTo("#ep7-end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 18.28);
+        tl.fromTo("#ep7-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 18.88);
+        tl.fromTo("#ep7-end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 19.18);
+        tl.fromTo("#ep7-end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 19.08);
+        window.__timelines["ep7"] = tl;
+      })();
+    </script>
+  </body>
+</html>

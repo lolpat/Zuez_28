@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Montserrat", sans-serif; }
+      #ep0-grid { position: absolute; inset: 0; opacity: 0.55;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 60px 60px; }
+      #ep0-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+      #ep0-shake { position: absolute; inset: 0; }
+      #ep0-logo { position: absolute; left: 395px; top: 60px; width: 290px; }
+      #ep0-series { position: absolute; left: 0; width: 1080px; top: 210px; text-align: center; font-size: 30px; font-weight: 700;
+        letter-spacing: 0.32em; color: #8a8f98; }
+      #ep0-title, #ep0-shine { position: absolute; left: 0; width: 1080px; top: 252px; text-align: center;
+        font-family: "Playfair Display", serif; font-weight: 700; font-size: 168px; line-height: 1; color: #fff; letter-spacing: 0.02em; }
+      #ep0-shine { color: transparent; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.0) 40%, #ff9aa9 50%, rgba(255,255,255,0) 60%, transparent 65%);
+        background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+      #ep0-sub { position: absolute; left: 0; width: 1080px; top: 440px; text-align: center; font-family: "Playfair Display", serif;
+        font-weight: 700; font-size: 50px; background: linear-gradient(90deg, #e8536b, #ff9aa9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #ep0-diag { position: absolute; left: 0; top: 520px; width: 1080px; height: 500px; overflow: visible; }
+      #ep0-chart { position: absolute; left: 0; top: 1030px; width: 1080px; height: 380px; overflow: visible; }
+      .cap { position: absolute; left: 60px; width: 960px; top: 1428px; text-align: center; font-size: 50px; font-weight: 800; color: #fff;
+        line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }
+      #ep0-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
+      #ep0-end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
+      #ep0-end-logo { position: absolute; left: 110px; top: 560px; width: 860px; }
+      #ep0-end-cta { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+        font-size: 92px; color: #fff; }
+      #ep0-end-cta span { color: #2962FF; }
+      #ep0-end-note { position: absolute; left: 0; width: 1080px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+        letter-spacing: 0.12em; color: #8a8f98; }
+      #ep0-end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+      #ep0-end-foot img { width: 1080px; height: 255px; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ep0" data-start="0" data-duration="26.53" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="ep0-grid"></div>
+      <div id="ep0-cam"><div id="ep0-shake">
+        <img id="ep0-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep0-series">MSNR SERIES · OVERVIEW</div>
+        <div id="ep0-title" data-layout-allow-occlusion>MSNR</div>
+        <div id="ep0-shine" data-layout-allow-overlap data-layout-allow-occlusion>MSNR</div>
+        <div id="ep0-sub">Malaysian Support & Resistance</div>
+        <svg id="ep0-diag" viewBox="0 0 1080 500">
+          <g id="ep0-e0" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="330" y="150" width="420" height="200" fill="#8a8f98" fill-opacity="0.32" stroke="#8a8f98" stroke-width="2"/><text x="540.0" y="262.0" text-anchor="middle" fill="#ffffff" font-size="36" font-family="Montserrat" font-weight="800">ZONE</text></g>
+          <g id="ep0-e1" opacity="0" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="500" y1="210" x2="500" y2="460" stroke="#2962FF" stroke-width="4"/><rect x="470" y="250" width="60" height="180" fill="#2962FF"/></g>
+          <g id="ep0-e2" opacity="0" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="580" y1="230" x2="580" y2="475" stroke="#FFFFFF" stroke-width="4"/><rect x="550" y="250" width="60" height="190" fill="#FFFFFF"/></g>
+          <line id="ep0-e4" x1="330" y1="250" x2="900" y2="250" stroke="#ff6b81" stroke-width="4" stroke-dasharray="572" stroke-dashoffset="572"/>
+          <text id="ep0-e4t" x="340" y="236" text-anchor="start" fill="#ff6b81" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">LEVEL</text>
+          <circle id="ep0-e5" cx="540" cy="250" r="15" fill="#ff6b81" opacity="0"/>
+          <circle id="ep0-e5r" cx="540" cy="250" r="15" fill="none" stroke="#ff6b81" stroke-width="4" opacity="0"/>
+        </svg>
+        <svg id="ep0-chart" viewBox="0 0 1080 380">
+
+<g id="ep0-g0" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="90" y="30" width="430" height="72" rx="36" fill="none" stroke="#f29bb0" stroke-width="3"/><text x="305" y="78" text-anchor="middle" fill="#f29bb0" font-size="36" font-family="Montserrat" font-weight="800">CLASSIC A</text></g>
+<g id="ep0-g1" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="550" y="30" width="430" height="72" rx="36" fill="none" stroke="#b3b7ff" stroke-width="3"/><text x="765" y="78" text-anchor="middle" fill="#b3b7ff" font-size="36" font-family="Montserrat" font-weight="800">CLASSIC V</text></g>
+<g id="ep0-g2" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="90" y="118" width="430" height="72" rx="36" fill="none" stroke="#a6e3a1" stroke-width="3"/><text x="305" y="166" text-anchor="middle" fill="#a6e3a1" font-size="36" font-family="Montserrat" font-weight="800">QML</text></g>
+<g id="ep0-g3" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="550" y="118" width="430" height="72" rx="36" fill="none" stroke="#5ee0c0" stroke-width="3"/><text x="765" y="166" text-anchor="middle" fill="#5ee0c0" font-size="36" font-family="Montserrat" font-weight="800">RBS</text></g>
+<g id="ep0-g4" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="90" y="206" width="430" height="72" rx="36" fill="none" stroke="#f5c451" stroke-width="3"/><text x="305" y="254" text-anchor="middle" fill="#f5c451" font-size="36" font-family="Montserrat" font-weight="800">SBR</text></g>
+<g id="ep0-g5" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="550" y="206" width="430" height="72" rx="36" fill="none" stroke="#c9a0ff" stroke-width="3"/><text x="765" y="254" text-anchor="middle" fill="#c9a0ff" font-size="36" font-family="Montserrat" font-weight="800">OCL</text></g>
+<g id="ep0-g6" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="90" y="294" width="430" height="72" rx="36" fill="none" stroke="#8e7cff" stroke-width="3"/><text x="305" y="342" text-anchor="middle" fill="#8e7cff" font-size="36" font-family="Montserrat" font-weight="800">TRENDLINE</text></g>
+<g id="ep0-g7" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="550" y="294" width="430" height="72" rx="36" fill="none" stroke="#d6336c" stroke-width="3"/><text x="765" y="342" text-anchor="middle" fill="#d6336c" font-size="36" font-family="Montserrat" font-weight="800">CE W 50%</text></g>
+        </svg>
+        <div id="ep0-cap0" class="cap" data-layout-allow-overlap>MSNR. Malaysian Support and Resistance.</div>
+        <div id="ep0-cap1" class="cap" data-layout-allow-overlap>Instead of wide zones, it marks exact levels,</div>
+        <div id="ep0-cap2" class="cap" data-layout-allow-overlap>drawn from candle opens and closes.</div>
+        <div id="ep0-cap3" class="cap" data-layout-allow-overlap>There are eight levels to know:</div>
+        <div id="ep0-cap4" class="cap" data-layout-allow-overlap>Classic A, Classic V, QML, RBS, SBR, OCL,</div>
+        <div id="ep0-cap5" class="cap" data-layout-allow-overlap>trendlines, and the wick fifty percent.</div>
+        <div id="ep0-cap6" class="cap" data-layout-allow-overlap>Let's break them down, one by one.</div>
+      </div></div>
+      <div id="ep0-end">
+        <img id="ep0-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep0-end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="ep0-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="ep0-end-foot"><img id="ep0-end-foot-img" src="assets/footer.jpg" alt="" /></div>
+      </div>
+      <div id="ep0-flash"></div>
+      <audio id="ep0-audio" class="clip" src="assets/audio/mix_ep0.wav" data-start="0" data-duration="26.53" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+        function shake(t, amp) {
+          SX.forEach((v, i) => tl.to("#ep0-shake", { x: amp * v * (1 - i / 8), y: amp * SY[i] * (1 - i / 8), duration: 0.035, ease: "none" }, t + i * 0.035));
+          tl.to("#ep0-shake", { x: 0, y: 0, duration: 0.05 }, t + 0.28);
+        }
+                tl.fromTo("#ep0-cam", { scale: 1.12 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+        tl.fromTo("#ep0-logo", { opacity: 0.6, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#ep0-series", { opacity: 0, scaleX: 1.4, filter: "blur(6px)" }, { opacity: 1, scaleX: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.2);
+        tl.fromTo("#ep0-title", { opacity: 1, scale: 1.45, filter: "blur(3px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 0);
+        tl.fromTo("#ep0-flash", { opacity: 0.55 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, 0.12);
+        shake(0.2, 20);
+        tl.fromTo("#ep0-shine", { backgroundPosition: "100% 0%" }, { backgroundPosition: "0% 0%", duration: 0.9, ease: "power2.inOut" }, 0.55);
+        tl.fromTo("#ep0-sub", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power3.out" }, 0.45);
+        tl.fromTo("#ep0-e0", {opacity: 0, scaleX: 0.3}, {opacity: 1, scaleX: 1, duration: 0.4, ease: "expo.out"}, 4.40);
+        tl.fromTo("#ep0-e1", {opacity: 0, scaleY: 0.1}, {opacity: 1, scaleY: 1, duration: 0.42, ease: "expo.out"}, 4.70);
+        tl.fromTo("#ep0-e2", {opacity: 0, scaleY: 0.1}, {opacity: 1, scaleY: 1, duration: 0.42, ease: "expo.out"}, 4.95);
+        tl.to("#ep0-e0", {opacity: 0.12, duration: 0.4, ease: "power2.out"}, 6.60);
+        tl.fromTo("#ep0-e4", {strokeDashoffset: 572}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 6.70);
+        tl.fromTo("#ep0-e4", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 7.30);
+        tl.fromTo("#ep0-e4t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 7.10);
+        tl.fromTo("#ep0-e5", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 7.00);
+        tl.fromTo("#ep0-e5r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 7.10);
+
+        tl.fromTo("#ep0-g0", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 11.34);
+        tl.fromTo("#ep0-g0", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 20.64);
+        tl.fromTo("#ep0-g1", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 12.36);
+        tl.fromTo("#ep0-g1", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 20.79);
+        tl.fromTo("#ep0-g2", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 13.39);
+        tl.fromTo("#ep0-g2", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 20.94);
+        tl.fromTo("#ep0-g3", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 14.41);
+        tl.fromTo("#ep0-g3", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 21.09);
+        tl.fromTo("#ep0-g4", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 15.43);
+        tl.fromTo("#ep0-g4", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 21.24);
+        tl.fromTo("#ep0-g5", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 16.46);
+        tl.fromTo("#ep0-g5", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 21.39);
+        tl.fromTo("#ep0-g6", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 17.48);
+        tl.fromTo("#ep0-g6", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 21.54);
+        tl.fromTo("#ep0-g7", {opacity: 0, scale: 0.4}, {opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)"}, 18.50);
+        tl.fromTo("#ep0-g7", {scale: 1}, {scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false}, 21.69);
+        tl.fromTo("#ep0-cap0", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 0.35);
+        tl.to("#ep0-cap0", {opacity: 0, duration: 0.08, ease: "none"}, 3.66);
+        tl.fromTo("#ep0-cap1", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 4.20);
+        tl.to("#ep0-cap1", {opacity: 0, duration: 0.08, ease: "none"}, 7.89);
+        tl.fromTo("#ep0-cap2", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 7.93);
+        tl.to("#ep0-cap2", {opacity: 0, duration: 0.08, ease: "none"}, 10.79);
+        tl.fromTo("#ep0-cap3", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 11.34);
+        tl.to("#ep0-cap3", {opacity: 0, duration: 0.08, ease: "none"}, 13.75);
+        tl.fromTo("#ep0-cap4", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 13.79);
+        tl.to("#ep0-cap4", {opacity: 0, duration: 0.08, ease: "none"}, 17.00);
+        tl.fromTo("#ep0-cap5", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 17.04);
+        tl.to("#ep0-cap5", {opacity: 0, duration: 0.08, ease: "none"}, 20.08);
+        tl.fromTo("#ep0-cap6", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 20.64);
+        tl.to("#ep0-cap6", {opacity: 0, duration: 0.08, ease: "none"}, 22.39);
+        tl.to("#ep0-cam", { scale: 1.6, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 22.73);
+        tl.fromTo("#ep0-flash", { opacity: 0.9 }, { opacity: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, 23.13);
+        tl.fromTo("#ep0-end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 23.13);
+        tl.to("#ep0-cam", { opacity: 0, duration: 0.05, ease: "none" }, 23.18);
+        tl.fromTo("#ep0-end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 23.23);
+        tl.fromTo("#ep0-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 23.83);
+        tl.fromTo("#ep0-end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 24.13);
+        tl.fromTo("#ep0-end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 24.03);
+        window.__timelines["ep0"] = tl;
+      })();
+    </script>
+  </body>
+</html>

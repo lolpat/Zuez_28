@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000;
+        font-family: "Montserrat", sans-serif; }
+      #ep3-grid { position: absolute; inset: 0; opacity: 0.55;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 60px 60px; }
+      #ep3-cam { position: absolute; inset: 0; transform-origin: 540px 900px; }
+      #ep3-shake { position: absolute; inset: 0; }
+      #ep3-logo { position: absolute; left: 395px; top: 60px; width: 290px; }
+      #ep3-series { position: absolute; left: 0; width: 1080px; top: 210px; text-align: center; font-size: 30px; font-weight: 700;
+        letter-spacing: 0.32em; color: #8a8f98; }
+      #ep3-title, #ep3-shine { position: absolute; left: 0; width: 1080px; top: 252px; text-align: center;
+        font-family: "Playfair Display", serif; font-weight: 700; font-size: 128px; line-height: 1; color: #fff; letter-spacing: 0.02em; }
+      #ep3-shine { color: transparent; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.0) 40%, #d7f5d3 50%, rgba(255,255,255,0) 60%, transparent 65%);
+        background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; }
+      #ep3-sub { position: absolute; left: 0; width: 1080px; top: 440px; text-align: center; font-family: "Playfair Display", serif;
+        font-weight: 700; font-size: 50px; background: linear-gradient(90deg, #a6e3a1, #d7f5d3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      #ep3-diag { position: absolute; left: 0; top: 520px; width: 1080px; height: 500px; overflow: visible; }
+      #ep3-chart { position: absolute; left: 0; top: 1030px; width: 1080px; height: 380px; overflow: visible; }
+      .cap { position: absolute; left: 60px; width: 960px; top: 1428px; text-align: center; font-size: 50px; font-weight: 800; color: #fff;
+        line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }
+      #ep3-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
+      #ep3-end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
+      #ep3-end-logo { position: absolute; left: 110px; top: 560px; width: 860px; }
+      #ep3-end-cta { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+        font-size: 92px; color: #fff; }
+      #ep3-end-cta span { color: #2962FF; }
+      #ep3-end-note { position: absolute; left: 0; width: 1080px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+        letter-spacing: 0.12em; color: #8a8f98; }
+      #ep3-end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+      #ep3-end-foot img { width: 1080px; height: 255px; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="ep3" data-start="0" data-duration="29.2" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="ep3-grid"></div>
+      <div id="ep3-cam"><div id="ep3-shake">
+        <img id="ep3-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep3-series">MSNR SERIES · 3/8</div>
+        <div id="ep3-title" data-layout-allow-occlusion>QM / QML</div>
+        <div id="ep3-shine" data-layout-allow-overlap data-layout-allow-occlusion>QM / QML</div>
+        <div id="ep3-sub">Quasimodo · Quasimodo Level</div>
+        <svg id="ep3-diag" viewBox="0 0 1080 500">
+          <line id="ep3-e0" x1="540" y1="10" x2="540" y2="490" stroke="#8a8f98" stroke-width="3" stroke-dasharray="10 12" opacity="0"/>
+          <text id="ep3-e1" x="1000" y="40" text-anchor="end" fill="#5ec8e0" font-size="40" font-family="Montserrat" font-weight="800" opacity="0">SELL</text>
+          <polyline id="ep3-e2" points="600,330 680,150 740,280 820,40 880,380 950,150 1010,470" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1506.4" stroke-dashoffset="1506.4" opacity="0"/>
+          <polygon id="ep3-e2a" points="0,-14 26,0 0,14" fill="#ffffff" opacity="0" transform="translate(1010,470) rotate(79.4)"/>
+          <line id="ep3-e3" x1="740" y1="280" x2="880" y2="280" stroke="#f5d76e" stroke-width="3" stroke-dasharray="142" stroke-dashoffset="142"/>
+          <text id="ep3-e3t" x="750" y="266" text-anchor="start" fill="#f5d76e" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">MSS</text>
+          <circle id="ep3-e4" cx="862" cy="280" r="15" fill="#f5d76e" opacity="0"/>
+          <circle id="ep3-e4r" cx="862" cy="280" r="15" fill="none" stroke="#f5d76e" stroke-width="4" opacity="0"/>
+          <g id="ep3-e5" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="800" y="40" width="130" height="110" fill="#5ec8e0" fill-opacity="0.32" stroke="#5ec8e0" stroke-width="2"/><text x="865.0" y="107.0" text-anchor="middle" fill="#ffffff" font-size="36" font-family="Montserrat" font-weight="800">QM</text></g>
+          <line id="ep3-e6" x1="680" y1="150" x2="1040" y2="150" stroke="#5ec8e0" stroke-width="4" stroke-dasharray="362" stroke-dashoffset="362"/>
+          <text id="ep3-e6t" x="690" y="136" text-anchor="start" fill="#5ec8e0" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">QML</text>
+          <circle id="ep3-e7" cx="950" cy="150" r="15" fill="#5ec8e0" opacity="0"/>
+          <circle id="ep3-e7r" cx="950" cy="150" r="15" fill="none" stroke="#5ec8e0" stroke-width="4" opacity="0"/>
+          <text id="ep3-e8" x="80" y="40" text-anchor="start" fill="#ff6b81" font-size="40" font-family="Montserrat" font-weight="800" opacity="0">BUY</text>
+          <polyline id="ep3-e9" points="60,170 140,350 200,220 280,460 340,120 410,350 470,30" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1506.4" stroke-dashoffset="1506.4" opacity="0"/>
+          <polygon id="ep3-e9a" points="0,-14 26,0 0,14" fill="#ffffff" opacity="0" transform="translate(470,30) rotate(-79.4)"/>
+          <line id="ep3-e10" x1="200" y1="220" x2="340" y2="220" stroke="#f5d76e" stroke-width="3" stroke-dasharray="142" stroke-dashoffset="142"/>
+          <text id="ep3-e10t" x="210" y="206" text-anchor="start" fill="#f5d76e" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">MSS</text>
+          <g id="ep3-e11" opacity="0" style="transform-box:fill-box;transform-origin:50% 50%"><rect x="260" y="350" width="130" height="110" fill="#ff6b81" fill-opacity="0.32" stroke="#ff6b81" stroke-width="2"/><text x="325.0" y="417.0" text-anchor="middle" fill="#ffffff" font-size="36" font-family="Montserrat" font-weight="800">QM</text></g>
+          <line id="ep3-e12" x1="140" y1="350" x2="500" y2="350" stroke="#ff6b81" stroke-width="4" stroke-dasharray="362" stroke-dashoffset="362"/>
+          <text id="ep3-e12t" x="150" y="336" text-anchor="start" fill="#ff6b81" font-size="34" font-family="Montserrat" font-weight="800" opacity="0">QML</text>
+          <circle id="ep3-e13" cx="410" cy="350" r="15" fill="#ff6b81" opacity="0"/>
+          <circle id="ep3-e13r" cx="410" cy="350" r="15" fill="none" stroke="#ff6b81" stroke-width="4" opacity="0"/>
+        </svg>
+        <svg id="ep3-chart" viewBox="0 0 1080 380">
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="101.2" y1="232.0" x2="101.2" y2="246.5" stroke="#2962FF" stroke-width="2.5"/><rect x="94.3" y="237.7" width="13.9" height="5.1" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="123.8" y1="226.0" x2="123.8" y2="245.2" stroke="#2962FF" stroke-width="2.5"/><rect x="116.8" y="230.2" width="13.9" height="7.5" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="146.2" y1="205.5" x2="146.2" y2="231.5" stroke="#2962FF" stroke-width="2.5"/><rect x="139.3" y="210.7" width="13.9" height="19.5" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="168.8" y1="184.1" x2="168.8" y2="214.6" stroke="#2962FF" stroke-width="2.5"/><rect x="161.8" y="190.8" width="13.9" height="19.9" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="191.2" y1="156.4" x2="191.2" y2="195.2" stroke="#2962FF" stroke-width="2.5"/><rect x="184.3" y="159.6" width="13.9" height="31.2" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="213.8" y1="142.6" x2="213.8" y2="165.1" stroke="#2962FF" stroke-width="2.5"/><rect x="206.8" y="145.2" width="13.9" height="14.4" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="236.2" y1="137.6" x2="236.2" y2="149.4" stroke="#2962FF" stroke-width="2.5"/><rect x="229.3" y="142.9" width="13.9" height="2.3" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="258.8" y1="138.5" x2="258.8" y2="152.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="251.8" y="142.9" width="13.9" height="5.9" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="281.2" y1="143.0" x2="281.2" y2="161.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="274.3" y="148.8" width="13.9" height="5.8" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="303.8" y1="152.9" x2="303.8" y2="174.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="296.8" y="154.6" width="13.9" height="14.3" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="326.2" y1="162.4" x2="326.2" y2="190.4" stroke="#FFFFFF" stroke-width="2.5"/><rect x="319.3" y="168.8" width="13.9" height="14.0" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="348.8" y1="176.5" x2="348.8" y2="204.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="341.8" y="182.8" width="13.9" height="14.5" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="371.2" y1="188.8" x2="371.2" y2="204.0" stroke="#2962FF" stroke-width="2.5"/><rect x="364.3" y="194.1" width="13.9" height="3.2" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="393.8" y1="167.5" x2="393.8" y2="197.0" stroke="#2962FF" stroke-width="2.5"/><rect x="386.8" y="173.5" width="13.9" height="20.7" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="416.2" y1="148.7" x2="416.2" y2="178.7" stroke="#2962FF" stroke-width="2.5"/><rect x="409.3" y="154.6" width="13.9" height="18.9" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="438.8" y1="124.2" x2="438.8" y2="157.4" stroke="#2962FF" stroke-width="2.5"/><rect x="431.8" y="128.9" width="13.9" height="25.7" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="461.2" y1="93.1" x2="461.2" y2="135.3" stroke="#2962FF" stroke-width="2.5"/><rect x="454.3" y="100.4" width="13.9" height="28.5" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="483.8" y1="84.5" x2="483.8" y2="103.3" stroke="#2962FF" stroke-width="2.5"/><rect x="476.8" y="90.8" width="13.9" height="9.6" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="506.2" y1="81.6" x2="506.2" y2="93.3" stroke="#2962FF" stroke-width="2.5"/><rect x="499.3" y="84.0" width="13.9" height="6.9" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="528.8" y1="80.2" x2="528.8" y2="111.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="521.8" y="84.0" width="13.9" height="23.8" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="551.2" y1="101.7" x2="551.2" y2="153.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="544.3" y="107.8" width="13.9" height="42.1" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="573.8" y1="142.2" x2="573.8" y2="195.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="566.8" y="149.9" width="13.9" height="43.4" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="596.2" y1="189.5" x2="596.2" y2="229.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="589.3" y="193.3" width="13.9" height="29.0" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="618.8" y1="217.8" x2="618.8" y2="256.1" stroke="#FFFFFF" stroke-width="2.5"/><rect x="611.8" y="222.3" width="13.9" height="28.2" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="641.2" y1="240.5" x2="641.2" y2="255.8" stroke="#2962FF" stroke-width="2.5"/><rect x="634.3" y="247.2" width="13.9" height="3.3" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="663.8" y1="232.1" x2="663.8" y2="248.8" stroke="#2962FF" stroke-width="2.5"/><rect x="656.8" y="234.5" width="13.9" height="12.7" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="686.2" y1="194.8" x2="686.2" y2="238.4" stroke="#2962FF" stroke-width="2.5"/><rect x="679.3" y="202.4" width="13.9" height="32.2" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="708.8" y1="171.9" x2="708.8" y2="204.4" stroke="#2962FF" stroke-width="2.5"/><rect x="701.8" y="176.5" width="13.9" height="25.9" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="731.2" y1="152.4" x2="731.2" y2="180.0" stroke="#2962FF" stroke-width="2.5"/><rect x="724.3" y="156.9" width="13.9" height="19.6" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="753.8" y1="140.6" x2="753.8" y2="162.5" stroke="#2962FF" stroke-width="2.5"/><rect x="746.8" y="142.9" width="13.9" height="14.0" fill="#2962FF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="776.2" y1="137.3" x2="776.2" y2="155.0" stroke="#FFFFFF" stroke-width="2.5"/><rect x="769.3" y="142.9" width="13.9" height="6.9" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="798.8" y1="143.2" x2="798.8" y2="185.9" stroke="#FFFFFF" stroke-width="2.5"/><rect x="791.8" y="149.8" width="13.9" height="28.6" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="821.2" y1="171.7" x2="821.2" y2="213.6" stroke="#FFFFFF" stroke-width="2.5"/><rect x="814.3" y="178.4" width="13.9" height="33.4" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="843.8" y1="207.2" x2="843.8" y2="261.7" stroke="#FFFFFF" stroke-width="2.5"/><rect x="836.8" y="211.8" width="13.9" height="44.3" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="866.2" y1="249.1" x2="866.2" y2="283.2" stroke="#FFFFFF" stroke-width="2.5"/><rect x="859.3" y="256.1" width="13.9" height="22.4" fill="#FFFFFF"/></g>
+<g class="ep3-cc" style="transform-box:fill-box;transform-origin:50% 100%"><line x1="888.8" y1="274.3" x2="888.8" y2="299.8" stroke="#FFFFFF" stroke-width="2.5"/><rect x="881.8" y="278.5" width="13.9" height="18.1" fill="#FFFFFF"/></g>
+<line id="ep3-cl0" x1="90" y1="142.9" x2="940" y2="142.9" stroke="#5ec8e0" stroke-width="3" stroke-dasharray="850" stroke-dashoffset="850"/>
+<text id="ep3-cl0t" x="944" y="151.9" fill="#5ec8e0" font-size="28" font-family="Montserrat" font-weight="700" opacity="0">QML</text>
+<line id="ep3-cl1" x1="90" y1="194.1" x2="940" y2="194.1" stroke="#f5d76e" stroke-width="3" stroke-dasharray="850" stroke-dashoffset="850"/>
+<text id="ep3-cl1t" x="944" y="203.1" fill="#f5d76e" font-size="28" font-family="Montserrat" font-weight="700" opacity="0">MSS</text>
+<g id="ep3-cm0" opacity="0"><polygon points="731.75,74.55886100941083 775.75,74.55886100941083 753.75,114.55886100941083" fill="#ff4d5e"/><text x="783.8" y="104.6" text-anchor="start" fill="#ff4d5e" font-size="30" font-family="Montserrat" font-weight="800">SELL</text></g>
+
+        </svg>
+        <div id="ep3-cap0" class="cap" data-layout-allow-overlap>QM, the Quasimodo, and QML, the Quasimodo Level.</div>
+        <div id="ep3-cap1" class="cap" data-layout-allow-overlap>For a sell, price makes a high, then</div>
+        <div id="ep3-cap2" class="cap" data-layout-allow-overlap>a higher high, then breaks below the last</div>
+        <div id="ep3-cap3" class="cap" data-layout-allow-overlap>low. That break is the market structure shift.</div>
+        <div id="ep3-cap4" class="cap" data-layout-allow-overlap>The high before the higher high is the</div>
+        <div id="ep3-cap5" class="cap" data-layout-allow-overlap>QML. When price returns to it, look for sells.</div>
+        <div id="ep3-cap6" class="cap" data-layout-allow-overlap>For a buy, it's the mirror image:</div>
+        <div id="ep3-cap7" class="cap" data-layout-allow-overlap>a lower low, a break above the last</div>
+        <div id="ep3-cap8" class="cap" data-layout-allow-overlap>high, then buy from the QML.</div>
+      </div></div>
+      <div id="ep3-end">
+        <img id="ep3-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep3-end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="ep3-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="ep3-end-foot"><img id="ep3-end-foot-img" src="assets/footer.jpg" alt="" /></div>
+      </div>
+      <div id="ep3-flash"></div>
+      <audio id="ep3-audio" class="clip" src="assets/audio/mix_ep3.wav" data-start="0" data-duration="29.2" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+        function shake(t, amp) {
+          SX.forEach((v, i) => tl.to("#ep3-shake", { x: amp * v * (1 - i / 8), y: amp * SY[i] * (1 - i / 8), duration: 0.035, ease: "none" }, t + i * 0.035));
+          tl.to("#ep3-shake", { x: 0, y: 0, duration: 0.05 }, t + 0.28);
+        }
+                tl.fromTo("#ep3-cam", { scale: 1.12 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+        tl.fromTo("#ep3-logo", { opacity: 0.6, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#ep3-series", { opacity: 0, scaleX: 1.4, filter: "blur(6px)" }, { opacity: 1, scaleX: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.2);
+        tl.fromTo("#ep3-title", { opacity: 1, scale: 1.45, filter: "blur(3px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 0);
+        tl.fromTo("#ep3-flash", { opacity: 0.55 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, 0.12);
+        shake(0.2, 20);
+        tl.fromTo("#ep3-shine", { backgroundPosition: "100% 0%" }, { backgroundPosition: "0% 0%", duration: 0.9, ease: "power2.inOut" }, 0.55);
+        tl.fromTo("#ep3-sub", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power3.out" }, 0.45);
+        tl.fromTo("#ep3-e0", {opacity: 0}, {opacity: 0.8, duration: 0.4}, 1.15);
+        tl.fromTo("#ep3-e1", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 3.75);
+        tl.fromTo("#ep3-e2", {opacity: 0, strokeDashoffset: 1506.4}, {opacity: 1, strokeDashoffset: 0, duration: 2.6, ease: "power1.inOut"}, 3.96);
+        tl.fromTo("#ep3-e2a", {opacity: 0}, {opacity: 1, duration: 0.12}, 6.50);
+        tl.fromTo("#ep3-e3", {strokeDashoffset: 142}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 6.15);
+        tl.fromTo("#ep3-e3", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 6.75);
+        tl.fromTo("#ep3-e3t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 6.55);
+        tl.fromTo("#ep3-e4", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 6.36);
+        tl.fromTo("#ep3-e4r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 6.46);
+        tl.fromTo("#ep3-e5", {opacity: 0, scaleX: 0.3}, {opacity: 1, scaleX: 1, duration: 0.4, ease: "expo.out"}, 13.70);
+        tl.fromTo("#ep3-e6", {strokeDashoffset: 362}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 13.50);
+        tl.fromTo("#ep3-e6", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 14.10);
+        tl.fromTo("#ep3-e6t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 13.90);
+        tl.fromTo("#ep3-e7", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 14.70);
+        tl.fromTo("#ep3-e7r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 14.80);
+        tl.fromTo("#ep3-e8", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 18.82);
+        tl.fromTo("#ep3-e9", {opacity: 0, strokeDashoffset: 1506.4}, {opacity: 1, strokeDashoffset: 0, duration: 2.4, ease: "power1.inOut"}, 19.02);
+        tl.fromTo("#ep3-e9a", {opacity: 0}, {opacity: 1, duration: 0.12}, 21.37);
+        tl.fromTo("#ep3-e10", {strokeDashoffset: 142}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 20.22);
+        tl.fromTo("#ep3-e10", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 20.82);
+        tl.fromTo("#ep3-e10t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 20.62);
+        tl.fromTo("#ep3-e11", {opacity: 0, scaleX: 0.3}, {opacity: 1, scaleX: 1, duration: 0.4, ease: "expo.out"}, 20.72);
+        tl.fromTo("#ep3-e12", {strokeDashoffset: 362}, {strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut"}, 20.62);
+        tl.fromTo("#ep3-e12", {opacity: 1}, {opacity: 0.35, duration: 0.08, repeat: 3, yoyo: true, ease: "none", immediateRender: false}, 21.22);
+        tl.fromTo("#ep3-e12t", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 21.02);
+        tl.fromTo("#ep3-e13", {opacity: 0, scale: 2.5, transformOrigin: "50% 50%"}, {opacity: 0.9, scale: 1, duration: 0.3, ease: "back.out(2.2)"}, 21.22);
+        tl.fromTo("#ep3-e13r", {opacity: 1, scale: 1, transformOrigin: "50% 50%"}, {opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out", immediateRender: false}, 21.32);
+        tl.fromTo(".ep3-cc", {opacity: 0, scaleY: 0.2}, {opacity: 1, scaleY: 1, duration: 0.22, ease: "power2.out", stagger: 0.050}, 14.30);
+        tl.fromTo("#ep3-cl0", {strokeDashoffset: 850}, {strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut"}, 16.20);
+        tl.fromTo("#ep3-cl0t", {opacity: 0, x: -14}, {opacity: 1, x: 0, duration: 0.3, ease: "expo.out"}, 16.55);
+        tl.fromTo("#ep3-cl1", {strokeDashoffset: 850}, {strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut"}, 16.45);
+        tl.fromTo("#ep3-cl1t", {opacity: 0, x: -14}, {opacity: 1, x: 0, duration: 0.3, ease: "expo.out"}, 16.80);
+        tl.fromTo("#ep3-cm0", {opacity: 0, y: -30}, {opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)"}, 16.90);
+
+        tl.fromTo("#ep3-cap0", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 0.35);
+        tl.to("#ep3-cap0", {opacity: 0, duration: 0.08, ease: "none"}, 3.37);
+        tl.fromTo("#ep3-cap1", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 3.75);
+        tl.to("#ep3-cap1", {opacity: 0, duration: 0.08, ease: "none"}, 6.38);
+        tl.fromTo("#ep3-cap2", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 6.42);
+        tl.to("#ep3-cap2", {opacity: 0, duration: 0.08, ease: "none"}, 9.41);
+        tl.fromTo("#ep3-cap3", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 9.45);
+        tl.to("#ep3-cap3", {opacity: 0, duration: 0.08, ease: "none"}, 12.81);
+        tl.fromTo("#ep3-cap4", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 13.30);
+        tl.to("#ep3-cap4", {opacity: 0, duration: 0.08, ease: "none"}, 15.51);
+        tl.fromTo("#ep3-cap5", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 15.55);
+        tl.to("#ep3-cap5", {opacity: 0, duration: 0.08, ease: "none"}, 18.23);
+        tl.fromTo("#ep3-cap6", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 18.82);
+        tl.to("#ep3-cap6", {opacity: 0, duration: 0.08, ease: "none"}, 20.94);
+        tl.fromTo("#ep3-cap7", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 20.98);
+        tl.to("#ep3-cap7", {opacity: 0, duration: 0.08, ease: "none"}, 23.23);
+        tl.fromTo("#ep3-cap8", {opacity: 0, scale: 0.92}, {opacity: 1, scale: 1, duration: 0.12, ease: "power2.out"}, 23.27);
+        tl.to("#ep3-cap8", {opacity: 0, duration: 0.08, ease: "none"}, 25.07);
+        tl.to("#ep3-cam", { scale: 1.6, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 25.40);
+        tl.fromTo("#ep3-flash", { opacity: 0.9 }, { opacity: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, 25.80);
+        tl.fromTo("#ep3-end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 25.80);
+        tl.to("#ep3-cam", { opacity: 0, duration: 0.05, ease: "none" }, 25.85);
+        tl.fromTo("#ep3-end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 25.90);
+        tl.fromTo("#ep3-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 26.50);
+        tl.fromTo("#ep3-end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 26.80);
+        tl.fromTo("#ep3-end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 26.70);
+        window.__timelines["ep3"] = tl;
+      })();
+    </script>
+  </body>
+</html>
