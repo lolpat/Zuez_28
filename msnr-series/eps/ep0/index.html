@@ -29,18 +29,21 @@
         line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }
       #ep0-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
       #ep0-end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
-      #ep0-end-logo { position: absolute; left: 110px; top: 560px; width: 860px; }
-      #ep0-end-cta { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+      #ep0-end-logo { position: absolute; left: 110px; top: 470px; width: 860px; }
+      #ep0-end-cta { position: absolute; left: 0; width: 1080px; top: 1040px; text-align: center; font-family: "Archivo Black", sans-serif;
         font-size: 92px; color: #fff; }
       #ep0-end-cta span { color: #2962FF; }
-      #ep0-end-note { position: absolute; left: 0; width: 1080px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+      #ep0-end-note { position: absolute; left: 0; width: 1080px; top: 1180px; text-align: center; font-size: 28px; font-weight: 700;
         letter-spacing: 0.12em; color: #8a8f98; }
+      #ep0-end-tag { position: absolute; left: 0; width: 1080px; top: 920px; text-align: center; font-size: 44px; font-weight: 800;
+        letter-spacing: 0.04em; color: #fff; }
+      #ep0-end-tag span { color: #e8c26a; }
       #ep0-end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
       #ep0-end-foot img { width: 1080px; height: 255px; display: block; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="ep0" data-start="0" data-duration="26.53" data-width="1080" data-height="1920" data-motion-blur="on">
+    <div id="root" data-composition-id="ep0" data-start="0" data-duration="28.82" data-width="1080" data-height="1920" data-motion-blur="on">
       <div id="ep0-grid"></div>
       <div id="ep0-cam"><div id="ep0-shake">
         <img id="ep0-logo" src="assets/otm_logo.png" alt="Order the Market" />
@@ -78,12 +81,13 @@
       </div></div>
       <div id="ep0-end">
         <img id="ep0-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="ep0-end-tag">DON'T LET THE MARKET <span>ORDER YOU</span></div>
         <div id="ep0-end-cta">FOLLOW FOR <span>MORE</span></div>
         <div id="ep0-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
         <div id="ep0-end-foot"><img id="ep0-end-foot-img" src="assets/footer.jpg" alt="" /></div>
       </div>
       <div id="ep0-flash"></div>
-      <audio id="ep0-audio" class="clip" src="assets/audio/mix_ep0.wav" data-start="0" data-duration="26.53" data-track-index="2" data-volume="1"></audio>
+      <audio id="ep0-audio" class="clip" src="assets/audio/mix_ep0.wav" data-start="0" data-duration="28.82" data-track-index="2" data-volume="1"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {};
@@ -147,7 +151,8 @@
         tl.fromTo("#ep0-end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 23.13);
         tl.to("#ep0-cam", { opacity: 0, duration: 0.05, ease: "none" }, 23.18);
         tl.fromTo("#ep0-end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 23.23);
-        tl.fromTo("#ep0-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 23.83);
+        tl.fromTo("#ep0-end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 26.77);
+        tl.fromTo("#ep0-end-tag", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 24.75);
         tl.fromTo("#ep0-end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 24.13);
         tl.fromTo("#ep0-end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 24.03);
         window.__timelines["ep0"] = tl;

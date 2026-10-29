@@ -294,6 +294,8 @@ def el_markup(ep, i, e, bt, accent):
         C.append(dict(t=t, snd="stamp", gain=-12))
     return M, T, C
 
+OUTRO = [0.0, 1.32, 3.34, 4.09]
+
 def captions(ep, beats, bt, bend):
     """caption chunks of up to 5 words, timed by characters inside each beat's speech window"""
     M, T = [], []
@@ -327,7 +329,8 @@ def build(ep):
     bend = [lead + e for e in vo["ends"]]
     vo_end = lead + vo["dur"]
     end_t = round(vo_end + 0.7, 2)          # end card start
-    total = round(end_t + 3.4, 2)
+    vo_o = round(end_t + 0.3, 2)            # outro line: "Order the Market. Don't let the market order you. Follow for more."
+    total = round(vo_o + OUTRO[3] + 1.3, 2)
     accent, accent2 = spec["accent"], spec["accent2"]
     M, T, C = [], [], []
     for i, e in enumerate(spec.get("els", [])):
@@ -356,6 +359,9 @@ def build(ep):
     C.append(dict(t=end_t + 0.25, snd="impact", gain=-8))
     C.append(dict(t=end_t + 0.6, snd="sting", gain=-12))
     C.append(dict(t=lead, snd="vo", file=f"vo_{ep}", gain=0))
+    C.append(dict(t=vo_o, snd="vo", file="vo_outro", gain=0))
+    C.append(dict(t=vo_o + OUTRO[1], snd="pop", gain=-14))
+    C.append(dict(t=vo_o + OUTRO[2], snd="stamp", gain=-12))
     title_size = 168 if len(spec["title"]) <= 5 else (128 if len(spec["title"]) <= 9 else 112)
     series = f"MSNR SERIES · {spec['n']}" if spec["n"] else "MSNR SERIES · OVERVIEW"
     html = f"""<!doctype html>
@@ -389,12 +395,15 @@ def build(ep):
         line-height: 1.15; opacity: 0; text-shadow: 0 3px 0 #000, 0 0 14px rgba(0,0,0,0.9); }}
       #{ep}-flash {{ position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }}
       #{ep}-end {{ position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }}
-      #{ep}-end-logo {{ position: absolute; left: 110px; top: 560px; width: 860px; }}
-      #{ep}-end-cta {{ position: absolute; left: 0; width: {W}px; top: 1060px; text-align: center; font-family: "Archivo Black", sans-serif;
+      #{ep}-end-logo {{ position: absolute; left: 110px; top: 470px; width: 860px; }}
+      #{ep}-end-cta {{ position: absolute; left: 0; width: {W}px; top: 1040px; text-align: center; font-family: "Archivo Black", sans-serif;
         font-size: 92px; color: #fff; }}
       #{ep}-end-cta span {{ color: {BULL}; }}
-      #{ep}-end-note {{ position: absolute; left: 0; width: {W}px; top: 1200px; text-align: center; font-size: 28px; font-weight: 700;
+      #{ep}-end-note {{ position: absolute; left: 0; width: {W}px; top: 1180px; text-align: center; font-size: 28px; font-weight: 700;
         letter-spacing: 0.12em; color: #8a8f98; }}
+      #{ep}-end-tag {{ position: absolute; left: 0; width: {W}px; top: 920px; text-align: center; font-size: 44px; font-weight: 800;
+        letter-spacing: 0.04em; color: #fff; }}
+      #{ep}-end-tag span {{ color: #e8c26a; }}
       #{ep}-end-foot {{ position: absolute; left: 0; top: 1665px; width: {W}px; height: 255px; overflow: hidden; }}
       #{ep}-end-foot img {{ width: {W}px; height: 255px; display: block; }}
     </style>
@@ -419,6 +428,7 @@ def build(ep):
       </div></div>
       <div id="{ep}-end">
         <img id="{ep}-end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="{ep}-end-tag">DON'T LET THE MARKET <span>ORDER YOU</span></div>
         <div id="{ep}-end-cta">FOLLOW FOR <span>MORE</span></div>
         <div id="{ep}-end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
         <div id="{ep}-end-foot"><img id="{ep}-end-foot-img" src="assets/footer.jpg" alt="" /></div>
@@ -452,7 +462,8 @@ def build(ep):
         tl.fromTo("#{ep}-end", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.05, immediateRender: false }}, {end_t:.2f});
         tl.to("#{ep}-cam", {{ opacity: 0, duration: 0.05, ease: "none" }}, {end_t + 0.05:.2f});
         tl.fromTo("#{ep}-end-logo", {{ opacity: 0, scale: 2.2, filter: "blur(14px)" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }}, {end_t + 0.1:.2f});
-        tl.fromTo("#{ep}-end-cta", {{ opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }}, {{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }}, {end_t + 0.7:.2f});
+        tl.fromTo("#{ep}-end-cta", {{ opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }}, {{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }}, {vo_o + OUTRO[2]:.2f});
+        tl.fromTo("#{ep}-end-tag", {{ opacity: 0, y: 30, filter: "blur(8px)" }}, {{ opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }}, {vo_o + OUTRO[1]:.2f});
         tl.fromTo("#{ep}-end-note", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.4 }}, {end_t + 1.0:.2f});
         tl.fromTo("#{ep}-end-foot-img", {{ y: 255 }}, {{ y: 0, duration: 0.5, ease: "back.out(1.2)" }}, {end_t + 0.9:.2f});
         window.__timelines["{ep}"] = tl;
