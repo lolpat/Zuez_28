@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; }
+      #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(44,44,50,0.6) 0%, rgba(0,0,0,0) 58%); }
+      #stage { position: absolute; inset: 0; }
+      #stage svg { width: 1080px; height: 1920px; overflow: visible; filter: drop-shadow(0 0 6px rgba(255,255,255,0.5)); }
+      .cap { position: absolute; left: 70px; width: 940px; top: 1500px; text-align: center; font-size: 50px; font-weight: 800; color: #fff;
+        line-height: 1.18; opacity: 0; text-shadow: 0 0 18px rgba(0,0,0,0.9); }
+      #end { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 40; }
+      #end-logo { position: absolute; left: 110px; top: 470px; width: 860px; }
+      #end-tag { position: absolute; left: 0; width: 1080px; top: 920px; text-align: center; font-size: 44px; font-weight: 800; letter-spacing: 0.04em; color: #fff; }
+      #end-tag span { color: #e8c26a; }
+      #end-cta { position: absolute; left: 0; width: 1080px; top: 1040px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 92px; color: #fff; }
+      #end-cta span { color: #2962ff; }
+      #end-note { position: absolute; left: 0; width: 1080px; top: 1180px; text-align: center; font-size: 28px; font-weight: 700; letter-spacing: 0.12em; color: #8a8f98; }
+      #end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+      #end-foot img { width: 1080px; height: 255px; display: block; }
+      .tc { position: absolute; left: 0; width: 1080px; top: 230px; text-align: center; opacity: 0; }
+      .tc .n { font-family: Montserrat; font-weight: 800; font-size: 34px; letter-spacing: 0.4em; color: #e8c26a; }
+      .tc .g { position: relative; display: inline-block; font-family: "Archivo Black"; font-size: 92px; line-height: 1.1; color: #fff; }
+      .tc .g span { position: absolute; left: 0; top: 0; mix-blend-mode: screen; }
+      .tc .g .r { color: #ff3355; } .tc .g .c { color: #22e5ff; } .tc .g b { position: relative; font-weight: 400; }
+      #grain { position: absolute; inset: -10%; pointer-events: none; z-index: 45; opacity: 0.09; mix-blend-mode: screen;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+      #leak-host { position: absolute; inset: 0; z-index: 44; pointer-events: none; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-fourth" data-start="0" data-duration="58.33" data-width="1080" data-height="1920" data-motion-blur="on">
+      <div id="vig"></div>
+      <div id="stage"><svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="gg"><stop offset="0" stop-color="#e8c26a" stop-opacity="0.45"/><stop offset="1" stop-color="#e8c26a" stop-opacity="0"/></radialGradient><radialGradient id="gl"><stop offset="0" stop-color="#fff" stop-opacity="0.5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g id="dustg"><circle class="dust" cx="673" cy="1424" r="2.1" fill="#fff" opacity="0.24"/><circle class="dust" cx="799" cy="1771" r="1.0" fill="#fff" opacity="0.15"/><circle class="dust" cx="1019" cy="1246" r="2.3" fill="#fff" opacity="0.08"/><circle class="dust" cx="507" cy="473" r="1.8" fill="#fff" opacity="0.17"/><circle class="dust" cx="14" cy="416" r="1.4" fill="#fff" opacity="0.23"/><circle class="dust" cx="827" cy="306" r="2.1" fill="#fff" opacity="0.09"/><circle class="dust" cx="667" cy="243" r="1.0" fill="#fff" opacity="0.23"/><circle class="dust" cx="226" cy="414" r="2.4" fill="#fff" opacity="0.23"/><circle class="dust" cx="312" cy="1846" r="1.8" fill="#fff" opacity="0.19"/><circle class="dust" cx="221" cy="1807" r="2.0" fill="#fff" opacity="0.24"/><circle class="dust" cx="965" cy="574" r="1.5" fill="#fff" opacity="0.09"/><circle class="dust" cx="157" cy="125" r="1.4" fill="#fff" opacity="0.17"/><circle class="dust" cx="4" cy="1302" r="1.5" fill="#fff" opacity="0.12"/><circle class="dust" cx="884" cy="923" r="1.4" fill="#fff" opacity="0.15"/><circle class="dust" cx="761" cy="109" r="2.4" fill="#fff" opacity="0.06"/><circle class="dust" cx="810" cy="1622" r="1.0" fill="#fff" opacity="0.21"/><circle class="dust" cx="395" cy="1111" r="1.0" fill="#fff" opacity="0.07"/><circle class="dust" cx="195" cy="1834" r="1.3" fill="#fff" opacity="0.20"/><circle class="dust" cx="1004" cy="1809" r="1.5" fill="#fff" opacity="0.13"/><circle class="dust" cx="567" cy="1489" r="1.2" fill="#fff" opacity="0.20"/><circle class="dust" cx="861" cy="1651" r="1.1" fill="#fff" opacity="0.24"/><circle class="dust" cx="98" cy="654" r="1.9" fill="#fff" opacity="0.23"/><circle class="dust" cx="367" cy="1774" r="1.8" fill="#fff" opacity="0.12"/><circle class="dust" cx="342" cy="341" r="1.1" fill="#fff" opacity="0.09"/><circle class="dust" cx="744" cy="1914" r="1.2" fill="#fff" opacity="0.07"/><circle class="dust" cx="1066" cy="1024" r="1.6" fill="#fff" opacity="0.11"/><circle class="dust" cx="641" cy="1586" r="1.6" fill="#fff" opacity="0.14"/><circle class="dust" cx="60" cy="1759" r="1.0" fill="#fff" opacity="0.15"/><circle class="dust" cx="906" cy="251" r="2.0" fill="#fff" opacity="0.24"/><circle class="dust" cx="681" cy="1513" r="1.1" fill="#fff" opacity="0.14"/><circle class="dust" cx="161" cy="1622" r="1.4" fill="#fff" opacity="0.15"/><circle class="dust" cx="1079" cy="1636" r="2.4" fill="#fff" opacity="0.15"/><circle class="dust" cx="527" cy="1401" r="1.7" fill="#fff" opacity="0.12"/><circle class="dust" cx="436" cy="281" r="1.5" fill="#fff" opacity="0.25"/><circle class="dust" cx="1037" cy="1204" r="1.7" fill="#fff" opacity="0.12"/><circle class="dust" cx="96" cy="523" r="2.1" fill="#fff" opacity="0.22"/><circle class="dust" cx="390" cy="1509" r="2.1" fill="#fff" opacity="0.19"/><circle class="dust" cx="717" cy="1459" r="1.5" fill="#fff" opacity="0.19"/><circle class="dust" cx="303" cy="933" r="2.1" fill="#fff" opacity="0.19"/><circle class="dust" cx="317" cy="1815" r="1.9" fill="#fff" opacity="0.17"/></g>
+<g id="sc0" opacity="0"><line id="sd-d" x1="540" y1="780" x2="540" y2="1240" stroke="#fff" stroke-width="2" stroke-dasharray="8 10" opacity="0"/><g id="sd-b" opacity="0"><path d="M 310 1120 L 310 860 M 260 910 L 310 860 L 360 910" stroke="#2962ff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="310" y="1200" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">BUYERS</text></g><g id="sd-s" opacity="0"><path d="M 770 860 L 770 1120 M 720 1070 L 770 1120 L 820 1070" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="770" y="1200" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">SELLERS</text></g><g id="sd-bar" opacity="0"><rect x="280" y="670" width="520" height="16" rx="8" fill="#fff"/><text x="540" y="650" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">THE MARKET</text></g><line class="sd-str" x1="514" y1="686" x2="514" y2="1020" stroke="#fff" stroke-width="2" stroke-dasharray="334" stroke-dashoffset="334"/><line class="sd-str" x1="540" y1="686" x2="540" y2="1020" stroke="#fff" stroke-width="2" stroke-dasharray="334" stroke-dashoffset="334"/><line class="sd-str" x1="566" y1="686" x2="566" y2="1020" stroke="#fff" stroke-width="2" stroke-dasharray="334" stroke-dashoffset="334"/><g id="sd-p" opacity="0"><path d="M 511.4 1120 L 511.4 1094.0 A 28.6 28.6 0 0 1 568.6 1094.0 L 568.6 1120 Z" fill="#fff"/><circle cx="540" cy="1042.0" r="19.5" fill="#fff"/></g></g>
+<g id="sc1" opacity="0"><g class="ch-c" opacity="0"><line x1="270" y1="1214" x2="270" y2="1276" stroke="#2962ff" stroke-width="3"/><rect x="250.0" y="1230" width="40" height="30" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="328" y1="1174" x2="328" y2="1246" stroke="#2962ff" stroke-width="3"/><rect x="308.0" y="1190" width="40" height="40" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="386" y1="1114" x2="386" y2="1206" stroke="#2962ff" stroke-width="3"/><rect x="366.0" y="1130" width="40" height="60" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="444" y1="1044" x2="444" y2="1146" stroke="#2962ff" stroke-width="3"/><rect x="424.0" y="1060" width="40" height="70" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="502" y1="954" x2="502" y2="1076" stroke="#2962ff" stroke-width="3"/><rect x="482.0" y="970" width="40" height="90" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="560" y1="844" x2="560" y2="986" stroke="#2962ff" stroke-width="3"/><rect x="540.0" y="860" width="40" height="110" fill="#2962ff"/></g><g class="ch-c" opacity="0"><line x1="618" y1="844" x2="618" y2="916" stroke="#fff" stroke-width="3"/><rect x="598.0" y="860" width="40" height="40" fill="#fff"/></g><g class="ch-c" opacity="0"><line x1="676" y1="884" x2="676" y2="1046" stroke="#fff" stroke-width="3"/><rect x="656.0" y="900" width="40" height="130" fill="#fff"/></g><g class="ch-c" opacity="0"><line x1="734" y1="1014" x2="734" y2="1186" stroke="#fff" stroke-width="3"/><rect x="714.0" y="1030" width="40" height="140" fill="#fff"/></g><g class="ch-c" opacity="0"><line x1="792" y1="1154" x2="792" y2="1256" stroke="#fff" stroke-width="3"/><rect x="772.0" y="1170" width="40" height="70" fill="#fff"/></g><g id="ch-e" opacity="0"><circle cx="560" cy="850" r="16" fill="#e8c26a"/><text x="530" y="810" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.15em" fill="#e8c26a" opacity="1">LATE ENTRY</text></g><g id="ch-f" opacity="0"><path d="M -19.8 0 L -19.8 -18.0 A 19.8 19.8 0 0 1 19.8 -18.0 L 19.8 0 Z" fill="#fff"/><circle cx="0" cy="-54.0" r="13.5" fill="#fff"/></g><text id="ch-x" x="774" y="930" text-anchor="start" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.15em" fill="#fff" opacity="0">SOMEONE'S EXIT</text></g>
+<g id="sc2" opacity="0"><g id="hp-a" opacity="0"><text x="240" y="700" text-anchor="start" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.2em" fill="#cfd3da" opacity="1">ACCOUNT</text><rect x="240" y="720" width="600" height="16" rx="8" fill="#fff" opacity="0.15"/><rect id="hp-bar" x="240" y="720" width="600" height="16" rx="8" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="340" y1="1064" x2="340" y2="1136" stroke="#2962ff" stroke-width="3"/><rect x="320.0" y="1080" width="40" height="40" fill="#2962ff"/></g><g class="hp-c" opacity="0"><line x1="398" y1="1064" x2="398" y2="1116" stroke="#fff" stroke-width="3"/><rect x="378.0" y="1080" width="40" height="20" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="456" y1="1084" x2="456" y2="1176" stroke="#fff" stroke-width="3"/><rect x="436.0" y="1100" width="40" height="60" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="514" y1="1144" x2="514" y2="1226" stroke="#fff" stroke-width="3"/><rect x="494.0" y="1160" width="40" height="50" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="572" y1="1194" x2="572" y2="1276" stroke="#fff" stroke-width="3"/><rect x="552.0" y="1210" width="40" height="50" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="630" y1="1244" x2="630" y2="1336" stroke="#fff" stroke-width="3"/><rect x="610.0" y="1260" width="40" height="60" fill="#fff"/></g><g class="hp-c" opacity="0"><line x1="688" y1="1304" x2="688" y2="1406" stroke="#fff" stroke-width="3"/><rect x="668.0" y="1320" width="40" height="70" fill="#fff"/></g><g id="hp-e" opacity="0"><circle cx="340" cy="1080" r="14" fill="#e8c26a"/><text x="310" y="1060" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.15em" fill="#e8c26a" opacity="1">ENTRY</text></g><g id="hp-s" opacity="0"><line x1="240" y1="1180" x2="860" y2="1180" stroke="#fff" stroke-width="3" stroke-dasharray="12 10"/><text x="860" y="1160" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.2em" fill="#cfd3da" opacity="1">STOP</text></g></g>
+<g id="sc3" opacity="0"><line id="db-l" x1="210" y1="1160" x2="870" y2="1160" stroke="#e8c26a" stroke-width="4" opacity="0"/><g class="db-c" opacity="0"><line x1="260" y1="844" x2="260" y2="926" stroke="#fff" stroke-width="3"/><rect x="240.0" y="860" width="40" height="50" fill="#fff"/></g><g class="db-c" opacity="0"><line x1="318" y1="894" x2="318" y2="996" stroke="#fff" stroke-width="3"/><rect x="298.0" y="910" width="40" height="70" fill="#fff"/></g><g class="db-c" opacity="0"><line x1="376" y1="964" x2="376" y2="1056" stroke="#fff" stroke-width="3"/><rect x="356.0" y="980" width="40" height="60" fill="#fff"/></g><g class="db-c" opacity="0"><line x1="434" y1="1024" x2="434" y2="1116" stroke="#fff" stroke-width="3"/><rect x="414.0" y="1040" width="40" height="60" fill="#fff"/></g><g class="db-c" opacity="0"><line x1="492" y1="1084" x2="492" y2="1166" stroke="#fff" stroke-width="3"/><rect x="472.0" y="1100" width="40" height="50" fill="#fff"/></g><g class="db-u" opacity="0"><line x1="550" y1="1024" x2="550" y2="1166" stroke="#2962ff" stroke-width="3"/><rect x="530.0" y="1040" width="40" height="110" fill="#2962ff"/></g><g class="db-u" opacity="0"><line x1="608" y1="884" x2="608" y2="1056" stroke="#2962ff" stroke-width="3"/><rect x="588.0" y="900" width="40" height="140" fill="#2962ff"/></g><g class="db-u" opacity="0"><line x1="666" y1="724" x2="666" y2="916" stroke="#2962ff" stroke-width="3"/><rect x="646.0" y="740" width="40" height="160" fill="#2962ff"/></g><g class="db-u" opacity="0"><line x1="724" y1="584" x2="724" y2="756" stroke="#2962ff" stroke-width="3"/><rect x="704.0" y="600" width="40" height="140" fill="#2962ff"/></g><g id="db-f" opacity="0"><path d="M 778.0 1380 L 778.0 1360.0 A 22.0 22.0 0 0 1 822.0 1360.0 L 822.0 1380 Z" fill="#fff"/><circle cx="800" cy="1320.0" r="15.0" fill="#fff"/></g><text id="db-q" x="800" y="1230" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="80" letter-spacing="0" fill="#fff" opacity="0">?</text><text id="db-m" x="420" y="660" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="40" letter-spacing="0.3em" fill="#fff" opacity="0">MISSED</text></g>
+<g id="sc4" opacity="0"><g id="tb" opacity="0"><rect x="140" y="700" width="800" height="16" rx="8" fill="#fff"/><text x="540" y="680" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">THE MARKET</text></g><line class="ts" x1="218" y1="716" x2="218" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><line class="ts" x1="262" y1="716" x2="262" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><line class="ts" x1="518" y1="716" x2="518" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><line class="ts" x1="562" y1="716" x2="562" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><line class="ts" x1="818" y1="716" x2="818" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><line class="ts" x1="862" y1="716" x2="862" y2="1110" stroke="#fff" stroke-width="2" stroke-dasharray="394" stroke-dashoffset="394"/><g id="tr0" opacity="0"><path d="M 215.8 1200 L 215.8 1178.0 A 24.200000000000003 24.200000000000003 0 0 1 264.2 1178.0 L 264.2 1200 Z" fill="#000"/><circle cx="240" cy="1134.0" r="16.5" fill="#000"/><path d="M 216 1200 L 216 1178 A 24 24 0 0 1 264 1178 L 264 1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><circle cx="240" cy="1134" r="16" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="240" y="1260" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">CHASER</text></g><g id="tr1" opacity="0"><path d="M 515.8 1200 L 515.8 1178.0 A 24.200000000000003 24.200000000000003 0 0 1 564.2 1178.0 L 564.2 1200 Z" fill="#000"/><circle cx="540" cy="1134.0" r="16.5" fill="#000"/><path d="M 516 1200 L 516 1178 A 24 24 0 0 1 564 1178 L 564 1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><circle cx="540" cy="1134" r="16" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="540" y="1260" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">HOPER</text></g><g id="tr2" opacity="0"><path d="M 815.8 1200 L 815.8 1178.0 A 24.200000000000003 24.200000000000003 0 0 1 864.2 1178.0 L 864.2 1200 Z" fill="#000"/><circle cx="840" cy="1134.0" r="16.5" fill="#000"/><path d="M 816 1200 L 816 1178 A 24 24 0 0 1 864 1178 L 864 1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><circle cx="840" cy="1134" r="16" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="840" y="1260" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.32em" fill="#cfd3da" opacity="1">DOUBTER</text></g><g id="tx0"><line class="xl" x1="190" y1="1100" x2="290" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/><line class="xl" x1="290" y1="1100" x2="190" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/></g><g id="tx1"><line class="xl" x1="490" y1="1100" x2="590" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/><line class="xl" x1="590" y1="1100" x2="490" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/></g><g id="tx2"><line class="xl" x1="790" y1="1100" x2="890" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/><line class="xl" x1="890" y1="1100" x2="790" y2="1200" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" stroke-dasharray="143" stroke-dashoffset="143"/></g></g>
+<g id="sc5" opacity="0"><circle id="ft-gl" cx="540" cy="1150" r="380" fill="url(#gg)" opacity="0"/><rect id="ft-b" x="280" y="700" width="520" height="16" rx="8" fill="#fff" opacity="0"/><line class="ft-s" x1="500" y1="716" x2="500" y2="1070" stroke="#fff" stroke-width="2" opacity="0"/><line class="ft-s" x1="540" y1="716" x2="540" y2="1070" stroke="#fff" stroke-width="2" opacity="0"/><line class="ft-s" x1="580" y1="716" x2="580" y2="1070" stroke="#fff" stroke-width="2" opacity="0"/><g id="ft-f" opacity="0"><path d="M 500.4 1220 L 500.4 1184.0 A 39.6 39.6 0 0 1 579.6 1184.0 L 579.6 1220 Z" fill="#e8c26a"/><circle cx="540" cy="1112.0" r="27.0" fill="#e8c26a"/></g></g>
+<g id="sc6" opacity="0"><line id="pl-l" x1="210" y1="1120" x2="870" y2="1120" stroke="#e8c26a" stroke-width="5" stroke-dasharray="660" stroke-dashoffset="660"/><text id="pl-ll" x="870" y="1098" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.2em" fill="#e8c26a" opacity="0">LEVEL</text><g id="pl-s" opacity="0"><line x1="210" y1="1210" x2="870" y2="1210" stroke="#fff" stroke-width="3" stroke-dasharray="12 10"/><text x="870" y="1260" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.12em" fill="#cfd3da" opacity="1">WRONG HERE  -1R</text></g><g id="pl-t" opacity="0"><line x1="210" y1="650" x2="870" y2="650" stroke="#2962ff" stroke-width="3" stroke-dasharray="12 10"/><text x="870" y="630" text-anchor="end" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.12em" fill="#2962ff" opacity="1">TARGET  +3R</text></g><g class="pl-c" opacity="0"><line x1="210" y1="684" x2="210" y2="756" stroke="#fff" stroke-width="3"/><rect x="190.0" y="700" width="40" height="40" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="262" y1="724" x2="262" y2="806" stroke="#fff" stroke-width="3"/><rect x="242.0" y="740" width="40" height="50" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="314" y1="774" x2="314" y2="876" stroke="#fff" stroke-width="3"/><rect x="294.0" y="790" width="40" height="70" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="366" y1="844" x2="366" y2="936" stroke="#fff" stroke-width="3"/><rect x="346.0" y="860" width="40" height="60" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="418" y1="904" x2="418" y2="996" stroke="#fff" stroke-width="3"/><rect x="398.0" y="920" width="40" height="60" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="470" y1="964" x2="470" y2="1076" stroke="#fff" stroke-width="3"/><rect x="450.0" y="980" width="40" height="80" fill="#fff"/></g><g class="pl-c" opacity="0"><line x1="522" y1="1044" x2="522" y2="1126" stroke="#fff" stroke-width="3"/><rect x="502.0" y="1060" width="40" height="50" fill="#fff"/></g><g class="pl-u" opacity="0"><line x1="574" y1="964" x2="574" y2="1126" stroke="#2962ff" stroke-width="3"/><rect x="554.0" y="980" width="40" height="130" fill="#2962ff"/></g><g class="pl-u" opacity="0"><line x1="626" y1="804" x2="626" y2="996" stroke="#2962ff" stroke-width="3"/><rect x="606.0" y="820" width="40" height="160" fill="#2962ff"/></g><g class="pl-u" opacity="0"><line x1="678" y1="634" x2="678" y2="836" stroke="#2962ff" stroke-width="3"/><rect x="658.0" y="650" width="40" height="170" fill="#2962ff"/></g><g id="pl-e" opacity="0"><path d="M 592 1180 L 592 1080 M 568 1104 L 592 1080 L 616 1104" stroke="#e8c26a" stroke-width="6" fill="none" stroke-linecap="round"/></g><g id="pl-x" opacity="0"><rect x="350" y="670" width="380" height="96" rx="12" fill="none" stroke="#e8c26a" stroke-width="5"/><text x="540" y="736" text-anchor="middle" font-family="Archivo Black" font-size="56" letter-spacing="0.08em" fill="#e8c26a">EXECUTE</text></g></g>
+<g id="sc7" opacity="0"><text id="or-a" x="540" y="940" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="54" letter-spacing="0.12em" fill="#fff" opacity="0">ORDERED BY THE MARKET</text><line id="or-st" x1="160" y1="922" x2="920" y2="922" stroke="#fff" stroke-width="5" stroke-dasharray="760" stroke-dashoffset="760"/><text id="or-b" x="540" y="1110" text-anchor="middle" font-family="Archivo Black" font-size="120" fill="#e8c26a" opacity="0">ORDERING IT</text></g>
+      </svg></div>
+      <div id="cap0" class="cap"><span style="color:#fff">Every</span> <span style="color:#fff">trade</span> <span style="color:#fff">has</span> <span style="color:#fff">two</span> <span style="color:#fff">sides,</span></div>
+      <div id="cap1" class="cap"><span style="color:#fff">and</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">market</span> <span style="color:#fff">is</span> <span style="color:#fff">always</span> <span style="color:#fff">looking</span> <span style="color:#fff">for</span></div>
+      <div id="cap2" class="cap"><span style="color:#fff">the</span> <span style="color:#fff">side</span> <span style="color:#fff">that's</span> <span style="color:#fff">being</span> <span style="color:#fff">ordered</span> <span style="color:#fff">around.</span></div>
+      <div id="cap3" class="cap"><span style="color:#fff">First,</span></div>
+      <div id="cap4" class="cap"><span style="color:#fff">the</span> <span style="color:#e8c26a">chaser.</span></div>
+      <div id="cap5" class="cap"><span style="color:#fff">Price</span> <span style="color:#fff">runs,</span></div>
+      <div id="cap6" class="cap"><span style="color:#fff">they</span> <span style="color:#fff">jump</span> <span style="color:#fff">in</span> <span style="color:#fff">late,</span></div>
+      <div id="cap7" class="cap"><span style="color:#fff">right</span> <span style="color:#fff">at</span> <span style="color:#fff">the</span> <span style="color:#fff">top,</span></div>
+      <div id="cap8" class="cap"><span style="color:#fff">and</span> <span style="color:#fff">become</span> <span style="color:#fff">someone</span> <span style="color:#fff">else's</span> <span style="color:#e8c26a">exit.</span></div>
+      <div id="cap9" class="cap"><span style="color:#fff">Then</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">hoper.</span></div>
+      <div id="cap10" class="cap"><span style="color:#fff">The</span> <span style="color:#fff">trade</span> <span style="color:#fff">goes</span> <span style="color:#e8c26a">wrong,</span></div>
+      <div id="cap11" class="cap"><span style="color:#fff">so</span> <span style="color:#fff">they</span> <span style="color:#fff">move</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">stop</span> <span style="color:#fff">and</span> <span style="color:#fff">wait</span></div>
+      <div id="cap12" class="cap"><span style="color:#fff">for</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">market</span> <span style="color:#fff">to</span> <span style="color:#fff">come</span> <span style="color:#fff">back.</span></div>
+      <div id="cap13" class="cap"><span style="color:#fff">It</span> <span style="color:#fff">rarely</span> <span style="color:#fff">does.</span></div>
+      <div id="cap14" class="cap"><span style="color:#fff">Then</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">doubter.</span></div>
+      <div id="cap15" class="cap"><span style="color:#fff">A</span> <span style="color:#fff">perfect</span> <span style="color:#fff">setup</span> <span style="color:#fff">arrives</span> <span style="color:#fff">at</span> <span style="color:#fff">their</span> <span style="color:#e8c26a">level.</span></div>
+      <div id="cap16" class="cap"><span style="color:#fff">They</span> <span style="color:#fff">hesitate</span> <span style="color:#fff">and</span> <span style="color:#fff">watch</span> <span style="color:#fff">it</span> <span style="color:#fff">leave</span> <span style="color:#fff">without</span></div>
+      <div id="cap17" class="cap"><span style="color:#fff">them.</span></div>
+      <div id="cap18" class="cap"><span style="color:#fff">Three</span> <span style="color:#fff">traders,</span></div>
+      <div id="cap19" class="cap"><span style="color:#fff">three</span> <span style="color:#e8c26a">different</span> <span style="color:#e8c26a">mistakes,</span></div>
+      <div id="cap20" class="cap"><span style="color:#fff">one</span> <span style="color:#fff">reason.</span></div>
+      <div id="cap21" class="cap"><span style="color:#fff">They</span> <span style="color:#fff">let</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">market</span> <span style="color:#fff">decide</span> <span style="color:#fff">for</span> <span style="color:#fff">them.</span></div>
+      <div id="cap22" class="cap"><span style="color:#fff">The</span> <span style="color:#e8c26a">fourth</span> <span style="color:#fff">trader</span> <span style="color:#fff">is</span> <span style="color:#e8c26a">different.</span></div>
+      <div id="cap23" class="cap"><span style="color:#fff">They</span> <span style="color:#fff">mark</span> <span style="color:#fff">the</span> <span style="color:#e8c26a">level</span> <span style="color:#fff">before</span> <span style="color:#fff">price</span> <span style="color:#fff">gets</span></div>
+      <div id="cap24" class="cap"><span style="color:#fff">there.</span></div>
+      <div id="cap25" class="cap"><span style="color:#fff">They</span> <span style="color:#fff">know</span> <span style="color:#fff">where</span> <span style="color:#fff">they're</span> <span style="color:#e8c26a">wrong</span> <span style="color:#fff">before</span> <span style="color:#fff">they</span></div>
+      <div id="cap26" class="cap"><span style="color:#fff">enter,</span></div>
+      <div id="cap27" class="cap"><span style="color:#fff">and</span> <span style="color:#fff">when</span> <span style="color:#fff">price</span> <span style="color:#fff">arrives,</span></div>
+      <div id="cap28" class="cap"><span style="color:#fff">they</span> <span style="color:#fff">don't</span> <span style="color:#fff">react.</span></div>
+      <div id="cap29" class="cap"><span style="color:#fff">They</span> <span style="color:#e8c26a">execute.</span></div>
+      <div id="cap30" class="cap"><span style="color:#fff">That's</span> <span style="color:#fff">the</span> <span style="color:#fff">difference</span> <span style="color:#fff">between</span> <span style="color:#fff">being</span> <span style="color:#fff">ordered</span> <span style="color:#fff">by</span></div>
+      <div id="cap31" class="cap"><span style="color:#fff">the</span> <span style="color:#e8c26a">market</span> <span style="color:#fff">and</span> <span style="color:#e8c26a">ordering</span> <span style="color:#fff">it.</span></div>
+      <div id="t1" class="tc"><div class="n">01</div><div class="g" data-layout-allow-overlap><span class="r">THE CHASER</span><span class="c">THE CHASER</span><b>THE CHASER</b></div></div>
+      <div id="t2" class="tc"><div class="n">02</div><div class="g" data-layout-allow-overlap><span class="r">THE HOPER</span><span class="c">THE HOPER</span><b>THE HOPER</b></div></div>
+      <div id="t3" class="tc"><div class="n">03</div><div class="g" data-layout-allow-overlap><span class="r">THE DOUBTER</span><span class="c">THE DOUBTER</span><b>THE DOUBTER</b></div></div>
+      <div id="t4" class="tc"><div class="n">04</div><div class="g" data-layout-allow-overlap><span class="r">THE ONE WHO ORDERS</span><span class="c">THE ONE WHO ORDERS</span><b>THE ONE WHO ORDERS</b></div></div>
+      <div id="grain"></div>
+      <div id="leak-host" data-composition-id="organic-light-leak-overlay" data-composition-src="compositions/organic-light-leak-overlay.html" data-start="37.06" data-duration="3.2" data-width="1080" data-height="1920"></div>
+      <div id="end">
+        <img id="end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="end-tag">DON'T LET THE MARKET <span>ORDER YOU</span></div>
+        <div id="end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="end-foot"><img id="end-foot-img" src="assets/footer.jpg" alt="" /></div>
+      </div>
+      <div id="flash"></div>
+      <audio id="otm-audio" class="clip" src="assets/audio/mix.wav" data-start="0" data-duration="58.33" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo(".dust", { y: 0 }, { y: -140, duration: 52.64, ease: "none" }, 0);
+        tl.fromTo("#sc0", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 0.00);
+        tl.to("#sc0", {scale: 1.035, duration: 6.50, ease: "none"}, 0.45);
+        tl.to("#sc0", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 6.50);
+        tl.fromTo("#sd-b", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)"}, 0.66);
+        tl.fromTo("#sd-s", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)"}, 1.52);
+        tl.fromTo("#sd-d", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 1.80);
+        tl.to(["#sd-b", "#sd-s", "#sd-d"], {opacity: 0.18, duration: 0.4}, 4.14);
+        tl.fromTo("#sd-bar", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 2.90);
+        tl.fromTo("#sd-p", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 5.16);
+        tl.to(".sd-str", {strokeDashoffset: 0, duration: 0.4, stagger: 0.08}, 5.56);
+        tl.to("#sd-p", {x: 26, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut"}, 5.88);
+        tl.fromTo("#sc1", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 6.80);
+        tl.to("#sc1", {scale: 1.035, duration: 6.98, ease: "none"}, 7.25);
+        tl.to("#sc1", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 13.78);
+        tl.to(".ch-c", {opacity: 1, duration: 0.15, stagger: {each: 0.16}, filter: "none"}, 8.80);
+        tl.set("#ch-f", {x: 270, y: 1320}, 8.80);
+        tl.to("#ch-f", {opacity: 1, duration: 0.2}, 8.80);
+        tl.to("#ch-f", {x: 560, y: 840, duration: 2.52, ease: "power1.in"}, 8.80);
+        tl.fromTo("#ch-e", {opacity: 0, scale: 0.4, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 11.32);
+        tl.to("#ch-f", {y: 1220, x: 734, duration: 0.9, ease: "power3.in"}, 12.00);
+        tl.fromTo("#ch-x", {opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 13.32);
+        tl.fromTo("#sc2", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 14.08);
+        tl.to("#sc2", {scale: 1.035, duration: 7.70, ease: "none"}, 14.53);
+        tl.to("#sc2", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 21.78);
+        tl.fromTo("#hp-e", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 15.92);
+        tl.fromTo("#hp-s", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 16.02);
+        tl.fromTo("#hp-a", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 16.02);
+        tl.to(".hp-c", {opacity: 1, duration: 0.15, stagger: 0.12}, 16.28);
+        tl.to("#hp-s", {y: 100, duration: 0.5, ease: "power2.inOut"}, 17.56);
+        tl.to("#hp-s", {y: 190, duration: 0.5, ease: "power2.inOut"}, 18.56);
+        tl.to("#hp-bar", {scaleX: 0.25, transformOrigin: "0% 50%", duration: 1.2, ease: "power2.in"}, 20.82);
+        tl.fromTo("#sc3", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 22.08);
+        tl.to("#sc3", {scale: 1.035, duration: 7.01, ease: "none"}, 22.53);
+        tl.to("#sc3", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 29.09);
+        tl.to("#db-l", {opacity: 1, duration: 0.4}, 24.68);
+        tl.to(".db-c", {opacity: 1, duration: 0.15, stagger: 0.14}, 25.02);
+        tl.fromTo("#db-f", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 26.50);
+        tl.fromTo("#db-q", {opacity: 0, scale: 0.4, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 26.70);
+        tl.to("#db-q", {rotation: 14, transformOrigin: "50% 80%", duration: 0.12, yoyo: true, repeat: 5}, 27.00);
+        tl.to(".db-u", {opacity: 1, duration: 0.12, stagger: 0.1}, 28.16);
+        tl.fromTo("#db-m", {opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 28.46);
+        tl.fromTo("#sc4", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 29.39);
+        tl.to("#sc4", {scale: 1.035, duration: 6.53, ease: "none"}, 29.84);
+        tl.to("#sc4", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 35.92);
+        tl.fromTo("#tr0", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 29.64);
+        tl.fromTo("#tr1", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 29.79);
+        tl.fromTo("#tr2", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 29.94);
+        tl.to("#tx0 .xl", {strokeDashoffset: 0, duration: 0.22, stagger: 0.12, ease: "power2.in"}, 31.34);
+        tl.to("#tx1 .xl", {strokeDashoffset: 0, duration: 0.22, stagger: 0.12, ease: "power2.in"}, 31.46);
+        tl.to("#tx2 .xl", {strokeDashoffset: 0, duration: 0.22, stagger: 0.12, ease: "power2.in"}, 31.58);
+        tl.to("[id^=tx] .xl", {opacity: 0.3, duration: 0.4}, 32.68);
+        tl.fromTo("#tb", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 32.68);
+        tl.to(".ts", {strokeDashoffset: 0, duration: 0.5, stagger: 0.05}, 34.24);
+        tl.to(["#tr0", "#tr1", "#tr2"], {y: -12, duration: 0.3, yoyo: true, repeat: 3, stagger: 0.1, ease: "sine.inOut"}, 34.74);
+        tl.fromTo("#sc5", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 36.22);
+        tl.to("#sc5", {scale: 1.035, duration: 1.70, ease: "none"}, 36.67);
+        tl.to("#sc5", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 37.92);
+        tl.to(["#ft-b", ".ft-s"], {opacity: 1, duration: 0.3}, 36.52);
+        tl.fromTo("#ft-f", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)"}, 36.52);
+        tl.to(".ft-s", {y: 260, rotation: 25, opacity: 0, duration: 0.7, stagger: 0.06, ease: "power2.in", transformOrigin: "50% 100%"}, 37.46);
+        tl.to("#ft-b", {opacity: 0, duration: 0.5}, 37.76);
+        tl.to("#ft-gl", {opacity: 1, duration: 0.8}, 37.46);
+        tl.fromTo("#sc6", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 38.22);
+        tl.to("#sc6", {scale: 1.035, duration: 9.30, ease: "none"}, 38.67);
+        tl.to("#sc6", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 47.52);
+        tl.fromTo("#pl-l", {strokeDashoffset: 660}, {strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut"}, 38.52);
+        tl.fromTo("#pl-ll", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 38.88);
+        tl.to(".pl-c", {opacity: 0.35, duration: 0.15, stagger: 0.1}, 39.28);
+        tl.fromTo("#pl-s", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 42.02);
+        tl.fromTo("#pl-e", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)"}, 43.12);
+        tl.fromTo("#pl-t", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.4, ease: "power2.out"}, 43.42);
+        tl.to(".pl-c", {opacity: 1, duration: 0.2, stagger: 0.06}, 44.44);
+        tl.to(".pl-u", {opacity: 1, duration: 0.15, stagger: 0.18}, 46.92);
+        tl.fromTo("#pl-x", {opacity: 0, scale: 1.8, rotation: -8, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, rotation: -4, duration: 0.25, ease: "power4.in"}, 46.92);
+        tl.fromTo("#sc7", {opacity: 0, scale: 0.94, filter: "blur(10px)", transformOrigin: "540px 900px"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out"}, 47.82);
+        tl.to("#sc7", {scale: 1.035, duration: 4.12, ease: "none"}, 48.27);
+        tl.to("#sc7", {opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in"}, 51.94);
+        tl.fromTo("#or-a", {opacity: 0, filter: "blur(10px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.5}, 49.24);
+        tl.fromTo("#or-st", {strokeDashoffset: 760}, {strokeDashoffset: 0, duration: 0.35, ease: "power2.inOut"}, 50.80);
+        tl.to("#or-a", {opacity: 0.35, duration: 0.3}, 51.00);
+        tl.fromTo("#or-b", {opacity: 0, scale: 1.5, filter: "blur(16px)", transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out"}, 51.30);
+        tl.fromTo("#t1", {opacity: 0, y: -20}, {opacity: 1, y: 0, duration: 0.3, ease: "power3.out"}, 7.00);
+        tl.to("#t1", {opacity: 0, filter: "blur(10px)", duration: 0.25}, 13.93);
+        tl.set("#t1 .r", {x: -9, y: 0}, 7.00);
+        tl.set("#t1 .c", {x: 9}, 7.00);
+        tl.set("#t1 .r", {x: 14, y: 0}, 7.05);
+        tl.set("#t1 .c", {x: -14}, 7.05);
+        tl.set("#t1 .r", {x: 14, y: 0}, 7.10);
+        tl.set("#t1 .c", {x: -14}, 7.10);
+        tl.set("#t1 .r", {x: 5, y: -3}, 7.15);
+        tl.set("#t1 .c", {x: -5}, 7.15);
+        tl.set("#t1 .r", {x: 5, y: 3}, 7.20);
+        tl.set("#t1 .c", {x: -5}, 7.20);
+        tl.set("#t1 .r", {x: -9, y: 3}, 7.25);
+        tl.set("#t1 .c", {x: 9}, 7.25);
+        tl.set("#t1 .r", {x: 0, y: 0}, 7.30);
+        tl.set("#t1 .c", {x: 0}, 7.30);
+        tl.set("#t1 .r", {x: 9, y: -3}, 13.32);
+        tl.set("#t1 .c", {x: -9}, 13.32);
+        tl.set("#t1 .r", {x: -14, y: -3}, 13.37);
+        tl.set("#t1 .c", {x: 14}, 13.37);
+        tl.set("#t1 .r", {x: -5, y: 3}, 13.42);
+        tl.set("#t1 .c", {x: 5}, 13.42);
+        tl.set("#t1 .r", {x: 5, y: -3}, 13.47);
+        tl.set("#t1 .c", {x: -5}, 13.47);
+        tl.set("#t1 .r", {x: -9, y: -3}, 13.52);
+        tl.set("#t1 .c", {x: 9}, 13.52);
+        tl.set("#t1 .r", {x: -9, y: 3}, 13.57);
+        tl.set("#t1 .c", {x: 9}, 13.57);
+        tl.set("#t1 .r", {x: 0, y: 0}, 13.62);
+        tl.set("#t1 .c", {x: 0}, 13.62);
+        tl.fromTo("#t2", {opacity: 0, y: -20}, {opacity: 1, y: 0, duration: 0.3, ease: "power3.out"}, 14.28);
+        tl.to("#t2", {opacity: 0, filter: "blur(10px)", duration: 0.25}, 21.93);
+        tl.set("#t2 .r", {x: -14, y: 0}, 14.28);
+        tl.set("#t2 .c", {x: 14}, 14.28);
+        tl.set("#t2 .r", {x: 14, y: 0}, 14.33);
+        tl.set("#t2 .c", {x: -14}, 14.33);
+        tl.set("#t2 .r", {x: 9, y: 0}, 14.38);
+        tl.set("#t2 .c", {x: -9}, 14.38);
+        tl.set("#t2 .r", {x: -14, y: 0}, 14.43);
+        tl.set("#t2 .c", {x: 14}, 14.43);
+        tl.set("#t2 .r", {x: 9, y: 0}, 14.48);
+        tl.set("#t2 .c", {x: -9}, 14.48);
+        tl.set("#t2 .r", {x: 14, y: -3}, 14.53);
+        tl.set("#t2 .c", {x: -14}, 14.53);
+        tl.set("#t2 .r", {x: 0, y: 0}, 14.58);
+        tl.set("#t2 .c", {x: 0}, 14.58);
+        tl.set("#t2 .r", {x: 14, y: 0}, 20.82);
+        tl.set("#t2 .c", {x: -14}, 20.82);
+        tl.set("#t2 .r", {x: -14, y: -3}, 20.87);
+        tl.set("#t2 .c", {x: 14}, 20.87);
+        tl.set("#t2 .r", {x: 14, y: -3}, 20.92);
+        tl.set("#t2 .c", {x: -14}, 20.92);
+        tl.set("#t2 .r", {x: -14, y: -3}, 20.97);
+        tl.set("#t2 .c", {x: 14}, 20.97);
+        tl.set("#t2 .r", {x: 5, y: -3}, 21.02);
+        tl.set("#t2 .c", {x: -5}, 21.02);
+        tl.set("#t2 .r", {x: 9, y: 3}, 21.07);
+        tl.set("#t2 .c", {x: -9}, 21.07);
+        tl.set("#t2 .r", {x: 0, y: 0}, 21.12);
+        tl.set("#t2 .c", {x: 0}, 21.12);
+        tl.fromTo("#t3", {opacity: 0, y: -20}, {opacity: 1, y: 0, duration: 0.3, ease: "power3.out"}, 22.28);
+        tl.to("#t3", {opacity: 0, filter: "blur(10px)", duration: 0.25}, 29.29);
+        tl.set("#t3 .r", {x: -5, y: 0}, 22.28);
+        tl.set("#t3 .c", {x: 5}, 22.28);
+        tl.set("#t3 .r", {x: 5, y: -3}, 22.33);
+        tl.set("#t3 .c", {x: -5}, 22.33);
+        tl.set("#t3 .r", {x: -9, y: 3}, 22.38);
+        tl.set("#t3 .c", {x: 9}, 22.38);
+        tl.set("#t3 .r", {x: -14, y: 0}, 22.43);
+        tl.set("#t3 .c", {x: 14}, 22.43);
+        tl.set("#t3 .r", {x: -9, y: -3}, 22.48);
+        tl.set("#t3 .c", {x: 9}, 22.48);
+        tl.set("#t3 .r", {x: -9, y: -3}, 22.53);
+        tl.set("#t3 .c", {x: 9}, 22.53);
+        tl.set("#t3 .r", {x: 0, y: 0}, 22.58);
+        tl.set("#t3 .c", {x: 0}, 22.58);
+        tl.set("#t3 .r", {x: 14, y: 3}, 28.46);
+        tl.set("#t3 .c", {x: -14}, 28.46);
+        tl.set("#t3 .r", {x: 9, y: 3}, 28.51);
+        tl.set("#t3 .c", {x: -9}, 28.51);
+        tl.set("#t3 .r", {x: -14, y: -3}, 28.56);
+        tl.set("#t3 .c", {x: 14}, 28.56);
+        tl.set("#t3 .r", {x: 9, y: 0}, 28.61);
+        tl.set("#t3 .c", {x: -9}, 28.61);
+        tl.set("#t3 .r", {x: 9, y: 0}, 28.66);
+        tl.set("#t3 .c", {x: -9}, 28.66);
+        tl.set("#t3 .r", {x: -9, y: 0}, 28.71);
+        tl.set("#t3 .c", {x: 9}, 28.71);
+        tl.set("#t3 .r", {x: 0, y: 0}, 28.76);
+        tl.set("#t3 .c", {x: 0}, 28.76);
+        tl.fromTo("#t4", {opacity: 0, y: -20}, {opacity: 1, y: 0, duration: 0.3, ease: "power3.out"}, 36.52);
+        tl.to("#t4", {opacity: 0, filter: "blur(10px)", duration: 0.25}, 47.67);
+        tl.set("#t4 .g b", {color: "#e8c26a"}, 36.52);
+        tl.set("#grain", {x: 58, y: -43}, 0.00);
+        tl.set("#grain", {x: 53, y: 57}, 0.10);
+        tl.set("#grain", {x: -8, y: -6}, 0.20);
+        tl.set("#grain", {x: -14, y: 35}, 0.30);
+        tl.set("#grain", {x: 4, y: 18}, 0.40);
+        tl.set("#grain", {x: -20, y: 44}, 0.50);
+        tl.set("#grain", {x: -11, y: -12}, 0.60);
+        tl.set("#grain", {x: -57, y: -57}, 0.70);
+        tl.set("#grain", {x: -40, y: 46}, 0.80);
+        tl.set("#grain", {x: -60, y: 45}, 0.90);
+        tl.set("#grain", {x: -52, y: 60}, 1.00);
+        tl.set("#grain", {x: 16, y: 53}, 1.10);
+        tl.set("#grain", {x: -32, y: 66}, 1.20);
+        tl.set("#grain", {x: 17, y: 1}, 1.30);
+        tl.set("#grain", {x: 11, y: 79}, 1.40);
+        tl.set("#grain", {x: -46, y: -34}, 1.50);
+        tl.set("#grain", {x: 25, y: -37}, 1.60);
+        tl.set("#grain", {x: 20, y: 9}, 1.70);
+        tl.set("#grain", {x: 46, y: 5}, 1.80);
+        tl.set("#grain", {x: -16, y: 72}, 1.90);
+        tl.set("#grain", {x: 59, y: -2}, 2.00);
+        tl.set("#grain", {x: -29, y: -54}, 2.10);
+        tl.set("#grain", {x: -39, y: -64}, 2.20);
+        tl.set("#grain", {x: 58, y: -36}, 2.30);
+        tl.set("#grain", {x: 39, y: 29}, 2.40);
+        tl.set("#grain", {x: -13, y: -40}, 2.50);
+        tl.set("#grain", {x: 27, y: -71}, 2.60);
+        tl.set("#grain", {x: 26, y: 53}, 2.70);
+        tl.set("#grain", {x: 55, y: -19}, 2.80);
+        tl.set("#grain", {x: -8, y: -39}, 2.90);
+        tl.set("#grain", {x: 34, y: 71}, 3.00);
+        tl.set("#grain", {x: -59, y: 8}, 3.10);
+        tl.set("#grain", {x: 2, y: 49}, 3.20);
+        tl.set("#grain", {x: -12, y: -17}, 3.30);
+        tl.set("#grain", {x: 59, y: -18}, 3.40);
+        tl.set("#grain", {x: -40, y: 63}, 3.50);
+        tl.set("#grain", {x: -52, y: 32}, 3.60);
+        tl.set("#grain", {x: 43, y: 24}, 3.70);
+        tl.set("#grain", {x: 39, y: 43}, 3.80);
+        tl.set("#grain", {x: -53, y: -7}, 3.90);
+        tl.set("#grain", {x: -54, y: -14}, 4.00);
+        tl.set("#grain", {x: 24, y: -6}, 4.10);
+        tl.set("#grain", {x: -56, y: 27}, 4.20);
+        tl.set("#grain", {x: -29, y: -37}, 4.30);
+        tl.set("#grain", {x: -10, y: -63}, 4.40);
+        tl.set("#grain", {x: 51, y: 6}, 4.50);
+        tl.set("#grain", {x: 22, y: -43}, 4.60);
+        tl.set("#grain", {x: -41, y: 42}, 4.70);
+        tl.set("#grain", {x: -54, y: -16}, 4.80);
+        tl.set("#grain", {x: -43, y: 54}, 4.90);
+        tl.set("#grain", {x: 56, y: 42}, 5.00);
+        tl.set("#grain", {x: -57, y: -26}, 5.10);
+        tl.set("#grain", {x: 55, y: 13}, 5.20);
+        tl.set("#grain", {x: 41, y: -41}, 5.30);
+        tl.set("#grain", {x: 52, y: 14}, 5.40);
+        tl.set("#grain", {x: 16, y: 29}, 5.50);
+        tl.set("#grain", {x: 2, y: 68}, 5.60);
+        tl.set("#grain", {x: 55, y: 42}, 5.70);
+        tl.set("#grain", {x: -21, y: -45}, 5.80);
+        tl.set("#grain", {x: 8, y: 70}, 5.90);
+        tl.set("#grain", {x: -25, y: -45}, 6.00);
+        tl.set("#grain", {x: 38, y: -78}, 6.10);
+        tl.set("#grain", {x: -12, y: -48}, 6.20);
+        tl.set("#grain", {x: 31, y: -74}, 6.30);
+        tl.set("#grain", {x: -27, y: 71}, 6.40);
+        tl.set("#grain", {x: -19, y: -17}, 6.50);
+        tl.set("#grain", {x: 49, y: 69}, 6.60);
+        tl.set("#grain", {x: -7, y: -15}, 6.70);
+        tl.set("#grain", {x: 27, y: 23}, 6.80);
+        tl.set("#grain", {x: 36, y: -45}, 6.90);
+        tl.set("#grain", {x: -43, y: -44}, 7.00);
+        tl.set("#grain", {x: -48, y: 21}, 7.10);
+        tl.set("#grain", {x: -48, y: -33}, 7.20);
+        tl.set("#grain", {x: -57, y: 34}, 7.30);
+        tl.set("#grain", {x: 40, y: -44}, 7.40);
+        tl.set("#grain", {x: -51, y: -50}, 7.50);
+        tl.set("#grain", {x: 23, y: -8}, 7.60);
+        tl.set("#grain", {x: -44, y: -3}, 7.70);
+        tl.set("#grain", {x: 8, y: 3}, 7.80);
+        tl.set("#grain", {x: -10, y: 46}, 7.90);
+        tl.set("#grain", {x: 53, y: -24}, 8.00);
+        tl.set("#grain", {x: 19, y: -38}, 8.10);
+        tl.set("#grain", {x: -37, y: -33}, 8.20);
+        tl.set("#grain", {x: 49, y: 16}, 8.30);
+        tl.set("#grain", {x: -35, y: 60}, 8.40);
+        tl.set("#grain", {x: 36, y: -69}, 8.50);
+        tl.set("#grain", {x: 17, y: 49}, 8.60);
+        tl.set("#grain", {x: 51, y: -66}, 8.70);
+        tl.set("#grain", {x: 41, y: -78}, 8.80);
+        tl.set("#grain", {x: -11, y: 38}, 8.90);
+        tl.set("#grain", {x: 50, y: -64}, 9.00);
+        tl.set("#grain", {x: -10, y: 65}, 9.10);
+        tl.set("#grain", {x: -38, y: -21}, 9.20);
+        tl.set("#grain", {x: -28, y: 74}, 9.30);
+        tl.set("#grain", {x: -20, y: -70}, 9.40);
+        tl.set("#grain", {x: -29, y: 19}, 9.50);
+        tl.set("#grain", {x: -41, y: -1}, 9.60);
+        tl.set("#grain", {x: 32, y: -5}, 9.70);
+        tl.set("#grain", {x: 44, y: 48}, 9.80);
+        tl.set("#grain", {x: 42, y: 60}, 9.90);
+        tl.set("#grain", {x: 2, y: 66}, 10.00);
+        tl.set("#grain", {x: -48, y: 59}, 10.10);
+        tl.set("#grain", {x: 16, y: -65}, 10.20);
+        tl.set("#grain", {x: 5, y: 72}, 10.30);
+        tl.set("#grain", {x: 34, y: 2}, 10.40);
+        tl.set("#grain", {x: 6, y: -1}, 10.50);
+        tl.set("#grain", {x: -23, y: 79}, 10.60);
+        tl.set("#grain", {x: 7, y: 63}, 10.70);
+        tl.set("#grain", {x: -36, y: -64}, 10.80);
+        tl.set("#grain", {x: 18, y: 3}, 10.90);
+        tl.set("#grain", {x: -35, y: 10}, 11.00);
+        tl.set("#grain", {x: -52, y: 1}, 11.10);
+        tl.set("#grain", {x: 24, y: 27}, 11.20);
+        tl.set("#grain", {x: -47, y: -61}, 11.30);
+        tl.set("#grain", {x: 23, y: -62}, 11.40);
+        tl.set("#grain", {x: 20, y: 34}, 11.50);
+        tl.set("#grain", {x: 4, y: 79}, 11.60);
+        tl.set("#grain", {x: -58, y: 33}, 11.70);
+        tl.set("#grain", {x: 0, y: 52}, 11.80);
+        tl.set("#grain", {x: 5, y: 19}, 11.90);
+        tl.set("#grain", {x: 52, y: 22}, 12.00);
+        tl.set("#grain", {x: -51, y: -23}, 12.10);
+        tl.set("#grain", {x: -57, y: -68}, 12.20);
+        tl.set("#grain", {x: 24, y: 31}, 12.30);
+        tl.set("#grain", {x: -55, y: -17}, 12.40);
+        tl.set("#grain", {x: -25, y: 70}, 12.50);
+        tl.set("#grain", {x: 44, y: 23}, 12.60);
+        tl.set("#grain", {x: 32, y: 29}, 12.70);
+        tl.set("#grain", {x: -2, y: -20}, 12.80);
+        tl.set("#grain", {x: -9, y: 18}, 12.90);
+        tl.set("#grain", {x: -19, y: 44}, 13.00);
+        tl.set("#grain", {x: -31, y: -59}, 13.10);
+        tl.set("#grain", {x: -56, y: 42}, 13.20);
+        tl.set("#grain", {x: -38, y: 45}, 13.30);
+        tl.set("#grain", {x: -13, y: 74}, 13.40);
+        tl.set("#grain", {x: 53, y: -25}, 13.50);
+        tl.set("#grain", {x: 39, y: 35}, 13.60);
+        tl.set("#grain", {x: 20, y: 78}, 13.70);
+        tl.set("#grain", {x: 25, y: 75}, 13.80);
+        tl.set("#grain", {x: 29, y: -13}, 13.90);
+        tl.set("#grain", {x: -29, y: 43}, 14.00);
+        tl.set("#grain", {x: 57, y: 47}, 14.10);
+        tl.set("#grain", {x: -11, y: -2}, 14.20);
+        tl.set("#grain", {x: 18, y: 17}, 14.30);
+        tl.set("#grain", {x: 45, y: 54}, 14.40);
+        tl.set("#grain", {x: 31, y: -79}, 14.50);
+        tl.set("#grain", {x: -40, y: 0}, 14.60);
+        tl.set("#grain", {x: -35, y: -1}, 14.70);
+        tl.set("#grain", {x: 52, y: 20}, 14.80);
+        tl.set("#grain", {x: 31, y: -43}, 14.90);
+        tl.set("#grain", {x: -49, y: 61}, 15.00);
+        tl.set("#grain", {x: -38, y: -60}, 15.10);
+        tl.set("#grain", {x: 6, y: -3}, 15.20);
+        tl.set("#grain", {x: 19, y: 16}, 15.30);
+        tl.set("#grain", {x: 35, y: 38}, 15.40);
+        tl.set("#grain", {x: -47, y: -38}, 15.50);
+        tl.set("#grain", {x: 30, y: 30}, 15.60);
+        tl.set("#grain", {x: -34, y: 5}, 15.70);
+        tl.set("#grain", {x: -13, y: 68}, 15.80);
+        tl.set("#grain", {x: 27, y: -32}, 15.90);
+        tl.set("#grain", {x: -27, y: -60}, 16.00);
+        tl.set("#grain", {x: -57, y: 2}, 16.10);
+        tl.set("#grain", {x: 5, y: -15}, 16.20);
+        tl.set("#grain", {x: 60, y: -41}, 16.30);
+        tl.set("#grain", {x: 55, y: 49}, 16.40);
+        tl.set("#grain", {x: -35, y: -19}, 16.50);
+        tl.set("#grain", {x: 16, y: -9}, 16.60);
+        tl.set("#grain", {x: 31, y: 17}, 16.70);
+        tl.set("#grain", {x: -40, y: 20}, 16.80);
+        tl.set("#grain", {x: -1, y: 22}, 16.90);
+        tl.set("#grain", {x: -5, y: 37}, 17.00);
+        tl.set("#grain", {x: 18, y: -9}, 17.10);
+        tl.set("#grain", {x: 25, y: -36}, 17.20);
+        tl.set("#grain", {x: 25, y: 18}, 17.30);
+        tl.set("#grain", {x: 19, y: -11}, 17.40);
+        tl.set("#grain", {x: -48, y: -32}, 17.50);
+        tl.set("#grain", {x: -33, y: -72}, 17.60);
+        tl.set("#grain", {x: -16, y: 14}, 17.70);
+        tl.set("#grain", {x: -58, y: -61}, 17.80);
+        tl.set("#grain", {x: 4, y: 68}, 17.90);
+        tl.set("#grain", {x: -55, y: 21}, 18.00);
+        tl.set("#grain", {x: 17, y: 32}, 18.10);
+        tl.set("#grain", {x: 29, y: 35}, 18.20);
+        tl.set("#grain", {x: -30, y: -79}, 18.30);
+        tl.set("#grain", {x: 60, y: 59}, 18.40);
+        tl.set("#grain", {x: -42, y: -56}, 18.50);
+        tl.set("#grain", {x: -21, y: -32}, 18.60);
+        tl.set("#grain", {x: -2, y: 14}, 18.70);
+        tl.set("#grain", {x: 54, y: -80}, 18.80);
+        tl.set("#grain", {x: -13, y: -38}, 18.90);
+        tl.set("#grain", {x: -43, y: 66}, 19.00);
+        tl.set("#grain", {x: 41, y: 30}, 19.10);
+        tl.set("#grain", {x: 7, y: -68}, 19.20);
+        tl.set("#grain", {x: -21, y: -32}, 19.30);
+        tl.set("#grain", {x: -7, y: 23}, 19.40);
+        tl.set("#grain", {x: 52, y: 61}, 19.50);
+        tl.set("#grain", {x: -29, y: -23}, 19.60);
+        tl.set("#grain", {x: 13, y: 69}, 19.70);
+        tl.set("#grain", {x: 58, y: 39}, 19.80);
+        tl.set("#grain", {x: 53, y: -76}, 19.90);
+        tl.set("#grain", {x: 24, y: 69}, 20.00);
+        tl.set("#grain", {x: -51, y: -60}, 20.10);
+        tl.set("#grain", {x: -5, y: -32}, 20.20);
+        tl.set("#grain", {x: -41, y: -65}, 20.30);
+        tl.set("#grain", {x: 3, y: 54}, 20.40);
+        tl.set("#grain", {x: 17, y: 57}, 20.50);
+        tl.set("#grain", {x: 19, y: 45}, 20.60);
+        tl.set("#grain", {x: 0, y: 6}, 20.70);
+        tl.set("#grain", {x: -41, y: -11}, 20.80);
+        tl.set("#grain", {x: -41, y: 10}, 20.90);
+        tl.set("#grain", {x: -24, y: -4}, 21.00);
+        tl.set("#grain", {x: 21, y: 80}, 21.10);
+        tl.set("#grain", {x: -59, y: -62}, 21.20);
+        tl.set("#grain", {x: 25, y: -63}, 21.30);
+        tl.set("#grain", {x: -37, y: 51}, 21.40);
+        tl.set("#grain", {x: -48, y: -32}, 21.50);
+        tl.set("#grain", {x: -14, y: -11}, 21.60);
+        tl.set("#grain", {x: -15, y: -65}, 21.70);
+        tl.set("#grain", {x: -40, y: -71}, 21.80);
+        tl.set("#grain", {x: 14, y: 46}, 21.90);
+        tl.set("#grain", {x: -25, y: 22}, 22.00);
+        tl.set("#grain", {x: -40, y: -72}, 22.10);
+        tl.set("#grain", {x: -47, y: -21}, 22.20);
+        tl.set("#grain", {x: 59, y: 11}, 22.30);
+        tl.set("#grain", {x: 8, y: -16}, 22.40);
+        tl.set("#grain", {x: -8, y: -30}, 22.50);
+        tl.set("#grain", {x: 28, y: -31}, 22.60);
+        tl.set("#grain", {x: 33, y: 54}, 22.70);
+        tl.set("#grain", {x: -6, y: -60}, 22.80);
+        tl.set("#grain", {x: -19, y: -24}, 22.90);
+        tl.set("#grain", {x: -33, y: 48}, 23.00);
+        tl.set("#grain", {x: -55, y: 10}, 23.10);
+        tl.set("#grain", {x: 17, y: 56}, 23.20);
+        tl.set("#grain", {x: 21, y: 80}, 23.30);
+        tl.set("#grain", {x: 22, y: -36}, 23.40);
+        tl.set("#grain", {x: -58, y: 14}, 23.50);
+        tl.set("#grain", {x: 3, y: 42}, 23.60);
+        tl.set("#grain", {x: -40, y: 33}, 23.70);
+        tl.set("#grain", {x: 43, y: -76}, 23.80);
+        tl.set("#grain", {x: 56, y: -9}, 23.90);
+        tl.set("#grain", {x: 26, y: -66}, 24.00);
+        tl.set("#grain", {x: -33, y: 77}, 24.10);
+        tl.set("#grain", {x: 8, y: 74}, 24.20);
+        tl.set("#grain", {x: 56, y: -52}, 24.30);
+        tl.set("#grain", {x: -21, y: 19}, 24.40);
+        tl.set("#grain", {x: -34, y: 38}, 24.50);
+        tl.set("#grain", {x: 59, y: 13}, 24.60);
+        tl.set("#grain", {x: -59, y: 10}, 24.70);
+        tl.set("#grain", {x: -38, y: 77}, 24.80);
+        tl.set("#grain", {x: -27, y: 75}, 24.90);
+        tl.set("#grain", {x: -57, y: 16}, 25.00);
+        tl.set("#grain", {x: 22, y: -39}, 25.10);
+        tl.set("#grain", {x: -37, y: 57}, 25.20);
+        tl.set("#grain", {x: 4, y: 25}, 25.30);
+        tl.set("#grain", {x: -34, y: -23}, 25.40);
+        tl.set("#grain", {x: 5, y: 62}, 25.50);
+        tl.set("#grain", {x: -24, y: 35}, 25.60);
+        tl.set("#grain", {x: 34, y: 12}, 25.70);
+        tl.set("#grain", {x: 56, y: -59}, 25.80);
+        tl.set("#grain", {x: -30, y: 23}, 25.90);
+        tl.set("#grain", {x: 16, y: -35}, 26.00);
+        tl.set("#grain", {x: -15, y: 58}, 26.10);
+        tl.set("#grain", {x: 25, y: 12}, 26.20);
+        tl.set("#grain", {x: 13, y: -47}, 26.30);
+        tl.set("#grain", {x: -57, y: 28}, 26.40);
+        tl.set("#grain", {x: 14, y: -74}, 26.50);
+        tl.set("#grain", {x: 25, y: -27}, 26.60);
+        tl.set("#grain", {x: 34, y: -53}, 26.70);
+        tl.set("#grain", {x: -33, y: 56}, 26.80);
+        tl.set("#grain", {x: 6, y: 14}, 26.90);
+        tl.set("#grain", {x: 54, y: 51}, 27.00);
+        tl.set("#grain", {x: -23, y: -49}, 27.10);
+        tl.set("#grain", {x: -40, y: -19}, 27.20);
+        tl.set("#grain", {x: 24, y: 28}, 27.30);
+        tl.set("#grain", {x: 18, y: 38}, 27.40);
+        tl.set("#grain", {x: 38, y: 46}, 27.50);
+        tl.set("#grain", {x: 36, y: -32}, 27.60);
+        tl.set("#grain", {x: 23, y: -26}, 27.70);
+        tl.set("#grain", {x: -28, y: -33}, 27.80);
+        tl.set("#grain", {x: -5, y: 16}, 27.90);
+        tl.set("#grain", {x: -32, y: 45}, 28.00);
+        tl.set("#grain", {x: 1, y: -13}, 28.10);
+        tl.set("#grain", {x: -55, y: 57}, 28.20);
+        tl.set("#grain", {x: 49, y: 37}, 28.30);
+        tl.set("#grain", {x: -34, y: -71}, 28.40);
+        tl.set("#grain", {x: 41, y: 6}, 28.50);
+        tl.set("#grain", {x: 15, y: 32}, 28.60);
+        tl.set("#grain", {x: 42, y: -3}, 28.70);
+        tl.set("#grain", {x: 34, y: -45}, 28.80);
+        tl.set("#grain", {x: 33, y: -24}, 28.90);
+        tl.set("#grain", {x: -40, y: 16}, 29.00);
+        tl.set("#grain", {x: -42, y: 20}, 29.10);
+        tl.set("#grain", {x: -56, y: -80}, 29.20);
+        tl.set("#grain", {x: 39, y: 68}, 29.30);
+        tl.set("#grain", {x: -23, y: 67}, 29.40);
+        tl.set("#grain", {x: 46, y: 37}, 29.50);
+        tl.set("#grain", {x: -35, y: 44}, 29.60);
+        tl.set("#grain", {x: -31, y: 61}, 29.70);
+        tl.set("#grain", {x: 43, y: 43}, 29.80);
+        tl.set("#grain", {x: 26, y: -66}, 29.90);
+        tl.set("#grain", {x: -57, y: 14}, 30.00);
+        tl.set("#grain", {x: 57, y: -47}, 30.10);
+        tl.set("#grain", {x: 3, y: 5}, 30.20);
+        tl.set("#grain", {x: -1, y: 10}, 30.30);
+        tl.set("#grain", {x: -11, y: 64}, 30.40);
+        tl.set("#grain", {x: 20, y: 34}, 30.50);
+        tl.set("#grain", {x: 16, y: -62}, 30.60);
+        tl.set("#grain", {x: 50, y: -15}, 30.70);
+        tl.set("#grain", {x: 36, y: -54}, 30.80);
+        tl.set("#grain", {x: -13, y: -16}, 30.90);
+        tl.set("#grain", {x: 33, y: 37}, 31.00);
+        tl.set("#grain", {x: 41, y: -49}, 31.10);
+        tl.set("#grain", {x: 58, y: -30}, 31.20);
+        tl.set("#grain", {x: 16, y: 5}, 31.30);
+        tl.set("#grain", {x: 53, y: -61}, 31.40);
+        tl.set("#grain", {x: 35, y: -2}, 31.50);
+        tl.set("#grain", {x: -29, y: -47}, 31.60);
+        tl.set("#grain", {x: -42, y: -13}, 31.70);
+        tl.set("#grain", {x: -47, y: 77}, 31.80);
+        tl.set("#grain", {x: -23, y: -25}, 31.90);
+        tl.set("#grain", {x: 5, y: -28}, 32.00);
+        tl.set("#grain", {x: -43, y: 47}, 32.10);
+        tl.set("#grain", {x: 38, y: 46}, 32.20);
+        tl.set("#grain", {x: -33, y: -72}, 32.30);
+        tl.set("#grain", {x: 27, y: 5}, 32.40);
+        tl.set("#grain", {x: 57, y: 53}, 32.50);
+        tl.set("#grain", {x: -13, y: -78}, 32.60);
+        tl.set("#grain", {x: -36, y: -44}, 32.70);
+        tl.set("#grain", {x: -24, y: -66}, 32.80);
+        tl.set("#grain", {x: -27, y: 25}, 32.90);
+        tl.set("#grain", {x: -53, y: -49}, 33.00);
+        tl.set("#grain", {x: 36, y: 74}, 33.10);
+        tl.set("#grain", {x: 23, y: 50}, 33.20);
+        tl.set("#grain", {x: -58, y: -21}, 33.30);
+        tl.set("#grain", {x: 16, y: 33}, 33.40);
+        tl.set("#grain", {x: 2, y: 48}, 33.50);
+        tl.set("#grain", {x: 8, y: 60}, 33.60);
+        tl.set("#grain", {x: -13, y: 30}, 33.70);
+        tl.set("#grain", {x: 21, y: -75}, 33.80);
+        tl.set("#grain", {x: 21, y: 13}, 33.90);
+        tl.set("#grain", {x: -42, y: 8}, 34.00);
+        tl.set("#grain", {x: -9, y: 33}, 34.10);
+        tl.set("#grain", {x: 21, y: 36}, 34.20);
+        tl.set("#grain", {x: 32, y: 51}, 34.30);
+        tl.set("#grain", {x: 15, y: -23}, 34.40);
+        tl.set("#grain", {x: -4, y: -21}, 34.50);
+        tl.set("#grain", {x: -58, y: 36}, 34.60);
+        tl.set("#grain", {x: 47, y: -24}, 34.70);
+        tl.set("#grain", {x: 39, y: 70}, 34.80);
+        tl.set("#grain", {x: 55, y: 69}, 34.90);
+        tl.set("#grain", {x: 35, y: -58}, 35.00);
+        tl.set("#grain", {x: -16, y: 45}, 35.10);
+        tl.set("#grain", {x: -41, y: -38}, 35.20);
+        tl.set("#grain", {x: -59, y: -11}, 35.30);
+        tl.set("#grain", {x: -19, y: 4}, 35.40);
+        tl.set("#grain", {x: -22, y: -25}, 35.50);
+        tl.set("#grain", {x: -54, y: 36}, 35.60);
+        tl.set("#grain", {x: -37, y: -29}, 35.70);
+        tl.set("#grain", {x: -41, y: -78}, 35.80);
+        tl.set("#grain", {x: 19, y: -40}, 35.90);
+        tl.set("#grain", {x: 48, y: -41}, 36.00);
+        tl.set("#grain", {x: -32, y: 61}, 36.10);
+        tl.set("#grain", {x: -46, y: -38}, 36.20);
+        tl.set("#grain", {x: 8, y: -51}, 36.30);
+        tl.set("#grain", {x: 20, y: 23}, 36.40);
+        tl.set("#grain", {x: -45, y: -49}, 36.50);
+        tl.set("#grain", {x: -34, y: -27}, 36.60);
+        tl.set("#grain", {x: 8, y: -76}, 36.70);
+        tl.set("#grain", {x: -50, y: -18}, 36.80);
+        tl.set("#grain", {x: -32, y: 73}, 36.90);
+        tl.set("#grain", {x: 12, y: -56}, 37.00);
+        tl.set("#grain", {x: -29, y: -28}, 37.10);
+        tl.set("#grain", {x: -5, y: 67}, 37.20);
+        tl.set("#grain", {x: 40, y: 53}, 37.30);
+        tl.set("#grain", {x: 29, y: -78}, 37.40);
+        tl.set("#grain", {x: -9, y: -3}, 37.50);
+        tl.set("#grain", {x: -20, y: 11}, 37.60);
+        tl.set("#grain", {x: 53, y: 26}, 37.70);
+        tl.set("#grain", {x: -56, y: 67}, 37.80);
+        tl.set("#grain", {x: 3, y: -69}, 37.90);
+        tl.set("#grain", {x: 54, y: 23}, 38.00);
+        tl.set("#grain", {x: 38, y: 68}, 38.10);
+        tl.set("#grain", {x: 1, y: -34}, 38.20);
+        tl.set("#grain", {x: -56, y: -60}, 38.30);
+        tl.set("#grain", {x: 39, y: -15}, 38.40);
+        tl.set("#grain", {x: 39, y: 40}, 38.50);
+        tl.set("#grain", {x: 32, y: -13}, 38.60);
+        tl.set("#grain", {x: 7, y: -39}, 38.70);
+        tl.set("#grain", {x: -23, y: 7}, 38.80);
+        tl.set("#grain", {x: -13, y: 45}, 38.90);
+        tl.set("#grain", {x: 23, y: -13}, 39.00);
+        tl.set("#grain", {x: -11, y: -5}, 39.10);
+        tl.set("#grain", {x: -54, y: -51}, 39.20);
+        tl.set("#grain", {x: -24, y: 69}, 39.30);
+        tl.set("#grain", {x: -49, y: 44}, 39.40);
+        tl.set("#grain", {x: -19, y: -45}, 39.50);
+        tl.set("#grain", {x: 36, y: -42}, 39.60);
+        tl.set("#grain", {x: -21, y: -2}, 39.70);
+        tl.set("#grain", {x: -11, y: -52}, 39.80);
+        tl.set("#grain", {x: -26, y: 33}, 39.90);
+        tl.set("#grain", {x: 56, y: -21}, 40.00);
+        tl.set("#grain", {x: -54, y: 15}, 40.10);
+        tl.set("#grain", {x: 35, y: 28}, 40.20);
+        tl.set("#grain", {x: 5, y: -53}, 40.30);
+        tl.set("#grain", {x: 20, y: 41}, 40.40);
+        tl.set("#grain", {x: -33, y: 62}, 40.50);
+        tl.set("#grain", {x: 53, y: 13}, 40.60);
+        tl.set("#grain", {x: 32, y: -30}, 40.70);
+        tl.set("#grain", {x: -55, y: 46}, 40.80);
+        tl.set("#grain", {x: 20, y: -3}, 40.90);
+        tl.set("#grain", {x: 17, y: 4}, 41.00);
+        tl.set("#grain", {x: -5, y: -33}, 41.10);
+        tl.set("#grain", {x: 38, y: -76}, 41.20);
+        tl.set("#grain", {x: -6, y: 48}, 41.30);
+        tl.set("#grain", {x: -35, y: -39}, 41.40);
+        tl.set("#grain", {x: -56, y: -25}, 41.50);
+        tl.set("#grain", {x: -33, y: -38}, 41.60);
+        tl.set("#grain", {x: 51, y: 6}, 41.70);
+        tl.set("#grain", {x: -59, y: -21}, 41.80);
+        tl.set("#grain", {x: 48, y: 35}, 41.90);
+        tl.set("#grain", {x: -29, y: 10}, 42.00);
+        tl.set("#grain", {x: 7, y: 16}, 42.10);
+        tl.set("#grain", {x: -36, y: -9}, 42.20);
+        tl.set("#grain", {x: 29, y: 72}, 42.30);
+        tl.set("#grain", {x: 55, y: -34}, 42.40);
+        tl.set("#grain", {x: 28, y: 14}, 42.50);
+        tl.set("#grain", {x: 1, y: -44}, 42.60);
+        tl.set("#grain", {x: -18, y: 14}, 42.70);
+        tl.set("#grain", {x: 54, y: -43}, 42.80);
+        tl.set("#grain", {x: -24, y: -60}, 42.90);
+        tl.set("#grain", {x: 52, y: -66}, 43.00);
+        tl.set("#grain", {x: -29, y: -3}, 43.10);
+        tl.set("#grain", {x: -19, y: 63}, 43.20);
+        tl.set("#grain", {x: -12, y: -38}, 43.30);
+        tl.set("#grain", {x: 32, y: 21}, 43.40);
+        tl.set("#grain", {x: -57, y: 80}, 43.50);
+        tl.set("#grain", {x: 13, y: -11}, 43.60);
+        tl.set("#grain", {x: 57, y: -12}, 43.70);
+        tl.set("#grain", {x: -33, y: 76}, 43.80);
+        tl.set("#grain", {x: 38, y: -21}, 43.90);
+        tl.set("#grain", {x: 41, y: -49}, 44.00);
+        tl.set("#grain", {x: 51, y: -74}, 44.10);
+        tl.set("#grain", {x: 54, y: -27}, 44.20);
+        tl.set("#grain", {x: 45, y: 16}, 44.30);
+        tl.set("#grain", {x: -36, y: 47}, 44.40);
+        tl.set("#grain", {x: 23, y: 51}, 44.50);
+        tl.set("#grain", {x: -33, y: -38}, 44.60);
+        tl.set("#grain", {x: 23, y: 30}, 44.70);
+        tl.set("#grain", {x: -12, y: -5}, 44.80);
+        tl.set("#grain", {x: 38, y: -47}, 44.90);
+        tl.set("#grain", {x: 6, y: 18}, 45.00);
+        tl.set("#grain", {x: -54, y: -45}, 45.10);
+        tl.set("#grain", {x: 31, y: -79}, 45.20);
+        tl.set("#grain", {x: 36, y: -57}, 45.30);
+        tl.set("#grain", {x: -39, y: 36}, 45.40);
+        tl.set("#grain", {x: -46, y: 41}, 45.50);
+        tl.set("#grain", {x: -54, y: -61}, 45.60);
+        tl.set("#grain", {x: 21, y: 3}, 45.70);
+        tl.set("#grain", {x: -46, y: -35}, 45.80);
+        tl.set("#grain", {x: 5, y: 69}, 45.90);
+        tl.set("#grain", {x: -23, y: 34}, 46.00);
+        tl.set("#grain", {x: 51, y: -6}, 46.10);
+        tl.set("#grain", {x: -8, y: 20}, 46.20);
+        tl.set("#grain", {x: 33, y: 61}, 46.30);
+        tl.set("#grain", {x: -46, y: -9}, 46.40);
+        tl.set("#grain", {x: -16, y: -79}, 46.50);
+        tl.set("#grain", {x: 29, y: 24}, 46.60);
+        tl.set("#grain", {x: 46, y: -15}, 46.70);
+        tl.set("#grain", {x: -1, y: 80}, 46.80);
+        tl.set("#grain", {x: 56, y: 0}, 46.90);
+        tl.set("#grain", {x: 52, y: -13}, 47.00);
+        tl.set("#grain", {x: 48, y: 9}, 47.10);
+        tl.set("#grain", {x: -43, y: 55}, 47.20);
+        tl.set("#grain", {x: -16, y: 10}, 47.30);
+        tl.set("#grain", {x: -34, y: -39}, 47.40);
+        tl.set("#grain", {x: 44, y: -57}, 47.50);
+        tl.set("#grain", {x: -25, y: -39}, 47.60);
+        tl.set("#grain", {x: -60, y: 7}, 47.70);
+        tl.set("#grain", {x: -55, y: -38}, 47.80);
+        tl.set("#grain", {x: 41, y: 8}, 47.90);
+        tl.set("#grain", {x: 28, y: -26}, 48.00);
+        tl.set("#grain", {x: 4, y: -74}, 48.10);
+        tl.set("#grain", {x: -55, y: -73}, 48.20);
+        tl.set("#grain", {x: -38, y: 3}, 48.30);
+        tl.set("#grain", {x: 13, y: 61}, 48.40);
+        tl.set("#grain", {x: -31, y: -48}, 48.50);
+        tl.set("#grain", {x: 48, y: 2}, 48.60);
+        tl.set("#grain", {x: 19, y: -37}, 48.70);
+        tl.set("#grain", {x: 17, y: -30}, 48.80);
+        tl.set("#grain", {x: -48, y: -36}, 48.90);
+        tl.set("#grain", {x: 58, y: -2}, 49.00);
+        tl.set("#grain", {x: -8, y: -16}, 49.10);
+        tl.set("#grain", {x: -19, y: -25}, 49.20);
+        tl.set("#grain", {x: 33, y: 21}, 49.30);
+        tl.set("#grain", {x: -11, y: -5}, 49.40);
+        tl.set("#grain", {x: 35, y: -70}, 49.50);
+        tl.set("#grain", {x: -29, y: -4}, 49.60);
+        tl.set("#grain", {x: -19, y: -22}, 49.70);
+        tl.set("#grain", {x: -22, y: 30}, 49.80);
+        tl.set("#grain", {x: 38, y: -32}, 49.90);
+        tl.set("#grain", {x: -50, y: 78}, 50.00);
+        tl.set("#grain", {x: 55, y: 38}, 50.10);
+        tl.set("#grain", {x: -2, y: -34}, 50.20);
+        tl.set("#grain", {x: -37, y: 77}, 50.30);
+        tl.set("#grain", {x: -4, y: -68}, 50.40);
+        tl.set("#grain", {x: 52, y: 17}, 50.50);
+        tl.set("#grain", {x: 56, y: 44}, 50.60);
+        tl.set("#grain", {x: -50, y: 62}, 50.70);
+        tl.set("#grain", {x: 2, y: -38}, 50.80);
+        tl.set("#grain", {x: 44, y: 60}, 50.90);
+        tl.set("#grain", {x: 56, y: -50}, 51.00);
+        tl.set("#grain", {x: 18, y: -78}, 51.10);
+        tl.set("#grain", {x: 32, y: -73}, 51.20);
+        tl.set("#grain", {x: -21, y: 53}, 51.30);
+        tl.set("#grain", {x: -42, y: -80}, 51.40);
+        tl.set("#grain", {x: 20, y: -64}, 51.50);
+        tl.set("#grain", {x: 51, y: 32}, 51.60);
+        tl.set("#grain", {x: -49, y: 66}, 51.70);
+        tl.set("#grain", {x: -8, y: 13}, 51.80);
+        tl.set("#grain", {x: 17, y: 21}, 51.90);
+        tl.set("#grain", {x: 40, y: 32}, 52.00);
+        tl.set("#grain", {x: 2, y: -13}, 52.10);
+        tl.set("#grain", {x: -37, y: 64}, 52.20);
+        tl.set("#grain", {x: -22, y: -23}, 52.30);
+        tl.set("#grain", {x: -22, y: -63}, 52.40);
+        tl.set("#grain", {x: 58, y: -44}, 52.50);
+        tl.set("#grain", {x: -40, y: 25}, 52.60);
+        tl.set("#grain", {x: 23, y: 0}, 52.70);
+        tl.set("#grain", {x: 11, y: -14}, 52.80);
+        tl.set("#grain", {x: 38, y: 10}, 52.90);
+        tl.set("#grain", {x: -10, y: 57}, 53.00);
+        tl.set("#grain", {x: 35, y: -51}, 53.10);
+        tl.set("#grain", {x: -13, y: 56}, 53.20);
+        tl.set("#grain", {x: 5, y: -67}, 53.30);
+        tl.set("#grain", {x: 56, y: -60}, 53.40);
+        tl.set("#grain", {x: 22, y: -29}, 53.50);
+        tl.set("#grain", {x: 53, y: -19}, 53.60);
+        tl.set("#grain", {x: -2, y: 7}, 53.70);
+        tl.set("#grain", {x: 0, y: -6}, 53.80);
+        tl.set("#grain", {x: 5, y: -19}, 53.90);
+        tl.set("#grain", {x: 24, y: 61}, 54.00);
+        tl.set("#grain", {x: 0, y: -9}, 54.10);
+        tl.set("#grain", {x: 38, y: -31}, 54.20);
+        tl.set("#grain", {x: 27, y: 66}, 54.30);
+        tl.set("#grain", {x: -20, y: 1}, 54.40);
+        tl.set("#grain", {x: 18, y: 70}, 54.50);
+        tl.set("#grain", {x: 35, y: 43}, 54.60);
+        tl.set("#grain", {x: 8, y: 27}, 54.70);
+        tl.set("#grain", {x: 36, y: -22}, 54.80);
+        tl.set("#grain", {x: 20, y: -13}, 54.90);
+        tl.set("#grain", {x: -34, y: -35}, 55.00);
+        tl.set("#grain", {x: 9, y: 55}, 55.10);
+        tl.set("#grain", {x: 55, y: -38}, 55.20);
+        tl.set("#grain", {x: -48, y: -33}, 55.30);
+        tl.set("#grain", {x: -27, y: 43}, 55.40);
+        tl.set("#grain", {x: -6, y: 72}, 55.50);
+        tl.set("#grain", {x: 8, y: -11}, 55.60);
+        tl.set("#grain", {x: -29, y: 48}, 55.70);
+        tl.set("#grain", {x: -28, y: -58}, 55.80);
+        tl.set("#grain", {x: 50, y: 74}, 55.90);
+        tl.set("#grain", {x: 22, y: 80}, 56.00);
+        tl.set("#grain", {x: 56, y: -51}, 56.10);
+        tl.set("#grain", {x: 48, y: -5}, 56.20);
+        tl.set("#grain", {x: 12, y: -64}, 56.30);
+        tl.set("#grain", {x: -34, y: 57}, 56.40);
+        tl.set("#grain", {x: -39, y: -78}, 56.50);
+        tl.set("#grain", {x: 5, y: 61}, 56.60);
+        tl.set("#grain", {x: 4, y: -20}, 56.70);
+        tl.set("#grain", {x: 21, y: 30}, 56.80);
+        tl.set("#grain", {x: 29, y: 27}, 56.90);
+        tl.set("#grain", {x: 27, y: 21}, 57.00);
+        tl.set("#grain", {x: -27, y: 78}, 57.10);
+        tl.set("#grain", {x: 28, y: -34}, 57.20);
+        tl.set("#grain", {x: -5, y: -31}, 57.30);
+        tl.set("#grain", {x: -59, y: -6}, 57.40);
+        tl.set("#grain", {x: -12, y: 26}, 57.50);
+        tl.set("#grain", {x: -35, y: -14}, 57.60);
+        tl.set("#grain", {x: 59, y: 21}, 57.70);
+        tl.set("#grain", {x: 2, y: -8}, 57.80);
+        tl.set("#grain", {x: 15, y: -21}, 57.90);
+        tl.set("#grain", {x: -53, y: 12}, 58.00);
+        tl.set("#grain", {x: -28, y: 15}, 58.10);
+        tl.set("#grain", {x: -17, y: 55}, 58.20);
+        tl.set("#grain", {x: -6, y: 51}, 58.30);
+        tl.set("#stage", {x: -9, y: 0}, 13.32);
+        tl.set("#stage", {x: -5, y: -1}, 13.36);
+        tl.set("#stage", {x: -5, y: -5}, 13.40);
+        tl.set("#stage", {x: 0, y: -1}, 13.44);
+        tl.set("#stage", {x: -5, y: -3}, 13.48);
+        tl.set("#stage", {x: 0, y: 0}, 13.52);
+        tl.set("#stage", {x: 0, y: 8}, 20.82);
+        tl.set("#stage", {x: 9, y: -6}, 20.86);
+        tl.set("#stage", {x: -9, y: -7}, 20.90);
+        tl.set("#stage", {x: 5, y: -3}, 20.94);
+        tl.set("#stage", {x: -5, y: 4}, 20.98);
+        tl.set("#stage", {x: 0, y: 0}, 21.02);
+        tl.set("#stage", {x: 2, y: 1}, 28.46);
+        tl.set("#stage", {x: 4, y: -7}, 28.50);
+        tl.set("#stage", {x: -5, y: -4}, 28.54);
+        tl.set("#stage", {x: -5, y: 4}, 28.58);
+        tl.set("#stage", {x: 10, y: 6}, 28.62);
+        tl.set("#stage", {x: 0, y: 0}, 28.66);
+        tl.fromTo("#cap0", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 0.39);
+        tl.to("#cap0", {opacity: 0, duration: 0.12, ease: "none"}, 2.56);
+        tl.fromTo("#cap1", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 2.63);
+        tl.to("#cap1", {opacity: 0, duration: 0.12, ease: "none"}, 4.44);
+        tl.fromTo("#cap2", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 4.51);
+        tl.to("#cap2", {opacity: 0, duration: 0.12, ease: "none"}, 6.88);
+        tl.fromTo("#cap3", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 6.95);
+        tl.to("#cap3", {opacity: 0, duration: 0.12, ease: "none"}, 7.52);
+        tl.fromTo("#cap4", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 7.59);
+        tl.to("#cap4", {opacity: 0, duration: 0.12, ease: "none"}, 8.68);
+        tl.fromTo("#cap5", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 8.75);
+        tl.to("#cap5", {opacity: 0, duration: 0.12, ease: "none"}, 9.68);
+        tl.fromTo("#cap6", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 9.75);
+        tl.to("#cap6", {opacity: 0, duration: 0.12, ease: "none"}, 10.80);
+        tl.fromTo("#cap7", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 10.87);
+        tl.to("#cap7", {opacity: 0, duration: 0.12, ease: "none"}, 11.76);
+        tl.fromTo("#cap8", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 11.83);
+        tl.to("#cap8", {opacity: 0, duration: 0.12, ease: "none"}, 14.16);
+        tl.fromTo("#cap9", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 14.23);
+        tl.to("#cap9", {opacity: 0, duration: 0.12, ease: "none"}, 15.78);
+        tl.fromTo("#cap10", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 15.85);
+        tl.to("#cap10", {opacity: 0, duration: 0.12, ease: "none"}, 17.18);
+        tl.fromTo("#cap11", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 17.25);
+        tl.to("#cap11", {opacity: 0, duration: 0.12, ease: "none"}, 18.66);
+        tl.fromTo("#cap12", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 18.73);
+        tl.to("#cap12", {opacity: 0, duration: 0.12, ease: "none"}, 20.44);
+        tl.fromTo("#cap13", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 20.51);
+        tl.to("#cap13", {opacity: 0, duration: 0.12, ease: "none"}, 22.16);
+        tl.fromTo("#cap14", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 22.23);
+        tl.to("#cap14", {opacity: 0, duration: 0.12, ease: "none"}, 23.88);
+        tl.fromTo("#cap15", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 23.95);
+        tl.to("#cap15", {opacity: 0, duration: 0.12, ease: "none"}, 26.42);
+        tl.fromTo("#cap16", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 26.49);
+        tl.to("#cap16", {opacity: 0, duration: 0.12, ease: "none"}, 28.72);
+        tl.fromTo("#cap17", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 28.79);
+        tl.to("#cap17", {opacity: 0, duration: 0.12, ease: "none"}, 29.52);
+        tl.fromTo("#cap18", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 29.59);
+        tl.to("#cap18", {opacity: 0, duration: 0.12, ease: "none"}, 30.76);
+        tl.fromTo("#cap19", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 30.83);
+        tl.to("#cap19", {opacity: 0, duration: 0.12, ease: "none"}, 32.56);
+        tl.fromTo("#cap20", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 32.63);
+        tl.to("#cap20", {opacity: 0, duration: 0.12, ease: "none"}, 33.70);
+        tl.fromTo("#cap21", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 33.77);
+        tl.to("#cap21", {opacity: 0, duration: 0.12, ease: "none"}, 36.24);
+        tl.fromTo("#cap22", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 36.31);
+        tl.to("#cap22", {opacity: 0, duration: 0.12, ease: "none"}, 38.24);
+        tl.fromTo("#cap23", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 38.31);
+        tl.to("#cap23", {opacity: 0, duration: 0.12, ease: "none"}, 40.38);
+        tl.fromTo("#cap24", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 40.45);
+        tl.to("#cap24", {opacity: 0, duration: 0.12, ease: "none"}, 41.08);
+        tl.fromTo("#cap25", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 41.15);
+        tl.to("#cap25", {opacity: 0, duration: 0.12, ease: "none"}, 43.00);
+        tl.fromTo("#cap26", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 43.07);
+        tl.to("#cap26", {opacity: 0, duration: 0.12, ease: "none"}, 43.78);
+        tl.fromTo("#cap27", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 43.85);
+        tl.to("#cap27", {opacity: 0, duration: 0.12, ease: "none"}, 45.22);
+        tl.fromTo("#cap28", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 45.29);
+        tl.to("#cap28", {opacity: 0, duration: 0.12, ease: "none"}, 46.50);
+        tl.fromTo("#cap29", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 46.57);
+        tl.to("#cap29", {opacity: 0, duration: 0.12, ease: "none"}, 47.90);
+        tl.fromTo("#cap30", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 47.97);
+        tl.to("#cap30", {opacity: 0, duration: 0.12, ease: "none"}, 49.92);
+        tl.fromTo("#cap31", {opacity: 0, y: 16}, {opacity: 1, y: 0, duration: 0.18, ease: "power2.out"}, 49.99);
+        tl.to("#cap31", {opacity: 0, duration: 0.12, ease: "none"}, 52.24);
+        tl.to("#stage", { opacity: 0, duration: 0.3 }, 52.34);
+        tl.fromTo("#flash", { opacity: 0.8 }, { opacity: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 52.64);
+        tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.05, immediateRender: false }, 52.64);
+        tl.fromTo("#end-logo", { opacity: 0, scale: 2.2, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 52.74);
+        tl.fromTo("#end-tag", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 54.26);
+        tl.fromTo("#end-cta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power3.out" }, 56.28);
+        tl.fromTo("#end-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 53.64);
+        tl.fromTo("#end-foot-img", { y: 255 }, { y: 0, duration: 0.5, ease: "back.out(1.2)" }, 53.54);
+        window.__timelines["otm-fourth"] = tl;
+      })();
+    </script>
+  </body>
+</html>

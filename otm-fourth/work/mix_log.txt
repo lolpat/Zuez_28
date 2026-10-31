@@ -1,0 +1,56 @@
+  0.66 pop           pop_1.wav              start   0.66 gain -9.0 dB
+  1.52 pop           pop_2.wav              start   1.52 gain -9.0 dB
+  1.80 tick          tick_1.wav             start   1.80 gain -13.0 dB
+  2.90 land.light    land-light_1.wav       start   2.90 gain -9.0 dB
+  5.16 tick          tick_2.wav             start   5.16 gain -13.0 dB
+  5.56 tick.crisp    tick-crisp_1.wav       start   5.56 gain -12.0 dB
+  5.88 tock          tock_1.wav             start   5.88 gain -9.0 dB
+  6.80 whoosh.short  whoosh-short_1.wav     start   6.64 gain -14.0 dB
+  8.80 whoosh.short  whoosh-short_2.wav     start   8.64 gain -10.0 dB
+ 11.32 click         click_1.wav            start  11.32 gain -5.5 dB
+ 12.00 file          fall
+ 13.32 file          glitch
+ 14.08 whoosh.short  whoosh-short_3.wav     start  13.92 gain -14.0 dB
+ 16.02 click         click_2.wav            start  16.02 gain -6.5 dB
+ 16.28 whoosh.short  whoosh-short_1.wav     start  16.12 gain -12.0 dB
+ 17.56 tock          tock_2.wav             start  17.56 gain -8.0 dB
+ 18.56 tock          tock_3.wav             start  18.56 gain -8.0 dB
+ 20.82 file          glitch
+ 21.24 drop          drop_1.wav             start  21.24 gain -8.0 dB
+ 22.08 whoosh.short  whoosh-short_2.wav     start  21.92 gain -14.0 dB
+ 24.68 bell          bell_G4.wav            start  24.68 gain -11.0 dB
+ 26.70 tick          tick_3.wav             start  26.70 gain -7.0 dB
+ 27.00 tick          tick_1.wav             start  27.00 gain -13.0 dB
+ 28.16 whoosh.short  whoosh-short_3.wav     start  28.00 gain -9.0 dB
+ 28.46 file          glitch
+ 29.39 whoosh.short  whoosh-short_1.wav     start  29.23 gain -14.0 dB
+ 29.64 pop           pop_3.wav              start  29.64 gain -9.0 dB
+ 29.94 tick          tick_2.wav             start  29.94 gain -13.0 dB
+ 31.54 tock          tock_1.wav             start  31.54 gain -9.0 dB
+ 31.66 tock          tock_2.wav             start  31.66 gain -9.0 dB
+ 31.78 tock          tock_3.wav             start  31.78 gain -9.0 dB
+ 32.68 land.light    land-light_2.wav       start  32.68 gain -9.0 dB
+ 34.34 tick.crisp    tick-crisp_2.wav       start  34.34 gain -12.0 dB
+ 34.74 tock          tock_1.wav             start  34.74 gain -9.0 dB
+ 36.22 whoosh.short  whoosh-short_2.wav     start  36.06 gain -14.0 dB
+ 36.52 land          land_1.wav             start  36.52 gain -5.0 dB
+ 37.46 snap          snap_1.wav             start  37.46 gain -6.5 dB
+ 37.61 hit           hit_1.wav              start  37.61 gain -3.0 dB
+ 38.22 whoosh.short  whoosh-short_3.wav     start  38.06 gain -14.0 dB
+ 38.52 whoosh.short  whoosh-short_1.wav     start  38.36 gain -11.0 dB
+ 38.88 tick          tick_3.wav             start  38.88 gain -7.0 dB
+ 42.02 tock          tock_2.wav             start  42.02 gain -8.0 dB
+ 43.12 click.confirm click-confirm_1.wav    start  43.12 gain -11.0 dB
+ 43.42 tick          tick_1.wav             start  43.42 gain -13.0 dB
+ 44.44 tick.crisp    tick-crisp_3.wav       start  44.44 gain -12.0 dB
+ 46.92 tick          tick_2.wav             start  46.92 gain -13.0 dB
+ 47.17 land          land_2.wav             start  47.17 gain -2.0 dB
+ 47.22 bell          bell_A4.wav            start  47.22 gain -9.0 dB
+ 47.82 whoosh.short  whoosh-short_2.wav     start  47.66 gain -14.0 dB
+ 49.24 whoosh.short  whoosh-short_3.wav     start  49.08 gain -11.0 dB
+ 50.80 tock          tock_3.wav             start  50.80 gain -8.0 dB
+ 51.30 hit           hit_2.wav              start  51.30 gain -1.0 dB
+ 52.64 whoosh.long   whoosh-long_1.wav      start  52.20 gain -7.0 dB
+ 52.89 hit           hit_3.wav              start  52.89 gain -1.0 dB
+ 54.26 pop           pop_4.wav              start  54.26 gain -9.0 dB
+ 56.28 land          land_3.wav             start  56.28 gain -4.0 dB
