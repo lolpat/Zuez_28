@@ -1,0 +1,14 @@
+[
+ {
+  "t": 20.9,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:r3-q"
+ },
+ {
+  "t": 39.08,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:emo  em"
+ }
+]
