@@ -11,7 +11,7 @@ words = json.load(open(f"{ROOT}/work/words_take2.json"))
 def W(i): return round(words[i]["start"] + LEAD, 3)
 def WE(i): return round(words[i]["end"] + LEAD, 3)
 END_T = round(words[-1]["end"] + LEAD + 0.6, 2)
-TOTAL = round(END_T + 3.8, 2)
+TOTAL = round(END_T + 1.0, 2)          # no end card: the outro holds, then fades out
 rnd = random.Random(7)
 
 T, CUES = [], []
@@ -279,7 +279,7 @@ s.pop(tip, W(144) + dur, 0.35, 0.3, "50% 50%"); cue(W(144) + dur, "bell_G5", -18
 dl = s.label(540, 1330, "YOU DRAW IT", 30, GOLD, 0, 800); s.fade(dl, W(149), 0.4)
 
 # 11  order the market
-s = S(W(151) - 0.05, END_T + 0.2)
+s = S(W(151) - 0.05, TOTAL)
 es = s.spot(540, 0, "232,194,106", 40, 230); s.fade(es, W(151), 0.6)
 em = s.raw('<image id="@ID@" href="assets/otm_emblem.png" x="390" y="900" width="300" height="291" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/>', "i")
 s.pop(em, W(151), 0.7, 0.6, "50% 50%"); cue(W(151), "bell_A4", -16)
@@ -294,15 +294,13 @@ soc = s.raw(f'<g id="@ID@" style="opacity:0">'
             f'<text x="{hx + 48}" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text>'
             f'<path d="M {hx + 322} 1546 V 1574 A 9 9 0 1 1 {hx + 313} 1565 M {hx + 322} 1546 Q {hx + 326} 1557 {hx + 338} 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>'
             f'<text x="{hx + 348}" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g>', "so")
-s.fade(soc, W(156), 0.5, y=12)
+disc = s.label(540, 1650, "EDUCATIONAL ONLY · NOT FINANCIAL ADVICE", 28, GREY, 0, 600, 0.12)
+soc_t = W(156)
+s.fade(soc, soc_t, 0.5, y=12)
+s.fade(disc, soc_t + 0.3, 0.5)
 
 # ------------------------------------------------------------------ end card, dust, ground, emblem
 tl(f'tl.to("#mark", {{opacity: 0, duration: 0.3}}, {W(151) - 0.2:.3f});')
-tl(f'tl.set("#end", {{opacity: 1, visibility: "visible"}}, {END_T:.3f});')
-tl(f'tl.fromTo("#end-logo", {{opacity: 0, y: 20, filter: "blur(10px)"}}, {{opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power2.out"}}, {END_T:.3f});')
-tl(f'tl.fromTo("#end-note", {{opacity: 0}}, {{opacity: 1, duration: 0.6}}, {END_T + 0.5:.3f});')
-tl(f'tl.fromTo("#end-credit", {{opacity: 0}}, {{opacity: 1, duration: 0.6}}, {END_T + 0.7:.3f});')
-tl(f'tl.fromTo("#end-foot-img", {{y: 255}}, {{y: 0, duration: 0.6, ease: "power3.out"}}, {END_T + 0.3:.3f});')
 dust = ""
 for k in range(40):
     x, y, r, op = rnd.uniform(0, 1080), rnd.uniform(0, 1920), rnd.uniform(1.2, 3.2), rnd.uniform(0.05, 0.22)
@@ -318,12 +316,6 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 #stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
 #vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
 #mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
-#end { position: absolute; inset: 0; background: #000; opacity: 0; visibility: hidden; z-index: 20; }
-#end-logo { position: absolute; left: 190px; top: 640px; width: 700px; }
-#end-note { position: absolute; left: 0; width: 1080px; top: 1060px; text-align: center; font-size: 28px; font-weight: 600; letter-spacing: 0.12em; color: #8a8f98; }
-#end-credit { position: absolute; left: 0; width: 1080px; top: 1112px; text-align: center; font-size: 28px; font-weight: 500; color: #8a8f98; }
-#end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
-#end-foot img { width: 1080px; height: 255px; display: block; }
 """
 html = f"""<!doctype html>
 <html lang="en" data-resolution="portrait">
@@ -342,10 +334,6 @@ html = f"""<!doctype html>
 {scenes_svg}
       </svg>
       <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
-      <div id="end"><img id="end-logo" src="assets/otm_logo.png" alt="Order the Market" />
-        <div id="end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
-        <div id="end-credit">{CREDIT}</div>
-        <div id="end-foot"><img id="end-foot-img" src="assets/footer.jpg" alt="" /></div></div>
       <audio id="otm-anyway-audio" class="clip" src="assets/audio/mix_anyway.wav" data-start="0" data-duration="{TOTAL}" data-track-index="2" data-volume="1"></audio>
     </div>
     <script>
