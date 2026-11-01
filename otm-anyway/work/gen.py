@@ -286,6 +286,15 @@ s.pop(em, W(151), 0.7, 0.6, "50% 50%"); cue(W(151), "bell_A4", -16)
 o1 = s.label(540, 1300, "ORDER THE MARKET", 32, GOLD, 0, 800, 0.3); s.fade(o1, W(151) + 0.3, 0.5)
 o2 = s.label(540, 1360, "DON'T LET THE MARKET ORDER YOU", 28, WHITE, 0, 700, 0.12); s.fade(o2, W(154), 0.4)
 o3 = s.pill(540, 1470, "FOLLOW FOR MORE", GOLD, "#111", 30); s.pop(o3, W(160), 0.4, 0.6, "50% 50%"); cue(W(160), "click-confirm_1", -16)
+# socials under the follow button
+hx = 290
+soc = s.raw(f'<g id="@ID@" style="opacity:0">'
+            f'<rect x="{hx}" y="1548" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="3"/>'
+            f'<circle cx="{hx + 18}" cy="1566" r="8.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="{hx + 28}" cy="1556" r="2.4" fill="#fff"/>'
+            f'<text x="{hx + 48}" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text>'
+            f'<path d="M {hx + 322} 1546 V 1574 A 9 9 0 1 1 {hx + 313} 1565 M {hx + 322} 1546 Q {hx + 326} 1557 {hx + 338} 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>'
+            f'<text x="{hx + 348}" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g>', "so")
+s.fade(soc, W(156), 0.5, y=12)
 
 # ------------------------------------------------------------------ end card, dust, ground, emblem
 tl(f'tl.to("#mark", {{opacity: 0, duration: 0.3}}, {W(151) - 0.2:.3f});')
