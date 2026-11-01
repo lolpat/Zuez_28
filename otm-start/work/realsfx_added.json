@@ -1,0 +1,38 @@
+[
+ {
+  "t": 1.14,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:rg-l"
+ },
+ {
+  "t": 8.96,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:cr-c"
+ },
+ {
+  "t": 10.68,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:cr-d"
+ },
+ {
+  "t": 26.6,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:sl-f"
+ },
+ {
+  "t": 47.52,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:sp-sh"
+ },
+ {
+  "t": 50.4,
+  "snd": "tick",
+  "gain": -9,
+  "src": "real-sfx:sp-f"
+ }
+]
