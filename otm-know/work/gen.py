@@ -208,6 +208,7 @@ for k in range(3):
                f'<text x="{x}" y="768" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" fill="#fff">BLOWN</text></g>', "bl")
     tb = W(84) + k * 0.4
     tl(f'tl.fromTo("#{bl}", {{opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.25, ease: "power3.out", immediateRender: false}}, {tb:.3f});')
+    tl(f'tl.set("#{cd}", {{opacity: 0}}, {tb + 0.25:.3f});')
     cue(tb, "land-light_1", -16)
 
 # 7  simple to you; to them it saves a year and a lot of money
@@ -224,10 +225,11 @@ for k in range(6):
 d += " L 895 820"
 lp = s.path(d, "#ffffffb0", 3); s.draw(lp, W(94), W(100) - W(94) + 0.4, "power1.inOut")
 lpl = s.label(540, 650, "ALONE · 1 YEAR", 28, WHITE, 0, 800, 0.08); s.fade(lpl, W(95), 0.4)
-sv = s.pill(540, 970, "1 YEAR SAVED", GOLD, "#111", 30); s.pop(sv, W(99), 0.4, 0.5, "50% 50%"); cue(W(99), "bell_G5", -18)
+sv = s.pill(540, 970, "1 YEAR SAVED", GOLD, "#111", 30); s.pop(sv, W(98) - 0.1, 0.4, 0.5, "50% 50%"); cue(W(98) - 0.1, "bell_G5", -18)
 mn = s.pill(540, 970, "+ NO BLOWN ACCOUNTS", WHITE, "#111", 28)
-tl(f'tl.to("#{sv}", {{opacity: 0, duration: 0.25}}, {W(101) - 0.3:.3f});')
-s.pop(mn, W(101), 0.35, 0.5, "50% 50%"); cue(W(101), "pop_3", -20)
+t_sw = min(max(W(101), W(98) + 1.4), W(106) - 1.5)            # hold each pill long enough to read
+tl(f'tl.to("#{sv}", {{opacity: 0, duration: 0.25}}, {t_sw - 0.25:.3f});')
+s.pop(mn, t_sw, 0.35, 0.5, "50% 50%"); cue(t_sw, "pop_3", -20)
 
 # 8  traders pay for mentorship even when the information is free online
 s = S(W(106) - 0.05, W(119) - 0.05)
