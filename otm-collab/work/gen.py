@@ -141,7 +141,7 @@ def duo(s, cx, cy, h=62, op=0):
                  f'<text x="{x0 + ew + 37:.1f}" y="{cy + 13:.1f}" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" fill="{GOLD}">×</text>'
                  f'<image href="assets/accurate_logo.png" x="{x0 + ew + 70:.1f}" y="{cy - lh / 2:.1f}" width="{lw:.1f}" height="{lh:.1f}"/></g>', "duo")
 
-# 1  "Order the Market ... and Accurate System. A new collaboration. Two names. One mission."
+# 1  "Order the Market ... and Accurate. A new collaboration. Two names. One mission."
 s = S(0, A("something") - 0.1, ground=False, first=True, restore=False, hide=False)
 s.items.append(f'<defs><radialGradient id="eglow"><stop offset="0" stop-color="{GOLD}" stop-opacity="0.38"/><stop offset="1" stop-color="{GOLD}" stop-opacity="0"/></radialGradient></defs>')
 grp = s.raw(f'<g id="@ID@"><circle cx="540" cy="800" r="270" fill="url(#eglow)"/>'
@@ -168,32 +168,76 @@ cue(A("one") - 0.05, "swell_2", -18)
 t2 = s.label(556, 1262, "TWO NAMES ·", 32, WHITE, 0, 800, 0.14, "end"); s.fade(t2, A("two") - 0.05, 0.35, y=10)
 t3 = s.label(570, 1262, "ONE MISSION", 32, GOLD, 0, 800, 0.14, "start"); s.fade(t3, A("one") - 0.05, 0.35, y=10)
 
-# 2  "Something is being built ... and it's almost ready."
-s = S(A("something") - 0.1, A("big") - 0.1, ground=False, restore=False, hide=False)
+# 2  "Something is being built. Here's a first look."   (the bar fills, the locks turn gold)
+look_t = A("look")
+s = S(A("something") - 0.1, W(F("one", 2)) - 0.15, ground=False, restore=False, hide=False)
 duo(s, 540, 600, 72, 1)
 for k, (x, w_) in enumerate([(270, "something"), (540, "being"), (810, "built")]):
     tile = s.raw(f'<g id="@ID@" style="opacity:0"><path d="{rrect(x - 105, 720, 210, 230, 20)}" fill="#0d1117" stroke="#ffffff90" stroke-width="3"/>{lock(x, 835, "#ffffffd0", 1.1)}</g>', "tl")
     s.pop(tile, A(w_) - 0.1, 0.4, 0.6, "50% 50%"); cue(A(w_) - 0.1, "tick-crisp_" + str(k + 1), -18)
     gl = s.raw(f'<g id="@ID@" style="opacity:0;filter:drop-shadow(0 0 14px {GOLD})"><path d="{rrect(x - 105, 720, 210, 230, 20)}" fill="none" stroke="{GOLD}" stroke-width="4"/>{lock(x, 835, GOLD, 1.1)}</g>', "tg")
-    s.fade(gl, A("ready") - 0.1 + k * 0.12, 0.35)
-cue(A("ready") - 0.1, "bell_E5", -18)
+    s.fade(gl, look_t - 0.2 + k * 0.1, 0.3)
+cue(look_t - 0.2, "bell_E5", -18)
 s.raw('<rect id="@ID@" x="170" y="1050" width="740" height="16" rx="8" fill="#ffffff22"/>', "bt")
 bar = s.raw(f'<rect id="@ID@" x="170" y="1050" width="0" height="16" rx="8" fill="{GOLD}" style="filter:drop-shadow(0 0 10px {GOLD})"/>', "bf")
-tl(f'tl.fromTo("#{bar}", {{attr: {{width: 0}}}}, {{attr: {{width: 660}}, duration: {A("ready") + 0.3 - A("something"):.3f}, ease: "power1.inOut", immediateRender: false}}, {A("something"):.3f});')
+tl(f'tl.fromTo("#{bar}", {{attr: {{width: 0}}}}, {{attr: {{width: 740}}, duration: {look_t - A("something"):.3f}, ease: "power1.inOut", immediateRender: false}}, {A("something"):.3f});')
 ip = s.label(540, 1130, "IN PROGRESS", 30, GREY, 1, 700, 0.24)
-tl(f'tl.to("#{ip}", {{opacity: 0, duration: 0.2}}, {A("almost") - 0.2:.3f});')
-ar = s.label(540, 1130, "ALMOST READY", 32, GOLD, 0, 800, 0.24); s.fade(ar, A("almost"), 0.35, y=10)
+tl(f'tl.to("#{ip}", {{opacity: 0, duration: 0.2}}, {A("here's") - 0.2:.3f});')
+ar = s.label(540, 1130, "FIRST LOOK", 34, GOLD, 0, 800, 0.24); s.fade(ar, A("here's"), 0.35, y=10)
 
-# 3  "Big things are coming."
-s = S(A("big") - 0.1, A("follow") - 0.05, ground=False, restore=False, hide=False)
+# 3  the platform tour: their own screens (cut from the Accurate reel, no music), one per line of the voice
+FEATS = [("web", "ONE PLATFORM. EVERY TOOL.", W(F("one", 2))), ("hours", "MARKET HOURS", A("hours")),
+         ("chart", "EVERY MAJOR MARKET UPDATE", A("major") - 0.25), ("heat", "FILTERED & ORGANIZED", A("filtered")),
+         ("signal", "SIGNAL ROOMS IN ONE CLICK", A("signal")), ("cal", "LIVE CALENDAR", A("live") - 0.15),
+         ("learn", "LEARN TRADING", A("lessons")), ("mt", "SYNC TO METATRADER", A("sync")),
+         ("calc", "POSITION SIZE CALCULATOR", A("calculate")), ("ai", "AN AI THAT REMEMBERS YOU", A("ai") - 0.2)]
+CLIP_WH = json.load(open(f"{ROOT}/work/clip_sizes.json"))         # written by work/clips.py: {name: [w, h]}
+free_t, end3 = A("free") - 0.1, W(F("this") - 1) - 0.1               # "Free. No subscription needed." / the "And" of "And this is only the beginning"
+o3 = FEATS[0][2] - 0.15
+s = S(o3, end3, ground=False, restore=False, hide=False)
+duo(s, 540, 470, 64, 1)
+VIDS, CLIPS = [], {}
+starts = [t - 0.15 for _, _, t in FEATS] + [free_t]
+for k, (name, title, t) in enumerate(FEATS):
+    t0, t1 = starts[k], starts[k + 1]
+    CLIPS[name] = round(t1 - t0 + 0.2, 3)
+    idx = s.label(540, 556, f"{k + 1:02d} / 10", 28, GOLD, 0, 800, 0.24)
+    ttl = s.label(540, 622, title, 46, WHITE, 0, 800, 0.03)
+    for i in (idx, ttl):
+        s.fade(i, t0 + 0.02, 0.22, y=10)
+        tl(f'tl.set("#{i}", {{opacity: 0}}, {t1:.3f});')
+    w, h = CLIP_WH[name]
+    sc = min(940 / w, 610 / h); dw, dh = round(w * sc), round(h * sc)
+    vid = f"v_{name}"
+    VIDS.append(f'<video id="{vid}" class="clip card" src="assets/clips/{name}.mp4" muted playsinline data-start="{t0:.3f}" data-duration="{t1 - t0:.3f}" '
+                f'data-track-index="{4 + k}" style="left:{540 - dw / 2}px;top:{680}px;width:{dw}px;height:{dh}px"></video>')
+    tl(f'tl.fromTo("#{vid}", {{opacity: 0, scale: 1.07}}, {{opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}}, {t0 + 0.01:.3f});')
+    tl(f'tl.set("#{vid}", {{opacity: 0}}, {t1:.3f});')
+    cue(t0 + 0.01, "whoosh-short_" + str(k % 3 + 1), -24)
+    dot = s.raw(f'<circle id="@ID@" cx="{540 + (k - 4.5) * 34:.0f}" cy="1360" r="7" fill="{GOLD}" style="opacity:0;filter:drop-shadow(0 0 6px {GOLD})"/>', "c")
+    s.fade(dot, t0 + 0.02, 0.2)
+for k in range(10):
+    s.raw(f'<circle id="@ID@" cx="{540 + (k - 4.5) * 34:.0f}" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/>', "c")
+# "Free. No subscription needed."  (their reel's own closing line)
+fr = s.label(540, 900, "FREE", 150, GOLD, 0, 800, 0.04)
+tl(f'tl.fromTo("#{fr}", {{opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}}, {free_t:.3f});')
+ns = s.label(540, 1000, "NO SUBSCRIPTION NEEDED", 40, WHITE, 0, 800, 0.08); s.fade(ns, A("no") - 0.05, 0.35, y=10)
+ic = s.raw(f'<image id="@ID@" href="assets/accurate_icon.png" x="{540 - 55 * ICON_W / ICON_H:.0f}" y="1060" width="{110 * ICON_W / ICON_H:.0f}" height="110" style="opacity:0;filter:drop-shadow(0 0 18px rgba(240,138,70,0.55))"/>', "i")
+s.pop(ic, A("no"), 0.4, 0.5, "50% 50%")
+cue(free_t, "land-light_1", -18); cue(A("no"), "bell_G5", -20)
+
+# 4  "And this is only the beginning. Bigger things are coming."
+s = S(end3, A("follow") - 0.05, ground=False, restore=False, hide=False)
+ob = s.label(540, 760, "THIS IS ONLY THE BEGINNING", 34, LBL, 0, 700, 0.18); s.fade(ob, end3 + 0.1, 0.4, y=10)
 fl = s.raw('<rect id="@ID@" x="0" y="0" width="1080" height="1920" fill="#fff" style="opacity:0"/>', "fl")
-tl(f'tl.fromTo("#{fl}", {{opacity: 0.32}}, {{opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false}}, {A("big") - 0.05:.3f});')
-b1 = s.label(540, 880, "BIG THINGS", 118, WHITE, 0, 800, 0.02)
-tl(f'tl.fromTo("#{b1}", {{opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}}, {A("big") - 0.05:.3f});')
-b2 = s.label(540, 1010, "ARE COMING", 96, GOLD, 0, 800, 0.04)
+tl(f'tl.fromTo("#{fl}", {{opacity: 0.32}}, {{opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false}}, {A("bigger") - 0.05:.3f});')
+b1 = s.label(540, 905, "BIGGER THINGS", 94, WHITE, 0, 800, 0.02)
+tl(f'tl.fromTo("#{b1}", {{opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}}, {A("bigger") - 0.05:.3f});')
+b2 = s.label(540, 1015, "ARE COMING", 94, GOLD, 0, 800, 0.04)
 tl(f'tl.fromTo("#{b2}", {{opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}}, {A("are") - 0.05:.3f});')
-cue(A("big") - 0.05, "land_1", -16); cue(A("are") - 0.05, "land-light_1", -18)
-sm = duo(s, 540, 1112, 66); s.fade(sm, A("coming"), 0.35)
+cue(A("bigger") - 0.05, "land_1", -16); cue(A("are") - 0.05, "land-light_1", -18)
+sm = duo(s, 540, 1120, 66); s.fade(sm, A("coming"), 0.35)
+json.dump(CLIPS, open(f"{ROOT}/work/clip_slots.json", "w"), indent=1)
 
 # 4  outro: "Follow, so you don't miss it."   (no end card: holds, then fades out)
 o4 = A("follow") - 0.05
@@ -234,6 +278,8 @@ CSS = """
 html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
 #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
 #stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.card { position: absolute; z-index: 5; opacity: 0; border-radius: 22px; object-fit: cover; outline: 2px solid rgba(238,138,70,0.75);
+  box-shadow: 0 0 34px rgba(238,138,70,0.35), 0 18px 60px rgba(0,0,0,0.7); }
 #vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
 #mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
 """
@@ -253,6 +299,7 @@ html = f"""<!doctype html>
         <line id="ground" x1="0" y1="{GY}" x2="1080" y2="{GY}" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="12 12" style="opacity:0"/>
 {scenes_svg}
       </svg>
+{chr(10).join("      " + v for v in VIDS)}
       <audio id="otm-collab-audio" class="clip" src="assets/audio/mix_collab.wav" data-start="0" data-duration="{TOTAL}" data-track-index="2" data-volume="1"></audio>
     </div>
     <script>
