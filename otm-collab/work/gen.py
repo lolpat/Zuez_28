@@ -1,6 +1,6 @@
 """OTM x Accurate System: a short collaboration teaser in the OTM glowing style (same scene system as otm-chance /
-otm-break). The OTM emblem lights up and slides aside, a gold x brings in the ACCURATE SYSTEM wordmark (text only: no
-partner logo supplied), "new collaboration / two names, one mission", three locked tiles and a progress bar ("something
+otm-break). The OTM emblem lights up and slides aside, a gold x brings in the Accurate logo (assets/accurate_logo.png,
+supplied by the user; background keyed out), "new collaboration / two names, one mission", three locked tiles and a progress bar ("something
 is being built ... almost ready"), "BIG THINGS ARE COMING", then the OTM outro with the handles. Voice: Quentin, no
 music. Writes ../index.html, work/cues.json (soft kit sounds) and work/timing.json."""
 import json, math, os, random
@@ -131,6 +131,16 @@ def lock(x, y, col="#fff", sc=1.0):
             f'<rect x="{x - 28 * sc}" y="{y - 6 * sc}" width="{56 * sc}" height="{44 * sc}" rx="{8 * sc}" fill="{col}"/>'
             f'<circle cx="{x}" cy="{y + 14 * sc}" r="{5 * sc}" fill="#000"/>')
 
+LOGO_W, LOGO_H = 374, 107                      # assets/accurate_logo.png (partner logo, background keyed out)
+
+def duo(s, cx, cy, h=62, op=0):
+    """small OTM emblem × Accurate logo lockup, centred on (cx, cy)"""
+    ew, lw, lh = h * EMB_W / EMB_H, h * 0.95 * LOGO_W / LOGO_H, h * 0.95
+    x0 = cx - (ew + 20 + 34 + 16 + lw) / 2
+    return s.raw(f'<g id="@ID@" style="opacity:{op}"><image href="assets/otm_emblem.png" x="{x0:.1f}" y="{cy - h / 2:.1f}" width="{ew:.1f}" height="{h}"/>'
+                 f'<text x="{x0 + ew + 37:.1f}" y="{cy + 13:.1f}" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" fill="{GOLD}">×</text>'
+                 f'<image href="assets/accurate_logo.png" x="{x0 + ew + 70:.1f}" y="{cy - lh / 2:.1f}" width="{lw:.1f}" height="{lh:.1f}"/></g>', "duo")
+
 # 1  "Order the Market ... and Accurate System. A new collaboration. Two names. One mission."
 s = S(0, A("something") - 0.1, ground=False, first=True, restore=False, hide=False)
 s.items.append(f'<defs><radialGradient id="eglow"><stop offset="0" stop-color="{GOLD}" stop-opacity="0.38"/><stop offset="1" stop-color="{GOLD}" stop-opacity="0"/></radialGradient></defs>')
@@ -138,19 +148,18 @@ grp = s.raw(f'<g id="@ID@"><circle cx="540" cy="800" r="270" fill="url(#eglow)"/
             f'<image href="assets/otm_emblem.png" x="{540 - EMB_W / 2}" y="{800 - EMB_H / 2:.1f}" width="{EMB_W}" height="{EMB_H}" style="filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/>'
             f'<text x="540" y="1012" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" letter-spacing="0.22em" fill="{GOLD}">ORDER THE MARKET</text></g>', "eg")
 tl(f'tl.fromTo("#{grp}", {{opacity: 0.6, scale: 0.92, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.9, ease: "power2.out"}}, 0);')
-tl(f'tl.to("#{grp}", {{x: -245, scale: 0.78, transformOrigin: "50% 50%", duration: 0.7, ease: "power3.inOut"}}, {A("and") - 0.15:.3f});')
+tl(f'tl.to("#{grp}", {{x: -290, scale: 0.72, transformOrigin: "50% 50%", duration: 0.7, ease: "power3.inOut"}}, {A("and") - 0.15:.3f});')
 cue(0.05, "swell_1", -18)
-xm = s.label(540, 830, "×", 96, GOLD, 0, 800, 0); s.pop(xm, A("and") + 0.15, 0.4, 0.3, "50% 50%"); cue(A("and") + 0.15, "bell_C5", -18)
+xm = s.label(468, 830, "×", 84, GOLD, 0, 800, 0); s.pop(xm, A("and") + 0.15, 0.4, 0.3, "50% 50%"); cue(A("and") + 0.15, "bell_C5", -18)
 cid = s.uid("cp"); rid = s.uid("cr")
-s.items.append(f'<defs><clipPath id="{cid}"><rect id="{rid}" x="572" y="680" width="0" height="240"/></clipPath></defs>')
-wm = s.raw(f'<g id="@ID@" clip-path="url(#{cid})" style="filter:drop-shadow(0 0 14px rgba(255,255,255,0.35))">'
-           f'<text x="795" y="792" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="66" letter-spacing="0.04em" fill="#fff">ACCURATE</text>'
-           f'<text x="795" y="870" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="66" letter-spacing="0.16em" fill="#fff">SYSTEM</text>'
-           f'<rect x="700" y="896" width="190" height="5" rx="2.5" fill="{GOLD}"/></g>', "wm")
-tl(f'tl.fromTo("#{rid}", {{attr: {{width: 0}}}}, {{attr: {{width: 440}}, duration: 0.8, ease: "power2.out", immediateRender: false}}, {A("accurate") - 0.15:.3f});')
+s.items.append(f'<defs><clipPath id="{cid}"><rect id="{rid}" x="495" y="690" width="0" height="220"/></clipPath></defs>')
+LW = 530; LH = LW * LOGO_H / LOGO_W
+wm = s.raw(f'<g id="@ID@" clip-path="url(#{cid})"><image href="assets/accurate_logo.png" x="{772 - LW / 2:.1f}" y="{800 - LH / 2:.1f}" width="{LW}" height="{LH:.1f}" '
+           f'style="filter:drop-shadow(0 0 16px rgba(255,140,60,0.35))"/></g>', "wm")
+tl(f'tl.fromTo("#{rid}", {{attr: {{width: 0}}}}, {{attr: {{width: 570}}, duration: 0.8, ease: "power2.out", immediateRender: false}}, {A("accurate") - 0.15:.3f});')
 cue(A("accurate") - 0.15, "whoosh-short_1", -20)
 pc = s.pill(540, 1150, "NEW COLLABORATION", GOLD, "#111", 30); s.pop(pc, A("collaboration") - 0.2, 0.45, 0.5, "50% 50%"); cue(A("collaboration") - 0.1, "click-confirm_1", -18)
-burst = s.raw(f'<circle id="@ID@" cx="540" cy="800" r="60" fill="none" stroke="{GOLD}" stroke-width="4" style="opacity:0"/>', "c")
+burst = s.raw(f'<circle id="@ID@" cx="468" cy="805" r="60" fill="none" stroke="{GOLD}" stroke-width="4" style="opacity:0"/>', "c")
 tl(f'tl.fromTo("#{burst}", {{opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%"}}, {{opacity: 0, scale: 4.5, duration: 1.0, ease: "power2.out", immediateRender: false}}, {A("one") - 0.05:.3f});')
 cue(A("one") - 0.05, "swell_2", -18)
 t2 = s.label(556, 1262, "TWO NAMES ·", 32, WHITE, 0, 800, 0.14, "end"); s.fade(t2, A("two") - 0.05, 0.35, y=10)
@@ -158,7 +167,7 @@ t3 = s.label(570, 1262, "ONE MISSION", 32, GOLD, 0, 800, 0.14, "start"); s.fade(
 
 # 2  "Something is being built ... and it's almost ready."
 s = S(A("something") - 0.1, A("big") - 0.1, ground=False, restore=False, hide=False)
-s.label(540, 600, "OTM  ×  ACCURATE SYSTEM", 30, LBL, 1, 700, 0.2)
+duo(s, 540, 600, 72, 1)
 for k, (x, w_) in enumerate([(270, "something"), (540, "being"), (810, "built")]):
     tile = s.raw(f'<g id="@ID@" style="opacity:0"><path d="{rrect(x - 105, 720, 210, 230, 20)}" fill="#0d1117" stroke="#ffffff90" stroke-width="3"/>{lock(x, 835, "#ffffffd0", 1.1)}</g>', "tl")
     s.pop(tile, A(w_) - 0.1, 0.4, 0.6, "50% 50%"); cue(A(w_) - 0.1, "tick-crisp_" + str(k + 1), -18)
@@ -181,7 +190,7 @@ tl(f'tl.fromTo("#{b1}", {{opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}},
 b2 = s.label(540, 1010, "ARE COMING", 96, GOLD, 0, 800, 0.04)
 tl(f'tl.fromTo("#{b2}", {{opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}}, {{opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}}, {A("are") - 0.05:.3f});')
 cue(A("big") - 0.05, "land_1", -16); cue(A("are") - 0.05, "land-light_1", -18)
-sm = s.label(540, 1110, "OTM  ×  ACCURATE SYSTEM", 30, LBL, 0, 700, 0.2); s.fade(sm, A("coming"), 0.35)
+sm = duo(s, 540, 1112, 66); s.fade(sm, A("coming"), 0.35)
 
 # 4  outro: "Follow, so you don't miss it."   (no end card: holds, then fades out)
 o4 = A("follow") - 0.05
@@ -191,7 +200,11 @@ es = s.spot(540, 0, "232,194,106", 40, 230); s.fade(es, o4, 0.5)
 em = s.raw(f'<image id="@ID@" href="assets/otm_emblem.png" x="390" y="900" width="{EMB_W}" height="{EMB_H}" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/>', "i")
 s.pop(em, o4, 0.6, 0.6, "50% 50%"); cue(o4, "bell_A4", -16)
 o1 = s.label(540, 1300, "ORDER THE MARKET", 32, GOLD, 0, 800, 0.3); s.fade(o1, o4 + 0.2, 0.45)
-o2 = s.label(540, 1360, "×  ACCURATE SYSTEM  ·  COMING SOON", 28, WHITE, 0, 700, 0.12); s.fade(o2, o4 + 0.4, 0.45)
+o2w = 34 + 14 + 52 * LOGO_W / LOGO_H + 14 + 290; o2x = 540 - o2w / 2
+o2 = s.raw(f'<g id="@ID@" style="opacity:0"><text x="{o2x + 17:.1f}" y="1364" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" fill="{GOLD}">×</text>'
+           f'<image href="assets/accurate_logo.png" x="{o2x + 48:.1f}" y="1326" width="{52 * LOGO_W / LOGO_H:.1f}" height="52"/>'
+           f'<text x="{o2x + 62 + 52 * LOGO_W / LOGO_H:.1f}" y="1362" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.12em" fill="#fff">· COMING SOON</text></g>', "o2")
+s.fade(o2, o4 + 0.4, 0.45)
 o3 = s.pill(540, 1470, "FOLLOW FOR MORE", GOLD, "#111", 30); s.pop(o3, A("follow") + 0.1, 0.4, 0.6, "50% 50%"); cue(A("follow") + 0.1, "click-confirm_1", -16)
 hx = 290
 soc = s.raw(f'<g id="@ID@" style="opacity:0">'
