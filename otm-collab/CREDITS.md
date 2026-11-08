@@ -20,7 +20,7 @@ Partner material (supplied by the user for this collaboration):
   writes assets/clips/*.mp4.
 
 Music: none (voice and soft sound effects only).
-Voice: ElevenLabs, "Quentin" (eleven_v4), cinematic teaser read. Word timings come from faster-whisper (small.en).
+Voice: ElevenLabs, "Quentin" (eleven_v4), one low cinematic teaser tone throughout (the same tone as the first teaser). Word timings come from faster-whisper (small.en).
 Sound effects: earshot launch kit (code-made, shipped with earshot), at a low level (work/cues.json).
 
 Rebuild: python3 work/clips.py --sizes-only && python3 work/gen.py && python3 work/clips.py && bash work/mix.sh && python3 work/mix_sfx.py
