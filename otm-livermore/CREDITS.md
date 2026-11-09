@@ -1,25 +1,32 @@
 # Credits
 
-"The $100 Million Lesson": a story of Jesse Livermore (1877–1940) in the OTM glowing-figure style, on the same scene
-system as `otm-chance` and `otm-break`. Livermore is the figure in the fedora, and a timeline across the top lights each
-year as the story reaches it (1891 to 1934). The beats:
+"The $100 Million Lesson": the story of Jesse Livermore (1877–1940), detailed version (about 2½ minutes). It's in the OTM
+glowing-figure style, on the same scene system as `otm-chance` and `otm-break`. Livermore is the figure in the fedora, and
+a timeline across the top lights each year as the story reaches it (1891 to 1940). The 23 scenes:
 
 - The hook: $100,000,000, then buried in debt.
-- Boston at 14, chalking prices on the quote board and seeing patterns.
-- His first $5 trade at 15, and trading paying more than his job by 16.
-- The 1907 panic: about $1,000,000 in a day.
+- Taken out of school for the farm, he leaves for Boston with $5.
+- Paine Webber: chalking prices for $5 a week, and a notebook of patterns.
+- The bucket shop: no real stock, just a bet on up or down.
+- His first $5 bet on a railroad stock, and a win.
+- About $200 a week by 16; he quits his job.
+- Banned from the shops: "the Boy Plunger".
+- 1907: too much borrowed money, so he bets against the market and makes about $1,000,000 in a day.
 - The 1908 cotton tip, then bankruptcy in 1915.
-- The comeback (creditors repaid) and 1929 (about $100,000,000).
-- Drifting from his rules, then bankrupt again in 1934.
-- His rules, paraphrased: cut losses fast; never add to a loser; let the market prove you right; trust your own plan.
-- The lesson: rules only work if you follow them every day.
+- The Bethlehem Steel comeback, with every creditor repaid although the law didn't require it.
+- The 1920s borrowing boom, then 1929 (about $100,000,000).
+- The rules slipping: buying back too early, an expensive divorce, bigger bets.
+- 1934: over $2,000,000 in debt with under $200,000 left.
+- His rules written down in 1940, paraphrased: cut losses fast; never add to a loser; let the market prove you right;
+  trust your own plan.
+- Rule 3 broken after 1929. "His rules never failed him. He failed his rules." Then every day, and the outro.
 
 It was inspired by a Thai-language TikTok on the same story. The script, wording and drawings are original. The facts
-are the widely documented outline of Livermore's career, rounded the way they're usually told.
+and figures are the widely documented outline of Livermore's career, rounded the way they're usually told.
 
 Music: none (voice and soft sound effects only).
 Voice: ElevenLabs, "Quentin" (eleven_v4), calm storytelling read. Word timings come from faster-whisper (small.en); scenes
-key off the words (helper `A(word, k)` in work/gen.py).
+key off word indices of work/words.json (helper `ix(i)` in work/gen.py), so a new take needs its indices checked.
 Sound effects: earshot launch kit (code-made, shipped with earshot), at a low level (work/cues.json).
 
 Rebuild: python3 work/gen.py && bash work/mix.sh && python3 work/mix_sfx.py
