@@ -499,6 +499,64 @@
     return t("lb.resets", { t: `${d ? d + (I.lang === "th" ? " วัน " : "d ") : ""}${h}${I.lang === "th" ? " ชม. " : "h "}${two(m)}${I.lang === "th" ? " น. " : "m "}${two(sec)}${I.lang === "th" ? " วิ" : "s"}` });
   }
 
+  // metal palettes for 1st / 2nd / 3rd: [shadow, base, light, highlight]
+  const METAL = { 1: ["#6e4f12", "#c89f3a", "#f6e4a6", "#fff6d6"], 2: ["#5c6069", "#b4b8c1", "#eef0f4", "#ffffff"], 3: ["#5a2e14", "#b06a3b", "#f0b38a", "#ffe1c9"] };
+  // A hanging banner on a rod: folded metallic cloth, a medallion with the place in a laurel wreath,
+  // a crown for first place. Original artwork drawn in SVG.
+  function bannerSvg(place) {
+    const [d, b, l, h] = METAL[place], id = "bn" + place;
+    const leaves = (side) => Array.from({ length: 7 }, (_, k) => {
+      const ang = (side < 0 ? 118 : 62) + side * -k * 15, rad = (ang * Math.PI) / 180;
+      const x = 100 + 60 * Math.cos(rad), y = 205 + 60 * Math.sin(rad);
+      return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="7.5" ry="3.2" transform="rotate(${(ang + 90 * side).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="url(#${id}m)" stroke="${d}" stroke-width=".6"/>`;
+    }).join("");
+    const crown = place === 1 ? `<g class="bn-crown">
+        <path d="M66 40 L60 10 L80 24 L100 0 L120 24 L140 10 L134 40 Z" fill="url(#${id}v)" stroke="${d}" stroke-width="1.2" stroke-linejoin="round"/>
+        <rect x="64" y="36" width="72" height="9" rx="3" fill="url(#${id}v)" stroke="${d}" stroke-width="1"/>
+        <circle cx="100" cy="22" r="4.5" fill="#e52150" stroke="${h}" stroke-width="1"/><circle cx="80" cy="30" r="2.6" fill="#e52150"/><circle cx="120" cy="30" r="2.6" fill="#e52150"/>
+        <circle cx="60" cy="10" r="3" fill="${h}"/><circle cx="100" cy="0" r="3.4" fill="${h}"/><circle cx="140" cy="10" r="3" fill="${h}"/>
+      </g>` : `<path d="M100 14 L108 32 L100 44 L92 32 Z" fill="url(#${id}v)" stroke="${d}" stroke-width="1"/>`;
+    return `<svg viewBox="0 -6 200 476" role="img" aria-label="${place}">
+      <defs>
+        <linearGradient id="${id}f" x1="0" x2="1">
+          <stop offset="0" stop-color="${d}"/><stop offset=".12" stop-color="${b}"/><stop offset=".27" stop-color="${l}"/><stop offset=".4" stop-color="${b}"/>
+          <stop offset=".55" stop-color="${d}" stop-opacity=".9"/><stop offset=".7" stop-color="${b}"/><stop offset=".84" stop-color="${l}"/><stop offset="1" stop-color="${d}"/>
+        </linearGradient>
+        <linearGradient id="${id}v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${h}"/><stop offset=".45" stop-color="${l}"/><stop offset=".55" stop-color="${b}"/><stop offset="1" stop-color="${d}"/></linearGradient>
+        <radialGradient id="${id}m" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="${h}"/><stop offset=".45" stop-color="${l}"/><stop offset=".75" stop-color="${b}"/><stop offset="1" stop-color="${d}"/></radialGradient>
+        <radialGradient id="${id}e" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#4a0816"/><stop offset=".7" stop-color="#1c030a"/><stop offset="1" stop-color="#0b0205"/></radialGradient>
+        <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".14" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
+        <linearGradient id="${id}t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${h}"/><stop offset=".5" stop-color="${l}"/><stop offset="1" stop-color="${b}"/></linearGradient>
+      </defs>
+      ${crown}
+      <rect x="14" y="54" width="172" height="10" rx="5" fill="url(#${id}v)" stroke="${d}" stroke-width=".8"/>
+      <circle cx="12" cy="59" r="9" fill="url(#${id}m)" stroke="${d}" stroke-width=".8"/><circle cx="188" cy="59" r="9" fill="url(#${id}m)" stroke="${d}" stroke-width=".8"/>
+      <path d="M30 68 H170 V368 L100 420 L30 368 Z" fill="url(#${id}f)"/>
+      <path d="M30 68 H170 V368 L100 420 L30 368 Z" fill="url(#${id}s)"/>
+      <path d="M40 78 H160 V362 L100 406 L40 362 Z" fill="none" stroke="${d}" stroke-width="2" opacity=".55"/>
+      <path d="M44 82 H156 V360 L100 401 L44 360 Z" fill="none" stroke="${h}" stroke-width=".8" opacity=".5"/>
+      ${[50, 100, 150].map((x) => `<rect x="${x - 4}" y="60" width="8" height="12" rx="2" fill="url(#${id}v)" stroke="${d}" stroke-width=".6"/>`).join("")}
+      ${leaves(-1)}${leaves(1)}
+      <circle cx="100" cy="205" r="52" fill="url(#${id}m)" stroke="${d}" stroke-width="1.2"/>
+      <circle cx="100" cy="205" r="42" fill="url(#${id}e)" stroke="${h}" stroke-width="1" stroke-opacity=".7"/>
+      <text x="100" y="224" text-anchor="middle" class="bn-num" fill="url(#${id}t)">${place}</text>
+      <path d="M62 298 L100 322 L138 298" fill="none" stroke="${d}" stroke-width="3" opacity=".45" stroke-linecap="round"/>
+      <path d="M70 318 L100 337 L130 318" fill="none" stroke="${h}" stroke-width="1.4" opacity=".5" stroke-linecap="round"/>
+      <path d="M100 420 V436" stroke="${d}" stroke-width="2"/><path d="M93 436 h14 l-3 26 h-8 z" fill="url(#${id}v)" stroke="${d}" stroke-width=".8"/>
+    </svg>`;
+  }
+  // small eight-point star medal for the top three rows
+  function rowMedal(place) {
+    const [d, b, l, h] = METAL[place], id = "rm" + place;
+    const pts = Array.from({ length: 16 }, (_, k) => { const r = k % 2 ? 13 : 19, a = (k * Math.PI) / 8 - Math.PI / 2; return `${(20 + r * Math.cos(a)).toFixed(1)},${(20 + r * Math.sin(a)).toFixed(1)}`; }).join(" ");
+    return `<svg class="lb-medal" viewBox="0 0 40 40" width="38" height="38" role="img" aria-label="${place}">
+      <defs><radialGradient id="${id}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="${h}"/><stop offset=".45" stop-color="${l}"/><stop offset=".75" stop-color="${b}"/><stop offset="1" stop-color="${d}"/></radialGradient></defs>
+      <polygon points="${pts}" fill="url(#${id})" stroke="${d}" stroke-width=".8"/>
+      <circle cx="20" cy="20" r="10" fill="#14030a" stroke="${l}" stroke-width="1"/>
+      <text x="20" y="24.5" text-anchor="middle" fill="${l}" style="font:600 12px var(--font-head)">${place}</text>
+    </svg>`;
+  }
+
   async function leaderboard(v) {
     if (!approved()) { v.innerHTML = statusCard() + riskNote(); return; }
     const L = state.lb, m = state.me;
@@ -536,12 +594,9 @@
       if (!r) return `<div class="pod pod--empty"></div>`;
       const place = [2, 1, 3][i], P = lbParts(r);
       return `<div class="pod pod--${place} ${r.is_me ? "is-me" : ""}">
-          <div class="pod__medal"><span>${place}</span></div>
-          ${avatar(r, "lb-av--lg")}
+          <div class="pod__banner">${bannerSvg(place)}</div>
           <b class="pod__name">${esc(r.display_name)}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
-          <span class="pod__net up">${money(r.net)}</span>
-          <span class="pod__meta">${fmt.num(P.wr, 0)}% WR${r.return_pct != null ? ` · ${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%` : ""}</span>
-          <div class="pod__base"><span>${place}</span></div>
+          <span class="pod__line"><span class="pod__net">${money(r.net)}</span><i aria-hidden="true"></i><span>${fmt.num(P.wr, 0)}% WR</span>${r.return_pct != null ? `<i aria-hidden="true"></i><span>${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%</span>` : ""}</span>
         </div>`;
     }).join("") : "";
 
@@ -560,23 +615,28 @@
         <div class="card kpi"><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${mine.count ? fmt.num(mine.winRate, 1) + "%" : "–"}</span><span class="kpi__sub">${t("j.wr.sub", { w: mine.wins, l: mine.losses })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.pf")}</span><span class="kpi__val">${mine.count ? pf(mine.profitFactor) : "–"}</span><span class="kpi__sub">${t("j.pf.sub")}</span></div>
       </div>
-      ${rows.length ? `<section class="podium" aria-label="${esc(t("lb.top3"))}">${podium}</section>
-      <section class="card">
+      ${rows.length ? `<section class="podium" aria-label="${esc(t("lb.top3"))}"><div class="podium__sparks" aria-hidden="true">${Array.from({ length: 14 }, (_, k) => `<i style="--x:${(k * 37) % 100}%;--d:${(k * 1.7) % 9}s;--s:${6 + (k % 4) * 2}s"></i>`).join("")}</div>${podium}</section>
+      <section class="card lb-board">
         <h3>${t("lb.allTraders")} <span class="badge">${t("lb.count", { n: rows.length })}</span></h3>
-        <div class="table-wrap"><table class="table lb-table">
-          <thead><tr><th>${t("lb.col.rank")}</th><th>${t("lb.col.trader")}</th><th class="c-tier">${t("lb.col.tier")}</th><th class="r">${t("j.col.trades")}</th><th class="r">${t("lb.col.profit")}</th><th class="r c-ret">${t("lb.col.return")}</th><th class="r">${t("j.col.wr")}</th><th class="r c-pf">P.Factor</th><th class="r c-wl">${t("lb.col.wl")}</th><th class="r">${t("lb.col.streak")}</th></tr></thead>
-          <tbody>${rows.map((r) => { const P = lbParts(r); return `<tr class="lb-row ${r.rank <= 3 ? "lb-row--" + r.rank : ""} ${r.is_me ? "is-me" : ""}">
-            <td class="lb-rank">${r.rank <= 3 ? `<span class="lb-medal lb-medal--${r.rank}">${r.rank}</span>` : String(r.rank).padStart(2, "0")}</td>
-            <td><span class="lb-who">${avatar(r)}<b>${esc(r.display_name)}</b>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span></td>
-            <td class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></td>
-            <td class="r">${r.trades}</td>
-            <td class="r up"><b>${money(r.net)}</b></td>
-            <td class="r c-ret">${r.return_pct != null ? `${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%` : "–"}</td>
-            <td class="r">${fmt.num(P.wr, 1)}%</td>
-            <td class="r c-pf">${pf(P.pfv)}</td>
-            <td class="r c-wl">${P.wl === Infinity ? "∞" : fmt.num(P.wl, 2)}</td>
-            <td class="r"><span class="lb-streak">${r.streak ? FLAME + r.streak : "–"}</span></td></tr>`; }).join("")}</tbody>
-        </table></div>
+        <div class="lb-scroll"><div class="lb-list" role="table" aria-label="${esc(t("lb.allTraders"))}">
+          <div class="lb-tr lb-tr--head" role="row">
+            <span role="columnheader">${t("lb.col.rank")}</span><span role="columnheader">${t("lb.col.trader")}</span><span role="columnheader" class="c-tier">${t("lb.col.tier")}</span>
+            <span role="columnheader" class="c-num c-trades">${t("j.col.trades")}</span><span role="columnheader" class="c-num">${t("lb.col.profit")}</span><span role="columnheader" class="c-num c-ret">${t("lb.col.return")}</span>
+            <span role="columnheader" class="c-num c-wr">${t("j.col.wr")}</span><span role="columnheader" class="c-num c-pf">P.Factor</span><span role="columnheader" class="c-num c-wl">${t("lb.col.wl")}</span><span role="columnheader" class="c-num c-streak">${t("lb.col.streak")}</span>
+          </div>
+          ${rows.map((r) => { const P = lbParts(r); return `<div class="lb-tr ${r.rank <= 3 ? "lb-tr--" + r.rank : ""} ${r.is_me ? "is-me" : ""}" role="row">
+            <span role="cell" class="c-rank">${r.rank <= 3 ? rowMedal(r.rank) : `<span class="lb-num">${String(r.rank).padStart(2, "0")}</span>`}</span>
+            <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
+            <span role="cell" class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></span>
+            <span role="cell" class="c-num c-trades">${r.trades}</span>
+            <span role="cell" class="c-num c-net">${money(r.net)}</span>
+            <span role="cell" class="c-num c-ret">${r.return_pct != null ? `${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%` : "–"}</span>
+            <span role="cell" class="c-num c-wr">${fmt.num(P.wr, 1)}%</span>
+            <span role="cell" class="c-num c-pf">${pf(P.pfv)}</span>
+            <span role="cell" class="c-num c-wl">${P.wl === Infinity ? "∞" : fmt.num(P.wl, 2)}</span>
+            <span role="cell" class="c-num c-streak">${r.streak ? `<span class="lb-streak">${FLAME}${r.streak}</span>` : `<span class="muted">–</span>`}</span>
+          </div>`; }).join("")}
+        </div></div>
       </section>` : `<section class="card empty"><h3>${t("lb.empty.t")}</h3><p>${t("lb.empty.d")}</p></section>`}
       <p class="muted lb-foot">${t("lb.foot")}</p>
       ${joined ? `<section class="card lb-me">

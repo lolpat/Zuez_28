@@ -227,7 +227,7 @@
       "lb.col.tier": "ระดับ",
       "lb.col.profit": "กำไรสุทธิ",
       "lb.col.return": "% ต่อทุน",
-      "lb.col.wl": "ได้เฉลี่ย/เสียเฉลี่ย",
+      "lb.col.wl": "ได้/เสียเฉลี่ย",
       "lb.col.streak": "ชนะติดกัน",
       "lb.tier.platinum": "Platinum",
       "lb.tier.gold": "Gold",
