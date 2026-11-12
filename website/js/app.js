@@ -391,8 +391,9 @@
         const fields = { note: e.target.note.value.trim(), lesson: e.target.lesson.value.trim(), feeling: feel, execution: exec || null, tags };
         try { await state.store.updateTrade(tr.id, fields); Object.assign(tr, fields); closeModal(); toast(t("app.saved")); render(); } catch (err) { fail(err); }
       });
-      $("#del", box).addEventListener("click", async () => {
-        if (!confirm(t("app.confirmDelete"))) return;
+      $("#del", box).addEventListener("click", async (e) => {
+        const btn = e.currentTarget;
+        if (!btn.dataset.armed) { btn.dataset.armed = "1"; btn.textContent = t("app.confirmDelete"); return; }
         try { await state.store.deleteTrade(tr.id); state.trades = state.trades.filter((x) => x.id !== tr.id); closeModal(); render(); } catch (err) { fail(err); }
       });
     });
@@ -596,7 +597,7 @@
     const kpiGrid = $(".kpis", v); if (matchMedia("(min-width: 900px)").matches) kpiGrid.style.gridTemplateColumns = "repeat(4,1fr)";
 
     $$("[data-copy]", v).forEach((b) => b.addEventListener("click", async () => {
-      try { await navigator.clipboard.writeText(b.dataset.copy); toast(t("app.copied")); } catch { prompt("", b.dataset.copy); }
+      try { await navigator.clipboard.writeText(b.dataset.copy); toast(t("app.copied")); } catch { const r = document.createRange(); const el = b.previousElementSibling; if (el) { r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); } }
     }));
     const q = $("#net-q", v);
     const filter = () => { state.netQuery = q.value; const s = q.value.trim().toLowerCase(); $$("#net-list .net-row", v).forEach((r) => { r.hidden = s && !r.dataset.search.includes(s); }); };

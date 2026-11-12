@@ -35,7 +35,7 @@
         </article>`;
       }).join("");
       box.querySelectorAll("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
-        try { await navigator.clipboard.writeText(btn.dataset.copy); } catch { window.prompt("", btn.dataset.copy); return; }
+        try { await navigator.clipboard.writeText(btn.dataset.copy); } catch { const el = btn.previousElementSibling, r = document.createRange(); r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); return; }
         btn.textContent = t("app.copied");
         setTimeout(() => { btn.textContent = t("app.copy"); }, 1600);
       }));
