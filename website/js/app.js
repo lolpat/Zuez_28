@@ -136,11 +136,72 @@
     const mins = ny.h * 60 + ny.m;
     return ny.wd === "Sat" || (ny.wd === "Fri" && mins >= 17 * 60) || (ny.wd === "Sun" && mins < 17 * 60);
   }
+  // where each market sits on the map, and its country code for the list
+  const PLACES = {
+    sydney: { lon: 151.21, lat: -33.87, cc: "AU", side: "left" },
+    tokyo: { lon: 139.69, lat: 35.69, cc: "JP", side: "left" },
+    london: { lon: -0.13, lat: 51.51, cc: "GB", side: "right" },
+    newyork: { lon: -74.0, lat: 40.71, cc: "US", side: "left" }
+  };
+  const ICON_SUN = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>`;
+  const ICON_MOON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>`;
+  const hhmm = (mins) => { const m = ((Math.round(mins) % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
+
+  // where the sun is overhead right now (declination and longitude, in degrees)
+  function sunNow(d) {
+    const start = Date.UTC(d.getUTCFullYear(), 0, 0), day = (d.getTime() - start) / 864e5;
+    const B = (2 * Math.PI * (day - 81)) / 364;
+    const eot = 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B); // minutes
+    const utcH = d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
+    const lon = (((-15 * (utcH - 12 + eot / 60)) + 540) % 360) - 180;
+    const dec = 23.44 * Math.sin(B);
+    return { lon, dec: Math.abs(dec) < 0.2 ? (dec < 0 ? -0.2 : 0.2) : dec };
+  }
+
+  function mapSvg(now, rows) {
+    const M = window.OTM_WORLD;
+    if (!M) return "";
+    const X = (lon) => ((lon + 180) / 360) * M.w, Y = (lat) => ((M.top - lat) / 360) * M.w;
+    const sun = sunNow(now), rad = Math.PI / 180;
+    // night side: for each longitude, the latitude where the sun sets
+    const pts = [];
+    for (let lon = -180; lon <= 180; lon += 3) {
+      const lat = Math.atan(-Math.cos((lon - sun.lon) * rad) / Math.tan(sun.dec * rad)) / rad;
+      pts.push(`${X(lon).toFixed(1)},${Math.max(-20, Math.min(M.h + 20, Y(lat))).toFixed(1)}`);
+    }
+    const edge = sun.dec > 0 ? M.h + 20 : -20;
+    const night = `M-2,${edge} L${pts.join(" L")} L${M.w + 2},${edge} Z`;
+    const sx = X(sun.lon), sy = Y(sun.dec);
+    const cities = rows.map((r) => {
+      const pl = PLACES[r.s.id], x = X(pl.lon), y = Y(pl.lat), left = pl.side === "left";
+      return `<g class="wmap__city ${r.open ? "is-open" : ""}">
+          ${r.open ? `<circle class="wmap__pulse" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7"/>` : ""}
+          <circle class="wmap__dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.open ? 5 : 4}"/>
+          <text x="${(x + (left ? -12 : 12)).toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="${left ? "end" : "start"}">${r.s.name}</text>
+        </g>`;
+    }).join("");
+    return `<svg class="wmap" viewBox="0 0 ${M.w} ${M.h}" role="img" aria-label="${esc(t("dash.map"))}" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="wmap-soft" x="-5%" y="-10%" width="110%" height="120%"><feGaussianBlur stdDeviation="9"/></filter>
+          <linearGradient id="wmap-sun" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F0D68C" stop-opacity="0"/><stop offset=".5" stop-color="#F0D68C" stop-opacity=".85"/><stop offset="1" stop-color="#F0D68C" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="wmap-glow"><stop offset="0" stop-color="#F6E4A6"/><stop offset=".35" stop-color="#DCB84A" stop-opacity=".55"/><stop offset="1" stop-color="#DCB84A" stop-opacity="0"/></radialGradient>
+        </defs>
+        <path class="wmap__land" d="${M.d}"/>
+        <path class="wmap__night" d="${night}" filter="url(#wmap-soft)"/>
+        <rect x="${(sx - 1).toFixed(1)}" y="0" width="2" height="${M.h}" fill="url(#wmap-sun)"/>
+        <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="30" fill="url(#wmap-glow)"/>
+        <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="4" fill="#FFF3CC"/>
+        ${cities}
+      </svg>`;
+  }
+
   function hoursHtml() {
     const now = new Date();
     const localOff = -now.getTimezoneOffset();
     const weekend = marketClosed(now);
-    const nowPct = ((now.getHours() * 60 + now.getMinutes()) / 1440) * 100;
+    const localNow = now.getHours() * 60 + now.getMinutes();
     const rows = SESSIONS.map((s) => {
       const p = tzParts(s.tz, now);
       const cur = p.h * 60 + p.m, o = s.open * 60, c = s.close * 60;
@@ -149,14 +210,27 @@
       const startLocal = ((o - p.offset + localOff) % 1440 + 1440) % 1440;
       const len = c - o;
       const segs = startLocal + len <= 1440 ? [[startLocal, len]] : [[startLocal, 1440 - startLocal], [0, startLocal + len - 1440]];
-      return `<div class="hours__row ${open ? "is-open" : ""}">
-        <span>${s.name}</span>
-        <div class="hours__track">${segs.map(([a, l]) => `<i class="hours__seg" style="left:${(a / 14.4).toFixed(2)}%;width:${(l / 14.4).toFixed(2)}%"></i>`).join("")}<i class="hours__now" style="left:${nowPct.toFixed(2)}%"></i></div>
-        <span class="hours__state">${weekend ? t("dash.closed") : open ? t("dash.open") + " · " + t("dash.closesIn", { t: dur(until) }) : t("dash.opensIn", { t: dur(until) })}</span>
-      </div>`;
-    }).join("");
-    return `${rows}<div class="hours__scale"><span></span><div><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div></div>
-      ${weekend ? `<p class="muted" style="font-size:.86rem">${t("dash.weekend")}</p>` : ""}`;
+      return { s, open, until, startLocal, len, segs };
+    });
+    const nOpen = rows.filter((r) => r.open).length;
+    const list = rows.map((r) => `<li class="mk ${r.open ? "is-open" : ""}">
+        <span class="mk__icon">${r.open ? ICON_SUN : ICON_MOON}</span>
+        <span class="mk__cc">${PLACES[r.s.id].cc}</span>
+        <b class="mk__name">${r.s.name}</b>
+        <span class="mk__state">${weekend ? t("dash.closed") : r.open ? t("dash.closesIn", { t: dur(r.until) }) : t("dash.opensIn", { t: dur(r.until) })}</span>
+        <span class="mk__track" aria-hidden="true">${r.segs.map(([a, l]) => `<i class="mk__seg" style="left:${(a / 14.4).toFixed(2)}%;width:${(l / 14.4).toFixed(2)}%"></i>`).join("")}<i class="mk__now" style="left:${(localNow / 14.4).toFixed(2)}%"></i></span>
+        <span class="mk__range">${t("dash.localRange", { a: hhmm(r.startLocal), b: hhmm(r.startLocal + r.len) })}</span>
+      </li>`).join("");
+    return `<div class="market__head">
+        <span class="market__icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg></span>
+        <div><h3>${t("dash.hours")}</h3><p class="card__sub">${t("dash.hours.local")}</p></div>
+        <span class="badge ${nOpen ? "badge--gold" : ""}">${weekend ? t("dash.weekendShort") : nOpen ? t("dash.openCount", { n: nOpen }) : t("dash.allClosed")}</span>
+      </div>
+      <div class="market__body">
+        <div class="market__map">${mapSvg(now, rows)}</div>
+        <ul class="mk-list">${list}</ul>
+      </div>
+      ${weekend ? `<p class="muted" style="font-size:.86rem;margin:12px 0 0">${t("dash.weekend")}</p>` : ""}`;
   }
 
   function dashboard(v) {
@@ -176,11 +250,8 @@
     v.innerHTML = `
       <div class="view-head"><div><p class="muted">${t("dash.welcome")}</p><h2>${esc(m.full_name || m.email)}</h2></div></div>
       ${statusCard()}
+      <section class="card market" id="hours">${hoursHtml()}</section>
       <div class="grid grid--21">
-        <section class="card">
-          <h3>${t("dash.hours")}</h3><p class="card__sub">${t("dash.hours.local")}</p>
-          <div class="hours" id="hours">${hoursHtml()}</div>
-        </section>
         <section class="card kpi--hero">
           <h3>${t("dash.month")} <a class="btn btn--ghost btn--sm" href="#journal">${t("dash.toJournal")}</a></h3>
           ${st.count ? `<div class="score" style="margin-top:6px">${C.gauge(all.score, t("j.score"))}
@@ -189,13 +260,13 @@
               <div><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${fmt.num(st.winRate, 1)}%</span></div>
             </div></div>` : `<p class="muted" style="margin-top:12px">${t("dash.noData")}</p>`}
         </section>
-      </div>
-      <div class="grid grid--2">
         <section class="card">
           <h3>${t("dash.start")} <span class="badge">${t("dash.done", { n: done, m: steps.length })}</span></h3>
           <div class="progress"><i style="width:${(done / steps.length) * 100}%"></i></div>
           <ul class="checklist">${steps.map(([k, ok, href]) => `<li class="${ok ? "done" : ""}"><i class="tick"></i><span>${ok ? t(k) : `<a href="${href}">${t(k)}</a>`}</span></li>`).join("")}</ul>
         </section>
+      </div>
+      <div class="grid">
         <section class="card">
           <h3>${t("dash.upline")}</h3>
           ${state.upline ? `<div class="net-row__who" style="margin-top:14px"><span class="avatar">${esc(initials(state.upline.full_name))}</span><div><b>${esc(state.upline.full_name)}</b><small>${esc(state.upline.telegram || "")}</small></div></div>
