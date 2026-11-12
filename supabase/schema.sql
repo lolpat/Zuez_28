@@ -330,3 +330,21 @@ language sql stable security definer set search_path = public as $$
 $$;
 revoke execute on function public.leaderboard(text, text) from public, anon;
 grant execute on function public.leaderboard(text, text) to authenticated;
+
+-- ---------------------------------------------------------------- correcting live / demo
+-- Some brokers label a real-money account "Demo" (in the server name or what they report). The site
+-- owner can correct any account's type; once corrected it is locked, so a sync never flips it back.
+-- Members choose the type only when they add an account.
+alter table public.broker_accounts add column if not exists type_locked boolean not null default false;
+revoke update (account_type) on public.broker_accounts from authenticated;
+
+create or replace function public.set_account_type(p_account uuid, p_type text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if p_type not in ('live', 'demo') then raise exception 'bad-type'; end if;
+  if not public.is_owner(auth.uid()) then raise exception 'not-allowed'; end if;
+  update broker_accounts set account_type = p_type, type_locked = true where id = p_account;
+  if not found then raise exception 'not-found'; end if;
+end $$;
+revoke execute on function public.set_account_type(uuid, text) from public, anon;
+grant execute on function public.set_account_type(uuid, text) to authenticated;

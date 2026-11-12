@@ -87,7 +87,9 @@ The landing page FAQ tells members their IB line can see a summary of their resu
   win/loss size; fewer than 3 trades is "Rookie").
 - **Live / Demo** switch at the top right: each account is marked live or demo (Profile > Add account;
   a synced account whose server name contains "Demo" is marked demo automatically), and the two are
-  ranked separately.
+  ranked separately. Some brokers label a real-money account "Demo"; the site owner can correct any
+  account's type (Profile, Live / Demo next to the account). A corrected type is locked, so a sync
+  never changes it back. Members can't change the type after adding an account.
 - Daily / Weekly / Monthly / All time, on Thai time (weeks start Monday 00:00), with a countdown to
   the next reset.
 - In live mode the ranking comes from the database function `leaderboard()` in

@@ -1013,10 +1013,12 @@
         <section class="card">
           <h3>${t("prof.accounts")} <button class="btn btn--ghost btn--sm" type="button" id="add-acc">${t("prof.addAcc")}</button></h3>
           ${state.accounts.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>${t("auth.broker")}</th><th>${t("auth.account")}</th><th class="r">${t("prof.start")}</th><th></th></tr></thead><tbody>
-            ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span>${a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}<br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
+            ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span>${m.role === "owner"
+              ? `<select class="input acc-type" data-acc-type="${a.id}" aria-label="${esc(t("prof.type"))}"><option value="live" ${a.account_type !== "demo" ? "selected" : ""}>Live</option><option value="demo" ${a.account_type === "demo" ? "selected" : ""}>Demo</option></select>`
+              : a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}<br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
               <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td>
               <td class="r"><button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
-          </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
+          </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}${m.role === "owner" ? " " + t("prof.type.owner") : ""}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
         </section>
       </div>
       ${syncOn() && state.accounts.length ? `<section class="card">
@@ -1078,6 +1080,10 @@
       b.disabled = true;
       try { await state.store.syncDisconnect(b.dataset.syncOff); await reload(["accounts"]); toast(t("sync.disconnected")); render(); }
       catch (err) { b.disabled = false; toast(syncErrText(err.message)); }
+    }));
+    $$("[data-acc-type]", v).forEach((sel) => sel.addEventListener("change", async () => {
+      try { await state.store.setAccountType(sel.dataset.accType, sel.value); await reload(["accounts"]); toast(t("prof.typeSaved")); render(); }
+      catch (err) { fail(err); }
     }));
     const dr = $("#demo-reset", v);
     if (dr) dr.addEventListener("click", async () => { await state.store.resetDemo(); location.reload(); });

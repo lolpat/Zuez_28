@@ -197,6 +197,11 @@
       db.accounts.push(acc); saveDemo(); return acc;
     },
     async updateAccount(id, f) { const a = db.accounts.find((x) => x.id === id && x.user_id === db.session); Object.assign(a, f); saveDemo(); return a; },
+    async setAccountType(id, type) {
+      if (!me() || me().role !== "owner") throw new Error("not-allowed");
+      const a = db.accounts.find((x) => x.id === id); if (!a) throw new Error("not-found");
+      Object.assign(a, { account_type: type, type_locked: true }); saveDemo(); return a;
+    },
     async deleteAccount(id) {
       db.accounts = db.accounts.filter((x) => !(x.id === id && x.user_id === db.session));
       db.trades = db.trades.filter((x) => !(x.account_id === id && x.user_id === db.session)); saveDemo();
@@ -309,6 +314,7 @@
       return data;
     },
     async updateAccount(id, f) { return must(await sb.from("broker_accounts").update(f).eq("id", id).select().single()); },
+    async setAccountType(id, type) { must(await sb.rpc("set_account_type", { p_account: id, p_type: type })); },
     async deleteAccount(id) { must(await sb.from("broker_accounts").delete().eq("id", id).eq("user_id", profileCache.id)); },
     async listTrades() {
       const all = []; let from = 0;

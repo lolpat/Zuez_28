@@ -230,7 +230,8 @@ Deno.serve(async (req) => {
       const metaId = await createMetaApiAccount(acc, server, password);
       await metaapi(`${PROVISIONING}/users/current/accounts/${metaId}/deploy`, { method: "POST" });
       // a server named like "...-Demo" is a demo account; it goes on the demo leaderboard
-      const account_type = /demo/i.test(server) ? "demo" : (acc.account_type ?? "live");
+      // ...unless the site owner has corrected this account's type (brokers sometimes mislabel)
+      const account_type = acc.type_locked ? acc.account_type : /demo/i.test(server) ? "demo" : (acc.account_type ?? "live");
       await db.from("broker_accounts").update({ server, account_type, metaapi_id: metaId, sync_status: "connecting", sync_error: "", last_sync_at: null }).eq("id", acc.id);
       // give the terminal a moment to log in, then try a first read
       // (kept short: the whole call must finish inside Supabase's function time limit)
