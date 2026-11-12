@@ -29,6 +29,9 @@ Or type a sample email (`krit@demo`, `somchai@demo`, `nok@demo`, `owner@demo`) w
   (OTM2028) and VT Markets (OTM2028). The landing page shows each code with a Copy button next to
   an "Open through our link" button. These broker codes are separate from the portal referral
   codes IBs share for registering on this site.
+- `AUTO_SYNC`: shows the "Automatic history" feature (connect an MT4/MT5 account with its investor
+  password). Leave it `true` once the steps in "Automatic MT4/MT5 history" below are done; set it to
+  `false` to hide the feature until then.
 
 ## Going live with real accounts (Supabase, free tier)
 
@@ -67,8 +70,54 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Balance** = the starting balance set per account in Profile + all net profit.
 - **Trading score** = average of six 0–100 parts: win rate, profit factor, average win vs average
   loss, recovery (net profit ÷ max drawdown), drawdown control, share of profitable weeks.
-- MT5 auto-sync (pulling trades live with the investor password) is not built yet. It needs a paid
-  sync service; see the brand kit for the plan.
+- **Pick dates** chooses any from–to range. The **Daily summary** table lists every trading day in
+  the range: trades, won / lost, win rate, lots, net profit and the running total. Tapping a day
+  shows that day's trades.
+- **Automatic history** pulls trades in by itself; see the next section. Import still works as a
+  fallback, and trades that were imported before are not duplicated by a sync.
+
+## Automatic MT4/MT5 history (investor password)
+
+A member opens Journal or Profile > **Connect account**, enters the MT5 server name and the account's
+**investor (read-only) password** once, and their whole history comes in. After that a schedule pulls
+new trades every 30 minutes, and **Sync now** pulls them on demand.
+
+How it works and what it needs:
+
+- Brokers don't give IBs an API for their clients' trades, so being under the IB is not enough on its
+  own. Reading an account's history needs a MetaTrader login, and the investor password is the safe
+  one: it can see trades but cannot trade or withdraw.
+- The login is done by **MetaApi** (metaapi.cloud), a paid service that keeps a cloud MT4/MT5 terminal
+  connected for each account. **It costs money per connected account while it's connected**; check
+  the current price on metaapi.cloud before switching this on. Disconnecting an account in Profile
+  removes it from MetaApi and stops the charge.
+- The investor password is sent once from the member's browser to our Supabase function and on to
+  MetaApi over HTTPS. **It is never stored in our database.**
+- The code is `../supabase/functions/mt-sync/index.ts`. It was tested against simulated MetaApi
+  replies (connect, wrong password, partial closes, positions opened before the first sync,
+  re-sync without duplicates, the schedule's secret). It has not run against a live MetaApi account
+  yet: do the first real connection yourself with a demo or small account and check the trades match.
+
+Switching it on (one time, about 20 minutes):
+
+1. Create a MetaApi account and copy an API token from https://app.metaapi.cloud/token.
+2. Install the Supabase CLI on a computer (https://supabase.com/docs/guides/cli), then from this
+   project's folder:
+   ```
+   supabase login
+   supabase link --project-ref YOUR-PROJECT
+   supabase secrets set METAAPI_TOKEN=paste-the-token CRON_SECRET=any-long-random-text
+   supabase functions deploy mt-sync
+   ```
+   (Optional: `METAAPI_REGION=london` if your MetaApi account uses London; the default is new-york.)
+3. Run `../supabase/schema.sql` again in the SQL Editor (it only adds the new columns), then open
+   `../supabase/sync-schedule.sql`, fill in the three values at the top, and run it. That starts the
+   30-minute schedule.
+4. Keep `AUTO_SYNC: true` in `js/config.js`.
+
+What members see if something is wrong: a wrong password or server name, an account the broker has
+closed, or the broker asking for a password change each get their own plain message, and the account
+shows "Problem" in Profile until they reconnect.
 
 ## Files
 
@@ -80,4 +129,6 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - `js/importer.js`: MT4/MT5 report reader
 - `js/charts.js`: the SVG charts
 - `js/app.js`: the portal; `js/site.js`: landing, login and sign-up
+- `js/worldmap.js`: world outline for the market-hours map (Natural Earth, public domain)
+- `../supabase/functions/mt-sync/`: automatic MT4/MT5 history; `../supabase/sync-schedule.sql`: its schedule
 - `assets/img/`: logo mark (from `brand/logo/`), app icon, share image

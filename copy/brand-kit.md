@@ -33,27 +33,29 @@ Disciplined, warm, premium, plain-spoken, encouraging, honest about risk, unhurr
 
 ## 4. Palette and fonts
 
-Site colours chosen by the owner: crimson `#6D0317`, pink-red `#E52150`, yellow `#F4EB06`.
+Site colours chosen by the owner: black background; crimson `#6D0317` and pink-red `#E52150` as accents
+(never as a page or card background); yellow `#F4EB06` toned to a softer gold.
 The logo artwork keeps its own gold and maroon (see `brand/README.md`); it is never recoloured.
 
 | Token | Hex | Use |
 |---|---|---|
-| bg | `#2E030E` | page canvas (the crimson pushed darker for long reading; never pure black) |
-| bg-2 | `#240209` | insets: code boxes, tiles, inputs |
-| surface | `#400516` | cards, sidebar |
-| surface-2 | `#6D0317` | owner's crimson: hero glow, raised cards, active nav |
-| text | `#FCF2EE` | body text |
-| muted | `#D0A9B2` | labels, secondary text (tinted toward the crimson) |
+| bg | `#0B0A0B` | page canvas: near-black, as the owner asked (red backgrounds felt too bright) |
+| bg-2 | `#070607` | insets: code boxes, tiles, inputs |
+| surface | `#141213` | cards, sidebar (brushed graphite) |
+| surface-2 | `#1C191A` | raised surfaces |
+| crimson | `#6D0317` | owner's crimson as an accent only: hero glow, icon chips, feature-card corner glow, banners |
+| text | `#F3EEE9` | body text |
+| muted | `#A39A96` | labels, secondary text (warm grey) |
 | accent | `#DCB84A` | owner's yellow `#F4EB06` toned to a softer gold at their request: CTAs, active states, key numbers. Solid only: at low opacity over crimson it turns olive |
 | accent-hi | `#F0D68C` | light gold for highlights in the metal gradients |
 | gold-deep | `#A8832C` | shadow gold for the metal gradients and focus borders |
 | accent-2 | `#E52150` | owner's pink-red: borders, soft tints, glows, gradient start (pink-red → yellow) |
 | gold-mid | `#FF7D9B` | small labels and kickers (a lighter pink-red that stays readable) |
-| line | `#64162C` | dividers |
+| line | `#272223` | dividers and card borders |
 | profit / loss | `#7BD394` / `#FF6B5E` | P/L only |
 
-**Finish (owner's request): metallic.** Cards are brushed crimson (a dark-to-crimson gradient with a lit
-top edge) and get a slow light sweep on hover on the landing page. Buttons, avatars and big figures are
+**Finish (owner's request): metallic.** Cards are brushed graphite (a dark gradient with a lit top edge;
+feature cards add a crimson corner glow) and get a slow light sweep on hover on the landing page. Buttons, avatars and big figures are
 polished gold (multi-stop gold gradient with a highlight band). Red rules and bars use a polished
 pink-red gradient. The tokens are `--metal-red`, `--metal-red-hi`, `--metal-gold`, `--metal-gold-text`
 and `--metal-red-line` in `website/css/style.css`.

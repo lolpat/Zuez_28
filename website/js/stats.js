@@ -27,9 +27,15 @@
     else if (f.period === "week") from = weekStart(now);
     else if (f.period === "month") from = new Date(now.getFullYear(), now.getMonth(), 1);
     else if (f.period === "year") from = new Date(now.getFullYear(), 0, 1);
+    let to = null;
+    if (f.period === "custom") {
+      if (f.from) from = new Date(f.from + "T00:00:00");
+      if (f.to) to = new Date(f.to + "T23:59:59.999");
+    }
     return trades.filter((t) => {
       if (f.account && f.account !== "all" && t.account_id !== f.account) return false;
       if (from && new Date(t.close_time) < from) return false;
+      if (to && new Date(t.close_time) > to) return false;
       if (f.side && f.side !== "all" && t.side !== f.side) return false;
       if (f.outcome === "win" && !(net(t) > 0)) return false;
       if (f.outcome === "loss" && !(net(t) < 0)) return false;
@@ -42,10 +48,10 @@
     const m = new Map();
     for (const t of trades) {
       const k = keyFn(t);
-      const g = m.get(k) || { key: k, count: 0, wins: 0, net: 0, volume: 0 };
+      const g = m.get(k) || { key: k, count: 0, wins: 0, losses: 0, net: 0, volume: 0 };
       const n = net(t);
       g.count++; g.net += n; g.volume += +t.volume || 0;
-      if (n > 0) g.wins++;
+      if (n > 0) g.wins++; else if (n < 0) g.losses++;
       m.set(k, g);
     }
     for (const g of m.values()) { g.winRate = g.count ? (g.wins / g.count) * 100 : 0; g.avg = g.count ? g.net / g.count : 0; }

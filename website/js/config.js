@@ -7,6 +7,10 @@ window.OTM_CONFIG = {
   SUPABASE_URL: "",
   SUPABASE_ANON_KEY: "",
 
+  // Automatic MT4/MT5 history (members connect an account with its read-only investor password).
+  // Needs the mt-sync function and a MetaApi token in Supabase (see README). Set to false to hide it.
+  AUTO_SYNC: true,
+
   // Telegram: the main contact channel (from the owner).
   TELEGRAM_URL: "https://t.me/zuez_28",
   TELEGRAM_HANDLE: "@zuez_28",

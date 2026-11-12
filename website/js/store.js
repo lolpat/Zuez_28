@@ -16,10 +16,10 @@
 
   // ------------------------------------------------------------ demo backend
   const KEY = "otm_demo_v2";
-  const rnd = (() => { let s = 20260912; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); })();
+  const seededRnd = (() => { let s = 20260912; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); })();
   const uid = () => (crypto.randomUUID ? crypto.randomUUID() : "id-" + Math.random().toString(36).slice(2) + Date.now());
 
-  function makeTrades(userId, accountId, count, edge, days) {
+  function makeTrades(userId, accountId, count, edge, days, rnd = seededRnd) {
     const syms = [["XAUUSD", 0.5], ["EURUSD", 0.2], ["GBPUSD", 0.15], ["USDJPY", 0.1], ["NAS100", 0.05]];
     const pick = () => { let r = rnd(); for (const [s, w] of syms) { if ((r -= w) <= 0) return s; } return "XAUUSD"; };
     const out = [];
@@ -144,6 +144,36 @@
       db.accounts = db.accounts.filter((x) => !(x.id === id && x.user_id === db.session));
       db.trades = db.trades.filter((x) => !(x.account_id === id && x.user_id === db.session)); saveDemo();
     },
+    // automatic history: the demo fills in sample trades instead of calling MetaApi
+    async syncConnect(id, server, password) {
+      const a = db.accounts.find((x) => x.id === id && x.user_id === db.session);
+      if (!a) throw new Error("not-found");
+      if (!server || !password) throw new Error("missing");
+      await new Promise((r) => setTimeout(r, 1200));
+      if (/^wrong/i.test(password)) { Object.assign(a, { sync_status: "error", sync_error: "bad-login" }); saveDemo(); throw new Error("bad-login"); }
+      const have = new Set(db.trades.filter((t) => t.account_id === id).map((t) => t.ticket));
+      const fresh = makeTrades(db.session, id, 45, 0.56, 75, Math.random).filter((r) => !have.has(r.ticket))
+        .map((r) => ({ ...r, source: "sync", note: "", feeling: "", execution: null, tags: [], lesson: "" }));
+      db.trades.push(...fresh);
+      Object.assign(a, { server, metaapi_id: "demo", sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString() });
+      if (!+a.start_balance) a.start_balance = 1000;
+      saveDemo(); return { status: "ok", added: fresh.length };
+    },
+    async syncNow(id) {
+      const a = db.accounts.find((x) => x.id === id && x.user_id === db.session);
+      if (!a || !a.metaapi_id) throw new Error("not-connected");
+      await new Promise((r) => setTimeout(r, 800));
+      const fresh = makeTrades(db.session, id, 2, 0.55, 0.04, Math.random).slice(0, Math.floor(Math.random() * 3))
+        .map((r) => ({ ...r, source: "sync", note: "", feeling: "", execution: null, tags: [], lesson: "" }));
+      db.trades.push(...fresh);
+      Object.assign(a, { sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString() });
+      saveDemo(); return { status: "ok", added: fresh.length };
+    },
+    async syncDisconnect(id) {
+      const a = db.accounts.find((x) => x.id === id && x.user_id === db.session);
+      if (a) Object.assign(a, { metaapi_id: null, sync_status: "off", sync_error: "" });
+      saveDemo(); return { status: "off" };
+    },
     async listTrades() { return db.trades.filter((t) => t.user_id === db.session); },
     async addTrade(t) {
       if (me().status !== "approved") throw new Error("not-approved");
@@ -156,7 +186,7 @@
       if (me().status !== "approved") throw new Error("not-approved");
       const have = new Set(db.trades.filter((t) => t.account_id === accountId).map((t) => t.ticket));
       const fresh = rows.filter((r) => !r.ticket || !have.has(r.ticket));
-      fresh.forEach((r) => db.trades.push({ id: uid(), user_id: db.session, account_id: accountId, note: "", feeling: "", execution: null, tags: [], lesson: "", ...r }));
+      fresh.forEach((r) => db.trades.push({ id: uid(), user_id: db.session, account_id: accountId, note: "", feeling: "", execution: null, tags: [], lesson: "", source: "import", ...r }));
       saveDemo(); return { added: fresh.length, skipped: rows.length - fresh.length };
     },
     async myUpline() { const m = me(); const u = m && db.users.find((x) => x.id === m.upline_id); return u ? { full_name: u.full_name, telegram: u.telegram } : null; },
@@ -236,15 +266,29 @@
     async deleteTrade(id) { must(await sb.from("trades").delete().eq("id", id)); },
     async importTrades(accountId, rows) {
       const have = new Set(must(await sb.from("trades").select("ticket").eq("account_id", accountId)).map((r) => r.ticket));
-      const fresh = rows.filter((r) => !r.ticket || !have.has(r.ticket)).map((r) => ({ ...r, account_id: accountId, user_id: profileCache.id }));
+      const fresh = rows.filter((r) => !r.ticket || !have.has(r.ticket)).map((r) => ({ ...r, source: "import", account_id: accountId, user_id: profileCache.id }));
       for (let i = 0; i < fresh.length; i += 500) must(await sb.from("trades").insert(fresh.slice(i, i + 500)));
       return { added: fresh.length, skipped: rows.length - fresh.length };
     },
+    // automatic history through the mt-sync Edge Function (supabase/functions/mt-sync)
+    async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password }); },
+    async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
+    async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
     async myUpline() { const r = must(await sb.rpc("my_upline")); return r && r[0] ? r[0] : null; },
     async myDownline() { return (must(await sb.rpc("my_downline")) || []).map((r) => ({ ...r, net_profit: +r.net_profit, win_rate: r.win_rate == null ? null : +r.win_rate })); },
     async setMemberStatus(id, status) { must(await sb.rpc("set_member_status", { target: id, new_status: status })); },
     async setMemberRole(id, role) { must(await sb.rpc("set_member_role", { target: id, new_role: role })); }
   };
+
+  async function syncFn(body) {
+    const { data, error } = await sb.functions.invoke("mt-sync", { body });
+    if (error) {
+      let code = "not-configured";
+      try { const j = await error.context.json(); code = j.error || code; } catch (_) { /* function not deployed or offline */ }
+      throw new Error(code);
+    }
+    return data;
+  }
 
   const api = { live };
   api.init = async function () {

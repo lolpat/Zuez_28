@@ -236,3 +236,23 @@ create trigger on_auth_user_created after insert on auth.users
 -- ---------------------------------------------------------------- first owner
 -- After you register your own account on the site, run this once (with your email):
 --   update public.profiles set role = 'owner', status = 'approved' where email = 'you@example.com';
+
+-- ---------------------------------------------------------------- automatic MT4/MT5 history sync
+-- Filled in only by the mt-sync Edge Function (supabase/functions/mt-sync), which runs with the
+-- service role. The member's investor password is passed to MetaApi once and never stored here.
+alter table public.broker_accounts add column if not exists metaapi_id   text;
+alter table public.broker_accounts add column if not exists sync_status  text not null default 'off';
+alter table public.broker_accounts add column if not exists sync_error   text not null default '';
+alter table public.broker_accounts add column if not exists last_sync_at timestamptz;
+alter table public.broker_accounts drop constraint if exists broker_accounts_sync_status_check;
+alter table public.broker_accounts add constraint broker_accounts_sync_status_check
+  check (sync_status in ('off', 'connecting', 'ok', 'error'));
+alter table public.trades add column if not exists source text not null default 'manual';
+alter table public.trades drop constraint if exists trades_source_check;
+alter table public.trades add constraint trades_source_check check (source in ('manual', 'import', 'sync'));
+
+-- members can add and edit their own accounts, but not the sync columns
+revoke insert, update on public.broker_accounts from anon, authenticated;
+grant insert (user_id, broker, account_number, server, platform, currency, start_balance)
+  on public.broker_accounts to authenticated;
+grant update (server, platform, currency, start_balance) on public.broker_accounts to authenticated;

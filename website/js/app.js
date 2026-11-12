@@ -304,8 +304,20 @@
           <button class="btn btn--gold" type="button" id="btn-add">${t("j.add")}</button>
         </div>
       </div>
+      ${syncOn() && state.accounts.length ? (() => {
+        const on = state.accounts.filter((a) => a.metaapi_id);
+        const last = on.map((a) => a.last_sync_at).filter(Boolean).sort().pop();
+        const bad = on.find((a) => a.sync_status === "error");
+        return on.length
+          ? `<div class="sync-bar ${bad ? "is-err" : ""}"><span class="sync-bar__dot" aria-hidden="true"></span><div><b>${t("sync.banner.on")}</b><small>${bad ? esc(syncErrText(bad.sync_error)) : last ? t("sync.last", { t: fmt.dateTime(last) }) : t("sync.connecting")}</small></div><button class="btn btn--ghost btn--sm" type="button" id="sync-now">${t("sync.now")}</button></div>`
+          : `<div class="sync-bar is-off"><span class="sync-bar__dot" aria-hidden="true"></span><div><b>${t("sync.title")}</b><small>${t("sync.banner.off")}</small></div><button class="btn btn--gold btn--sm" type="button" id="sync-connect">${t("sync.connect")}</button></div>`;
+      })() : ""}
       <div class="filters">
-        ${seg("period", [["today", "j.p.today"], ["week", "j.p.week"], ["month", "j.p.month"], ["year", "j.p.year"], ["all", "j.p.all"]])}
+        ${seg("period", [["today", "j.p.today"], ["week", "j.p.week"], ["month", "j.p.month"], ["year", "j.p.year"], ["all", "j.p.all"], ["custom", "j.p.custom"]])}
+        ${f.period === "custom" ? `<span class="range">
+          <label><span>${t("j.from")}</span><input class="input" type="date" id="f-from" value="${esc(f.from || "")}" max="${esc(f.to || "")}"></label>
+          <label><span>${t("j.to")}</span><input class="input" type="date" id="f-to" value="${esc(f.to || "")}" min="${esc(f.from || "")}"></label>
+        </span>` : ""}
         ${seg("side", [["all", "j.side.all"], ["buy", "j.side.buy"], ["sell", "j.side.sell"]])}
         ${seg("outcome", [["all", "j.out.all"], ["win", "j.out.win"], ["loss", "j.out.loss"]])}
         <select class="input" id="sym-pick" aria-label="symbol"><option value="all">${t("j.sym.all")}</option>${symbols.map((s) => `<option ${f.symbol === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select>
@@ -333,6 +345,7 @@
         <h3>${t("j.equity")} ${seg("eq", [["cum", "j.eq.cum"], ["day", "j.eq.day"], ["week", "j.eq.week"]]).replace(/data-f="eq"/g, 'data-eq="1"').replace(/aria-pressed="(true|false)"/g, "")}</h3>
         <div id="eq-chart"></div>
       </section>
+      <section class="card" id="daily-card"></section>
       <div class="grid grid--3">
         <section class="card"><h3>${t("j.bySymbol")}</h3>
           <div class="table-wrap"><table class="table"><thead><tr><th>${t("j.col.symbol")}</th><th class="r">${t("j.col.trades")}</th><th class="r">${t("j.col.wr")}</th><th class="r">${t("j.col.net")}</th></tr></thead>
@@ -349,15 +362,28 @@
         </table></div>
         <div style="text-align:center;margin-top:14px"><button class="btn btn--quiet" type="button" id="more">${t("j.more")}</button></div>
       </section>`
-      : `<section class="card empty"><h3>${t("j.empty.t")}</h3><p>${t("j.empty.d")}</p><button class="btn btn--gold" style="margin-top:18px" type="button" id="btn-import2">${t("j.import")}</button></section>`}
+      : `<section class="card empty"><h3>${t("j.empty.t")}</h3><p>${t("j.empty.d")}</p><div class="actions" style="margin-top:18px;justify-content:center">${syncOn() && state.accounts.length ? `<button class="btn btn--gold" type="button" id="btn-sync2">${t("sync.connect")}</button>` : ""}<button class="btn ${syncOn() && state.accounts.length ? "btn--ghost" : "btn--gold"}" type="button" id="btn-import2">${t("j.import")}</button></div></section>`}
       ${riskNote()}`;
 
     // controls
-    $$("[data-f]", v).forEach((b) => b.addEventListener("click", () => { f[b.dataset.f] = b.dataset.v; state.shown = 25; render(); }));
+    $$("[data-f]", v).forEach((b) => b.addEventListener("click", () => {
+      f[b.dataset.f] = b.dataset.v; state.shown = 25; state.daysShown = 31;
+      if (b.dataset.v === "custom" && !f.from) { const d = new Date(); f.from = S.dayKey(new Date(d.getFullYear(), d.getMonth(), 1)); f.to = S.dayKey(d); }
+      render();
+    }));
+    $$(".filters .seg", v).forEach((sg) => { const on = sg.querySelector('[aria-pressed="true"]'); if (on && sg.scrollWidth > sg.clientWidth) sg.scrollLeft = on.offsetLeft - 8; });
+    const fFrom = $("#f-from", v), fTo = $("#f-to", v);
+    if (fFrom) {
+      const setRange = () => { f.from = fFrom.value; f.to = fTo.value; if (f.from && f.to && f.from > f.to) [f.from, f.to] = [f.to, f.from]; state.daysShown = 31; render(); };
+      fFrom.addEventListener("change", setRange); fTo.addEventListener("change", setRange);
+    }
     $("#acc-pick", v).addEventListener("change", (e) => { f.account = e.target.value; render(); });
     $("#sym-pick", v).addEventListener("change", (e) => { f.symbol = e.target.value; render(); });
     $("#btn-import", v).addEventListener("click", importModal);
+    const sn = $("#sync-now", v); if (sn) sn.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.metaapi_id).map((a) => a.id), sn));
+    const sc = $("#sync-connect", v); if (sc) sc.addEventListener("click", () => connectModal(null));
     const i2 = $("#btn-import2", v); if (i2) i2.addEventListener("click", importModal);
+    const s2 = $("#btn-sync2", v); if (s2) s2.addEventListener("click", () => connectModal(null));
     $("#btn-add", v).addEventListener("click", () => addTradeModal());
     if (!st.count) return;
 
@@ -375,6 +401,36 @@
     };
     $$("[data-eq]", v).forEach((b) => b.addEventListener("click", () => { state.eq = b.dataset.v; drawEq(); }));
     drawEq();
+
+    // daily summary: one row per trading day, newest first, with a running total
+    const drawDaily = () => {
+      const days = [...st.byDay.values()].sort((a, b) => a.key.localeCompare(b.key));
+      let run = 0; days.forEach((g) => { run += g.net; g.cum = run; });
+      const desc = days.slice().reverse(), shown = desc.slice(0, state.daysShown || 31);
+      const tot = days.reduce((s, g) => ({ c: s.c + g.count, w: s.w + g.wins, l: s.l + g.losses, v: s.v + g.volume, n: s.n + g.net }), { c: 0, w: 0, l: 0, v: 0, n: 0 });
+      const green = days.filter((g) => g.net > 0).length;
+      $("#daily-card", v).innerHTML = `<h3>${t("j.daily")} <span class="badge">${t("j.daily.count", { n: days.length, g: green })}</span></h3>
+        <p class="card__sub">${t("j.daily.sub")}</p>
+        <div class="table-wrap"><table class="table table--click table--daily">
+          <thead><tr><th>${t("j.col.day")}</th><th class="r">${t("j.col.trades")}</th><th class="r">${t("j.col.wl")}</th><th class="r">${t("j.col.wr")}</th><th class="r c-lot">${t("j.col.lot")}</th><th class="r">${t("j.col.net")}</th><th class="r c-cum">${t("j.col.cum")}</th></tr></thead>
+          <tbody>${shown.map((g) => `<tr data-day="${g.key}" tabindex="0">
+            <td>${fmt.date(g.key + "T12:00:00", { weekday: "short", day: "numeric", month: "short", year: "numeric" })}</td>
+            <td class="r">${g.count}</td>
+            <td class="r"><span class="up">${g.wins}</span> / <span class="down">${g.losses}</span></td>
+            <td class="r">${fmt.num(g.winRate, 0)}%</td>
+            <td class="r c-lot">${fmt.num(g.volume, 2)}</td>
+            <td class="r ${cls(g.net)}"><b>${money(g.net)}</b></td>
+            <td class="r c-cum ${cls(g.cum)}">${money(g.cum)}</td></tr>`).join("")}</tbody>
+          <tfoot><tr><td>${t("j.daily.total")}</td><td class="r">${tot.c}</td><td class="r"><span class="up">${tot.w}</span> / <span class="down">${tot.l}</span></td><td class="r">${tot.c ? fmt.num((tot.w / tot.c) * 100, 0) : 0}%</td><td class="r c-lot">${fmt.num(tot.v, 2)}</td><td class="r ${cls(tot.n)}"><b>${money(tot.n)}</b></td><td class="r c-cum"></td></tr></tfoot>
+        </table></div>
+        ${desc.length > shown.length ? `<div style="text-align:center;margin-top:12px"><button class="btn btn--quiet" type="button" id="more-days">${t("j.more")}</button></div>` : ""}`;
+      $$("#daily-card [data-day]", v).forEach((tr) => {
+        const go = () => { f.period = "custom"; f.from = f.to = tr.dataset.day; state.shown = 25; render(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+        tr.addEventListener("click", go); tr.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+      });
+      const md = $("#more-days", v); if (md) md.addEventListener("click", () => { state.daysShown = (state.daysShown || 31) + 62; drawDaily(); });
+    };
+    drawDaily();
 
     // calendar
     const calList = S.filterTrades(state.trades, { ...f, period: "all" });
@@ -420,6 +476,73 @@
     };
     $("#more", v).addEventListener("click", () => { state.shown += 50; drawRows(); });
     drawRows();
+  }
+
+  // ------------------------------------------------------------ automatic history (MT4/MT5)
+  const syncOn = () => cfg.AUTO_SYNC !== false;
+  const syncErrText = (code) => {
+    const c = String(code || "").split(":")[0].trim();
+    return ["bad-login", "bad-server", "password-change", "account-disabled", "slow", "not-configured", "missing"].includes(c) ? t("sync.err." + c) : t("sync.err.generic", { msg: c || "?" });
+  };
+  function syncChip(a) {
+    const s = a.sync_status || "off";
+    const cls = s === "ok" ? "badge--ok" : s === "error" ? "badge--err" : s === "connecting" ? "badge--warn" : "";
+    return `<span class="badge ${cls}">${t("sync." + s)}</span>`;
+  }
+  function syncLine(a) {
+    if (a.sync_status === "error") return `<small class="sync-err">${esc(syncErrText(a.sync_error))}</small>`;
+    if (a.last_sync_at) return `<small class="muted">${t("sync.last", { t: fmt.dateTime(a.last_sync_at) })}</small>`;
+    return "";
+  }
+  async function runSyncNow(ids, btn) {
+    if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = t("sync.running"); }
+    let added = 0, err = null;
+    for (const id of ids) { try { added += (await state.store.syncNow(id)).added || 0; } catch (e) { err = e; } }
+    await reload(["accounts", "trades"]);
+    if (err) toast(syncErrText(err.message)); else toast(added ? t("sync.done", { n: added }) : t("sync.nothingNew"));
+    render();
+  }
+  function connectModal(acc) {
+    const choices = state.accounts.filter((a) => !a.metaapi_id);
+    const pick = acc || choices[0] || state.accounts[0];
+    if (!pick) { location.hash = "#profile"; return; }
+    openModal(t("sync.modal.title"), `
+      <form class="form-grid" id="sync-form" novalidate>
+        <p class="muted" style="margin:0">${t("sync.modal.lead")}</p>
+        ${acc ? `<p class="sync-acc"><b>${esc(accName(acc))}</b> <span class="badge">${esc(acc.platform || "MT5")}</span></p>`
+              : `<label class="field"><span>${t("sync.account")}</span><select class="input" name="acc">${state.accounts.map((a) => `<option value="${a.id}" ${a.id === pick.id ? "selected" : ""}>${esc(accName(a))}</option>`).join("")}</select></label>`}
+        <label class="field"><span>${t("sync.server")}</span><input class="input" name="server" value="${esc(pick.server || "")}" autocomplete="off" spellcheck="false" required><small>${t("sync.server.hint")}</small></label>
+        <label class="field"><span>${t("sync.password")}</span><input class="input" name="password" type="password" autocomplete="off" required><small>${t("sync.password.hint")}</small></label>
+        <p class="alert alert--gold" style="margin:0">${t("sync.master.warn")}</p>
+        <label class="check"><input type="checkbox" name="agree"><span>${t("sync.agree")}</span></label>
+        <p class="muted" style="font-size:.82rem;margin:0">${state.store.live ? t("sync.privacy") : t("sync.demoHint")}</p>
+        <div id="sync-msg"></div>
+        <div class="modal__foot"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${t("sync.submit")}</button></div>
+      </form>`, (box) => {
+      const F = $("#sync-form", box), msg = $("#sync-msg", box);
+      if (F.acc) F.acc.addEventListener("change", () => { const a = state.accounts.find((x) => x.id === F.acc.value); F.server.value = (a && a.server) || ""; });
+      F.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = acc ? acc.id : F.acc.value;
+        F.server.setAttribute("aria-invalid", F.server.value.trim() ? "false" : "true");
+        F.password.setAttribute("aria-invalid", F.password.value ? "false" : "true");
+        if (!F.server.value.trim() || !F.password.value) { msg.innerHTML = `<p class="alert alert--err">${t("auth.err.required")}</p>`; return; }
+        if (!F.agree.checked) { msg.innerHTML = `<p class="alert alert--err">${t("sync.err.agree")}</p>`; return; }
+        const btn = $("button[type=submit]", F); btn.disabled = true;
+        msg.innerHTML = `<p class="alert alert--gold"><span class="spin" aria-hidden="true"></span> ${t("sync.working")}</p>`;
+        try {
+          const r = await state.store.syncConnect(id, F.server.value.trim(), F.password.value);
+          F.password.value = "";
+          await reload(["accounts", "trades"]); closeModal();
+          toast(r && r.status === "ok" ? t("sync.done", { n: r.added || 0 }) : t("sync.pending"));
+          render();
+        } catch (err) {
+          btn.disabled = false; F.password.value = "";
+          msg.innerHTML = `<p class="alert alert--err">${esc(syncErrText(err.message))}</p>`;
+          await reload(["accounts"]);
+        }
+      });
+    });
   }
 
   const FEELINGS = ["calm", "focused", "confident", "anxious", "fomo", "revenge", "tired"];
@@ -709,6 +832,15 @@
           </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
         </section>
       </div>
+      ${syncOn() && state.accounts.length ? `<section class="card">
+        <h3>${t("sync.title")}</h3><p class="card__sub">${t("sync.sub")}</p>
+        <ul class="sync-list">${state.accounts.map((a) => `<li>
+          <div class="sync-list__who"><b>${esc(accName(a))}</b> ${syncChip(a)}${syncLine(a)}</div>
+          <div class="sync-list__act">${a.metaapi_id
+            ? `<button class="btn btn--ghost btn--sm" type="button" data-sync-now="${a.id}">${t("sync.now")}</button><button class="btn btn--quiet btn--sm" type="button" data-sync-off="${a.id}">${t("sync.disconnect")}</button>`
+            : `<button class="btn btn--gold btn--sm" type="button" data-sync-connect="${a.id}">${t("sync.connect")}</button>`}</div>
+        </li>`).join("")}</ul>
+      </section>` : ""}
       ${!state.store.live ? `<section class="card"><h3>${t("prof.demoReset")}</h3><p class="card__sub">${t("prof.demoReset.d")}</p><button class="btn btn--ghost btn--sm" style="margin-top:12px" type="button" id="demo-reset">${t("prof.demoReset")}</button></section>` : ""}
       ${riskNote()}`;
     $("#prof", v).addEventListener("submit", async (e) => {
@@ -750,6 +882,14 @@
           await reload(["accounts"]); closeModal(); toast(t("app.saved")); render();
         } catch (err) { $("#acc-msg", box).innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : esc(err.message)}</p>`; }
       });
+    }));
+    $$("[data-sync-connect]", v).forEach((b) => b.addEventListener("click", () => connectModal(state.accounts.find((a) => a.id === b.dataset.syncConnect))));
+    $$("[data-sync-now]", v).forEach((b) => b.addEventListener("click", () => runSyncNow([b.dataset.syncNow], b)));
+    $$("[data-sync-off]", v).forEach((b) => b.addEventListener("click", async () => {
+      if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = t("sync.disconnectConfirm"); return; }
+      b.disabled = true;
+      try { await state.store.syncDisconnect(b.dataset.syncOff); await reload(["accounts"]); toast(t("sync.disconnected")); render(); }
+      catch (err) { b.disabled = false; toast(syncErrText(err.message)); }
     }));
     const dr = $("#demo-reset", v);
     if (dr) dr.addEventListener("click", async () => { await state.store.resetDemo(); location.reload(); });
