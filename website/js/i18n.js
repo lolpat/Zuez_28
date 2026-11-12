@@ -47,9 +47,10 @@
 
       "brokers.kicker": "โบรกเกอร์",
       "brokers.title": "เปิดบัญชีกับโบรกที่เราดูแล",
-      "brokers.lead": "สมาชิกต้องมีบัญชีใต้ IB ของ Order The Market อย่างน้อยหนึ่งโบรก",
+      "brokers.lead": "สมาชิกต้องมีบัญชีใต้ IB ของ Order The Market อย่างน้อยหนึ่งโบรก เปิดบัญชีจากลิงก์ด้านล่าง และถ้าโบรกถามรหัสแนะนำ ใส่รหัสในการ์ดของโบรกนั้น",
       "brokers.open": "เปิดบัญชีผ่านลิงก์เรา",
       "brokers.soon": "ลิงก์จะเพิ่มเร็ว ๆ นี้",
+      "brokers.code": "รหัสแนะนำ",
 
       "faq.kicker": "คำถามที่พบบ่อย",
       "faq.title": "ก่อนสมัคร",
@@ -371,9 +372,10 @@
 
       "brokers.kicker": "Brokers",
       "brokers.title": "Open an account with a broker we support",
-      "brokers.lead": "Members need at least one account under the Order The Market IB.",
+      "brokers.lead": "Members need at least one account under the Order The Market IB. Open it from the links below, and if the broker asks for a referral code, use the one on its card.",
       "brokers.open": "Open through our link",
       "brokers.soon": "Link coming soon",
+      "brokers.code": "Referral code",
 
       "faq.kicker": "FAQ",
       "faq.title": "Before you join",

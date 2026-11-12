@@ -21,12 +21,14 @@ looking around and testing, not for real members.
 Demo logins on the login page: **Member** (Krit T.), **IB** (Somchai K.), **Owner**.
 Or type a sample email (`krit@demo`, `somchai@demo`, `nok@demo`, `owner@demo`) with any password.
 
-## Placeholders to replace (in `js/config.js`)
+## Settings (in `js/config.js`)
 
 - `TELEGRAM_URL` / `TELEGRAM_HANDLE`: set to https://t.me/zuez_28. Every "Talk to the team" button and
   the landing page's Telegram button open it. **This is where visitors' questions end up.**
-- `BROKERS[].url`: your IB sign-up links for Vantage, PU Prime and VT Markets. Until they are set,
-  the landing page shows "Link coming soon".
+- `BROKERS[]`: your IB sign-up link and broker referral code for Vantage (ZUEZ28), PU Prime
+  (OTM2028) and VT Markets (OTM2028). The landing page shows each code with a Copy button next to
+  an "Open through our link" button. These broker codes are separate from the portal referral
+  codes IBs share for registering on this site.
 
 ## Going live with real accounts (Supabase, free tier)
 

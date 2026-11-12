@@ -108,7 +108,10 @@ MT5 auto-sync, live chat.
 - Main channel: **Telegram** — from the owner
 - Telegram: https://t.me/zuez_28 (@zuez_28) — from the owner
 - Email: PLACEHOLDER
-- IB referral links for Vantage, PU Prime, VT Markets: PLACEHOLDER (owner to supply)
+- IB links and broker referral codes — from the owner:
+  - Vantage: https://vigco.co/la-com-inv/ZUEZ28 (code ZUEZ28)
+  - PU Prime: https://puvip.co/la-partners/OTM2028 (code OTM2028)
+  - VT Markets: https://vtm.pro/la5-com/global/OTM2028 (code OTM2028)
 - No street address or opening hours (online community).
 
 ## 8. Media plan

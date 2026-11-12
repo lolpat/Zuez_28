@@ -27,10 +27,17 @@
         const ready = b.url && b.url !== "#";
         return `<article class="broker reveal">
           <h3>${b.name}</h3>
-          ${ready ? `<a class="btn btn--ghost" href="${b.url}" target="_blank" rel="noopener" data-i18n="brokers.open"></a>`
+          ${b.code ? `<div class="broker__code"><span data-i18n="brokers.code"></span><b>${b.code}</b>
+            <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
+          ${ready ? `<a class="btn btn--gold" href="${b.url}" target="_blank" rel="noopener sponsored" data-i18n="brokers.open"></a>`
                   : `<span class="badge" data-i18n="brokers.soon"></span>`}
         </article>`;
       }).join("");
+      box.querySelectorAll("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(btn.dataset.copy); } catch { window.prompt("", btn.dataset.copy); return; }
+        btn.textContent = t("app.copied");
+        setTimeout(() => { btn.textContent = t("app.copy"); }, 1600);
+      }));
       apply(box);
     }
     // sample journal preview (made-up numbers, labelled as such)
@@ -119,8 +126,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
-    common();
     landing();
+    common();
     if ($("#login-form") || $("#register-form")) {
       const store = await window.OTMStore.init();
       authPages(store);
