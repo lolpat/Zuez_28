@@ -11,10 +11,11 @@ window.OTM_CONFIG = {
   TELEGRAM_URL: "https://t.me/zuez_28",
   TELEGRAM_HANDLE: "@zuez_28",
 
-  // IB sign-up links and referral codes per broker (from the owner).
+  // IB sign-up links, referral codes and official logos per broker (from the owner; logos from
+  // each broker's partner brand kit, used unaltered).
   BROKERS: [
-    { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28" },
-    { id: "puprime", name: "PU Prime", url: "https://puvip.co/la-partners/OTM2028", code: "OTM2028" },
-    { id: "vtmarkets", name: "VT Markets", url: "https://vtm.pro/la5-com/global/OTM2028", code: "OTM2028" }
+    { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28", logo: "assets/img/brokers/vantage.png" },
+    { id: "puprime", name: "PU Prime", url: "https://puvip.co/la-partners/OTM2028", code: "OTM2028", logo: "assets/img/brokers/puprime.jpg" },
+    { id: "vtmarkets", name: "VT Markets", url: "https://vtm.pro/la5-com/global/OTM2028", code: "OTM2028", logo: "assets/img/brokers/vtmarkets.svg" }
   ]
 };

@@ -36,7 +36,7 @@
           <label class="field span-2"><span data-i18n="auth.name">ชื่อ นามสกุล</span><input class="input" name="full_name" autocomplete="name" required></label>
           <label class="field span-2"><span data-i18n="auth.email">อีเมล</span><input class="input" name="email" type="email" autocomplete="email" inputmode="email" required></label>
           <label class="field span-2"><span data-i18n="auth.telegram">ชื่อผู้ใช้ Telegram</span><input class="input" name="telegram" autocomplete="off" placeholder="@" required><small data-i18n="auth.telegram.hint">เช่น @yourname ทีมจะติดต่อคุณทางนี้</small></label>
-          <label class="field"><span data-i18n="auth.broker">โบรกเกอร์</span><select class="input" name="broker" required></select></label>
+          <fieldset class="field span-2 broker-field"><legend data-i18n="auth.broker">โบรกเกอร์</legend><div class="broker-pick" id="broker-pick" role="radiogroup"></div></fieldset>
           <label class="field"><span data-i18n="auth.platform">แพลตฟอร์ม</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
           <label class="field span-2"><span data-i18n="auth.account">เลขบัญชี MT4/MT5</span><input class="input" name="account_number" inputmode="numeric" autocomplete="off" required><small data-i18n="auth.account.hint">เลขบัญชีเทรด ไม่ต้องใส่รหัสผ่าน</small></label>
           <label class="field span-2"><span data-i18n="auth.ref">รหัสแนะนำ</span><input class="input" name="referral_code" autocomplete="off" style="text-transform:uppercase"><small data-i18n="auth.ref.hint">รหัสของ IB ที่ชวนคุณมา ถ้าไม่มี ปล่อยว่างได้</small></label>

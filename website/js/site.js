@@ -26,7 +26,8 @@
       box.innerHTML = cfg.BROKERS.map((b) => {
         const ready = b.url && b.url !== "#";
         return `<article class="broker reveal">
-          <h3>${b.name}</h3>
+          ${b.logo ? `<img class="broker__logo" src="${b.logo}" alt="${b.name}" width="200" height="80" loading="lazy">` : ""}
+          <h3 ${b.logo ? 'class="sr-only"' : ""}>${b.name}</h3>
           ${b.code ? `<div class="broker__code"><span data-i18n="brokers.code"></span><b>${b.code}</b>
             <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
           ${ready ? `<a class="btn btn--gold" href="${b.url}" target="_blank" rel="noopener sponsored" data-i18n="brokers.open"></a>`
@@ -102,11 +103,19 @@
     if (reg) {
       const ref = new URLSearchParams(location.search).get("ref");
       if (ref) reg.referral_code.value = ref.toUpperCase();
-      reg.broker.innerHTML = `<option value="" data-i18n="auth.broker.pick"></option>` + cfg.BROKERS.map((b) => `<option value="${b.id}">${b.name}</option>`).join("");
+      $("#broker-pick", reg).innerHTML = cfg.BROKERS.map((b) => `<label class="broker-opt">
+          <input type="radio" name="broker" value="${b.id}">
+          ${b.logo ? `<img src="${b.logo}" alt="${b.name}" width="150" height="60">` : `<span>${b.name}</span>`}
+        </label>`).join("");
+      $("#broker-pick", reg).addEventListener("change", () => { $("#broker-pick", reg).setAttribute("aria-invalid", "false"); setError(reg, ""); });
       apply(reg);
       reg.addEventListener("submit", async (e) => {
         e.preventDefault(); setError(reg, "");
-        if (!require(reg, ["full_name", "email", "telegram", "broker", "account_number", "password"])) return setError(reg, t("auth.err.required"));
+        if (!require(reg, ["full_name", "email", "telegram"])) return setError(reg, t("auth.err.required"));
+        const pick = $("#broker-pick", reg);
+        pick.setAttribute("aria-invalid", reg.broker.value ? "false" : "true");
+        if (!reg.broker.value) { pick.querySelector("input").focus(); return setError(reg, t("auth.err.broker")); }
+        if (!require(reg, ["account_number", "password"])) return setError(reg, t("auth.err.required"));
         if (reg.password.value.length < 8) { reg.password.setAttribute("aria-invalid", "true"); return setError(reg, t("auth.err.short")); }
         if (!reg.agree.checked) return setError(reg, t("auth.err.agree"));
         const btn = $("button[type=submit]", reg); btn.disabled = true;

@@ -121,7 +121,10 @@ MT5 auto-sync, live chat.
 - `media/`: empty.
 - Hero: typographic hero on the brand palette with the logo mark — owner chose "no pictures,
   use the logo". No generated images or video; Step 2 skipped.
-- Broker names appear as plain text only; no broker logos or trademarks.
+- Broker logos: official artwork supplied by the owner from each broker's partner brand kit,
+  used unaltered on the broker's own approved plate colour (Vantage: reversed lockup on teal;
+  PU Prime: white logo on PU Prime Blue per its guideline p.8; VT Markets: official white master
+  logo on navy). Files in `website/assets/img/brokers/`. Never recolour, outline or redraw them.
 
 ## 9. Design notes
 

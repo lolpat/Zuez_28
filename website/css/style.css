@@ -199,6 +199,18 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
 @media (min-width: 760px) { .brokers { grid-template-columns: repeat(3, 1fr); } }
 .broker { padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; gap: 18px; }
 .broker h3 { font-size: 1.35rem; letter-spacing: .02em; }
+.broker__logo { height: 64px; width: auto; max-width: 100%; border-radius: 12px; align-self: flex-start; box-shadow: 0 10px 28px rgba(0, 0, 0, .3); }
+.broker-field { border: 0; padding: 0; margin: 0; min-width: 0; }
+.broker-field legend { font-size: .92rem; color: var(--muted); padding: 0; margin-bottom: 6px; }
+.broker-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-radius: 14px; }
+.broker-pick[aria-invalid="true"] { outline: 1px solid var(--loss); outline-offset: 4px; }
+.broker-opt { position: relative; cursor: pointer; border-radius: 12px; padding: 6px; border: 1.5px solid var(--line); background: var(--bg-2); display: grid; place-items: center; min-height: 64px; transition: border-color .2s, box-shadow .2s; }
+.broker-opt img { width: 100%; height: auto; border-radius: 8px; opacity: .72; transition: opacity .2s; }
+.broker-opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.broker-opt:hover img { opacity: 1; }
+.broker-opt:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15); }
+.broker-opt:has(input:checked) img { opacity: 1; }
+.broker-opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
 .broker .btn, .broker .badge { align-self: flex-start; }
 .broker__code { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; padding: 10px 6px 10px 14px; border-radius: 12px; background: var(--bg-2); border: 1px dashed rgba(var(--accent-rgb), .3); font-size: .85rem; color: var(--muted); }
 .broker__code b { font-family: var(--font); font-weight: 600; font-feature-settings: "zero" 1, "tnum" 1; font-size: 1.15rem; letter-spacing: .12em; color: var(--accent-hi); }
