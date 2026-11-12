@@ -1253,26 +1253,41 @@
             <button class="btn btn--gold" type="submit" style="justify-self:start">${t("app.save")}</button>
           </form>
         </section>
-        <section class="card">
-          <h3>${t("prof.accounts")} <button class="btn btn--ghost btn--sm" type="button" id="add-acc">${t("prof.addAcc")}</button></h3>
-          ${state.accounts.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>${t("auth.broker")}</th><th>${t("auth.account")}</th><th class="r">${t("prof.start")}</th><th></th></tr></thead><tbody>
-            ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span>${m.role === "owner"
-              ? `<select class="input acc-type" data-acc-type="${a.id}" aria-label="${esc(t("prof.type"))}"><option value="live" ${a.account_type !== "demo" ? "selected" : ""}>Live</option><option value="demo" ${a.account_type === "demo" ? "selected" : ""}>Demo</option></select>`
-              : a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}<br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
-              <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td>
-              <td class="r"><button class="btn btn--ghost btn--sm" type="button" data-manage="${a.id}">${t("acc.edit")}</button> <button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
-          </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}${m.role === "owner" ? " " + t("prof.type.owner") : ""}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
-        </section>
+        <div class="pcol">
+          <section class="card">
+            <h3>${t("prof.accounts")} <button class="btn btn--ghost btn--sm" type="button" id="add-acc" ${state.accounts.length >= maxAcc() ? "disabled" : ""}>+ ${t("prof.addAcc")}</button></h3>
+            ${state.accounts.length ? `<ul class="pacc">${JORDER.flatMap((bid) => state.accounts.filter((a) => a.broker === bid)).map((a) => { const b = cfg.BROKERS.find((x) => x.id === a.broker); return `<li>
+                ${b && b.logo ? `<img src="${b.logo}" alt="${esc(b.name)}" width="64" height="26">` : `<span class="badge">${esc(brokerName(a.broker))}</span>`}
+                <div class="pacc__txt"><b>${esc(a.account_number)} <span class="badge">${esc(a.platform || "MT5")}</span>${a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}</b>
+                  <small>${esc(a.server || t("pacc.noServer"))} · ${t("prof.start")} ${money(+a.start_balance || 0, false)}</small></div>
+                <button class="btn btn--ghost btn--sm" type="button" data-manage="${a.id}">${t("acc.edit")}</button></li>`; }).join("")}</ul>
+              <p class="muted" style="font-size:.8rem;margin:10px 0 0">${t("acc.count", { n: state.accounts.length, m: maxAcc() })} · ${t("pacc.hint")}</p>`
+            : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
+          </section>
+          ${syncOn() ? `<section class="card">
+            <h3>${t("conn.title")}</h3><p class="card__sub">${t("conn.sub")}</p>
+            <ul class="pconn">${JORDER.map((bid) => {
+              const b = cfg.BROKERS.find((x) => x.id === bid); if (!b) return "";
+              const accs = state.accounts.filter((a) => a.broker === bid), linked = accs.filter((a) => a.metaapi_id);
+              const bad = linked.find((a) => a.sync_status === "error"), waiting = linked.find((a) => a.sync_status === "connecting");
+              const unlinked = accs.find((a) => !a.metaapi_id);
+              const last = linked.map((a) => a.last_sync_at).filter(Boolean).sort().pop();
+              const st = !accs.length ? "none" : bad ? "error" : waiting ? "connecting" : linked.length ? "ok" : "off";
+              const line = st === "none" ? t("conn.none.d") : st === "off" ? t("conn.off.d", { n: accs.length })
+                : st === "error" ? esc(syncErrText(bad.sync_error))
+                : t("conn.ok.d", { c: linked.length, n: accs.length }) + (last ? " · " + t("sync.last", { t: fmt.dateTime(last) }) : "");
+              const btn = st === "none" ? `<button class="btn btn--gold btn--sm" type="button" data-conn-add="${bid}">${t("conn.connect")}</button>`
+                : st === "error" ? `<button class="btn btn--gold btn--sm" type="button" data-conn-fix="${bad.id}">${t("conn.fix")}</button>`
+                : unlinked ? `<button class="btn btn--gold btn--sm" type="button" data-conn-link="${unlinked.id}">${t("conn.connect")}</button>`
+                : `<button class="btn btn--ghost btn--sm" type="button" data-conn-sync="${bid}">${t("sync.now")}</button>`;
+              return `<li class="pconn__row is-${st}">
+                <img src="${b.logo}" alt="${esc(b.name)}" width="84" height="34">
+                <div class="pconn__txt"><b><i class="pconn__dot" aria-hidden="true"></i>${t("conn." + st)}</b><small>${line}</small></div>
+                ${btn}</li>`;
+            }).join("")}</ul>
+          </section>` : ""}
+        </div>
       </div>
-      ${syncOn() && state.accounts.length ? `<section class="card">
-        <h3>${t("sync.title")}</h3><p class="card__sub">${t("sync.sub")}</p>
-        <ul class="sync-list">${state.accounts.map((a) => `<li>
-          <div class="sync-list__who"><b>${esc(accName(a))}</b> ${syncChip(a)}${syncLine(a)}</div>
-          <div class="sync-list__act">${a.metaapi_id
-            ? `<button class="btn btn--ghost btn--sm" type="button" data-sync-now="${a.id}">${t("sync.now")}</button><button class="btn btn--quiet btn--sm" type="button" data-sync-off="${a.id}">${t("sync.disconnect")}</button>`
-            : `<button class="btn btn--gold btn--sm" type="button" data-sync-connect="${a.id}">${t("sync.connect")}</button>`}</div>
-        </li>`).join("")}</ul>
-      </section>` : ""}
       ${!state.store.live ? `<section class="card"><h3>${t("prof.demoReset")}</h3><p class="card__sub">${t("prof.demoReset.d")}</p><button class="btn btn--ghost btn--sm" style="margin-top:12px" type="button" id="demo-reset">${t("prof.demoReset")}</button></section>` : ""}
       ${riskNote()}`;
     $("#prof", v).addEventListener("submit", async (e) => {
@@ -1310,6 +1325,9 @@
       try { await state.store.setAccountType(sel.dataset.accType, sel.value); await reload(["accounts"]); toast(t("prof.typeSaved")); render(); }
       catch (err) { fail(err); }
     }));
+    $$("[data-conn-add]", v).forEach((b) => b.addEventListener("click", () => addAccountModal(b.dataset.connAdd, () => render())));
+    $$("[data-conn-link], [data-conn-fix]", v).forEach((b) => b.addEventListener("click", () => connectModal(state.accounts.find((a) => a.id === (b.dataset.connLink || b.dataset.connFix)))));
+    $$("[data-conn-sync]", v).forEach((b) => b.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.broker === b.dataset.connSync && a.metaapi_id).map((a) => a.id), b)));
     const dr = $("#demo-reset", v);
     if (dr) dr.addEventListener("click", async () => { await state.store.resetDemo(); location.reload(); });
   }

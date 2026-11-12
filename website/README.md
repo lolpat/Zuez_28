@@ -77,6 +77,9 @@ The landing page FAQ tells members their IB line can see a summary of their resu
   account number, server and investor password; it adds the account and pulls its history in one go
   (leave the password empty to add it and import reports instead). Server names typed before are
   offered as choices; you can also list each broker's servers in `servers: []` in `js/config.js`.
+  **Profile** shows the same accounts as a compact list (Edit opens Manage account) and a
+  **Broker connections** card: PU Prime, Vantage and VT Markets, each marked Connected, Not connected,
+  Connecting, Connection problem or No account yet, with a Connect (or Fix / Sync now) button.
   The pencil on each account opens
   **Manage account**: fix the broker, number, platform, server or starting balance; connect,
   reconnect (wrong or changed investor password), sync or disconnect automatic history; or remove
