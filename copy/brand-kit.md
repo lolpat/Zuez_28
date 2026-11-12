@@ -116,9 +116,8 @@ MT5 auto-sync, live chat.
 - **Logo:** `brand/logo/` (the owner's own) — `print_transparent.svg` for the site header and hero,
   `icononly_transparent_nobuffer.png` for favicon/app icon.
 - `media/`: empty.
-- Hero: still image or typographic hero on the brand palette (no scroll video: this is an app,
-  people come to work, not to watch). Generated images, if approved in Step 2: one hero image and
-  2–3 supporting images, gold-and-maroon still lifes, no text, no broker logos.
+- Hero: typographic hero on the brand palette with the logo mark — owner chose "no pictures,
+  use the logo". No generated images or video; Step 2 skipped.
 - Broker names appear as plain text only; no broker logos or trademarks.
 
 ## 9. Design notes

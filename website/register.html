@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>สมัครสมาชิก | Order The Market</title>
+  <meta name="description" content="สมัครสมาชิกพอร์ทัล Order The Market สำหรับเทรดเดอร์ใต้ IB ที่ Vantage, PU Prime และ VT Markets">
+  <meta name="theme-color" content="#1a0405">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23420000'/%3E%3Cpath d='M44 12a22 22 0 1 0 12 26' fill='none' stroke='%23EED875' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M20 40v-8M28 40V27M36 40V22M44 40V16' stroke='%23EED875' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M17 44c12-2 21-9 27-21' fill='none' stroke='%23ED2024' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="assets/img/mark-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth__side" aria-hidden="true">
+      <div class="orbit">
+        <div class="orbit__ring orbit__ring--1"></div>
+        <div class="orbit__ring orbit__ring--2"></div>
+        <div class="orbit__glow"></div>
+        <img class="orbit__mark" src="assets/img/mark.svg" alt="" width="240" height="240">
+      </div>
+      <p class="wide-caps" data-i18n="brand.slogan">Your success is our mission</p>
+    </aside>
+    <main class="auth__main">
+      <div class="auth__top">
+        <a class="logo" href="index.html"><img src="assets/img/mark.svg" alt="" width="40" height="40"><span class="logo__word">Order The Market</span></a>
+        <button class="btn btn--quiet lang-btn" type="button" data-lang-toggle data-i18n="lang.switch" data-i18n-aria="lang.label">EN</button>
+      </div>
+      <div class="auth__box">
+        <h1 data-i18n="auth.reg.title">สมัครสมาชิก</h1>
+        <p class="lead" data-i18n="auth.reg.lead">สำหรับเทรดเดอร์ใต้ IB ของ Order The Market</p>
+        <form id="register-form" class="form-grid form-grid--2" novalidate>
+          <label class="field span-2"><span data-i18n="auth.name">ชื่อ นามสกุล</span><input class="input" name="full_name" autocomplete="name" required></label>
+          <label class="field span-2"><span data-i18n="auth.email">อีเมล</span><input class="input" name="email" type="email" autocomplete="email" inputmode="email" required></label>
+          <label class="field span-2"><span data-i18n="auth.telegram">ชื่อผู้ใช้ Telegram</span><input class="input" name="telegram" autocomplete="off" placeholder="@" required><small data-i18n="auth.telegram.hint">เช่น @yourname ทีมจะติดต่อคุณทางนี้</small></label>
+          <label class="field"><span data-i18n="auth.broker">โบรกเกอร์</span><select class="input" name="broker" required></select></label>
+          <label class="field"><span data-i18n="auth.platform">แพลตฟอร์ม</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
+          <label class="field span-2"><span data-i18n="auth.account">เลขบัญชี MT4/MT5</span><input class="input" name="account_number" inputmode="numeric" autocomplete="off" required><small data-i18n="auth.account.hint">เลขบัญชีเทรด ไม่ต้องใส่รหัสผ่าน</small></label>
+          <label class="field span-2"><span data-i18n="auth.ref">รหัสแนะนำ</span><input class="input" name="referral_code" autocomplete="off" style="text-transform:uppercase"><small data-i18n="auth.ref.hint">รหัสของ IB ที่ชวนคุณมา ถ้าไม่มี ปล่อยว่างได้</small></label>
+          <label class="field span-2"><span data-i18n="auth.password">รหัสผ่าน</span><input class="input" name="password" type="password" autocomplete="new-password" minlength="8" required><small data-i18n="auth.password.hint">อย่างน้อย 8 ตัวอักษร</small></label>
+          <label class="check span-2"><input type="checkbox" name="agree"><span data-i18n="auth.agree">ฉันเข้าใจว่าการเทรดมีความเสี่ยง และข้อมูลในพอร์ทัลไม่ใช่คำแนะนำการลงทุน</span></label>
+          <div class="alert form-msg span-2" role="alert" hidden></div>
+          <button class="btn btn--gold span-2" type="submit" data-i18n="auth.submit.reg">สมัครสมาชิก</button>
+        </form>
+        <p class="auth__alt"><span data-i18n="auth.hasacc">มีบัญชีแล้ว</span> <a href="login.html" data-i18n="auth.tologin">เข้าสู่ระบบ</a></p>
+      </div>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>

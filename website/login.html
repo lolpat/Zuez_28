@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>เข้าสู่ระบบ | Order The Market</title>
+  <meta name="description" content="เข้าสู่พอร์ทัลสมาชิก Order The Market">
+  <meta name="theme-color" content="#1a0405">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23420000'/%3E%3Cpath d='M44 12a22 22 0 1 0 12 26' fill='none' stroke='%23EED875' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M20 40v-8M28 40V27M36 40V22M44 40V16' stroke='%23EED875' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M17 44c12-2 21-9 27-21' fill='none' stroke='%23ED2024' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="assets/img/mark-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth__side" aria-hidden="true">
+      <div class="orbit">
+        <div class="orbit__ring orbit__ring--1"></div>
+        <div class="orbit__ring orbit__ring--2"></div>
+        <div class="orbit__glow"></div>
+        <img class="orbit__mark" src="assets/img/mark.svg" alt="" width="240" height="240">
+      </div>
+      <p class="wide-caps" data-i18n="brand.slogan">Your success is our mission</p>
+    </aside>
+    <main class="auth__main">
+      <div class="auth__top">
+        <a class="logo" href="index.html"><img src="assets/img/mark.svg" alt="" width="40" height="40"><span class="logo__word">Order The Market</span></a>
+        <button class="btn btn--quiet lang-btn" type="button" data-lang-toggle data-i18n="lang.switch" data-i18n-aria="lang.label">EN</button>
+      </div>
+      <div class="auth__box">
+        <h1 data-i18n="auth.login.title">เข้าสู่ระบบ</h1>
+        <p class="lead" data-i18n="auth.login.lead">ยินดีต้อนรับกลับ</p>
+        <form id="login-form" class="form-grid" novalidate>
+          <label class="field"><span data-i18n="auth.email">อีเมล</span><input class="input" name="email" type="email" autocomplete="email" inputmode="email" required></label>
+          <label class="field"><span data-i18n="auth.password">รหัสผ่าน</span><input class="input" name="password" type="password" autocomplete="current-password" required></label>
+          <div class="alert form-msg" role="alert" hidden></div>
+          <button class="btn btn--gold" type="submit" data-i18n="auth.submit.login">เข้าสู่ระบบ</button>
+          <button class="btn btn--quiet" type="button" id="forgot" data-i18n="auth.forgot">ลืมรหัสผ่าน</button>
+        </form>
+        <p class="auth__alt"><span data-i18n="auth.noacc">ยังไม่มีบัญชี</span> <a href="register.html" data-i18n="auth.toreg">สมัครสมาชิก</a></p>
+
+        <section class="demo-box" id="demo-box" hidden>
+          <h2 data-i18n="auth.demo.title">โหมดทดลอง</h2>
+          <p data-i18n="auth.demo.lead">ยังไม่ได้เชื่อมฐานข้อมูลจริง ข้อมูลเป็นตัวอย่างและเก็บไว้ในเบราว์เซอร์นี้เท่านั้น เลือกดูในมุมของ:</p>
+          <div class="chips">
+            <button class="btn btn--ghost btn--sm" type="button" data-demo="me" data-i18n="auth.demo.member">สมาชิก</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-demo="ib1" data-i18n="auth.demo.ib">IB</button>
+            <button class="btn btn--ghost btn--sm" type="button" data-demo="owner" data-i18n="auth.demo.owner">เจ้าของ</button>
+          </div>
+          <p style="margin:14px 0 0" data-i18n="auth.demo.any">ในโหมดทดลอง ใช้อีเมลตัวอย่าง เช่น krit@demo และรหัสอะไรก็ได้</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
