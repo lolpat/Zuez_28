@@ -31,7 +31,7 @@
       const anchor = Math.abs(x - cx) < 8 ? "middle" : x > cx ? "start" : "end";
       return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${anchor}" class="radar__lbl">${esc(labels[k])} <tspan class="radar__v">${Math.round(parts[k])}</tspan></text>`;
     }).join("");
-    return `<svg class="radar" viewBox="-70 -6 440 248" role="img" aria-label="radar">
+    return `<svg class="radar" viewBox="-104 -6 508 248" role="img" aria-label="radar">
       ${[25, 50, 75, 100].map((v) => `<polygon points="${ring(v)}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join("")}
       ${keys.map((_, i) => { const [x, y] = pt(i, 100); return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`; }).join("")}
       <polygon points="${shape}" fill="rgba(238,216,117,.22)" stroke="#EED875" stroke-width="2" stroke-linejoin="round"/>
