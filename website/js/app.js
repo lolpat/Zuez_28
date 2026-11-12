@@ -631,9 +631,10 @@
         </section>
         <section class="card">
           <h3>${t("prof.accounts")} <button class="btn btn--ghost btn--sm" type="button" id="add-acc">${t("prof.addAcc")}</button></h3>
-          ${state.accounts.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>${t("auth.broker")}</th><th>${t("auth.account")}</th><th class="r">${t("prof.start")}</th></tr></thead><tbody>
+          ${state.accounts.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>${t("auth.broker")}</th><th>${t("auth.account")}</th><th class="r">${t("prof.start")}</th><th></th></tr></thead><tbody>
             ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span><br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
-              <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td></tr>`).join("")}
+              <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td>
+              <td class="r"><button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
           </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
         </section>
       </div>
@@ -650,6 +651,15 @@
     });
     $$("[data-start]", v).forEach((inp) => inp.addEventListener("change", async () => {
       try { await state.store.updateAccount(inp.dataset.start, { start_balance: +inp.value || 0 }); await reload(["accounts"]); toast(t("app.saved")); } catch (err) { fail(err); }
+    }));
+    $$("[data-del-acc]", v).forEach((b) => b.addEventListener("click", async () => {
+      if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = t("prof.removeConfirm"); return; }
+      b.disabled = true;
+      try {
+        await state.store.deleteAccount(b.dataset.delAcc);
+        if (state.f.account === b.dataset.delAcc) state.f.account = "all";
+        await reload(["accounts", "trades"]); toast(t("prof.removed")); render();
+      } catch (err) { b.disabled = false; fail(err); }
     }));
     $("#add-acc", v).addEventListener("click", () => openModal(t("prof.addAcc"), `
       <form class="form-grid form-grid--2" id="acc-form">

@@ -323,6 +323,9 @@
       "prof.start.hint": "ใช้คำนวณยอดเงินใน Journal",
       "prof.noAcc": "ยังไม่มีบัญชี",
       "prof.taken": "บัญชีนี้มีคนลงทะเบียนไว้แล้ว ติดต่อทีมบน Telegram",
+      "prof.removeAcc": "ลบ",
+      "prof.removeConfirm": "กดอีกครั้งเพื่อลบ",
+      "prof.removed": "ลบบัญชีและเทรดในบัญชีนั้นแล้ว",
       "prof.demoReset": "รีเซ็ตข้อมูลทดลอง",
       "prof.demoReset.d": "ล้างทุกอย่างที่แก้ในโหมดทดลอง แล้วเริ่มจากข้อมูลตัวอย่างใหม่"
     },
@@ -649,6 +652,9 @@
       "prof.start.hint": "Used for the balance in your journal",
       "prof.noAcc": "No accounts yet",
       "prof.taken": "This account is already registered. Message the team on Telegram.",
+      "prof.removeAcc": "Remove",
+      "prof.removeConfirm": "Tap again to remove",
+      "prof.removed": "Account and its trades removed",
       "prof.demoReset": "Reset demo data",
       "prof.demoReset.d": "Clear everything you changed in demo mode and start again from the sample data"
     }

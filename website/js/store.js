@@ -140,6 +140,10 @@
       db.accounts.push(acc); saveDemo(); return acc;
     },
     async updateAccount(id, f) { const a = db.accounts.find((x) => x.id === id && x.user_id === db.session); Object.assign(a, f); saveDemo(); return a; },
+    async deleteAccount(id) {
+      db.accounts = db.accounts.filter((x) => !(x.id === id && x.user_id === db.session));
+      db.trades = db.trades.filter((x) => !(x.account_id === id && x.user_id === db.session)); saveDemo();
+    },
     async listTrades() { return db.trades.filter((t) => t.user_id === db.session); },
     async addTrade(t) {
       if (me().status !== "approved") throw new Error("not-approved");
@@ -218,6 +222,7 @@
       return data;
     },
     async updateAccount(id, f) { return must(await sb.from("broker_accounts").update(f).eq("id", id).select().single()); },
+    async deleteAccount(id) { must(await sb.from("broker_accounts").delete().eq("id", id).eq("user_id", profileCache.id)); },
     async listTrades() {
       const all = []; let from = 0;
       for (;;) {
