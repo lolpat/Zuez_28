@@ -1,19 +1,19 @@
 /* Order The Market: one stylesheet for the public pages and the member portal. */
 
 :root {
-  /* palette from the owner: crimson #6D0317, pink-red #E52150, yellow #F4EB06 */
+  /* palette from the owner: crimson #6D0317, pink-red #E52150, yellow #F4EB06 toned to a softer gold, metallic finish */
   --bg: #2e030e;
   --bg-2: #240209;
   --surface: #400516;
   --surface-2: #6d0317;
   --text: #fcf2ee;
   --muted: #d0a9b2;
-  --accent: #f4eb06;
-  --accent-rgb: 244, 235, 6;
-  --accent-hi: #f8f264;
+  --accent: #dcb84a;
+  --accent-rgb: 220, 184, 74;
+  --accent-hi: #f0d68c;
   --accent-2: #e52150;
   --accent-2-rgb: 229, 33, 80;
-  --gold-deep: #d6c500;
+  --gold-deep: #a8832c;
   --gold-mid: #ff7d9b;
   --line: #64162c;
   --profit: #7bd394;
@@ -517,3 +517,58 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js-ready .reveal { opacity: 1; transform: none; }
 }
+
+/* ------------------------------------------------------------------ metal finish
+   Owner's direction: gold rather than bright yellow, and red with a polished-metal sheen.
+   Cards are brushed crimson with a lit top edge; gold buttons and key figures are polished gold. */
+:root {
+  --metal-red: linear-gradient(160deg, rgba(255, 255, 255, .075) 0%, rgba(255, 255, 255, 0) 30%),
+               linear-gradient(150deg, #5c0a20 0%, #3d0515 42%, #31040f 64%, #4c0719 100%);
+  --metal-red-hi: linear-gradient(160deg, rgba(255, 220, 228, .13) 0%, rgba(255, 255, 255, 0) 34%),
+                  linear-gradient(150deg, #8a0f2b 0%, #6d0317 40%, #4a0517 70%, #7a0b25 100%);
+  --metal-red-line: linear-gradient(90deg, #7d0a22, #e52150 34%, #ff9fb4 48%, #c81a43 62%, #7d0a22);
+  --metal-gold: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 50%),
+                linear-gradient(100deg, #a8832c 0%, #e6c76e 20%, #f6e4a6 32%, #d2ab42 50%, #b38b2d 68%, #e8cb76 86%, #a8832c 100%);
+  --metal-gold-text: linear-gradient(180deg, #f8e9b4 8%, #dcb84a 56%, #a8832c 100%);
+  --metal-edge: inset 0 1px 0 rgba(255, 196, 208, .16), inset 0 -1px 0 rgba(0, 0, 0, .35);
+}
+
+.card, .broker, .calc, .feature-sm, .modal__box {
+  background: var(--metal-red);
+  border-color: rgba(var(--accent-2-rgb), .24);
+  box-shadow: var(--metal-edge), 0 16px 40px rgba(0, 0, 0, .28);
+}
+.kpi--hero, .feature-main, .toast, .me {
+  background: var(--metal-red-hi);
+  box-shadow: var(--metal-edge), 0 18px 44px rgba(0, 0, 0, .3);
+}
+
+/* a slow light sweep across the landing cards on hover, like light moving over polished metal */
+.broker, .calc { position: relative; overflow: hidden; }
+.broker::after, .calc::after {
+  content: ""; position: absolute; inset: -40% auto -40% -60%; width: 45%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 210, 220, .10) 45%, rgba(255, 255, 255, .16) 50%, rgba(255, 210, 220, .08) 55%, transparent);
+  transform: translateX(0) rotate(8deg); opacity: 0; transition: transform 1.1s var(--ease), opacity .4s;
+}
+.broker:hover::after, .calc:hover::after { transform: translateX(420%) rotate(8deg); opacity: 1; }
+.broker > :not(.sr-only), .calc > * { position: relative; z-index: 1; }
+
+/* polished gold buttons */
+.btn--gold {
+  background: var(--metal-gold); color: #3d0010; border: 1px solid rgba(120, 82, 10, .55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -1px 0 rgba(90, 50, 0, .35), 0 8px 24px rgba(0, 0, 0, .32);
+  text-shadow: 0 1px 0 rgba(255, 240, 200, .45);
+}
+.btn--gold:hover { color: #3d0010; filter: brightness(1.07) saturate(1.05); }
+.avatar { background: var(--metal-gold); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5); }
+
+/* key figures in polished gold */
+.hero h1 { background: linear-gradient(180deg, #fff6e0 28%, #ecd28a 62%, #c89f3a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.calc__bal, .bonus__cell:first-child .bonus__pct {
+  background: var(--metal-gold-text); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* polished red rules and bars */
+.step { border-top: 0; }
+.step::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--metal-red-line); }
+.progress i, .hours__row.is-open .hours__seg { background: linear-gradient(90deg, #8a0f2b, #e52150 30%, #ff9fb4 44%, #d43a5c 56%, var(--accent)); }

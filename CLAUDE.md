@@ -8,7 +8,7 @@ our mission". The logo files and palette are in `brand/` (see
 `brand/README.md`): maroon `#420000`, golds `#F4DC88` / `#EED875` / `#CEAC5C`
 / `#B78E4A`, red arrow `#ED2024` → `#721011`. Those are the logo's own colours;
 the owner later chose the site colours crimson `#6D0317`, pink-red `#E52150` and
-yellow `#F4EB06`, which `copy/brand-kit.md` now records and the site uses. When writing
+yellow `#F4EB06` (toned to a softer gold, with a metallic finish), which `copy/brand-kit.md` now records and the site uses. When writing
 `copy/brand-kit.md`, take the name, slogan, palette and logo from there
 instead of asking or inventing them, and treat the logo as the viewer's own
 media (copy what the site needs from `brand/logo/`; prefer
