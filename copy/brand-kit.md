@@ -33,20 +33,23 @@ Disciplined, warm, premium, plain-spoken, encouraging, honest about risk, unhurr
 
 ## 4. Palette and fonts
 
-From `brand/README.md` (the logo):
+Site colours chosen by the owner: crimson `#6D0317`, pink-red `#E52150`, yellow `#F4EB06`.
+The logo artwork keeps its own gold and maroon (see `brand/README.md`); it is never recoloured.
 
 | Token | Hex | Use |
 |---|---|---|
-| bg | `#1A0405` | page canvas (maroon pushed darker for long reading; never pure black) |
-| surface | `#2A0A0B` | cards, sidebar |
-| surface-2 | `#420000` | raised cards, active nav (the logo maroon) |
-| text | `#F6EBD3` | body text (warm ivory, tinted toward the gold) |
-| muted | `#B9A68A` | labels, secondary text |
-| accent | `#EED875` | gold: CTAs, active states, key numbers |
-| accent-2 | `#ED2024` | red arrow: losses, alerts, sparingly |
-| gold-deep | `#B78E4A` | outlines, chart grid, borders on hover |
-| line | `#4A1A17` | dividers |
-| profit | `#7BC88F` | positive P/L only (muted green that sits with gold) |
+| bg | `#2E030E` | page canvas (the crimson pushed darker for long reading; never pure black) |
+| bg-2 | `#240209` | insets: code boxes, tiles, inputs |
+| surface | `#400516` | cards, sidebar |
+| surface-2 | `#6D0317` | owner's crimson: hero glow, raised cards, active nav |
+| text | `#FCF2EE` | body text |
+| muted | `#D0A9B2` | labels, secondary text (tinted toward the crimson) |
+| accent | `#F4EB06` | owner's yellow: CTAs, active states, key numbers. Solid only: at low opacity over crimson it turns olive |
+| accent-hi | `#F8F264` | lighter yellow for button gradients and big figures |
+| accent-2 | `#E52150` | owner's pink-red: borders, soft tints, glows, gradient start (pink-red → yellow) |
+| gold-mid | `#FF7D9B` | small labels and kickers (a lighter pink-red that stays readable) |
+| line | `#64162C` | dividers |
+| profit / loss | `#7BD394` / `#FF6B5E` | P/L only |
 
 - **Heading font:** Kanit (Thai + Latin), 500/600; wordmark-style headings use wide letter-spacing
   in caps like the logo.

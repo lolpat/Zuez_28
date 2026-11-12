@@ -12,7 +12,7 @@
     const v = Math.max(0, Math.min(100, score));
     const id = "g" + ++gid;
     return `<svg class="gauge" viewBox="0 0 180 160" role="img" aria-label="${esc(label)} ${v}">
-      <defs><linearGradient id="${id}" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#B78E4A"/><stop offset="1" stop-color="#F4DC88"/></linearGradient></defs>
+      <defs><linearGradient id="${id}" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#E52150"/><stop offset="1" stop-color="#F4EB06"/></linearGradient></defs>
       <path d="${arc(a0, a1)}" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round"/>
       ${v > 0 ? `<path class="gauge__val" d="${arc(a0, a0 + (a1 - a0) * (v / 100))}" fill="none" stroke="url(#${id})" stroke-width="10" stroke-linecap="round"/>` : ""}
       <text x="90" y="98" text-anchor="middle" class="gauge__num">${v}</text>
@@ -34,7 +34,7 @@
     return `<svg class="radar" viewBox="-104 -6 508 248" role="img" aria-label="radar">
       ${[25, 50, 75, 100].map((v) => `<polygon points="${ring(v)}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join("")}
       ${keys.map((_, i) => { const [x, y] = pt(i, 100); return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`; }).join("")}
-      <polygon points="${shape}" fill="rgba(238,216,117,.22)" stroke="#EED875" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="${shape}" fill="rgba(244,235,6,.2)" stroke="#F4EB06" stroke-width="2" stroke-linejoin="round"/>
       ${lbl}
     </svg>`;
   }
@@ -52,10 +52,10 @@
     const ticks = [max, (max + min) / 2, min].map((v) => `<text x="${P.l - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="axis">${esc(opts.fmt ? opts.fmt(v) : v.toFixed(0))}</text><line x1="${P.l}" x2="${W - P.r}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="var(--line)" stroke-dasharray="${v === 0 ? "" : "3 5"}"/>`).join("");
     const dl = (i) => opts.dateFmt ? opts.dateFmt(points[i].x) : "";
     return `<svg class="linechart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label || "chart")}">
-      <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EED875" stop-opacity=".32"/><stop offset="1" stop-color="#EED875" stop-opacity="0"/></linearGradient></defs>
+      <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4EB06" stop-opacity=".32"/><stop offset="1" stop-color="#F4EB06" stop-opacity="0"/></linearGradient></defs>
       ${ticks}
       <path d="${area}" fill="url(#${id})"/>
-      <path d="${d}" fill="none" stroke="#EED875" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="${d}" fill="none" stroke="#F4EB06" stroke-width="2.5" stroke-linejoin="round"/>
       <text x="${P.l}" y="${H - 6}" class="axis">${esc(dl(0))}</text>
       <text x="${W - P.r}" y="${H - 6}" text-anchor="end" class="axis">${esc(dl(points.length - 1))}</text>
     </svg>`;
