@@ -76,6 +76,22 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Automatic history** pulls trades in by itself; see the next section. Import still works as a
   fallback, and trades that were imported before are not duplicated by a sync.
 
+## Leaderboard
+
+- Members choose to join (Leaderboard page > Join) and pick the name others see. Nothing else about
+  them is shown: no email, account number or balance. They can leave any time.
+- Only members **in net profit** (after commission and swap) for the period are ranked, by net
+  profit. The table also shows return on the starting balance, win rate, profit factor, average
+  win / average loss, the current winning streak and a tier (from win rate, profit factor and
+  win/loss size; fewer than 3 trades is "Rookie").
+- **Live / Demo** switch at the top right: each account is marked live or demo (Profile > Add account;
+  a synced account whose server name contains "Demo" is marked demo automatically), and the two are
+  ranked separately.
+- Daily / Weekly / Monthly / All time, on Thai time (weeks start Monday 00:00), with a countdown to
+  the next reset.
+- In live mode the ranking comes from the database function `leaderboard()` in
+  `../supabase/schema.sql`, so members still can't read anyone else's trades.
+
 ## Automatic MT4/MT5 history (investor password)
 
 A member opens Journal or Profile > **Connect account**, enters the MT5 server name and the account's

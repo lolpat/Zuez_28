@@ -9,12 +9,13 @@
   const state = {
     store: null, me: null, accounts: [], trades: [], upline: null, downline: null,
     f: { account: "all", period: "month", side: "all", outcome: "all", symbol: "all" },
-    eq: "cum", cal: null, shown: 25, timer: null, netQuery: ""
+    eq: "cum", cal: null, shown: 25, timer: null, netQuery: "", lb: { period: "week", type: "live" }
   };
 
   const ICON = {
     dashboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="8" rx="2"/><rect x="13.5" y="3.5" width="7" height="5" rx="2"/><rect x="13.5" y="11.5" width="7" height="9" rx="2"/><rect x="3.5" y="14.5" width="7" height="6" rx="2"/></svg>',
     journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H6z"/><path d="M6 3.5v17M9.5 8h5.5M9.5 11.5h5.5"/><path d="m10 17 2-2.5 2 1.5 2.5-3"/></svg>',
+    leaderboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20h7M9.5 20l.5-3.5h4l.5 3.5"/></svg>',
     tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="3" width="15" height="18" rx="3"/><path d="M8 7h8M8 11h1.5M11.3 11h1.5M14.6 11H16M8 14.5h1.5M11.3 14.5h1.5M14.6 14.5H16M8 18h8"/></svg>',
     network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="12" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v9M12 12H5v4.5M12 12h7v4.5"/></svg>',
     profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.3-5.2 7.5-5.2s6.1 1.6 7.5 5.2"/></svg>'
@@ -28,7 +29,7 @@
   const brokerName = (id) => (cfg.BROKERS.find((b) => b.id === id) || { name: id }).name;
   const isIB = () => state.me && (state.me.role === "ib" || state.me.role === "owner");
   const approved = () => state.me && state.me.status === "approved";
-  const accName = (a) => `${brokerName(a.broker)} · ${a.account_number}`;
+  const accName = (a) => `${brokerName(a.broker)} · ${a.account_number}${a.account_type === "demo" ? " · Demo" : ""}`;
   const dur = (mins) => { const h = Math.floor(mins / 60), m = Math.round(mins % 60); if (!h) return I.lang === "th" ? `${m} นาที` : `${m}m`; return I.lang === "th" ? `${h} ชม. ${m} นาที` : `${h}h ${m}m`; };
 
   function toast(msg) {
@@ -59,7 +60,7 @@
 
   // ------------------------------------------------------------ shell
   const routes = () => {
-    const r = [["dashboard", "app.dashboard"], ["journal", "app.journal"], ["tools", "app.tools"]];
+    const r = [["dashboard", "app.dashboard"], ["journal", "app.journal"], ["leaderboard", "app.leaderboard"], ["tools", "app.tools"]];
     if (isIB()) r.push(["network", "app.network"]);
     r.push(["profile", "app.profile"]);
     return r;
@@ -93,7 +94,7 @@
     renderShell();
     const v = $("#view");
     const r = currentRoute();
-    ({ dashboard, journal, tools, network, profile })[r](v);
+    ({ dashboard, journal, leaderboard, tools, network, profile })[r](v);
     v.focus({ preventScroll: true });
   }
 
@@ -478,6 +479,126 @@
     drawRows();
   }
 
+  // ------------------------------------------------------------ leaderboard
+  const FLAME = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12.6 2.5c.4 3-1.4 4.6-2.8 6.1C8.4 10.1 7 11.7 7 14.3A5 5 0 0 0 12 19.5a5 5 0 0 0 5-5.2c0-2.3-1.2-3.6-2-4.6-.2 1.3-.8 2.2-1.7 2.6.6-3.6-.2-7.2-.7-9.8z"/></svg>';
+  function lbParts(r) {
+    const wr = r.trades ? (r.wins / r.trades) * 100 : 0;
+    const pfv = r.gross_loss ? r.gross_win / r.gross_loss : (r.gross_win ? Infinity : 0);
+    const avgW = r.wins ? r.gross_win / r.wins : 0, avgL = r.losses ? r.gross_loss / r.losses : 0;
+    const wl = avgL ? avgW / avgL : (avgW ? Infinity : 0);
+    const sc = (v, lo, hi) => Math.max(0, Math.min(100, ((v - lo) / (hi - lo)) * 100));
+    const score = (sc(wr, 30, 70) + (pfv === Infinity ? 100 : sc(pfv, 1, 3)) + (wl === Infinity ? 100 : sc(wl, 0.5, 2.5))) / 3;
+    const tier = r.trades < 3 ? "rookie" : score >= 75 ? "platinum" : score >= 55 ? "gold" : score >= 35 ? "silver" : "bronze";
+    return { wr, pfv, wl, tier };
+  }
+  function lbReset(period) {
+    const { end } = S.lbPeriod(period);
+    if (!end) return "";
+    const s = Math.max(0, Math.floor((end - Date.now()) / 1000)), d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const two = (n) => String(n).padStart(2, "0");
+    return t("lb.resets", { t: `${d ? d + (I.lang === "th" ? " วัน " : "d ") : ""}${h}${I.lang === "th" ? " ชม. " : "h "}${two(m)}${I.lang === "th" ? " น. " : "m "}${two(sec)}${I.lang === "th" ? " วิ" : "s"}` });
+  }
+
+  async function leaderboard(v) {
+    if (!approved()) { v.innerHTML = statusCard() + riskNote(); return; }
+    const L = state.lb, m = state.me;
+    const seg = (key, opts) => `<div class="seg" role="group">${opts.map(([val, lbl]) => `<button type="button" data-lb="${key}" data-v="${val}" aria-pressed="${L[key] === val}">${t(lbl)}</button>`).join("")}</div>`;
+    v.innerHTML = `
+      <div class="view-head lb-head">
+        <div class="lb-title"><span class="lb-title__icon">${ICON.leaderboard}</span>
+          <div><h2>${t("app.leaderboard")}</h2><p class="muted">${t("lb.sub")}${L.period !== "all" ? ` · <span id="lb-reset" class="lb-reset">${lbReset(L.period)}</span>` : ""}</p></div></div>
+        <div class="lb-controls">
+          ${seg("type", [["live", "lb.live"], ["demo", "lb.demo"]])}
+          ${seg("period", [["day", "lb.day"], ["week", "lb.week"], ["month", "lb.month"], ["all", "lb.all"]])}
+        </div>
+      </div>
+      <div id="lb-body"><div class="loading"><img src="assets/img/mark.svg" alt="" width="56" height="56"></div></div>
+      ${riskNote()}`;
+    $$("[data-lb]", v).forEach((b) => b.addEventListener("click", () => { L[b.dataset.lb] = b.dataset.v; render(); }));
+    if (L.period !== "all") state.timer = setInterval(() => { const el = $("#lb-reset"); if (el) el.textContent = lbReset(L.period); }, 1000);
+
+    let rows;
+    try { rows = await state.store.leaderboard(L.period, L.type); }
+    catch (err) { $("#lb-body", v).innerHTML = `<p class="alert alert--err">${esc(err.message)}</p>`; return; }
+    if (currentRoute() !== "leaderboard" || !$("#lb-body", v)) return;
+
+    // my own numbers for this period and account type (from my journal, whether or not I joined)
+    const { start } = S.lbPeriod(L.period);
+    const types = new Map(state.accounts.map((a) => [a.id, a.account_type || "live"]));
+    const mine = S.compute(state.trades.filter((x) => types.get(x.account_id) === L.type && (!start || new Date(x.close_time) >= start)));
+    const meRow = rows.find((r) => r.is_me);
+    const field = rows.length ? rows[0].field_size : 0;
+    const joined = !!m.leaderboard_opt_in;
+    const myName = (m.leaderboard_name || "").trim() || String(m.full_name || "").split(" ")[0];
+
+    const avatar = (r, size = "") => `<span class="lb-av ${size}">${esc(initials(r.display_name))}</span>`;
+    const podium = rows.length ? [rows[1], rows[0], rows[2]].map((r, i) => {
+      if (!r) return `<div class="pod pod--empty"></div>`;
+      const place = [2, 1, 3][i], P = lbParts(r);
+      return `<div class="pod pod--${place} ${r.is_me ? "is-me" : ""}">
+          <div class="pod__medal"><span>${place}</span></div>
+          ${avatar(r, "lb-av--lg")}
+          <b class="pod__name">${esc(r.display_name)}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
+          <span class="pod__net up">${money(r.net)}</span>
+          <span class="pod__meta">${fmt.num(P.wr, 0)}% WR${r.return_pct != null ? ` · ${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%` : ""}</span>
+          <div class="pod__base"><span>${place}</span></div>
+        </div>`;
+    }).join("") : "";
+
+    $("#lb-body", v).innerHTML = `
+      ${!joined ? `<section class="card lb-join">
+          <div><h3>${t("lb.join.t")}</h3><p class="card__sub">${t("lb.join.d")}</p></div>
+          <form id="lb-join" class="lb-join__form"><label class="sr-only" for="lb-name">${t("lb.name")}</label>
+            <input class="input" id="lb-name" name="name" maxlength="30" value="${esc(myName)}" placeholder="${esc(t("lb.name"))}">
+            <button class="btn btn--gold" type="submit">${t("lb.join")}</button></form>
+        </section>` : ""}
+      <div class="kpis kpis--4">
+        <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("lb.myRank")}</span>
+          <span class="kpi__val">${meRow ? "#" + meRow.rank : t("lb.unranked")}</span>
+          <span class="kpi__sub">${meRow ? t("lb.of", { n: field }) : !joined ? t("lb.notJoined") : t("lb.needProfit")}${field ? ` · ${t("lb.profitable", { n: rows.length, f: field })}` : ""}</span></div>
+        <div class="card kpi"><span class="kpi__lbl">${t("j.total")}</span><span class="kpi__val ${cls(mine.total)}">${money(mine.total)}</span><span class="kpi__sub">${t("j.total.sub", { n: mine.count })}</span></div>
+        <div class="card kpi"><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${mine.count ? fmt.num(mine.winRate, 1) + "%" : "–"}</span><span class="kpi__sub">${t("j.wr.sub", { w: mine.wins, l: mine.losses })}</span></div>
+        <div class="card kpi"><span class="kpi__lbl">${t("j.pf")}</span><span class="kpi__val">${mine.count ? pf(mine.profitFactor) : "–"}</span><span class="kpi__sub">${t("j.pf.sub")}</span></div>
+      </div>
+      ${rows.length ? `<section class="podium" aria-label="${esc(t("lb.top3"))}">${podium}</section>
+      <section class="card">
+        <h3>${t("lb.allTraders")} <span class="badge">${t("lb.count", { n: rows.length })}</span></h3>
+        <div class="table-wrap"><table class="table lb-table">
+          <thead><tr><th>${t("lb.col.rank")}</th><th>${t("lb.col.trader")}</th><th class="c-tier">${t("lb.col.tier")}</th><th class="r">${t("j.col.trades")}</th><th class="r">${t("lb.col.profit")}</th><th class="r c-ret">${t("lb.col.return")}</th><th class="r">${t("j.col.wr")}</th><th class="r c-pf">P.Factor</th><th class="r c-wl">${t("lb.col.wl")}</th><th class="r">${t("lb.col.streak")}</th></tr></thead>
+          <tbody>${rows.map((r) => { const P = lbParts(r); return `<tr class="lb-row ${r.rank <= 3 ? "lb-row--" + r.rank : ""} ${r.is_me ? "is-me" : ""}">
+            <td class="lb-rank">${r.rank <= 3 ? `<span class="lb-medal lb-medal--${r.rank}">${r.rank}</span>` : String(r.rank).padStart(2, "0")}</td>
+            <td><span class="lb-who">${avatar(r)}<b>${esc(r.display_name)}</b>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span></td>
+            <td class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></td>
+            <td class="r">${r.trades}</td>
+            <td class="r up"><b>${money(r.net)}</b></td>
+            <td class="r c-ret">${r.return_pct != null ? `${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%` : "–"}</td>
+            <td class="r">${fmt.num(P.wr, 1)}%</td>
+            <td class="r c-pf">${pf(P.pfv)}</td>
+            <td class="r c-wl">${P.wl === Infinity ? "∞" : fmt.num(P.wl, 2)}</td>
+            <td class="r"><span class="lb-streak">${r.streak ? FLAME + r.streak : "–"}</span></td></tr>`; }).join("")}</tbody>
+        </table></div>
+      </section>` : `<section class="card empty"><h3>${t("lb.empty.t")}</h3><p>${t("lb.empty.d")}</p></section>`}
+      <p class="muted lb-foot">${t("lb.foot")}</p>
+      ${joined ? `<section class="card lb-me">
+          <form id="lb-rename" class="lb-join__form"><label class="field" style="flex:1;min-width:180px"><span>${t("lb.name")}</span><input class="input" name="name" maxlength="30" value="${esc(myName)}"></label>
+            <button class="btn btn--ghost" type="submit">${t("app.save")}</button>
+            <button class="btn btn--quiet" type="button" id="lb-leave">${t("lb.leave")}</button></form>
+        </section>` : ""}`;
+
+    const saveLb = async (f, msg) => {
+      try { state.me = await state.store.updateProfile(f); toast(msg); render(); } catch (err) { fail(err); }
+    };
+    const jf = $("#lb-join", v);
+    if (jf) jf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_opt_in: true, leaderboard_name: jf.name.value.trim().slice(0, 30) }, t("lb.joined")); });
+    const rf = $("#lb-rename", v);
+    if (rf) rf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_name: rf.name.value.trim().slice(0, 30) }, t("app.saved")); });
+    const lv = $("#lb-leave", v);
+    if (lv) lv.addEventListener("click", () => {
+      if (!lv.dataset.armed) { lv.dataset.armed = "1"; lv.textContent = t("lb.leaveConfirm"); return; }
+      saveLb({ leaderboard_opt_in: false }, t("lb.left"));
+    });
+  }
+
   // ------------------------------------------------------------ automatic history (MT4/MT5)
   const syncOn = () => cfg.AUTO_SYNC !== false;
   const syncErrText = (code) => {
@@ -826,7 +947,7 @@
         <section class="card">
           <h3>${t("prof.accounts")} <button class="btn btn--ghost btn--sm" type="button" id="add-acc">${t("prof.addAcc")}</button></h3>
           ${state.accounts.length ? `<div class="table-wrap"><table class="table"><thead><tr><th>${t("auth.broker")}</th><th>${t("auth.account")}</th><th class="r">${t("prof.start")}</th><th></th></tr></thead><tbody>
-            ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span><br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
+            ${state.accounts.map((a) => `<tr><td>${esc(brokerName(a.broker))} <span class="badge">${esc(a.platform || "MT5")}</span>${a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}<br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
               <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td>
               <td class="r"><button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
           </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
@@ -868,6 +989,7 @@
       <form class="form-grid form-grid--2" id="acc-form">
         <label class="field"><span>${t("auth.broker")}</span><select class="input" name="broker">${cfg.BROKERS.map((b) => `<option value="${b.id}">${b.name}</option>`).join("")}</select></label>
         <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
+        <label class="field span-2"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live">${t("lb.live")}</option><option value="demo">${t("lb.demo")}</option></select><small>${t("prof.type.hint")}</small></label>
         <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" required><small>${t("auth.account.hint")}</small></label>
         <label class="field"><span>${t("prof.server")}</span><input class="input" name="server" placeholder="${esc(t("prof.server.ph"))}"></label>
         <label class="field"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="0"></label>
@@ -878,7 +1000,7 @@
         e.preventDefault(); const F = e.target;
         if (!F.account_number.value.trim()) { F.account_number.setAttribute("aria-invalid", "true"); return; }
         try {
-          await state.store.addAccount({ broker: F.broker.value, platform: F.platform.value, account_number: F.account_number.value.trim(), server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 });
+          await state.store.addAccount({ broker: F.broker.value, platform: F.platform.value, account_type: F.account_type.value, account_number: F.account_number.value.trim(), server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 });
           await reload(["accounts"]); closeModal(); toast(t("app.saved")); render();
         } catch (err) { $("#acc-msg", box).innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : esc(err.message)}</p>`; }
       });

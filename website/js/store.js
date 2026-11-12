@@ -100,6 +100,28 @@
   function loadDemo() {
     try { db = JSON.parse(localStorage.getItem(KEY)); } catch { db = null; }
     if (!db || !db.users) { db = seed(); saveDemo(); }
+    if (!db.lb) addLeaderboardDemo();
+  }
+  // demo leaderboard: some sample members joined, a few demo accounts, and recent trades
+  function addLeaderboardDemo() {
+    const now = Date.now();
+    const recent = (uidv, acc, n, edge) => makeTrades(uidv, acc, n, edge, 6, Math.random).map((t) => {
+      const shift = new Date(t.close_time).getTime() > now ? 864e5 : 0;
+      return { ...t, open_time: new Date(new Date(t.open_time).getTime() - shift).toISOString(), close_time: new Date(new Date(t.close_time).getTime() - shift).toISOString(), note: "", feeling: "", execution: null, tags: [], lesson: "" };
+    });
+    const joined = { ib1: "Somchai", ib2: "NokTrade", m2: "PloyFX", m4: "Mali R.", ib3: "James", m6: "WanGold" };
+    db.users.forEach((u) => { if (joined[u.id]) Object.assign(u, { leaderboard_opt_in: true, leaderboard_name: joined[u.id] }); });
+    const accOf = (u) => db.accounts.find((a) => a.user_id === u && (a.account_type || "live") === "live");
+    [["ib1", 14, 0.62], ["ib2", 9, 0.6], ["m2", 11, 0.5], ["m4", 16, 0.66], ["ib3", 8, 0.55], ["m6", 6, 0.42], ["me", 7, 0.6]].forEach(([u, n, e]) => {
+      const a = accOf(u); if (a) db.trades.push(...recent(u, a.id, n, e));
+    });
+    [["m2", "77019001", "VTMarkets-Demo"], ["ib3", "77010009", "VTMarkets-Demo"], ["m6", "81109001", "PUPrime-Demo"], ["m4", "58009001", "VantageInternational-Demo"]].forEach(([u, num, server], i) => {
+      const id = "a-demo-" + u;
+      if (db.accounts.some((a) => a.id === id)) return;
+      db.accounts.push({ id, user_id: u, broker: server.startsWith("VT") ? "vtmarkets" : server.startsWith("PU") ? "puprime" : "vantage", account_number: num, server, platform: "MT5", currency: "USD", start_balance: 10000, account_type: "demo", created_at: new Date().toISOString() });
+      db.trades.push(...recent(u, id, 10 + i * 4, 0.55 + i * 0.03));
+    });
+    db.lb = 1; saveDemo();
   }
   function saveDemo() { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch { /* private mode: keep in memory */ } }
   const me = () => db.users.find((u) => u.id === db.session);
@@ -132,7 +154,25 @@
     },
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
-    async updateProfile(f) { const m = me(); ["full_name", "telegram", "language"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
+    async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
+    async leaderboard(period, type = "live") {
+      const { start } = root.OTMStats.lbPeriod(period);
+      const typeOf = new Map(db.accounts.map((a) => [a.id, a.account_type || "live"]));
+      const n = (t) => (+t.profit || 0) + (+t.commission || 0) + (+t.swap || 0);
+      const rows = db.users.filter((u) => u.status === "approved" && u.leaderboard_opt_in).map((u) => {
+        const tr = db.trades.filter((t) => t.user_id === u.id && typeOf.get(t.account_id) === type && (!start || new Date(t.close_time) >= start))
+          .sort((a, b) => new Date(b.close_time) - new Date(a.close_time));
+        if (!tr.length) return null;
+        const v = tr.map(n), wins = v.filter((x) => x > 0), losses = v.filter((x) => x < 0);
+        let streak = 0; for (const x of v) { if (x > 0) streak++; else break; }
+        const bal = db.accounts.filter((a) => a.user_id === u.id && (a.account_type || "live") === type).reduce((s, a) => s + (+a.start_balance || 0), 0);
+        const net = v.reduce((a, b) => a + b, 0);
+        return { display_name: (u.leaderboard_name || "").trim() || u.full_name.split(" ")[0], trades: tr.length, wins: wins.length, losses: losses.length,
+          net, gross_win: wins.reduce((a, b) => a + b, 0), gross_loss: -losses.reduce((a, b) => a + b, 0), streak,
+          return_pct: bal > 0 ? (net / bal) * 100 : null, is_me: u.id === db.session };
+      }).filter(Boolean);
+      return rows.filter((r) => r.net > 0).sort((a, b) => b.net - a.net || a.trades - b.trades).map((r, i) => ({ ...r, rank: i + 1, field_size: rows.length }));
+    },
     async listAccounts() { return db.accounts.filter((a) => a.user_id === db.session); },
     async addAccount(a) {
       if (db.accounts.some((x) => x.broker === a.broker && x.account_number === a.account_number)) throw new Error("account-taken");
@@ -241,7 +281,7 @@
       if (error) throw new Error(error.message); return true;
     },
     async updateProfile(f) {
-      const pick = {}; ["full_name", "telegram", "language"].forEach((k) => { if (k in f) pick[k] = f[k]; });
+      const pick = {}; ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name"].forEach((k) => { if (k in f) pick[k] = f[k]; });
       must(await sb.from("profiles").update(pick).eq("id", profileCache.id));
       Object.assign(profileCache, pick); return profileCache;
     },
@@ -274,6 +314,10 @@
     async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password }); },
     async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
     async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
+    async leaderboard(period, type = "live") {
+      return (must(await sb.rpc("leaderboard", { p_period: period, p_type: type })) || []).map((r) => ({
+        ...r, net: +r.net, gross_win: +r.gross_win, gross_loss: +r.gross_loss, return_pct: r.return_pct == null ? null : +r.return_pct }));
+    },
     async myUpline() { const r = must(await sb.rpc("my_upline")); return r && r[0] ? r[0] : null; },
     async myDownline() { return (must(await sb.rpc("my_downline")) || []).map((r) => ({ ...r, net_profit: +r.net_profit, win_rate: r.win_rate == null ? null : +r.win_rate })); },
     async setMemberStatus(id, status) { must(await sb.rpc("set_member_status", { target: id, new_status: status })); },

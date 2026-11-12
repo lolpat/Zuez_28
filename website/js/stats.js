@@ -120,6 +120,19 @@
     };
   }
 
-  root.OTMStats = { net, compute, filterTrades, session, dayKey, weekStart };
+  // Leaderboard periods run on Thai time (UTC+7, no daylight saving), the same as the database.
+  const BKK = 7 * 3600e3;
+  function lbPeriod(p, now = new Date()) {
+    if (p === "all") return { start: null, end: null };
+    const d = new Date(now.getTime() + BKK);
+    const y = d.getUTCFullYear(), m = d.getUTCMonth();
+    let day = d.getUTCDate();
+    if (p === "week") day -= (d.getUTCDay() + 6) % 7;
+    if (p === "month") return { start: new Date(Date.UTC(y, m, 1) - BKK), end: new Date(Date.UTC(y, m + 1, 1) - BKK) };
+    const start = new Date(Date.UTC(y, m, day) - BKK);
+    return { start, end: new Date(start.getTime() + (p === "week" ? 7 : 1) * 864e5) };
+  }
+
+  root.OTMStats = { net, compute, filterTrades, session, dayKey, weekStart, lbPeriod };
   if (typeof module !== "undefined") module.exports = root.OTMStats;
 })(typeof window !== "undefined" ? window : globalThis);

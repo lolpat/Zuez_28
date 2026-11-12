@@ -256,3 +256,72 @@ revoke insert, update on public.broker_accounts from anon, authenticated;
 grant insert (user_id, broker, account_number, server, platform, currency, start_balance)
   on public.broker_accounts to authenticated;
 grant update (server, platform, currency, start_balance) on public.broker_accounts to authenticated;
+
+-- ---------------------------------------------------------------- leaderboard
+-- Members choose to be ranked (leaderboard_opt_in) and the name shown (leaderboard_name).
+-- Accounts are live or demo; the leaderboard ranks each kind separately.
+alter table public.profiles add column if not exists leaderboard_opt_in boolean not null default false;
+alter table public.profiles add column if not exists leaderboard_name text not null default '';
+alter table public.profiles drop constraint if exists profiles_leaderboard_name_len;
+alter table public.profiles add constraint profiles_leaderboard_name_len check (char_length(leaderboard_name) <= 30);
+grant update (leaderboard_opt_in, leaderboard_name) on public.profiles to authenticated;
+
+alter table public.broker_accounts add column if not exists account_type text not null default 'live';
+alter table public.broker_accounts drop constraint if exists broker_accounts_type_check;
+alter table public.broker_accounts add constraint broker_accounts_type_check check (account_type in ('live', 'demo'));
+grant insert (account_type) on public.broker_accounts to authenticated;
+grant update (account_type) on public.broker_accounts to authenticated;
+
+-- Ranking for a period ('day' | 'week' | 'month' | 'all', Thai time) and an account type.
+-- Only approved members who opted in are counted, and only those in profit are ranked.
+-- Returns the shown name and aggregates only: no ids, emails or balances.
+create or replace function public.leaderboard(p_period text, p_type text default 'live')
+returns table (
+  rank int, display_name text, trades int, wins int, losses int, net numeric,
+  gross_win numeric, gross_loss numeric, streak int, return_pct numeric, is_me boolean, field_size int
+)
+language sql stable security definer set search_path = public as $$
+  with b as (
+    select case p_period
+      when 'day'   then date_trunc('day',   now() at time zone 'Asia/Bangkok') at time zone 'Asia/Bangkok'
+      when 'week'  then date_trunc('week',  now() at time zone 'Asia/Bangkok') at time zone 'Asia/Bangkok'
+      when 'month' then date_trunc('month', now() at time zone 'Asia/Bangkok') at time zone 'Asia/Bangkok'
+      else '-infinity'::timestamptz end as t0
+  ), t as (
+    select tr.user_id, tr.close_time, (tr.profit + tr.commission + tr.swap) as n
+      from trades tr
+      join broker_accounts a on a.id = tr.account_id
+      join profiles p on p.id = tr.user_id
+     where p.status = 'approved' and p.leaderboard_opt_in
+       and a.account_type = p_type
+       and tr.close_time >= (select t0 from b)
+  ), agg as (
+    select user_id, count(*)::int as trades,
+           (count(*) filter (where n > 0))::int as wins, (count(*) filter (where n < 0))::int as losses,
+           sum(n) as net, coalesce(sum(n) filter (where n > 0), 0) as gross_win,
+           coalesce(-sum(n) filter (where n < 0), 0) as gross_loss,
+           count(*) over () as field_size
+      from t group by user_id
+  ), ord as (
+    select user_id, n, row_number() over (partition by user_id order by close_time desc) as rn from t
+  ), stk as (
+    select user_id, coalesce(min(rn) filter (where n <= 0), max(rn) + 1) - 1 as streak from ord group by user_id
+  ), bal as (
+    select user_id, sum(start_balance) as start_balance from broker_accounts where account_type = p_type group by user_id
+  )
+  select (row_number() over (order by agg.net desc, agg.trades))::int,
+         coalesce(nullif(trim(p.leaderboard_name), ''), split_part(p.full_name, ' ', 1)),
+         agg.trades, agg.wins, agg.losses, round(agg.net, 2), round(agg.gross_win, 2), round(agg.gross_loss, 2),
+         stk.streak::int,
+         case when coalesce(bal.start_balance, 0) > 0 then round(agg.net / bal.start_balance * 100, 2) end,
+         agg.user_id = auth.uid(), agg.field_size::int
+    from agg
+    join profiles p on p.id = agg.user_id
+    join stk on stk.user_id = agg.user_id
+    left join bal on bal.user_id = agg.user_id
+   where agg.net > 0
+   order by agg.net desc, agg.trades
+   limit 200;
+$$;
+revoke execute on function public.leaderboard(text, text) from public, anon;
+grant execute on function public.leaderboard(text, text) to authenticated;
