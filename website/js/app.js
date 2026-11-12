@@ -287,9 +287,37 @@
     const symbols = [...new Set(base.map((x) => x.symbol))].sort();
     if (f.symbol !== "all" && !symbols.includes(f.symbol)) f.symbol = "all";
     const list = S.filterTrades(state.trades, f);
-    const st = S.compute(list);
     const accs = state.accounts.filter((a) => f.account === "all" || a.id === f.account);
-    const balance = accs.reduce((s, a) => s + (+a.start_balance || 0), 0) + base.reduce((s, x) => s + S.net(x), 0);
+    const startBal = accs.reduce((s, a) => s + (+a.start_balance || 0), 0);
+    const balance = startBal + base.reduce((s, x) => s + S.net(x), 0);
+    // balance when the shown period starts: starting balance + everything closed before its first trade
+    const firstT = list.length ? Math.min(...list.map((x) => +new Date(x.close_time))) : null;
+    const openBal = startBal + (firstT ? base.filter((x) => +new Date(x.close_time) < firstT).reduce((s, x) => s + S.net(x), 0) : 0);
+    const st = S.compute(list, openBal);
+    const dayList = [...st.byDay.values()];
+    const bestDay = dayList.length ? dayList.reduce((a, b) => (b.net > a.net ? b : a)) : null;
+    const worstDay = dayList.length ? dayList.reduce((a, b) => (b.net < a.net ? b : a)) : null;
+    const comm = list.reduce((sum, x) => sum + (+x.commission || 0), 0), swap = list.reduce((sum, x) => sum + (+x.swap || 0), 0);
+    const peakEq = openBal + Math.max(0, ...st.curve.map((pt) => pt.value)), nowEq = openBal + st.total;
+    const greenDays = dayList.filter((g) => g.net > 0).length, redDays = dayList.filter((g) => g.net < 0).length;
+    const syms = [...st.bySymbol.values()].sort((a, b) => b.net - a.net);
+    const symMax = Math.max(1, ...syms.map((g) => Math.abs(g.net)));
+    const dayLbl = (g) => (g ? fmt.date(g.key + "T12:00:00", { weekday: "short", day: "numeric", month: "short" }) + " · " + t("j.cal.trades", { n: g.count }) : "");
+    const JI = {
+      wallet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v4"/><path d="M4 7.5V17a2 2 0 0 0 2 2h13a1 1 0 0 0 1-1v-8H6.5A2.5 2.5 0 0 1 4 7.5z"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor"/></svg>',
+      target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>',
+      coins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="9" cy="7" rx="5" ry="2.5"/><path d="M4 7v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7"/><path d="M10 15.5c.9 1.1 2.8 1.9 5 1.9 2.8 0 5-1.1 5-2.5V11c0-1.4-2.2-2.5-5-2.5"/></svg>',
+      pulse: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></svg>',
+      up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 16.5l6-6 4 4 7-7"/><path d="M15 7.5h5.5V13"/></svg>',
+      down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5l6 6 4-4 7 7"/><path d="M15 16.5h5.5V11"/></svg>',
+      cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+      pie: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5v8.5h8.5A8.5 8.5 0 1 1 12 3.5z"/><path d="M15 3.9A8.5 8.5 0 0 1 20.1 9H15z"/></svg>',
+      bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg>',
+      shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l7.5 3v5.6c0 4.6-3.2 8.3-7.5 9.4-4.3-1.1-7.5-4.8-7.5-9.4V6z"/></svg>',
+      list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6.5h12M8 12h12M8 17.5h12"/><circle cx="4.5" cy="6.5" r="1" fill="currentColor"/><circle cx="4.5" cy="12" r="1" fill="currentColor"/><circle cx="4.5" cy="17.5" r="1" fill="currentColor"/></svg>'
+    };
+    const tile = (tone, icon, lbl, val, sub, vcls = "") => `<div class="card jt jt--${tone}"><div class="jt__top"><span class="jt__lbl">${lbl}</span><span class="jt__ic">${JI[icon]}</span></div><span class="jt__val ${vcls}">${val}</span><span class="jt__sub">${sub}</span></div>`;
+    const statCard = (icon, title, rows) => `<section class="card jst"><div class="jcard-h"><span class="jcard-ic">${JI[icon]}</span><h3>${title}</h3></div><ul>${rows.map(([k, val, c = ""]) => `<li><span>${k}</span><b class="${c}">${val}</b></li>`).join("")}</ul></section>`;
     const seg = (key, opts) => `<div class="seg" role="group">${opts.map(([val, lbl]) => `<button type="button" data-f="${key}" data-v="${val}" aria-pressed="${f[key] === val}">${t(lbl)}</button>`).join("")}</div>`;
     const sess = st.bestSession;
 
@@ -324,37 +352,50 @@
         <select class="input" id="sym-pick" aria-label="symbol"><option value="all">${t("j.sym.all")}</option>${symbols.map((s) => `<option ${f.symbol === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select>
       </div>
 
-      <div class="kpis">
-        <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("j.balance")}</span><span class="kpi__val">${money(balance, false)}</span><span class="kpi__sub">${t("j.balance.sub")}</span></div>
-        <div class="card kpi"><span class="kpi__lbl">${t("j.total")}</span><span class="kpi__val ${cls(st.total)}">${money(st.total)}</span><span class="kpi__sub">${t("j.total.sub", { n: st.count })}</span></div>
-        <div class="card kpi"><span class="kpi__lbl">${t("j.pf")}</span><span class="kpi__val">${st.count ? pf(st.profitFactor) : "–"}</span><span class="kpi__sub">${t("j.pf.sub")}</span></div>
-        <div class="card kpi"><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${st.count ? fmt.num(st.winRate, 1) + "%" : "–"}</span><span class="kpi__sub">${t("j.wr.sub", { w: st.wins, l: st.losses })}</span></div>
-        <div class="card kpi"><span class="kpi__lbl">${t("j.exp")}</span><span class="kpi__val ${cls(st.expectancy)}">${st.count ? money(st.expectancy) : "–"}</span><span class="kpi__sub">${t("j.exp.sub")}</span></div>
-        <div class="card kpi"><span class="kpi__lbl">${t("j.session")}</span><span class="kpi__val">${sess ? t("j.session." + sess.key) : "–"}</span><span class="kpi__sub">${sess ? t("j.session.sub", { v: money(sess.net), n: sess.count }) : ""}</span></div>
+      <div class="jk">
+        ${tile("gold", "wallet", t("j.balance"), money(balance, false), t("j.balance.sub"), "gold")}
+        ${tile("rose", "target", t("j.wr"), st.count ? fmt.num(st.winRate, 1) + "%" : "–", t("j.wr.sub", { w: st.wins, l: st.losses }))}
+        ${tile("amber", "coins", t("j.total"), money(st.total), t("j.total.sub", { n: st.count }), cls(st.total))}
+        ${tile("red", "pulse", t("j.maxdd"), st.count ? "−" + fmt.num(st.maxDDPct, 2) + "%" : "–", st.count ? money(-st.maxDD) : "", st.maxDD ? "down" : "")}
+        ${tile("green", "up", t("j.bestDay"), bestDay ? money(bestDay.net) : "–", dayLbl(bestDay), bestDay ? cls(bestDay.net) : "")}
+        ${tile("red2", "down", t("j.worstDay"), worstDay ? money(worstDay.net) : "–", dayLbl(worstDay), worstDay ? cls(worstDay.net) : "")}
       </div>
 
       ${st.count ? `
-      <div class="grid grid--2">
-        <section class="card" id="cal-card"></section>
+      <section class="card jcal" id="cal-card"></section>
+      <div class="grid jrow">
+        <section class="card jbal">
+          <div class="jcard-h"><span class="jcard-ic">${JI.wallet}</span><h3>${t("j.balChart")}</h3><span class="jcard-note">${t("j.bal.range", { a: money(openBal, false), b: money(nowEq, false) })}</span></div>
+          <div id="eq-chart"></div>
+        </section>
         <section class="card">
-          <h3>${t("j.score")}</h3><p class="card__sub">${t("j.score.sub")}</p>
-          <div class="score">${C.gauge(st.score, t("j.score"))}${C.radar(st.parts, Object.fromEntries(Object.keys(st.parts).map((k) => [k, t("j.part." + k)])))}</div>
-          <p class="muted" style="font-size:.86rem;margin-top:6px">${t("j.maxdd")}: <b class="down">${money(-st.maxDD)}</b> (${fmt.num(st.maxDDPct, 1)}%) · ${t("j.streak")}: <b>${st.bestStreak}</b></p>
+          <div class="jcard-h"><span class="jcard-ic">${JI.pie}</span><h3>${t("j.bySymbol")}</h3><span class="jcard-note">${t("j.sym.count", { n: syms.length })}</span></div>
+          <div class="jsym">${syms.slice(0, 7).map((g) => `<div class="jsym__row">
+              <span class="jsym__name">${esc(g.key)}<small>${g.count} · ${fmt.num(g.winRate, 0)}%</small></span>
+              <span class="jsym__bar"><i class="${g.net >= 0 ? "is-up" : "is-down"}" style="width:${Math.max(3, (Math.abs(g.net) / symMax) * 100).toFixed(1)}%"></i></span>
+              <b class="${cls(g.net)}">${money(g.net)}</b></div>`).join("")}</div>
+        </section>
+        <section class="card">
+          <div class="jcard-h"><span class="jcard-ic">${JI.up}</span><h3>${t("j.dailyPL")}</h3><span class="jcard-note"><span class="up">${greenDays}W</span> / <span class="down">${redDays}L</span></span></div>
+          <b class="jbig ${cls(st.total)}">${money(st.total)}</b>
+          <div id="dpl"></div>
         </section>
       </div>
-      <section class="card">
-        <h3>${t("j.equity")} ${seg("eq", [["cum", "j.eq.cum"], ["day", "j.eq.day"], ["week", "j.eq.week"]]).replace(/data-f="eq"/g, 'data-eq="1"').replace(/aria-pressed="(true|false)"/g, "")}</h3>
-        <div id="eq-chart"></div>
-      </section>
-      <section class="card" id="daily-card"></section>
+      <div class="jstats">
+        ${statCard("bolt", t("j.quick"), [[t("j.s.total"), st.count], [t("j.s.wins"), st.wins, "up"], [t("j.s.losses"), st.losses, "down"], [t("j.streak"), st.bestStreak], [t("j.session"), sess ? t("j.session." + sess.key) : "–"]])}
+        ${statCard("shield", t("j.risk"), [[t("j.s.ddpct"), st.count ? "−" + fmt.num(st.maxDDPct, 2) + "%" : "–", "down"], [t("j.s.dd"), money(-st.maxDD), st.maxDD ? "down" : ""], [t("j.s.peak"), money(peakEq, false)], [t("j.s.equity"), money(nowEq, false)], [t("j.s.start"), money(openBal, false)]])}
+        ${statCard("target", t("j.perf"), [[t("j.s.avgWin"), money(st.avgWin), "up"], [t("j.s.avgLoss"), money(-st.avgLoss), st.avgLoss ? "down" : ""], [t("j.s.rr"), st.avgLoss ? fmt.num(st.avgWin / st.avgLoss, 2) : "–"], [t("j.s.comm"), money(comm), comm < 0 ? "down" : ""], [t("j.s.swap"), money(swap), cls(swap)]])}
+        ${statCard("list", t("j.summary"), [[t("j.s.net"), money(st.total), cls(st.total)], [t("j.pf"), pf(st.profitFactor)], [t("j.exp"), money(st.expectancy), cls(st.expectancy)], [t("j.s.best"), st.best ? money(S.net(st.best)) : "–", "up"], [t("j.s.worst"), st.worst ? money(S.net(st.worst)) : "–", st.worst && S.net(st.worst) < 0 ? "down" : ""]])}
+      </div>
       <div class="grid grid--3">
-        <section class="card"><h3>${t("j.bySymbol")}</h3>
-          <div class="table-wrap"><table class="table"><thead><tr><th>${t("j.col.symbol")}</th><th class="r">${t("j.col.trades")}</th><th class="r">${t("j.col.wr")}</th><th class="r">${t("j.col.net")}</th></tr></thead>
-          <tbody>${[...st.bySymbol.values()].sort((a, b) => b.net - a.net).map((g) => `<tr><td>${esc(g.key)}</td><td class="r">${g.count}</td><td class="r">${fmt.num(g.winRate, 0)}%</td><td class="r ${cls(g.net)}">${money(g.net)}</td></tr>`).join("")}</tbody></table></div>
+        <section class="card">
+          <h3>${t("j.score")}</h3><p class="card__sub">${t("j.score.sub")}</p>
+          <div class="score score--stack">${C.gauge(st.score, t("j.score"))}${C.radar(st.parts, Object.fromEntries(Object.keys(st.parts).map((k) => [k, t("j.part." + k)])))}</div>
         </section>
         <section class="card"><h3>${t("j.byDay")}</h3>${C.bars([0, 1, 2, 3, 4, 5, 6].filter((d) => d < 5 || st.byWeekday.has(d)).map((d) => { const g = st.byWeekday.get(d); return { label: t("wd." + d), value: g ? g.net : 0, sub: g ? fmt.num(g.winRate, 0) + "%" : "" }; }), { fmt: (x) => money(x), short: (x) => (x ? (x > 0 ? "+" : "−") + Math.abs(x).toFixed(0) : ""), label: t("j.byDay"), w: 300, h: 210 })}</section>
         <section class="card"><h3>${t("j.bySession")}</h3>${C.bars(["asia", "london", "newyork"].map((k) => { const g = st.bySession.get(k); return { label: t("j.session." + k), value: g ? g.net : 0, sub: g ? `${g.count} · ${fmt.num(g.winRate, 0)}%` : "" }; }), { fmt: (x) => money(x), short: (x) => (x ? (x > 0 ? "+" : "−") + Math.abs(x).toFixed(0) : ""), label: t("j.bySession"), w: 300, h: 210 })}</section>
       </div>
+      <section class="card" id="daily-card"></section>
       <section class="card">
         <h3>${t("j.trades")} <span class="badge">${st.count}</span></h3>
         <div class="table-wrap"><table class="table table--click table--trades">
@@ -388,20 +429,12 @@
     $("#btn-add", v).addEventListener("click", () => addTradeModal());
     if (!st.count) return;
 
-    // equity
-    const eqBox = $("#eq-chart", v);
-    const drawEq = () => {
-      $$("[data-eq]", v).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === state.eq)));
-      const dateFmt = (x) => fmt.date(x, { day: "numeric", month: "short" });
-      if (state.eq === "cum") eqBox.innerHTML = C.line(st.curve.map((p) => ({ x: p.time, y: p.value })), { fmt: (x) => money(x), dateFmt, label: t("j.equity") });
-      else {
-        const src = state.eq === "day" ? st.byDay : st.byWeek;
-        const items = [...src.values()].sort((a, b) => a.key.localeCompare(b.key)).slice(state.eq === "day" ? -30 : -16);
-        eqBox.innerHTML = C.bars(items.map((g) => ({ label: fmt.date(g.key + "T12:00:00", { day: "numeric", month: "numeric" }), value: g.net })), { fmt: (x) => money(x), label: t("j.equity") });
-      }
-    };
-    $$("[data-eq]", v).forEach((b) => b.addEventListener("click", () => { state.eq = b.dataset.v; drawEq(); }));
-    drawEq();
+    // account balance line and daily P&L bars
+    const dateFmt = (x) => fmt.date(x, { day: "numeric", month: "short" });
+    const balPts = st.curve.length ? [{ x: st.curve[0].time, y: openBal }, ...st.curve.map((pt) => ({ x: pt.time, y: openBal + pt.value }))] : [];
+    $("#eq-chart", v).innerHTML = C.line(balPts, { fmt: (x) => money(x, false), dateFmt, label: t("j.balChart"), w: 640, h: 300, fit: true });
+    const lastDays = dayList.slice().sort((a, b) => a.key.localeCompare(b.key)).slice(-14);
+    $("#dpl", v).innerHTML = C.bars(lastDays.map((g) => ({ label: String(+g.key.slice(8)), value: g.net, sub: "" })), { fmt: (x) => money(x), label: t("j.dailyPL"), w: 340, h: 190 });
 
     // daily summary: one row per trading day, newest first, with a running total
     const drawDaily = () => {
@@ -433,28 +466,59 @@
     };
     drawDaily();
 
-    // calendar
-    const calList = S.filterTrades(state.trades, { ...f, period: "all" });
+    // trading calendar: one month, Monday first, a total for each week on the right
+    const calList = S.filterTrades(state.trades, { ...f, period: "all", from: null, to: null });
     if (!state.cal) { const last = list.length ? new Date(Math.max(...list.map((x) => +new Date(x.close_time)))) : new Date(); state.cal = new Date(last.getFullYear(), last.getMonth(), 1); }
+    const calDays = S.compute(calList).byDay;
+    const shortM = (n) => (n > 0 ? "+" : n < 0 ? "−" : "") + (Math.abs(n) >= 1000 ? (Math.abs(n) / 1000).toFixed(1) + "k" : Math.abs(n).toFixed(0));
     const drawCal = () => {
-      const byDay = S.compute(calList).byDay;
       const first = state.cal, y = first.getFullYear(), mo = first.getMonth();
-      const start = new Date(y, mo, 1 - ((first.getDay() + 6) % 7));
+      const lead = (first.getDay() + 6) % 7, nDays = new Date(y, mo + 1, 0).getDate();
       const today = S.dayKey(new Date());
-      const days = [];
-      for (let i = 0; i < 42; i++) {
-        const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
-        if (i >= 35 && d.getMonth() !== mo) break;
-        const k = S.dayKey(d), g = byDay.get(k);
-        const a = g ? Math.min(1, Math.abs(g.net) / 60) : 0;
-        const bg = g ? (g.net >= 0 ? `rgba(123,200,143,${0.12 + a * 0.45})` : `rgba(240,87,90,${0.12 + a * 0.45})`) : "";
-        days.push(`<div class="cal__d ${d.getMonth() !== mo ? "cal__d--out" : ""} ${k === today ? "cal__d--today" : ""}" ${bg ? `style="background:${bg}"` : ""} title="${g ? `${k}: ${money(g.net)} · ${g.count}` : k}"><i>${d.getDate()}</i>${g ? `<b>${g.net >= 0 ? "+" : "−"}${Math.abs(g.net) >= 1000 ? (Math.abs(g.net) / 1000).toFixed(1) + "k" : Math.abs(g.net).toFixed(0)}</b>` : ""}</div>`);
+      const inMonth = [...calDays.values()].filter((g) => g.key.startsWith(`${y}-${String(mo + 1).padStart(2, "0")}`));
+      const mNet = inMonth.reduce((a, g) => a + g.net, 0), mN = inMonth.reduce((a, g) => a + g.count, 0), mG = inMonth.filter((g) => g.net > 0).length;
+      const maxAbs = Math.max(1, ...inMonth.map((g) => Math.abs(g.net)));
+      let cells = "", wk = { net: 0, n: 0, any: false };
+      const slots = Math.ceil((lead + nDays) / 7) * 7;
+      for (let i = 0; i < slots; i++) {
+        const dn = i - lead + 1;
+        if (dn < 1 || dn > nDays) cells += `<div class="jc-d jc-d--out" aria-hidden="true"></div>`;
+        else {
+          const k = S.dayKey(new Date(y, mo, dn)), g = calDays.get(k);
+          if (g) { wk.net += g.net; wk.n += g.count; wk.any = true; }
+          const a = g ? 0.1 + Math.min(1, Math.abs(g.net) / maxAbs) * 0.3 : 0;
+          cells += g
+            ? `<button type="button" class="jc-d ${g.net >= 0 ? "is-up" : "is-down"} ${k === today ? "is-today" : ""}" data-day="${k}" style="--a:${a.toFixed(2)}" title="${esc(`${fmt.date(k + "T12:00:00", { day: "numeric", month: "long" })}: ${money(g.net)} · ${t("j.cal.trades", { n: g.count })} · ${fmt.num(g.winRate, 0)}%`)}">
+                <i>${dn}</i><b><span class="jc-full">${money(g.net)}</span><span class="jc-short">${shortM(g.net)}</span></b><small>${t("j.cal.trades", { n: g.count })} · ${fmt.num(g.winRate, 0)}%</small></button>`
+            : `<div class="jc-d ${k === today ? "is-today" : ""}"><i>${dn}</i></div>`;
+        }
+        if (i % 7 === 6) {
+          cells += `<div class="jc-tot ${wk.any ? (wk.net >= 0 ? "is-up" : "is-down") : "is-empty"}">${wk.any ? `<b class="${cls(wk.net)}"><span class="jc-full">${money(wk.net)}</span><span class="jc-short">${shortM(wk.net)}</span></b><small>${t("j.cal.trades", { n: wk.n })}</small>` : `<b class="muted">–</b>`}</div>`;
+          wk = { net: 0, n: 0, any: false };
+        }
       }
-      const monthTotal = [...byDay.values()].filter((g) => g.key.startsWith(`${y}-${String(mo + 1).padStart(2, "0")}`)).reduce((s, g) => s + g.net, 0);
-      $("#cal-card", v).innerHTML = `<h3>${t("j.calendar")} <span class="${cls(monthTotal)}" style="font-size:.95rem">${money(monthTotal)}</span></h3>
-        <div class="cal__head" style="margin-top:10px"><button class="cal__nav" type="button" data-cal="-1" aria-label="previous month">‹</button><b>${fmt.date(first, { month: "long", year: "numeric" })}</b><button class="cal__nav" type="button" data-cal="1" aria-label="next month">›</button></div>
-        <div class="cal">${[0, 1, 2, 3, 4, 5, 6].map((d) => `<span class="cal__wd">${t("wd." + d)}</span>`).join("")}${days.join("")}</div>`;
-      $$("[data-cal]", v).forEach((b) => b.addEventListener("click", () => { state.cal = new Date(y, mo + +b.dataset.cal, 1); drawCal(); }));
+      $("#cal-card", v).innerHTML = `
+        <div class="jcal__head">
+          <div class="jcard-h"><span class="jcard-ic">${JI.cal}</span><h3>${t("j.calendar")}</h3></div>
+          <div class="jcal__nav">
+            <button class="cal__nav" type="button" data-cal="-1" aria-label="previous month">‹</button>
+            <b class="jcal__month">${fmt.date(first, { month: "long", year: "numeric" })}</b>
+            <button class="cal__nav" type="button" data-cal="1" aria-label="next month">›</button>
+            <button class="btn btn--quiet btn--sm" type="button" data-cal="0">${t("j.cal.today")}</button>
+          </div>
+          <div class="jcal__sum"><b class="${cls(mNet)}">${money(mNet)}</b><span>${t("j.cal.month", { n: mN, g: mG, d: inMonth.length })}</span></div>
+        </div>
+        <div class="jc-grid">
+          ${[0, 1, 2, 3, 4, 5, 6].map((d) => `<span class="jc-wd">${t("wd." + d)}</span>`).join("")}<span class="jc-wd jc-wd--tot"><span class="jc-full">${t("j.cal.total")}</span><span class="jc-short">${t("j.cal.totalShort")}</span></span>
+          ${cells}
+        </div>`;
+      $$("[data-cal]", v).forEach((b) => b.addEventListener("click", () => {
+        const d = +b.dataset.cal; state.cal = d ? new Date(y, mo + d, 1) : new Date(new Date().getFullYear(), new Date().getMonth(), 1); drawCal();
+      }));
+      $$("#cal-card [data-day]", v).forEach((b) => b.addEventListener("click", () => {
+        f.period = "custom"; f.from = f.to = b.dataset.day; state.shown = 25; render();
+        const tr = $("#trade-rows"); if (tr) tr.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
+      }));
     };
     drawCal();
 

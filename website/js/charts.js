@@ -43,11 +43,15 @@
   function line(points, opts = {}) {
     const W = opts.w || 900, H = opts.h || 280, P = { l: 84, r: 14, t: 14, b: 28 };
     if (points.length < 2) points = points.length ? [{ x: points[0].x, y: 0 }, points[0]] : [{ x: Date.now(), y: 0 }, { x: Date.now(), y: 0 }];
-    const ys = points.map((p) => p.y), min = Math.min(0, ...ys), max = Math.max(0, ...ys), span = max - min || 1;
+    const ys = points.map((p) => p.y);
+    let min = Math.min(0, ...ys), max = Math.max(0, ...ys);
+    if (opts.fit) { const lo = Math.min(...ys), hi = Math.max(...ys), pad = (hi - lo) * 0.12 || Math.abs(hi) * 0.02 || 1; min = lo - pad; max = hi + pad; }
+    const span = max - min || 1;
     const X = (i) => P.l + (i / (points.length - 1)) * (W - P.l - P.r);
     const Y = (v) => P.t + (1 - (v - min) / span) * (H - P.t - P.b);
     const d = points.map((p, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(p.y).toFixed(1)}`).join("");
-    const area = `${d}L${X(points.length - 1).toFixed(1)},${Y(Math.max(min, 0)).toFixed(1)}L${X(0).toFixed(1)},${Y(Math.max(min, 0)).toFixed(1)}Z`;
+    const floor = opts.fit ? min : Math.max(min, 0);
+    const area = `${d}L${X(points.length - 1).toFixed(1)},${Y(floor).toFixed(1)}L${X(0).toFixed(1)},${Y(floor).toFixed(1)}Z`;
     const id = "l" + ++gid;
     const ticks = [max, (max + min) / 2, min].map((v) => `<text x="${P.l - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="axis">${esc(opts.fmt ? opts.fmt(v) : v.toFixed(0))}</text><line x1="${P.l}" x2="${W - P.r}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="var(--line)" stroke-dasharray="${v === 0 ? "" : "3 5"}"/>`).join("");
     const dl = (i) => opts.dateFmt ? opts.dateFmt(points[i].x) : "";
@@ -63,7 +67,7 @@
 
   // vertical bars, green up / red down. items: [{label, value, sub}]
   function bars(items, opts = {}) {
-    const W = opts.w || 640, H = opts.h || 220, P = { l: 12, r: 12, t: 24, b: 40 };
+    const W = opts.w || 640, H = opts.h || 220, P = { l: 12, r: 12, t: 24, b: 54 };
     const vals = items.map((i) => i.value), max = Math.max(0, ...vals), min = Math.min(0, ...vals), span = max - min || 1;
     const bw = (W - P.l - P.r) / Math.max(1, items.length);
     const Y = (v) => P.t + (1 - (v - min) / span) * (H - P.t - P.b);

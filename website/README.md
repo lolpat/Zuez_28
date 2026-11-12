@@ -70,6 +70,11 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Balance** = the starting balance set per account in Profile + all net profit.
 - **Trading score** = average of six 0–100 parts: win rate, profit factor, average win vs average
   loss, recovery (net profit ÷ max drawdown), drawdown control, share of profitable weeks.
+- **Layout:** six tiles on top (balance, win rate, net P/L, max drawdown, best day, worst day), then a
+  full-width **trading calendar** (Monday first, each day's P/L, trades and win rate, a total for each
+  week; tap a day to see its trades), then account balance, results by symbol and daily P/L, then four
+  stat cards (quick stats, risk, performance, trading summary), the trading score, weekday and session
+  charts, the daily summary table and the trade list.
 - **Pick dates** chooses any from–to range. The **Daily summary** table lists every trading day in
   the range: trades, won / lost, win rate, lots, net profit and the running total. Tapping a day
   shows that day's trades.
