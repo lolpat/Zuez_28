@@ -157,7 +157,9 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
 
 /* hero art: the logo mark inside the gold crescent orbit */
 .orbit { position: relative; width: min(100%, 460px); aspect-ratio: 1; margin: 0 auto; }
-.orbit__mark { position: absolute; inset: 21%; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .45)); }
+.orbit__mark { position: absolute; inset: 21%; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .45)); animation: floaty 7s ease-in-out infinite; animation-delay: -1s; }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .orbit__mark { animation: none; } }
 .orbit__ring { position: absolute; inset: 0; border-radius: 50%; }
 .orbit__ring--1 { border: 1px solid rgba(var(--accent-2-rgb), .18); }
 .orbit__ring--2 { inset: 9%; border: 1px dashed rgba(var(--accent-2-rgb), .14); animation: spin 90s linear infinite; animation-delay: -30s; }
