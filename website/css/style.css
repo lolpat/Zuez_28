@@ -927,3 +927,25 @@ button.jc-d:hover { transform: translateY(-2px); }
 .pconn__row.is-none img { opacity: .55; filter: grayscale(.4); }
 .pconn__row .btn, .pacc li .btn { flex: none; }
 @media (max-width: 420px) { .pconn__row img { width: 64px; } .pacc img { width: 52px; } }
+
+/* broker ID connections */
+.bid-tick { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-size: .75rem; font-weight: 700; color: #0b1a10; background: var(--profit); box-shadow: 0 0 0 3px rgba(123, 211, 148, .18); flex: none; }
+.pconn__row.is-verified b { color: var(--profit); }
+.pconn__row.is-pending .pconn__dot { background: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15); }
+.pconn__row.is-rejected .pconn__dot { background: var(--loss); box-shadow: 0 0 0 3px rgba(255, 107, 94, .15); }
+.pconn__row.is-rejected b { color: var(--loss); }
+.bid-ok { flex: none; font-size: .8rem; font-weight: 600; color: var(--profit); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(123, 211, 148, .4); background: rgba(123, 211, 148, .08); }
+.bid-steps { margin: 0 0 16px; padding: 0; list-style: none; counter-reset: b; display: grid; gap: 12px; }
+.bid-steps li { counter-increment: b; position: relative; padding-left: 36px; display: flex; flex-direction: column; gap: 2px; font-size: .88rem; }
+.bid-steps li::before { content: counter(b); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: .8rem; font-weight: 600; color: #1a1209; background: var(--metal-gold); }
+.bid-steps span { color: var(--muted); }
+.bid-ref { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; font-size: .84rem; color: var(--muted); }
+.bid-ref b { color: var(--accent-hi); letter-spacing: .1em; }
+.bid-review { list-style: none; margin: 12px 0 0; padding: 0; }
+.bid-review li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.bid-review li:last-child { border-bottom: 0; }
+.bid-review img { width: 70px; height: auto; border-radius: 6px; }
+.bid-review__who { flex: 1; min-width: 140px; display: flex; flex-direction: column; }
+.bid-review__who small { color: var(--muted); font-size: .76rem; }
+.bid-code { font: 600 .92rem var(--font); letter-spacing: .06em; padding: 4px 10px; border-radius: 8px; background: var(--bg-2); border: 1px solid var(--line); color: var(--accent-hi); }
+.bid-review__act { display: flex; gap: 6px; }

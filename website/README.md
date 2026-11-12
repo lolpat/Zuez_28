@@ -77,9 +77,14 @@ The landing page FAQ tells members their IB line can see a summary of their resu
   account number, server and investor password; it adds the account and pulls its history in one go
   (leave the password empty to add it and import reports instead). Server names typed before are
   offered as choices; you can also list each broker's servers in `servers: []` in `js/config.js`.
-  **Profile** shows the same accounts as a compact list (Edit opens Manage account) and a
-  **Broker connections** card: PU Prime, Vantage and VT Markets, each marked Connected, Not connected,
-  Connecting, Connection problem or No account yet, with a Connect (or Fix / Sync now) button.
+  **Profile** shows the same accounts as a compact list (Edit opens Manage account).
+- **Broker connections (Profile):** for PU Prime, Vantage and VT Markets the member links their
+  **client ID at the broker** (not an MT5 number) to say their account is under our IB. Brokers give
+  IBs no API to check this, so the owner or an IB above the member confirms it on the IB Network
+  page ("Confirm members' broker IDs": compare with the client list in the broker's IB portal, then
+  Confirm or Not ours). A confirmed broker shows a tick and "Connected" with no button; otherwise
+  there is a Connect button (with our sign-up link and code, then the ID). A member can't confirm
+  their own ID, can't change a confirmed one, and an ID can be linked by one member only.
   The pencil on each account opens
   **Manage account**: fix the broker, number, platform, server or starting balance; connect,
   reconnect (wrong or changed investor password), sync or disconnect automatic history; or remove

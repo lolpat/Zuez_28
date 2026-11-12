@@ -7,7 +7,7 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
   const state = {
-    store: null, me: null, accounts: [], trades: [], upline: null, downline: null,
+    store: null, me: null, accounts: [], trades: [], upline: null, downline: null, links: [], teamLinks: [],
     f: { account: "all", broker: "all", period: "month", side: "all", outcome: "all", symbol: "all" },
     eq: "cum", cal: null, shown: 25, timer: null, netQuery: "", lb: { period: "week", type: "live" }
   };
@@ -104,7 +104,8 @@
     if (what.includes("accounts")) jobs.push(st.listAccounts().then((a) => { state.accounts = a; }));
     if (what.includes("trades")) jobs.push(st.listTrades().then((tr) => { state.trades = tr; }));
     if (what.includes("upline")) jobs.push(st.myUpline().then((u) => { state.upline = u; }));
-    if (what.includes("downline") && isIB()) jobs.push(st.myDownline().then((d) => { state.downline = d; }));
+    if (what.includes("downline") && isIB()) jobs.push(st.myDownline().then((d) => { state.downline = d; }), st.listTeamLinks().then((l) => { state.teamLinks = l; }));
+    if (what.includes("links")) jobs.push(st.listMyLinks().then((l) => { state.links = l; }));
     await Promise.all(jobs);
   }
 
@@ -975,6 +976,39 @@
     });
   }
 
+  // link a broker client ID: the team checks it is under our IB, then it shows as connected
+  function brokerIdModal(bid) {
+    const b = cfg.BROKERS.find((x) => x.id === bid); if (!b) return;
+    const l = state.links.find((x) => x.broker === bid);
+    openModal(t("bid.modal", { b: b.name }), `
+      <div class="mng-head"><img src="${b.logo}" alt="${esc(b.name)}" width="70" height="28"><div><b>${esc(b.name)}</b><small>${t("bid.modal.sub")}</small></div></div>
+      <ol class="bid-steps">
+        <li><b>${t("bid.s1")}</b><span>${t("bid.s1.d")}</span>
+          <div class="bid-ref"><a class="btn btn--ghost btn--sm" href="${b.url}" target="_blank" rel="noopener sponsored">${t("brokers.open")}</a>${b.code ? `<span>${t("brokers.code")} <b>${esc(b.code)}</b></span>` : ""}</div></li>
+        <li><b>${t("bid.s2")}</b><span>${t("bid.s2.d")}</span></li>
+      </ol>
+      <form class="form-grid" id="bid-form" novalidate>
+        <label class="field"><span>${t("bid.field", { b: b.name })}</span><input class="input" name="cid" value="${esc(l ? l.client_id : "")}" autocomplete="off" spellcheck="false" maxlength="40" required><small>${t("bid.field.hint")}</small></label>
+        <div id="bid-msg"></div>
+        <div class="modal__foot">${l && l.status !== "verified" ? `<button type="button" class="btn btn--quiet" id="bid-del">${t("bid.cancel")}</button>` : `<button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button>`}<button class="btn btn--gold" type="submit">${t("bid.submit")}</button></div>
+      </form>`, (box) => {
+      const F = $("#bid-form", box), msg = $("#bid-msg", box);
+      F.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = F.cid.value.trim();
+        if (id.length < 3) { F.cid.setAttribute("aria-invalid", "true"); msg.innerHTML = `<p class="alert alert--err">${t("bid.err.short")}</p>`; return; }
+        const btn = $("button[type=submit]", F); btn.disabled = true;
+        try { await state.store.saveLink(bid, id); await reload(["links"]); closeModal(); toast(t("bid.sent")); render(); }
+        catch (err) { btn.disabled = false; msg.innerHTML = `<p class="alert alert--err">${esc(err.message === "id-taken" ? t("bid.err.taken") : err.message)}</p>`; }
+      });
+      const del = $("#bid-del", box);
+      if (del) del.addEventListener("click", async () => {
+        if (!del.dataset.armed) { del.dataset.armed = "1"; del.textContent = t("prof.removeConfirm"); return; }
+        try { await state.store.removeLink(l.id); await reload(["links"]); closeModal(); render(); } catch (err) { fail(err); }
+      });
+    });
+  }
+
   const FEELINGS = ["calm", "focused", "confident", "anxious", "fomo", "revenge", "tired"];
   function noteModal(tr) {
     if (!tr) return;
@@ -1181,7 +1215,7 @@
           <div><b>${esc(u.full_name || u.email)} ${u.role !== "member" ? `<span class="badge badge--gold">${t("app.role." + u.role)}</span>` : ""}</b>
           <small>${esc(u.telegram || "")} · ${esc(u.email || "")}</small></div>
         </div>
-        <div class="net-row__meta"><span class="badge ${st}">${t("net.status." + u.status)}</span><span>${esc((u.brokers || "").split(",").filter(Boolean).map(brokerName).join(", "))} ${esc(u.accounts || "")}</span><span>${t("net.joined", { d: fmt.date(u.created_at) })}</span>${upName(u) ? `<span>${esc(t("net.under", { name: upName(u) }))}</span>` : ""}</div>
+        <div class="net-row__meta"><span class="badge ${st}">${t("net.status." + u.status)}</span><span>${esc((u.brokers || "").split(",").filter(Boolean).map(brokerName).join(", "))} ${esc(u.accounts || "")}</span><span>${t("net.joined", { d: fmt.date(u.created_at) })}</span>${(state.teamLinks || []).filter((l) => l.user_id === u.id).map((l) => `<span class="badge ${l.status === "verified" ? "badge--ok" : l.status === "rejected" ? "badge--bad" : "badge--warn"}">${esc(brokerName(l.broker))} ${l.status === "verified" ? "✓" : l.status === "rejected" ? "✗" : "…"} ${esc(l.client_id)}</span>`).join("")}${upName(u) ? `<span>${esc(t("net.under", { name: upName(u) }))}</span>` : ""}</div>
         <div class="net-row__meta">${u.trade_count ? `<span>${u.trade_count} ${t("dash.trades")}</span><b class="${cls(u.net_profit)}">${money(+u.net_profit)}</b><span>${t("net.wr", { v: fmt.num(u.win_rate || 0, 0) })}</span>` : `<span>${t("net.noTrades")}</span>`}</div>
         <div class="net-row__act">
           ${u.status !== "approved" ? `<button class="btn btn--gold btn--sm" data-st="approved" data-id="${u.id}">${t("net.approve")}</button>` : ""}
@@ -1212,6 +1246,18 @@
         <div class="card kpi"><span class="kpi__lbl">${t("net.ibs")}</span><span class="kpi__val">${list.filter((u) => u.role === "ib").length}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("net.net")}</span><span class="kpi__val ${cls(teamNet)}">${money(teamNet)}</span></div>
       </div>
+      ${(() => {
+        const people = new Map(list.map((u) => [u.id, u]));
+        const waiting = (state.teamLinks || []).filter((l) => l.status === "pending" && people.has(l.user_id));
+        return waiting.length ? `<section class="card"><h3>${t("bid.review")} <span class="badge badge--warn">${waiting.length}</span></h3><p class="card__sub">${t("bid.review.sub")}</p>
+          <ul class="bid-review">${waiting.map((l) => { const u = people.get(l.user_id), b = cfg.BROKERS.find((x) => x.id === l.broker); return `<li>
+            <span class="avatar">${esc(initials(u.full_name))}</span>
+            <div class="bid-review__who"><b>${esc(u.full_name || u.email)}</b><small>${esc(u.telegram || u.email || "")} · ${fmt.date(l.created_at)}</small></div>
+            ${b ? `<img src="${b.logo}" alt="${esc(b.name)}" width="70" height="28">` : ""}
+            <code class="bid-code">${esc(l.client_id)}</code>
+            <div class="bid-review__act"><button class="btn btn--gold btn--sm" type="button" data-link-st="verified" data-link="${l.id}">✓ ${t("bid.verify")}</button><button class="btn btn--quiet btn--sm" type="button" data-link-st="rejected" data-link="${l.id}">${t("bid.reject")}</button></div>
+          </li>`; }).join("")}</ul></section>` : "";
+      })()}
       ${pend.length ? `<section class="card"><h3>${t("net.pendingList")} <span class="badge badge--warn">${pend.length}</span></h3>${pend.map((u) => row({ u, d: 0 })).join("")}</section>` : ""}
       <section class="card">
         <h3>${t("net.tree")} <span class="badge">${list.length}</span></h3>
@@ -1229,6 +1275,11 @@
     $$("[data-st]", v).forEach((b) => b.addEventListener("click", async () => {
       b.disabled = true;
       try { await state.store.setMemberStatus(b.dataset.id, b.dataset.st); await reload(["downline"]); render(); } catch (err) { b.disabled = false; fail(err); }
+    }));
+    $$("[data-link-st]", v).forEach((b) => b.addEventListener("click", async () => {
+      b.disabled = true;
+      try { await state.store.setLinkStatus(b.dataset.link, b.dataset.linkSt); await reload(["downline"]); toast(t(b.dataset.linkSt === "verified" ? "bid.verified.t" : "bid.rejected.t")); render(); }
+      catch (err) { b.disabled = false; fail(err); }
     }));
     $$("[data-role]", v).forEach((b) => b.addEventListener("click", async () => {
       b.disabled = true;
@@ -1264,28 +1315,24 @@
               <p class="muted" style="font-size:.8rem;margin:10px 0 0">${t("acc.count", { n: state.accounts.length, m: maxAcc() })} · ${t("pacc.hint")}</p>`
             : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
           </section>
-          ${syncOn() ? `<section class="card">
-            <h3>${t("conn.title")}</h3><p class="card__sub">${t("conn.sub")}</p>
+          <section class="card">
+            <h3>${t("conn.title")}</h3><p class="card__sub">${t("bid.sub")}</p>
             <ul class="pconn">${JORDER.map((bid) => {
               const b = cfg.BROKERS.find((x) => x.id === bid); if (!b) return "";
-              const accs = state.accounts.filter((a) => a.broker === bid), linked = accs.filter((a) => a.metaapi_id);
-              const bad = linked.find((a) => a.sync_status === "error"), waiting = linked.find((a) => a.sync_status === "connecting");
-              const unlinked = accs.find((a) => !a.metaapi_id);
-              const last = linked.map((a) => a.last_sync_at).filter(Boolean).sort().pop();
-              const st = !accs.length ? "none" : bad ? "error" : waiting ? "connecting" : linked.length ? "ok" : "off";
-              const line = st === "none" ? t("conn.none.d") : st === "off" ? t("conn.off.d", { n: accs.length })
-                : st === "error" ? esc(syncErrText(bad.sync_error))
-                : t("conn.ok.d", { c: linked.length, n: accs.length }) + (last ? " · " + t("sync.last", { t: fmt.dateTime(last) }) : "");
-              const btn = st === "none" ? `<button class="btn btn--gold btn--sm" type="button" data-conn-add="${bid}">${t("conn.connect")}</button>`
-                : st === "error" ? `<button class="btn btn--gold btn--sm" type="button" data-conn-fix="${bad.id}">${t("conn.fix")}</button>`
-                : unlinked ? `<button class="btn btn--gold btn--sm" type="button" data-conn-link="${unlinked.id}">${t("conn.connect")}</button>`
-                : `<button class="btn btn--ghost btn--sm" type="button" data-conn-sync="${bid}">${t("sync.now")}</button>`;
+              const l = state.links.find((x) => x.broker === bid);
+              const st = !l ? "none" : l.status;
+              const line = st === "verified" ? t("bid.id", { id: esc(l.client_id) })
+                : st === "pending" ? t("bid.pending.d", { id: esc(l.client_id), d: fmt.date(l.created_at) })
+                : st === "rejected" ? t("bid.rejected.d", { id: esc(l.client_id) }) : t("bid.none.d");
+              const act = st === "verified" ? `<span class="bid-ok">${t("bid.connected")}</span>`
+                : st === "pending" ? `<button class="btn btn--quiet btn--sm" type="button" data-bid="${bid}">${t("acc.edit")}</button>`
+                : `<button class="btn btn--gold btn--sm" type="button" data-bid="${bid}">${t("conn.connect")}</button>`;
               return `<li class="pconn__row is-${st}">
                 <img src="${b.logo}" alt="${esc(b.name)}" width="84" height="34">
-                <div class="pconn__txt"><b><i class="pconn__dot" aria-hidden="true"></i>${t("conn." + st)}</b><small>${line}</small></div>
-                ${btn}</li>`;
+                <div class="pconn__txt"><b>${st === "verified" ? `<span class="bid-tick" aria-hidden="true">✓</span>` : `<i class="pconn__dot" aria-hidden="true"></i>`}${t("bid." + st)}</b><small>${line}</small></div>
+                ${act}</li>`;
             }).join("")}</ul>
-          </section>` : ""}
+          </section>
         </div>
       </div>
       ${!state.store.live ? `<section class="card"><h3>${t("prof.demoReset")}</h3><p class="card__sub">${t("prof.demoReset.d")}</p><button class="btn btn--ghost btn--sm" style="margin-top:12px" type="button" id="demo-reset">${t("prof.demoReset")}</button></section>` : ""}
@@ -1325,9 +1372,7 @@
       try { await state.store.setAccountType(sel.dataset.accType, sel.value); await reload(["accounts"]); toast(t("prof.typeSaved")); render(); }
       catch (err) { fail(err); }
     }));
-    $$("[data-conn-add]", v).forEach((b) => b.addEventListener("click", () => addAccountModal(b.dataset.connAdd, () => render())));
-    $$("[data-conn-link], [data-conn-fix]", v).forEach((b) => b.addEventListener("click", () => connectModal(state.accounts.find((a) => a.id === (b.dataset.connLink || b.dataset.connFix)))));
-    $$("[data-conn-sync]", v).forEach((b) => b.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.broker === b.dataset.connSync && a.metaapi_id).map((a) => a.id), b)));
+    $$("[data-bid]", v).forEach((b) => b.addEventListener("click", () => brokerIdModal(b.dataset.bid)));
     const dr = $("#demo-reset", v);
     if (dr) dr.addEventListener("click", async () => { await state.store.resetDemo(); location.reload(); });
   }
@@ -1351,7 +1396,7 @@
       if (!state.me) { location.replace("login.html"); return; }
       let saved = null; try { saved = localStorage.getItem("otm_lang"); } catch { /* blocked */ }
       if (state.me.language && !saved) I.setLang(state.me.language);
-      await reload(["accounts", "trades", "upline", "downline"]);
+      await reload(["accounts", "trades", "upline", "downline", "links"]);
     } catch (err) {
       $("#view").innerHTML = `<p class="alert alert--err">${esc(t("app.error", { msg: err.message }))}</p>`;
       return;

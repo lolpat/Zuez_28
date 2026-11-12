@@ -102,6 +102,17 @@
     if (!db || !db.users) { db = seed(); saveDemo(); }
     if (!db.lb) addLeaderboardDemo();
     if (db.lb < 2) addMoreDemoMembers();
+    if (!db.links) {
+      const L = (id, user_id, broker, client_id, status, days) => ({ id, user_id, broker, client_id, status, created_at: new Date(Date.now() - days * 864e5).toISOString(), verified_at: status === "verified" ? new Date(Date.now() - (days - 1) * 864e5).toISOString() : null });
+      db.links = [
+        L("l1", "me", "vtmarkets", "VT1200345", "verified", 30),
+        L("l2", "m2", "vtmarkets", "VT1209876", "pending", 1),
+        L("l3", "m4", "vantage", "VG5580044", "pending", 2),
+        L("l4", "ib2", "puprime", "PU8110221", "verified", 60),
+        L("l5", "m6", "puprime", "PU8117777", "pending", 1)
+      ];
+      saveDemo();
+    }
   }
   // demo preview only: extra sample members so ranks 11-20 can be seen. The live site never has these.
   function addMoreDemoMembers() {
@@ -277,6 +288,25 @@
     },
     async setMemberStatus(id, status) { if (!canManage(id)) throw new Error("not-allowed"); db.users.find((u) => u.id === id).status = status; saveDemo(); },
     async setMemberRole(id, role) { if (me().role !== "owner") throw new Error("not-allowed"); db.users.find((u) => u.id === id).role = role; saveDemo(); },
+    // broker ID connections
+    async listMyLinks() { return db.links.filter((l) => l.user_id === db.session); },
+    async saveLink(broker, clientId) {
+      const id = String(clientId || "").trim();
+      if (id.length < 3) throw new Error("bad-id");
+      if (db.links.some((l) => l.broker === broker && l.client_id.toLowerCase() === id.toLowerCase() && l.user_id !== db.session)) throw new Error("id-taken");
+      let l = db.links.find((x) => x.user_id === db.session && x.broker === broker);
+      if (l && l.status === "verified") throw new Error("not-allowed");
+      if (!l) { l = { id: uid(), user_id: db.session, broker }; db.links.push(l); }
+      Object.assign(l, { client_id: id, status: "pending", created_at: new Date().toISOString(), verified_at: null });
+      saveDemo(); return l;
+    },
+    async removeLink(id) { db.links = db.links.filter((l) => !(l.id === id && l.user_id === db.session && l.status !== "verified")); saveDemo(); },
+    async listTeamLinks() { const m = me(); return db.links.filter((l) => l.user_id !== m.id && (m.role === "owner" || isAncestor(m.id, l.user_id))); },
+    async setLinkStatus(id, status) {
+      const l = db.links.find((x) => x.id === id); if (!l) throw new Error("not-found");
+      if (!canManage(l.user_id)) throw new Error("not-allowed");
+      Object.assign(l, { status, verified_at: status === "verified" ? new Date().toISOString() : null }); saveDemo();
+    },
     async resetDemo() { localStorage.removeItem(KEY); loadDemo(); }
   };
 
@@ -355,7 +385,20 @@
     async myUpline() { const r = must(await sb.rpc("my_upline")); return r && r[0] ? r[0] : null; },
     async myDownline() { return (must(await sb.rpc("my_downline")) || []).map((r) => ({ ...r, net_profit: +r.net_profit, win_rate: r.win_rate == null ? null : +r.win_rate })); },
     async setMemberStatus(id, status) { must(await sb.rpc("set_member_status", { target: id, new_status: status })); },
-    async setMemberRole(id, role) { must(await sb.rpc("set_member_role", { target: id, new_role: role })); }
+    async setMemberRole(id, role) { must(await sb.rpc("set_member_role", { target: id, new_role: role })); },
+    async listMyLinks() { return must(await sb.from("broker_links").select("*").eq("user_id", profileCache.id)); },
+    async saveLink(broker, clientId) {
+      const id = String(clientId || "").trim();
+      if (id.length < 3) throw new Error("bad-id");
+      const mine = must(await sb.from("broker_links").select("*").eq("user_id", profileCache.id).eq("broker", broker));
+      const q = mine.length ? sb.from("broker_links").update({ client_id: id }).eq("id", mine[0].id) : sb.from("broker_links").insert({ user_id: profileCache.id, broker, client_id: id });
+      const { data, error } = await q.select().single();
+      if (error) throw new Error(/duplicate|unique/i.test(error.message) ? "id-taken" : error.message);
+      return data;
+    },
+    async removeLink(id) { must(await sb.from("broker_links").delete().eq("id", id).eq("user_id", profileCache.id)); },
+    async listTeamLinks() { return must(await sb.from("broker_links").select("*").neq("user_id", profileCache.id).order("created_at", { ascending: false })); },
+    async setLinkStatus(id, status) { must(await sb.rpc("set_broker_link", { p_link: id, p_status: status })); }
   };
 
   async function syncFn(body) {

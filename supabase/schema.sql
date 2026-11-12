@@ -366,3 +366,59 @@ create trigger broker_accounts_limit before insert on public.broker_accounts
 -- members can correct a mistyped broker or account number on their own account (the unique
 -- broker + number rule still applies; the site asks them to disconnect automatic history first)
 grant update (broker, account_number) on public.broker_accounts to authenticated;
+
+-- ---------------------------------------------------------------- broker ID connections
+-- A member links their client ID at each broker to say "my account there is under the Order The
+-- Market IB". Brokers don't offer IBs an API to check this, so the owner or an IB above the member
+-- confirms it by hand (IB Network page). Verified links show a tick in the member's Profile.
+create table if not exists public.broker_links (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid not null references public.profiles (id) on delete cascade,
+  broker      text not null check (broker in ('vantage', 'puprime', 'vtmarkets')),
+  client_id   text not null check (char_length(client_id) between 3 and 40),
+  status      text not null default 'pending' check (status in ('pending', 'verified', 'rejected')),
+  created_at  timestamptz not null default now(),
+  verified_at timestamptz,
+  unique (user_id, broker),
+  unique (broker, client_id)
+);
+alter table public.broker_links enable row level security;
+drop policy if exists links_select on public.broker_links;
+create policy links_select on public.broker_links for select using (public.can_view(user_id));
+drop policy if exists links_insert on public.broker_links;
+create policy links_insert on public.broker_links for insert with check (user_id = auth.uid());
+drop policy if exists links_update on public.broker_links;
+create policy links_update on public.broker_links for update using (user_id = auth.uid() and status <> 'verified') with check (user_id = auth.uid());
+drop policy if exists links_delete on public.broker_links;
+create policy links_delete on public.broker_links for delete using (user_id = auth.uid() and status <> 'verified');
+revoke all on public.broker_links from anon, authenticated;
+grant select, delete on public.broker_links to authenticated;
+grant insert (user_id, broker, client_id) on public.broker_links to authenticated;
+grant update (client_id) on public.broker_links to authenticated;
+
+-- a changed ID goes back to the team for checking
+create or replace function public.broker_links_reset()
+returns trigger language plpgsql as $$
+begin
+  if new.client_id is distinct from old.client_id then new.status := 'pending'; new.verified_at := null; new.created_at := now(); end if;
+  return new;
+end $$;
+drop trigger if exists broker_links_reset on public.broker_links;
+create trigger broker_links_reset before update on public.broker_links for each row execute function public.broker_links_reset();
+
+-- the owner, or an approved IB above the member, confirms or rejects a link
+create or replace function public.set_broker_link(p_link uuid, p_status text)
+returns void language plpgsql security definer set search_path = public as $$
+declare who uuid;
+begin
+  if p_status not in ('verified', 'rejected', 'pending') then raise exception 'bad-status'; end if;
+  select user_id into who from broker_links where id = p_link;
+  if who is null then raise exception 'not-found'; end if;
+  if not (public.is_owner(auth.uid()) or (public.is_ancestor(auth.uid(), who)
+      and exists (select 1 from profiles where id = auth.uid() and role = 'ib' and status = 'approved'))) then
+    raise exception 'not-allowed';
+  end if;
+  update broker_links set status = p_status, verified_at = case when p_status = 'verified' then now() end where id = p_link;
+end $$;
+revoke execute on function public.set_broker_link(uuid, text) from public, anon;
+grant execute on function public.set_broker_link(uuid, text) to authenticated;
