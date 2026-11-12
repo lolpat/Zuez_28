@@ -7,9 +7,9 @@ window.OTM_CONFIG = {
   SUPABASE_URL: "",
   SUPABASE_ANON_KEY: "",
 
-  // Telegram: the main contact channel. PLACEHOLDER until the owner sends the real handle.
-  TELEGRAM_URL: "https://t.me/",
-  TELEGRAM_HANDLE: "@ordermarket",
+  // Telegram: the main contact channel (from the owner).
+  TELEGRAM_URL: "https://t.me/zuez_28",
+  TELEGRAM_HANDLE: "@zuez_28",
 
   // IB sign-up links per broker. PLACEHOLDER until the owner sends the real links.
   BROKERS: [

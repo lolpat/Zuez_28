@@ -106,7 +106,7 @@ MT5 auto-sync, live chat.
 ## 7. Contact details
 
 - Main channel: **Telegram** — from the owner
-- Telegram username / group link: PLACEHOLDER
+- Telegram: https://t.me/zuez_28 (@zuez_28) — from the owner
 - Email: PLACEHOLDER
 - IB referral links for Vantage, PU Prime, VT Markets: PLACEHOLDER (owner to supply)
 - No street address or opening hours (online community).

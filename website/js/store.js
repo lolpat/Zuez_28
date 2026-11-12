@@ -59,7 +59,7 @@
       created_at: new Date(Date.now() - daysAgo * 864e5).toISOString()
     });
     const users = [
-      P("owner", "Order The Market", "owner@demo", "owner", "approved", null, "@ordermarket", "OTM00001", 400),
+      P("owner", "Order The Market", "owner@demo", "owner", "approved", null, "@zuez_28", "OTM00001", 400),
       P("ib1", "Somchai K.", "somchai@demo", "ib", "approved", "owner", "@somchai_fx", "SOMCHAI1", 300),
       P("ib2", "Nok P.", "nok@demo", "ib", "approved", "ib1", "@nok_trades", "NOKTRADE", 200),
       P("me", "Krit T.", "krit@demo", "member", "approved", "ib2", "@krit_t", "KRIT0001", 120),

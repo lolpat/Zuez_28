@@ -23,7 +23,7 @@ Or type a sample email (`krit@demo`, `somchai@demo`, `nok@demo`, `owner@demo`) w
 
 ## Placeholders to replace (in `js/config.js`)
 
-- `TELEGRAM_URL` / `TELEGRAM_HANDLE`: your real Telegram link. Every "Talk to the team" button and
+- `TELEGRAM_URL` / `TELEGRAM_HANDLE`: set to https://t.me/zuez_28. Every "Talk to the team" button and
   the landing page's Telegram button open it. **This is where visitors' questions end up.**
 - `BROKERS[].url`: your IB sign-up links for Vantage, PU Prime and VT Markets. Until they are set,
   the landing page shows "Link coming soon".
