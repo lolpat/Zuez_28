@@ -16,6 +16,7 @@
     dashboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="8" rx="2"/><rect x="13.5" y="3.5" width="7" height="5" rx="2"/><rect x="13.5" y="11.5" width="7" height="9" rx="2"/><rect x="3.5" y="14.5" width="7" height="6" rx="2"/></svg>',
     journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H6z"/><path d="M6 3.5v17M9.5 8h5.5M9.5 11.5h5.5"/><path d="m10 17 2-2.5 2 1.5 2.5-3"/></svg>',
     leaderboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20h7M9.5 20l.5-3.5h4l.5 3.5"/></svg>',
+    wins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="11" height="14" rx="2"/><path d="M17.5 7.5l3 1-3.5 10.5-2.5-.8"/><path d="M6.5 15l2.5-3 2 2 2-3"/></svg>',
     tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="3" width="15" height="18" rx="3"/><path d="M8 7h8M8 11h1.5M11.3 11h1.5M14.6 11H16M8 14.5h1.5M11.3 14.5h1.5M14.6 14.5H16M8 18h8"/></svg>',
     network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="12" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v9M12 12H5v4.5M12 12h7v4.5"/></svg>',
     profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.3-5.2 7.5-5.2s6.1 1.6 7.5 5.2"/></svg>'
@@ -60,7 +61,7 @@
 
   // ------------------------------------------------------------ shell
   const routes = () => {
-    const r = [["dashboard", "app.dashboard"], ["journal", "app.journal"], ["leaderboard", "app.leaderboard"], ["tools", "app.tools"]];
+    const r = [["dashboard", "app.dashboard"], ["journal", "app.journal"], ["leaderboard", "app.leaderboard"], ["wins", "app.wins"], ["tools", "app.tools"]];
     if (isIB()) r.push(["network", "app.network"]);
     r.push(["profile", "app.profile"]);
     return r;
@@ -94,7 +95,7 @@
     renderShell();
     const v = $("#view");
     const r = currentRoute();
-    ({ dashboard, journal, leaderboard, tools, network, profile })[r](v);
+    ({ dashboard, journal, leaderboard, wins, tools, network, profile })[r](v);
     v.focus({ preventScroll: true });
   }
 
@@ -579,6 +580,21 @@
     };
     $("#more", v).addEventListener("click", () => { state.shown += 50; drawRows(); });
     drawRows();
+  }
+
+  // ------------------------------------------------------------ client profit (member wins)
+  function wins(v) {
+    const n = window.OTMWins ? window.OTMWins.count() : 0;
+    v.innerHTML = `
+      <div class="view-head"><div><h2>Client Profit</h2><p class="muted" style="margin:4px 0 0">${t("wins.page.sub")}</p></div></div>
+      <section class="card wins-card"><div class="wins" data-wins></div></section>
+      <section class="card">
+        <h3>${t("wins.all")} <span class="badge">${t("wins.count", { n })}</span></h3>
+        <div class="wins-grid" data-wins-grid style="margin-top:14px"></div>
+      </section>
+      <p class="risk-note">${t("wins.note")}</p>`;
+    window.OTMWins.marquee($("[data-wins]", v));
+    window.OTMWins.grid($("[data-wins-grid]", v));
   }
 
   // ------------------------------------------------------------ leaderboard

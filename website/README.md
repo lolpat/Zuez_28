@@ -101,6 +101,17 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Automatic history** pulls trades in by itself; see the next section. Import still works as a
   fallback, and trades that were imported before are not duplicated by a sync.
 
+## Member wins (home page) and Client Profit (portal)
+
+- Profit screenshots members send in move across the home page in two rows (top to the left, bottom
+  to the right; hover pauses them) and fill the **Client Profit** page in the portal, with a gallery
+  and a full-size viewer (arrows, Esc).
+- Add pictures: put the files in `assets/img/wins/` and list them in `WINS` in `js/config.js`, e.g.
+  `WINS: ["assets/img/wins/01.jpg", "assets/img/wins/02.jpg"]`. Until then the demo shows empty
+  frames and the live site hides the section.
+- Use only pictures members agreed to share, with names, account numbers and faces covered. The
+  section carries a line saying past results don't guarantee future results.
+
 ## Leaderboard
 
 - Members choose to join (Leaderboard page > Join) and pick the name others see. Nothing else about

@@ -74,6 +74,7 @@
   }
   function landing() {
     bonusCalc();
+    if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
     const box = $("#brokers");
     if (box) {
       box.innerHTML = cfg.BROKERS.map((b) => {

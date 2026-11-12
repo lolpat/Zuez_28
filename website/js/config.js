@@ -7,6 +7,12 @@ window.OTM_CONFIG = {
   SUPABASE_URL: "",
   SUPABASE_ANON_KEY: "",
 
+  // Member wins: profit screenshots shown on the home page (two moving rows) and on the Client Profit
+  // page. Put the files in assets/img/wins/ and list them here, e.g.
+  //   WINS: ["assets/img/wins/01.jpg", { src: "assets/img/wins/02.jpg", alt: "XAUUSD +$118" }],
+  // With an empty list the demo shows empty frames; the live site hides the section.
+  WINS: [],
+
   // Most MT4/MT5 accounts one member can add (keeps the journal quick). The database enforces 10 too.
   MAX_ACCOUNTS: 10,
 
