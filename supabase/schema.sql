@@ -362,3 +362,7 @@ end $$;
 drop trigger if exists broker_accounts_limit on public.broker_accounts;
 create trigger broker_accounts_limit before insert on public.broker_accounts
   for each row execute function public.limit_accounts();
+
+-- members can correct a mistyped broker or account number on their own account (the unique
+-- broker + number rule still applies; the site asks them to disconnect automatic history first)
+grant update (broker, account_number) on public.broker_accounts to authenticated;

@@ -334,11 +334,11 @@
           <span class="acc-chip__txt"><b>${t("j.allAccounts")}</b><small>${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</small></span>
         </button>
         ${state.accounts.map((a) => { const b = cfg.BROKERS.find((x) => x.id === a.broker); const n = state.trades.filter((x) => x.account_id === a.id).length;
-          return `<button type="button" class="acc-chip" data-acc="${a.id}" aria-pressed="${f.account === a.id}" title="${esc(accName(a))}">
+          return `<span class="acc-chipw"><button type="button" class="acc-chip" data-acc="${a.id}" aria-pressed="${f.account === a.id}" title="${esc(accName(a))}">
             ${b && b.logo ? `<img src="${b.logo}" alt="${esc(b.name)}" width="54" height="22">` : `<span class="acc-chip__b">${esc(brokerName(a.broker))}</span>`}
             <span class="acc-chip__txt"><b>${esc(a.account_number)}</b><small>${a.account_type === "demo" ? "Demo" : "Live"} · ${t("j.cal.trades", { n })}</small></span>
             ${a.metaapi_id ? `<i class="acc-chip__sync acc-chip__sync--${a.sync_status || "off"}" title="${esc(t("sync." + (a.sync_status || "off")))}"></i>` : ""}
-          </button>`; }).join("")}
+          </button><button type="button" class="acc-edit" data-manage="${a.id}" aria-label="${esc(t("acc.manage") + " " + accName(a))}" title="${esc(t("acc.manage"))}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button></span>`; }).join("")}
         <button type="button" class="acc-chip acc-chip--add" id="acc-add" ${state.accounts.length >= maxAcc() ? "disabled" : ""} title="${esc(state.accounts.length >= maxAcc() ? t("acc.limit", { m: maxAcc() }) : t("prof.addAcc"))}">
           <span class="acc-chip__plus" aria-hidden="true">+</span><span class="acc-chip__txt"><b>${t("prof.addAcc")}</b><small>${state.accounts.length >= maxAcc() ? t("acc.full") : t("acc.left", { n: maxAcc() - state.accounts.length })}</small></span>
         </button>
@@ -431,7 +431,8 @@
     }
     $$("[data-acc]", v).forEach((b) => b.addEventListener("click", () => { f.account = b.dataset.acc; state.cal = null; state.shown = 25; render(); }));
     $("#acc-add", v).addEventListener("click", () => addAccountModal((a) => { f.account = a.id; state.cal = null; render(); }));
-    { const on = $('.acc-strip [aria-pressed="true"]', v), strip = $(".acc-strip", v); if (on && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = on.offsetLeft - 16; }
+    $$("[data-manage]", v).forEach((b) => b.addEventListener("click", () => manageAccountModal(b.dataset.manage)));
+    { const on = $('.acc-strip [aria-pressed="true"]', v), strip = $(".acc-strip", v); if (on && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = (on.closest(".acc-chipw") || on).offsetLeft - 16; }
     $("#sym-pick", v).addEventListener("change", (e) => { f.symbol = e.target.value; render(); });
     $("#btn-import", v).addEventListener("click", importModal);
     const sn = $("#sync-now", v); if (sn) sn.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.metaapi_id).map((a) => a.id), sn));
@@ -837,6 +838,82 @@
     });
   }
 
+  // one place to look after an account: fix its details, automatic history, or remove it
+  function manageAccountModal(id) {
+    const a = state.accounts.find((x) => x.id === id);
+    if (!a) return;
+    const owner = state.me.role === "owner", linked = !!a.metaapi_id;
+    const nTrades = state.trades.filter((x) => x.account_id === a.id).length;
+    const b = cfg.BROKERS.find((x) => x.id === a.broker);
+    openModal(t("acc.manage"), `
+      <div class="mng-head">${b && b.logo ? `<img src="${b.logo}" alt="${esc(b.name)}" width="70" height="28">` : ""}
+        <div><b>${esc(a.account_number)}</b><small>${esc(brokerName(a.broker))} · ${esc(a.platform || "MT5")} · ${a.account_type === "demo" ? "Demo" : "Live"} · ${t("j.cal.trades", { n: nTrades })}</small></div></div>
+
+      <form class="form-grid form-grid--2" id="mng-form" novalidate>
+        <h3 class="span-2 mng-h">${t("acc.details")}</h3>
+        <label class="field"><span>${t("auth.broker")}</span><select class="input" name="broker" ${linked ? "disabled" : ""}>${cfg.BROKERS.map((x) => `<option value="${x.id}" ${x.id === a.broker ? "selected" : ""}>${x.name}</option>`).join("")}</select></label>
+        <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option ${a.platform !== "MT4" ? "selected" : ""}>MT5</option><option ${a.platform === "MT4" ? "selected" : ""}>MT4</option></select></label>
+        <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" value="${esc(a.account_number)}" ${linked ? "disabled" : ""} required>${linked ? `<small>${t("acc.numLocked")}</small>` : ""}</label>
+        <label class="field"><span>${t("prof.server")}</span><input class="input" name="server" value="${esc(a.server || "")}" placeholder="${esc(t("prof.server.ph"))}" spellcheck="false"></label>
+        <label class="field"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="${+a.start_balance || 0}"></label>
+        ${owner ? `<label class="field span-2"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live" ${a.account_type !== "demo" ? "selected" : ""}>Live</option><option value="demo" ${a.account_type === "demo" ? "selected" : ""}>Demo</option></select><small>${t("prof.type.owner")}</small></label>` : ""}
+        <div id="mng-msg" class="span-2"></div>
+        <div class="span-2" style="display:flex;justify-content:flex-end"><button class="btn btn--gold" type="submit">${t("acc.save")}</button></div>
+      </form>
+
+      ${syncOn() ? `<section class="mng-sec">
+        <h3 class="mng-h">${t("sync.title")} ${syncChip(a)}</h3>
+        ${syncLine(a) ? `<p style="margin:4px 0 0">${syncLine(a)}</p>` : ""}
+        <div class="actions" style="margin-top:10px">${linked
+          ? `<button class="btn btn--ghost btn--sm" type="button" id="mng-sync">${t("sync.now")}</button><button class="btn btn--ghost btn--sm" type="button" id="mng-relink">${t("acc.relink")}</button><button class="btn btn--quiet btn--sm" type="button" id="mng-unlink">${t("sync.disconnect")}</button>`
+          : `<button class="btn btn--gold btn--sm" type="button" id="mng-link">${t("sync.connect")}</button>`}</div>
+        ${linked ? `<p class="muted" style="font-size:.8rem;margin:8px 0 0">${t("acc.relink.hint")}</p>` : ""}
+      </section>` : ""}
+
+      <section class="mng-sec mng-danger">
+        <h3 class="mng-h">${t("acc.remove")}</h3>
+        <p class="muted" style="font-size:.84rem;margin:4px 0 10px">${t("acc.remove.d", { n: nTrades })}</p>
+        <button class="btn btn--danger btn--sm" type="button" id="mng-del">${t("acc.remove")}</button>
+      </section>`, (box) => {
+      const F = $("#mng-form", box), msg = $("#mng-msg", box);
+      F.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const num = linked ? a.account_number : F.account_number.value.trim();
+        if (!num) { F.account_number.setAttribute("aria-invalid", "true"); return; }
+        const patch = { platform: F.platform.value, server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 };
+        if (!linked) { patch.broker = F.broker.value; patch.account_number = num; }
+        try {
+          await state.store.updateAccount(a.id, patch);
+          if (owner && F.account_type && F.account_type.value !== (a.account_type || "live")) await state.store.setAccountType(a.id, F.account_type.value);
+          await reload(["accounts"]); closeModal(); toast(t("app.saved")); render();
+        } catch (err) { msg.innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : esc(err.message)}</p>`; }
+      });
+      const on = (sel, fn) => { const el = $(sel, box); if (el) el.addEventListener("click", fn); };
+      on("#mng-link", () => { closeModal(); connectModal(a); });
+      on("#mng-relink", () => { closeModal(); connectModal(a); });
+      on("#mng-sync", (e) => { closeModal(); runSyncNow([a.id], null); });
+      on("#mng-unlink", async (e) => {
+        const btn = e.currentTarget;
+        if (!btn.dataset.armed) { btn.dataset.armed = "1"; btn.textContent = t("sync.disconnectConfirm"); return; }
+        btn.disabled = true;
+        try { await state.store.syncDisconnect(a.id); await reload(["accounts"]); closeModal(); toast(t("sync.disconnected")); render(); }
+        catch (err) { btn.disabled = false; toast(syncErrText(err.message)); }
+      });
+      on("#mng-del", async (e) => {
+        const btn = e.currentTarget;
+        if (!btn.dataset.armed) { btn.dataset.armed = "1"; btn.textContent = t("prof.removeConfirm"); return; }
+        btn.disabled = true;
+        try {
+          if (a.metaapi_id) { try { await state.store.syncDisconnect(a.id); } catch (_) { /* removing the account matters more */ } }
+          await state.store.deleteAccount(a.id);
+          if (state.f.account === a.id) state.f.account = "all";
+          state.cal = null;
+          await reload(["accounts", "trades"]); closeModal(); toast(t("prof.removed")); render();
+        } catch (err) { btn.disabled = false; fail(err); }
+      });
+    });
+  }
+
   const FEELINGS = ["calm", "focused", "confident", "anxious", "fomo", "revenge", "tired"];
   function noteModal(tr) {
     if (!tr) return;
@@ -1122,7 +1199,7 @@
               ? `<select class="input acc-type" data-acc-type="${a.id}" aria-label="${esc(t("prof.type"))}"><option value="live" ${a.account_type !== "demo" ? "selected" : ""}>Live</option><option value="demo" ${a.account_type === "demo" ? "selected" : ""}>Demo</option></select>`
               : a.account_type === "demo" ? ` <span class="badge badge--warn">Demo</span>` : ""}<br><small class="muted">${esc(a.server || "")}</small></td><td>${esc(a.account_number)}</td>
               <td class="r"><input class="input" style="max-width:130px;min-height:40px;text-align:right;display:inline-block" type="number" inputmode="decimal" data-start="${a.id}" value="${+a.start_balance || 0}" aria-label="${esc(t("prof.start"))}"></td>
-              <td class="r"><button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
+              <td class="r"><button class="btn btn--ghost btn--sm" type="button" data-manage="${a.id}">${t("acc.edit")}</button> <button class="btn btn--danger btn--sm" type="button" data-del-acc="${a.id}">${t("prof.removeAcc")}</button></td></tr>`).join("")}
           </tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">${t("prof.start.hint")}${m.role === "owner" ? " " + t("prof.type.owner") : ""}</p>` : `<p class="muted" style="margin-top:12px">${t("prof.noAcc")}</p>`}
         </section>
       </div>
@@ -1159,6 +1236,7 @@
       } catch (err) { b.disabled = false; fail(err); }
     }));
     $("#add-acc", v).addEventListener("click", () => addAccountModal());
+    $$("[data-manage]", v).forEach((b) => b.addEventListener("click", () => manageAccountModal(b.dataset.manage)));
     $$("[data-sync-connect]", v).forEach((b) => b.addEventListener("click", () => connectModal(state.accounts.find((a) => a.id === b.dataset.syncConnect))));
     $$("[data-sync-now]", v).forEach((b) => b.addEventListener("click", () => runSyncNow([b.dataset.syncNow], b)));
     $$("[data-sync-off]", v).forEach((b) => b.addEventListener("click", async () => {

@@ -197,7 +197,13 @@
       const acc = { id: uid(), user_id: db.session, server: "", platform: "MT5", currency: "USD", start_balance: 0, created_at: new Date().toISOString(), ...a };
       db.accounts.push(acc); saveDemo(); return acc;
     },
-    async updateAccount(id, f) { const a = db.accounts.find((x) => x.id === id && x.user_id === db.session); Object.assign(a, f); saveDemo(); return a; },
+    async updateAccount(id, f) {
+      const a = db.accounts.find((x) => x.id === id && x.user_id === db.session);
+      if (!a) throw new Error("not-found");
+      const broker = f.broker ?? a.broker, num = f.account_number ?? a.account_number;
+      if (db.accounts.some((x) => x.id !== id && x.broker === broker && x.account_number === num)) throw new Error("account-taken");
+      Object.assign(a, f); saveDemo(); return a;
+    },
     async setAccountType(id, type) {
       if (!me() || me().role !== "owner") throw new Error("not-allowed");
       const a = db.accounts.find((x) => x.id === id); if (!a) throw new Error("not-found");
@@ -314,7 +320,11 @@
       if (error) throw new Error(/duplicate/i.test(error.message) ? "account-taken" : /account-limit/.test(error.message) ? "account-limit" : error.message);
       return data;
     },
-    async updateAccount(id, f) { return must(await sb.from("broker_accounts").update(f).eq("id", id).select().single()); },
+    async updateAccount(id, f) {
+      const { data, error } = await sb.from("broker_accounts").update(f).eq("id", id).select().single();
+      if (error) throw new Error(/duplicate/i.test(error.message) ? "account-taken" : error.message);
+      return data;
+    },
     async setAccountType(id, type) { must(await sb.rpc("set_account_type", { p_account: id, p_type: type })); },
     async deleteAccount(id) { must(await sb.from("broker_accounts").delete().eq("id", id).eq("user_id", profileCache.id)); },
     async listTrades() {

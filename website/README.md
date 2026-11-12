@@ -73,7 +73,11 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Accounts:** each member can add up to **10** MT4/MT5 accounts from any of the three brokers
   (`MAX_ACCOUNTS` in `js/config.js`; the database refuses an 11th as well). The journal shows them
   as a strip of cards (broker logo, number, live/demo, trade count, sync dot) with "All accounts" first
-  and "Add account" last; tap one to see only that account.
+  and "Add account" last; tap one to see only that account. The pencil on each card opens
+  **Manage account**: fix the broker, number, platform, server or starting balance; connect,
+  reconnect (wrong or changed investor password), sync or disconnect automatic history; or remove
+  the account and its trades. Profile has the same Edit button. A connected account's broker and
+  number are locked until it is disconnected.
 - **Layout:** six tiles on top (balance, win rate, net P/L, max drawdown, best day, worst day), then a
   full-width **trading calendar** (Monday first, each day's P/L, trades and win rate, a total for each
   week; tap a day to see its trades), then account balance, results by symbol and daily P/L, then four
