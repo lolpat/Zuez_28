@@ -8,7 +8,7 @@
 
   const state = {
     store: null, me: null, accounts: [], trades: [], upline: null, downline: null,
-    f: { account: "all", period: "month", side: "all", outcome: "all", symbol: "all" },
+    f: { account: "all", broker: "all", period: "month", side: "all", outcome: "all", symbol: "all" },
     eq: "cum", cal: null, shown: 25, timer: null, netQuery: "", lb: { period: "week", type: "live" }
   };
 
@@ -283,11 +283,16 @@
   function journal(v) {
     if (!approved()) { v.innerHTML = statusCard() + riskNote(); return; }
     const f = state.f;
-    const base = state.trades.filter((x) => f.account === "all" || x.account_id === f.account);
+    if (!f.broker) f.broker = "all";
+    if (f.account !== "all" && !state.accounts.some((a) => a.id === f.account)) f.account = "all";
+    const accs = state.accounts.filter((a) => (f.account === "all" ? f.broker === "all" || a.broker === f.broker : a.id === f.account));
+    const accIds = new Set(accs.map((a) => a.id));
+    const scoped = state.trades.filter((x) => accIds.has(x.account_id));
+    const fx = { ...f, account: "all" };
+    const base = scoped;
     const symbols = [...new Set(base.map((x) => x.symbol))].sort();
     if (f.symbol !== "all" && !symbols.includes(f.symbol)) f.symbol = "all";
-    const list = S.filterTrades(state.trades, f);
-    const accs = state.accounts.filter((a) => f.account === "all" || a.id === f.account);
+    const list = S.filterTrades(scoped, fx);
     const startBal = accs.reduce((s, a) => s + (+a.start_balance || 0), 0);
     const balance = startBal + base.reduce((s, x) => s + S.net(x), 0);
     // balance when the shown period starts: starting balance + everything closed before its first trade
@@ -326,23 +331,38 @@
         <h2>Trading Journal</h2>
         <div class="actions">
           <button class="btn btn--ghost" type="button" id="btn-import">${t("j.import")}</button>
-          <button class="btn btn--gold" type="button" id="btn-add">${t("j.add")}</button>
+          <button class="btn btn--ghost" type="button" id="btn-add">${t("j.add")}</button>
+          <button class="btn btn--gold" type="button" id="acc-add" ${state.accounts.length >= maxAcc() ? "disabled" : ""}>+ ${t("prof.addAcc")}</button>
         </div>
       </div>
-      <div class="acc-strip" role="group" aria-label="${esc(t("acc.strip"))}">
-        <button type="button" class="acc-chip acc-chip--all" data-acc="all" aria-pressed="${f.account === "all"}">
-          <span class="acc-chip__txt"><b>${t("j.allAccounts")}</b><small>${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</small></span>
-        </button>
-        ${state.accounts.map((a) => { const b = cfg.BROKERS.find((x) => x.id === a.broker); const n = state.trades.filter((x) => x.account_id === a.id).length;
-          return `<span class="acc-chipw"><button type="button" class="acc-chip" data-acc="${a.id}" aria-pressed="${f.account === a.id}" title="${esc(accName(a))}">
-            ${b && b.logo ? `<img src="${b.logo}" alt="${esc(b.name)}" width="54" height="22">` : `<span class="acc-chip__b">${esc(brokerName(a.broker))}</span>`}
-            <span class="acc-chip__txt"><b>${esc(a.account_number)}</b><small>${a.account_type === "demo" ? "Demo" : "Live"} · ${t("j.cal.trades", { n })}</small></span>
-            ${a.metaapi_id ? `<i class="acc-chip__sync acc-chip__sync--${a.sync_status || "off"}" title="${esc(t("sync." + (a.sync_status || "off")))}"></i>` : ""}
-          </button><button type="button" class="acc-edit" data-manage="${a.id}" aria-label="${esc(t("acc.manage") + " " + accName(a))}" title="${esc(t("acc.manage"))}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button></span>`; }).join("")}
-        <button type="button" class="acc-chip acc-chip--add" id="acc-add" ${state.accounts.length >= maxAcc() ? "disabled" : ""} title="${esc(state.accounts.length >= maxAcc() ? t("acc.limit", { m: maxAcc() }) : t("prof.addAcc"))}">
-          <span class="acc-chip__plus" aria-hidden="true">+</span><span class="acc-chip__txt"><b>${t("prof.addAcc")}</b><small>${state.accounts.length >= maxAcc() ? t("acc.full") : t("acc.left", { n: maxAcc() - state.accounts.length })}</small></span>
-        </button>
+      <div class="brk-row" role="group" aria-label="${esc(t("acc.strip"))}">
+        ${JORDER.map((bid) => {
+          const b = cfg.BROKERS.find((x) => x.id === bid); if (!b) return "";
+          const mine = state.accounts.filter((a) => a.broker === bid);
+          const ids = new Set(mine.map((a) => a.id));
+          const n = state.trades.filter((x) => ids.has(x.account_id)).length;
+          const net = S.filterTrades(state.trades.filter((x) => ids.has(x.account_id)), fx).reduce((sum, x) => sum + S.net(x), 0);
+          const on = f.broker === bid;
+          return `<button type="button" class="brk ${on ? "is-on" : ""} ${mine.length ? "" : "is-empty"}" data-broker="${bid}" aria-pressed="${on}">
+            <img src="${b.logo}" alt="${esc(b.name)}" width="96" height="38">
+            <span class="brk__txt">${mine.length
+              ? `<b>${t("brk.accounts", { n: mine.length })}</b><small>${t("j.cal.trades", { n })}${n ? ` · <span class="${cls(net)}">${money(net)}</span>` : ""}</small>`
+              : `<b>${t("brk.none")}</b><small>+ ${t("prof.addAcc")}</small>`}</span>
+            ${mine.some((a) => a.metaapi_id) ? `<i class="brk__sync" title="${esc(t("sync.ok"))}"></i>` : ""}
+          </button>`;
+        }).join("")}
       </div>
+      ${f.broker !== "all" ? (() => {
+        const mine = state.accounts.filter((a) => a.broker === f.broker);
+        return `<div class="brk-accts">
+          <button type="button" class="brk-acct ${f.account === "all" ? "is-on" : ""}" data-acc="all">${t("brk.allOf", { b: esc(brokerName(f.broker)) })}</button>
+          ${mine.map((a) => `<span class="brk-acctw"><button type="button" class="brk-acct ${f.account === a.id ? "is-on" : ""}" data-acc="${a.id}">
+              <b>${esc(a.account_number)}</b><small>${a.account_type === "demo" ? "Demo" : "Live"}</small>${a.metaapi_id ? `<i class="acc-chip__sync acc-chip__sync--${a.sync_status || "off"}"></i>` : ""}</button>
+            <button type="button" class="acc-edit" data-manage="${a.id}" aria-label="${esc(t("acc.manage") + " " + accName(a))}" title="${esc(t("acc.manage"))}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button></span>`).join("")}
+          <button type="button" class="brk-acct brk-acct--clear" data-broker="all">✕ ${t("brk.showAll")}</button>
+          <span class="brk-count">${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</span>
+        </div>`;
+      })() : `<p class="brk-hint">${t("brk.hint", { n: state.accounts.length, m: maxAcc() })}</p>`}
       ${syncOn() && state.accounts.length ? (() => {
         const on = state.accounts.filter((a) => a.metaapi_id);
         const last = on.map((a) => a.last_sync_at).filter(Boolean).sort().pop();
@@ -430,9 +450,13 @@
       fFrom.addEventListener("change", setRange); fTo.addEventListener("change", setRange);
     }
     $$("[data-acc]", v).forEach((b) => b.addEventListener("click", () => { f.account = b.dataset.acc; state.cal = null; state.shown = 25; render(); }));
-    $("#acc-add", v).addEventListener("click", () => addAccountModal((a) => { f.account = a.id; state.cal = null; render(); }));
+    $$("[data-broker]", v).forEach((b) => b.addEventListener("click", () => {
+      const bid = b.dataset.broker;
+      if (bid !== "all" && !state.accounts.some((a) => a.broker === bid)) { addAccountModal(bid, (a) => { f.broker = a.broker; f.account = a.id; state.cal = null; render(); }); return; }
+      f.broker = bid === f.broker ? "all" : bid; f.account = "all"; state.cal = null; state.shown = 25; render();
+    }));
+    $("#acc-add", v).addEventListener("click", () => addAccountModal(f.broker !== "all" ? f.broker : null, (a) => { f.broker = a.broker; f.account = a.id; state.cal = null; render(); }));
     $$("[data-manage]", v).forEach((b) => b.addEventListener("click", () => manageAccountModal(b.dataset.manage)));
-    { const on = $('.acc-strip [aria-pressed="true"]', v), strip = $(".acc-strip", v); if (on && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = (on.closest(".acc-chipw") || on).offsetLeft - 16; }
     $("#sym-pick", v).addEventListener("change", (e) => { f.symbol = e.target.value; render(); });
     $("#btn-import", v).addEventListener("click", importModal);
     const sn = $("#sync-now", v); if (sn) sn.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.metaapi_id).map((a) => a.id), sn));
@@ -480,7 +504,7 @@
     drawDaily();
 
     // trading calendar: one month, Monday first, a total for each week on the right
-    const calList = S.filterTrades(state.trades, { ...f, period: "all", from: null, to: null });
+    const calList = S.filterTrades(scoped, { ...fx, period: "all", from: null, to: null });
     if (!state.cal) { const last = list.length ? new Date(Math.max(...list.map((x) => +new Date(x.close_time)))) : new Date(); state.cal = new Date(last.getFullYear(), last.getMonth(), 1); }
     const calDays = S.compute(calList).byDay;
     const shortM = (n) => (n > 0 ? "+" : n < 0 ? "−" : "") + (Math.abs(n) >= 1000 ? (Math.abs(n) / 1000).toFixed(1) + "k" : Math.abs(n).toFixed(0));
@@ -810,30 +834,67 @@
   }
 
   const maxAcc = () => cfg.MAX_ACCOUNTS || 10;
-  function addAccountModal(after) {
+  const JORDER = ["puprime", "vantage", "vtmarkets"];
+  // one form adds the account and connects it: broker, account number, server, investor password
+  function addAccountModal(preset, after) {
+    if (typeof preset === "function") { after = preset; preset = null; }
     if (state.accounts.length >= maxAcc()) { toast(t("acc.limit", { m: maxAcc() })); return; }
+    const pick = preset || JORDER[0];
+    const servers = (bid) => [...new Set([...((cfg.BROKERS.find((x) => x.id === bid) || {}).servers || []), ...state.accounts.filter((a) => a.broker === bid && a.server).map((a) => a.server)])];
+    const withSync = syncOn();
     openModal(t("prof.addAcc"), `
-      <p class="muted" style="margin:0 0 12px;font-size:.86rem">${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</p>
-      <form class="form-grid form-grid--2" id="acc-form">
-        <label class="field"><span>${t("auth.broker")}</span><select class="input" name="broker">${cfg.BROKERS.map((b) => `<option value="${b.id}">${b.name}</option>`).join("")}</select></label>
-        <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
-        <label class="field span-2"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live">${t("lb.live")}</option><option value="demo">${t("lb.demo")}</option></select><small>${t("prof.type.hint")}</small></label>
-        <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" required><small>${t("auth.account.hint")}</small></label>
-        <label class="field"><span>${t("prof.server")}</span><input class="input" name="server" placeholder="${esc(t("prof.server.ph"))}"></label>
-        <label class="field"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="0"></label>
+      <form class="form-grid form-grid--2" id="acc-form" novalidate>
+        <fieldset class="field span-2 broker-field"><legend>${t("auth.broker")}</legend>
+          <div class="broker-pick" role="radiogroup">${JORDER.map((bid) => { const b = cfg.BROKERS.find((x) => x.id === bid); return b ? `<label class="broker-opt"><input type="radio" name="broker" value="${bid}" ${bid === pick ? "checked" : ""}><img src="${b.logo}" alt="${esc(b.name)}" width="150" height="60"></label>` : ""; }).join("")}</div></fieldset>
+        <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" autocomplete="off" required></label>
+        <label class="field span-2"><span>${t("sync.server")}</span><input class="input" name="server" list="srv-list" autocomplete="off" spellcheck="false" placeholder="${esc(t("prof.server.ph"))}"><datalist id="srv-list"></datalist><small>${t("sync.server.hint")}</small></label>
+        ${withSync ? `<label class="field span-2"><span>${t("sync.password")}</span><input class="input" name="password" type="password" autocomplete="off"><small>${t("add.pw.hint")}</small></label>
+        <p class="alert alert--gold span-2" style="margin:0">${t("sync.master.warn")}</p>` : ""}
+        <details class="span-2 add-more"><summary>${t("add.more")}</summary>
+          <div class="form-grid form-grid--2" style="margin-top:10px">
+            <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
+            <label class="field"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live">Live</option><option value="demo">Demo</option></select></label>
+            <label class="field span-2"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="0"><small>${t("add.start.hint")}</small></label>
+          </div></details>
+        <p class="muted span-2" style="font-size:.8rem;margin:0">${t("acc.count", { n: state.accounts.length, m: maxAcc() })}${withSync ? " · " + (state.store.live ? t("sync.privacy") : t("sync.demoHint")) : ""}</p>
         <div id="acc-msg" class="span-2"></div>
-        <div class="modal__foot span-2"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${t("app.save")}</button></div>
+        <div class="modal__foot span-2"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${withSync ? t("add.submit") : t("app.save")}</button></div>
       </form>`, (box) => {
-      $("#acc-form", box).addEventListener("submit", async (e) => {
-        e.preventDefault(); const F = e.target;
-        if (!F.account_number.value.trim()) { F.account_number.setAttribute("aria-invalid", "true"); return; }
+      const F = $("#acc-form", box), msg = $("#acc-msg", box);
+      const fillServers = () => { const bid = F.broker.value; $("#srv-list", box).innerHTML = servers(bid).map((x) => `<option value="${esc(x)}">`).join(""); };
+      fillServers();
+      $$("input[name=broker]", box).forEach((r) => r.addEventListener("change", fillServers));
+      let created = null; // the account is added once; a wrong password only retries the connection
+      F.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const num = F.account_number.value.trim(), server = F.server.value.trim(), pw = F.password ? F.password.value : "";
+        F.account_number.setAttribute("aria-invalid", num ? "false" : "true");
+        if (!num) { msg.innerHTML = `<p class="alert alert--err">${t("auth.err.required")}</p>`; return; }
+        if (pw && !server) { F.server.setAttribute("aria-invalid", "true"); msg.innerHTML = `<p class="alert alert--err">${t("sync.err.missing")}</p>`; return; }
+        const btn = $("button[type=submit]", F); btn.disabled = true;
         try {
-          await state.store.addAccount({ broker: F.broker.value, platform: F.platform.value, account_type: F.account_type.value, account_number: F.account_number.value.trim(), server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 });
-          const before = new Set(state.accounts.map((x) => x.id));
-          await reload(["accounts"]); closeModal(); toast(t("app.saved"));
-          const added = state.accounts.find((x) => !before.has(x.id));
-          if (after && added) after(added); else render();
-        } catch (err) { $("#acc-msg", box).innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : err.message === "account-limit" ? t("acc.limit", { m: maxAcc() }) : esc(err.message)}</p>`; }
+          if (!created) {
+            created = await state.store.addAccount({ broker: F.broker.value, account_number: num, server, platform: F.platform.value, account_type: /demo/i.test(server) ? "demo" : F.account_type.value, start_balance: +F.start_balance.value || 0 });
+            $$("input[name=broker], input[name=account_number]", box).forEach((x) => { x.disabled = true; });
+          }
+          if (pw) {
+            msg.innerHTML = `<p class="alert alert--gold"><span class="spin" aria-hidden="true"></span> ${t("sync.working")}</p>`;
+            const r = await state.store.syncConnect(created.id, server, pw);
+            F.password.value = "";
+            await reload(["accounts", "trades"]); closeModal();
+            toast(r && r.status === "ok" ? t("sync.done", { n: r.added || 0 }) : t("sync.pending"));
+          } else {
+            await reload(["accounts"]); closeModal(); toast(t("add.noPw"));
+          }
+          const added = state.accounts.find((x) => x.id === created.id) || created;
+          if (after) after(added); else render();
+        } catch (err) {
+          btn.disabled = false; if (F.password) F.password.value = "";
+          const m = err.message;
+          const text = m === "account-taken" ? t("prof.taken") : m === "account-limit" ? t("acc.limit", { m: maxAcc() }) : syncErrText(m);
+          msg.innerHTML = `<p class="alert alert--err">${esc(text)}${created ? "<br>" + esc(t("add.retry")) : ""}</p>`;
+          if (created) await reload(["accounts"]);
+        }
       });
     });
   }

@@ -491,7 +491,7 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
 .tag button { border: 0; background: none; color: inherit; cursor: pointer; width: 26px; height: 26px; border-radius: 50%; }
 
 /* toast */
-.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); z-index: 90; background: var(--surface-2); border: 1px solid rgba(var(--accent-2-rgb), .35); color: var(--text); padding: 12px 18px; border-radius: 12px; box-shadow: var(--shadow); opacity: 0; transition: all .3s var(--ease); max-width: calc(100% - 32px); }
+.toast { pointer-events: none; position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); z-index: 90; background: var(--surface-2); border: 1px solid rgba(var(--accent-2-rgb), .35); color: var(--text); padding: 12px 18px; border-radius: 12px; box-shadow: var(--shadow); opacity: 0; transition: all .3s var(--ease); max-width: calc(100% - 32px); }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 .empty { text-align: center; padding: 40px 16px; color: var(--muted); }
@@ -870,3 +870,38 @@ button.jc-d:hover { transform: translateY(-2px); }
 .mng-h { font-size: .95rem; font-weight: 600; margin: 4px 0 0; display: flex; align-items: center; gap: 8px; }
 .mng-sec { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 .mng-danger .mng-h { color: var(--loss); }
+
+/* journal: three broker tiles, then that broker's accounts */
+.brk-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: -2px 0 10px; }
+.brk { position: relative; display: flex; align-items: center; gap: 14px; min-width: 0; padding: 12px 14px; border-radius: 16px; cursor: pointer; text-align: left; font: inherit; color: var(--text);
+  background: var(--metal-red); border: 1px solid var(--line); box-shadow: var(--metal-edge); transition: border-color .2s, transform .15s, box-shadow .2s; }
+.brk:hover { border-color: rgba(var(--accent-2-rgb), .45); transform: translateY(-1px); }
+.brk.is-on { border-color: var(--accent); box-shadow: var(--metal-edge), 0 0 0 1px rgba(var(--accent-rgb), .35), 0 10px 26px rgba(var(--accent-rgb), .12); }
+.brk img { width: 96px; height: auto; border-radius: 8px; flex: none; }
+.brk.is-empty img { opacity: .55; filter: grayscale(.4); }
+.brk__txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.brk__txt b { font-weight: 600; white-space: nowrap; }
+.brk__txt small { font-size: .76rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brk.is-empty .brk__txt small { color: var(--accent); }
+.brk__sync { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; border-radius: 50%; background: var(--profit); box-shadow: 0 0 0 3px rgba(123, 211, 148, .18); }
+.brk-hint { margin: 0 0 12px; font-size: .78rem; color: var(--muted); }
+.brk-accts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; padding: 10px; border-radius: 14px; background: rgba(255, 255, 255, .02); border: 1px dashed var(--line); }
+.brk-acctw { position: relative; display: inline-flex; }
+.brk-acct { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px; border-radius: 10px; cursor: pointer; font: inherit; font-size: .86rem; color: var(--text);
+  background: var(--bg-2); border: 1px solid var(--line); }
+.brk-acctw .brk-acct { padding-right: 42px; }
+.brk-acct b { font-weight: 600; font-feature-settings: "tnum" 1; }
+.brk-acct small { font-size: .7rem; color: var(--muted); }
+.brk-acct.is-on { border-color: var(--accent); background: rgba(var(--accent-rgb), .08); }
+.brk-acct .acc-chip__sync { position: static; }
+.brk-acctw .acc-edit { top: 6px; bottom: auto; right: 6px; }
+.brk-acct--clear { color: var(--muted); background: none; }
+.brk-count { margin-left: auto; font-size: .76rem; color: var(--muted); }
+.add-more summary { cursor: pointer; font-size: .86rem; color: var(--muted); }
+.add-more summary:hover { color: var(--text); }
+@media (max-width: 760px) {
+  .brk { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; }
+  .brk img { width: 100%; max-width: 110px; }
+  .brk__txt small { white-space: normal; }
+  .brk-count { margin-left: 0; width: 100%; }
+}

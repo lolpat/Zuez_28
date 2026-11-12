@@ -71,9 +71,13 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Trading score** = average of six 0–100 parts: win rate, profit factor, average win vs average
   loss, recovery (net profit ÷ max drawdown), drawdown control, share of profitable weeks.
 - **Accounts:** each member can add up to **10** MT4/MT5 accounts from any of the three brokers
-  (`MAX_ACCOUNTS` in `js/config.js`; the database refuses an 11th as well). The journal shows them
-  as a strip of cards (broker logo, number, live/demo, trade count, sync dot) with "All accounts" first
-  and "Add account" last; tap one to see only that account. The pencil on each card opens
+  (`MAX_ACCOUNTS` in `js/config.js`; the database refuses an 11th as well). The journal shows three
+  broker tiles (PU Prime, Vantage, VT Markets) with each broker's accounts, trades and P/L combined;
+  tap one to see only that broker, then pick one of its accounts. **Add account** is one form: broker,
+  account number, server and investor password; it adds the account and pulls its history in one go
+  (leave the password empty to add it and import reports instead). Server names typed before are
+  offered as choices; you can also list each broker's servers in `servers: []` in `js/config.js`.
+  The pencil on each account opens
   **Manage account**: fix the broker, number, platform, server or starting balance; connect,
   reconnect (wrong or changed investor password), sync or disconnect automatic history; or remove
   the account and its trades. Profile has the same Edit button. A connected account's broker and

@@ -20,15 +20,16 @@ window.OTM_CONFIG = {
 
   // IB sign-up links, referral codes and official logos per broker (from the owner; logos from
   // each broker's partner brand kit, used unaltered).
+  // servers: the broker's MT5 server names, offered as choices in Add account (fill in the real ones).
   // bonus: deposit bonus shown on the card. first / next = percent on the first and later deposits,
   // firstMax = largest first-deposit bonus in USD, cap = total bonus limit in USD. Leave a field out
   // to hide it, or remove `bonus` to hide the box. Brokers change these by campaign: keep them current.
   BROKERS: [
     { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28", logo: "assets/img/brokers/vantage.png",
-      bonus: { first: 150, next: 50 } },
+      bonus: { first: 150, next: 50 }, servers: [] },
     { id: "puprime", name: "PU Prime", url: "https://puvip.co/la-partners/OTM2028", code: "OTM2028", logo: "assets/img/brokers/puprime.jpg",
-      bonus: { first: 100, firstMax: 1000, next: 20, cap: 10000 } },
+      bonus: { first: 100, firstMax: 1000, next: 20, cap: 10000 }, servers: [] },
     { id: "vtmarkets", name: "VT Markets", url: "https://vtm.pro/la5-com/global/OTM2028", code: "OTM2028", logo: "assets/img/brokers/vtmarkets.svg",
-      bonus: { first: 100, next: 20, cap: 10000 } }
+      bonus: { first: 100, next: 20, cap: 10000 }, servers: [] }
   ]
 };
