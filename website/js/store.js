@@ -101,6 +101,22 @@
     try { db = JSON.parse(localStorage.getItem(KEY)); } catch { db = null; }
     if (!db || !db.users) { db = seed(); saveDemo(); }
     if (!db.lb) addLeaderboardDemo();
+    if (db.lb < 2) addMoreDemoMembers();
+  }
+  // demo preview only: extra sample members so ranks 11-20 can be seen. The live site never has these.
+  function addMoreDemoMembers() {
+    const names = ["Arm S.", "Bank T.", "Beam K.", "Fern P.", "Gun W.", "Ice N.", "Jane M.", "Kao R.", "Mook J.", "Nat C.", "Oil V.", "Pang L.", "Pete D.", "Tae H.", "Tong B.", "View A.", "Win Y.", "Yok F."];
+    const uplines = ["ib1", "ib2", "ib3"];
+    names.forEach((nm, k) => {
+      const id = "s" + (k + 1);
+      if (db.users.some((u) => u.id === id)) return;
+      db.users.push({ id, full_name: nm, email: `sample${k + 1}@demo`, role: "member", status: "approved", upline_id: uplines[k % 3], telegram: "", referral_code: "SMPL" + String(k + 1).padStart(4, "0"),
+        language: "th", created_at: new Date(Date.now() - (20 + k) * 864e5).toISOString(), leaderboard_opt_in: true, leaderboard_name: nm.split(" ")[0] });
+      const acc = { id: "a-" + id, user_id: id, broker: ["vantage", "puprime", "vtmarkets"][k % 3], account_number: String(60010000 + k), server: "", platform: "MT5", currency: "USD", start_balance: 500 + (k % 5) * 500, account_type: "live", created_at: new Date().toISOString() };
+      db.accounts.push(acc);
+      db.trades.push(...makeTrades(id, acc.id, 12 + (k % 7) * 4, 0.5 + (k % 5) * 0.04, 25, Math.random).map((t) => ({ ...t, note: "", feeling: "", execution: null, tags: [], lesson: "" })));
+    });
+    db.lb = 2; saveDemo();
   }
   // demo leaderboard: some sample members joined, a few demo accounts, and recent trades
   function addLeaderboardDemo() {
@@ -171,7 +187,8 @@
           net, gross_win: wins.reduce((a, b) => a + b, 0), gross_loss: -losses.reduce((a, b) => a + b, 0), streak,
           return_pct: bal > 0 ? (net / bal) * 100 : null, is_me: u.id === db.session };
       }).filter(Boolean);
-      return rows.filter((r) => r.net > 0).sort((a, b) => b.net - a.net || a.trades - b.trades).map((r, i) => ({ ...r, rank: i + 1, field_size: rows.length }));
+      const ranked = rows.filter((r) => r.net > 0).sort((a, b) => b.net - a.net || a.trades - b.trades);
+      return ranked.map((r, i) => ({ ...r, rank: i + 1, field_size: rows.length, in_profit: ranked.length })).filter((r) => r.rank <= 20 || r.is_me);
     },
     async listAccounts() { return db.accounts.filter((a) => a.user_id === db.session); },
     async addAccount(a) {

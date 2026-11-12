@@ -572,7 +572,7 @@
       </div>
       <div id="lb-body"><div class="loading"><img src="assets/img/mark.svg" alt="" width="56" height="56"></div></div>
       ${riskNote()}`;
-    $$("[data-lb]", v).forEach((b) => b.addEventListener("click", () => { L[b.dataset.lb] = b.dataset.v; render(); }));
+    $$("[data-lb]", v).forEach((b) => b.addEventListener("click", () => { L[b.dataset.lb] = b.dataset.v; state.lbMore = false; render(); }));
     if (L.period !== "all") state.timer = setInterval(() => { const el = $("#lb-reset"); if (el) el.textContent = lbReset(L.period); }, 1000);
 
     let rows;
@@ -589,6 +589,9 @@
     const joined = !!m.leaderboard_opt_in;
     const myName = (m.leaderboard_name || "").trim() || String(m.full_name || "").split(" ")[0];
 
+    const top = rows.filter((r) => r.rank <= 20), mineOutside = rows.find((r) => r.is_me && r.rank > 20);
+    const shown = top.slice(0, state.lbMore ? 20 : 10);
+    const inProfit = rows.length ? rows[0].in_profit || top.length : 0;
     const avatar = (r, size = "") => `<span class="lb-av ${size}">${esc(initials(r.display_name))}</span>`;
     const podium = rows.length ? [rows[1], rows[0], rows[2]].map((r, i) => {
       if (!r) return `<div class="pod pod--empty"></div>`;
@@ -610,21 +613,21 @@
       <div class="kpis kpis--4">
         <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("lb.myRank")}</span>
           <span class="kpi__val">${meRow ? "#" + meRow.rank : t("lb.unranked")}</span>
-          <span class="kpi__sub">${meRow ? t("lb.of", { n: field }) : !joined ? t("lb.notJoined") : t("lb.needProfit")}${field ? ` · ${t("lb.profitable", { n: rows.length, f: field })}` : ""}</span></div>
+          <span class="kpi__sub">${meRow ? t("lb.of", { n: field }) : !joined ? t("lb.notJoined") : t("lb.needProfit")}${field ? ` · ${t("lb.profitable", { n: inProfit, f: field })}` : ""}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.total")}</span><span class="kpi__val ${cls(mine.total)}">${money(mine.total)}</span><span class="kpi__sub">${t("j.total.sub", { n: mine.count })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${mine.count ? fmt.num(mine.winRate, 1) + "%" : "–"}</span><span class="kpi__sub">${t("j.wr.sub", { w: mine.wins, l: mine.losses })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.pf")}</span><span class="kpi__val">${mine.count ? pf(mine.profitFactor) : "–"}</span><span class="kpi__sub">${t("j.pf.sub")}</span></div>
       </div>
       ${rows.length ? `<section class="podium" aria-label="${esc(t("lb.top3"))}"><div class="podium__sparks" aria-hidden="true">${Array.from({ length: 14 }, (_, k) => `<i style="--x:${(k * 37) % 100}%;--d:${(k * 1.7) % 9}s;--s:${6 + (k % 4) * 2}s"></i>`).join("")}</div>${podium}</section>
       <section class="card lb-board">
-        <h3>${t("lb.allTraders")} <span class="badge">${t("lb.count", { n: rows.length })}</span></h3>
+        <h3>${t("lb.allTraders")} <span class="badge">${t("lb.topOf", { n: Math.min(20, inProfit), m: inProfit })}</span></h3>
         <div class="lb-scroll"><div class="lb-list" role="table" aria-label="${esc(t("lb.allTraders"))}">
           <div class="lb-tr lb-tr--head" role="row">
             <span role="columnheader">${t("lb.col.rank")}</span><span role="columnheader">${t("lb.col.trader")}</span><span role="columnheader" class="c-tier">${t("lb.col.tier")}</span>
             <span role="columnheader" class="c-num c-trades">${t("j.col.trades")}</span><span role="columnheader" class="c-num">${t("lb.col.profit")}</span><span role="columnheader" class="c-num c-ret">${t("lb.col.return")}</span>
             <span role="columnheader" class="c-num c-wr">${t("j.col.wr")}</span><span role="columnheader" class="c-num c-pf">P.Factor</span><span role="columnheader" class="c-num c-wl">${t("lb.col.wl")}</span><span role="columnheader" class="c-num c-streak">${t("lb.col.streak")}</span>
           </div>
-          ${rows.map((r) => { const P = lbParts(r); return `<div class="lb-tr ${r.rank <= 3 ? "lb-tr--" + r.rank : ""} ${r.is_me ? "is-me" : ""}" role="row">
+          ${[...shown, ...(mineOutside ? [null, mineOutside] : [])].map((r) => { if (!r) return `<div class="lb-gap" role="row"><span role="cell">${t("lb.yourPlace")}</span></div>`; const P = lbParts(r); return `<div class="lb-tr ${r.rank <= 3 ? "lb-tr--" + r.rank : ""} ${r.is_me ? "is-me" : ""}" role="row">
             <span role="cell" class="c-rank">${r.rank <= 3 ? rowMedal(r.rank) : `<span class="lb-num">${String(r.rank).padStart(2, "0")}</span>`}</span>
             <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
             <span role="cell" class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></span>
@@ -637,6 +640,7 @@
             <span role="cell" class="c-num c-streak">${r.streak ? `<span class="lb-streak">${FLAME}${r.streak}</span>` : `<span class="muted">–</span>`}</span>
           </div>`; }).join("")}
         </div></div>
+        ${top.length > 10 ? `<div class="lb-more"><button class="btn btn--ghost" type="button" id="lb-more" aria-expanded="${!!state.lbMore}">${state.lbMore ? t("lb.less") : t("lb.more", { n: top.length })}</button></div>` : ""}
       </section>` : `<section class="card empty"><h3>${t("lb.empty.t")}</h3><p>${t("lb.empty.d")}</p></section>`}
       <p class="muted lb-foot">${t("lb.foot")}</p>
       ${joined ? `<section class="card lb-me">
@@ -645,6 +649,8 @@
             <button class="btn btn--quiet" type="button" id="lb-leave">${t("lb.leave")}</button></form>
         </section>` : ""}`;
 
+    const mb = $("#lb-more", v);
+    if (mb) mb.addEventListener("click", () => { state.lbMore = !state.lbMore; render(); });
     const saveLb = async (f, msg) => {
       try { state.me = await state.store.updateProfile(f); toast(msg); render(); } catch (err) { fail(err); }
     };

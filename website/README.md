@@ -81,7 +81,8 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - Members choose to join (Leaderboard page > Join) and pick the name others see. Nothing else about
   them is shown: no email, account number or balance. They can leave any time.
 - Only members **in net profit** (after commission and swap) for the period are ranked, by net
-  profit. The table also shows return on the starting balance, win rate, profit factor, average
+  profit. The top 20 are listed: the first 10 show straight away and "Show ranks 11–20" opens the
+  rest. A member ranked lower sees their own row under the list. The table also shows return on the starting balance, win rate, profit factor, average
   win / average loss, the current winning streak and a tier (from win rate, profit factor and
   win/loss size; fewer than 3 trades is "Rookie").
 - **Live / Demo** switch at the top right: each account is marked live or demo (Profile > Add account;

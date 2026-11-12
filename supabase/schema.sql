@@ -274,11 +274,14 @@ grant update (account_type) on public.broker_accounts to authenticated;
 
 -- Ranking for a period ('day' | 'week' | 'month' | 'all', Thai time) and an account type.
 -- Only approved members who opted in are counted, and only those in profit are ranked.
+-- Returns the top 20, plus the caller's own row if they rank lower.
 -- Returns the shown name and aggregates only: no ids, emails or balances.
+drop function if exists public.leaderboard(text, text);
 create or replace function public.leaderboard(p_period text, p_type text default 'live')
 returns table (
   rank int, display_name text, trades int, wins int, losses int, net numeric,
-  gross_win numeric, gross_loss numeric, streak int, return_pct numeric, is_me boolean, field_size int
+  gross_win numeric, gross_loss numeric, streak int, return_pct numeric, is_me boolean,
+  field_size int, in_profit int
 )
 language sql stable security definer set search_path = public as $$
   with b as (
@@ -309,19 +312,21 @@ language sql stable security definer set search_path = public as $$
   ), bal as (
     select user_id, sum(start_balance) as start_balance from broker_accounts where account_type = p_type group by user_id
   )
-  select (row_number() over (order by agg.net desc, agg.trades))::int,
-         coalesce(nullif(trim(p.leaderboard_name), ''), split_part(p.full_name, ' ', 1)),
-         agg.trades, agg.wins, agg.losses, round(agg.net, 2), round(agg.gross_win, 2), round(agg.gross_loss, 2),
-         stk.streak::int,
-         case when coalesce(bal.start_balance, 0) > 0 then round(agg.net / bal.start_balance * 100, 2) end,
-         agg.user_id = auth.uid(), agg.field_size::int
-    from agg
-    join profiles p on p.id = agg.user_id
-    join stk on stk.user_id = agg.user_id
-    left join bal on bal.user_id = agg.user_id
-   where agg.net > 0
-   order by agg.net desc, agg.trades
-   limit 200;
+  , ranked as (
+    select (row_number() over (order by agg.net desc, agg.trades))::int as rank,
+           coalesce(nullif(trim(p.leaderboard_name), ''), split_part(p.full_name, ' ', 1)) as display_name,
+           agg.trades, agg.wins, agg.losses, round(agg.net, 2) as net, round(agg.gross_win, 2) as gross_win,
+           round(agg.gross_loss, 2) as gross_loss, stk.streak::int as streak,
+           case when coalesce(bal.start_balance, 0) > 0 then round(agg.net / bal.start_balance * 100, 2) end as return_pct,
+           agg.user_id = auth.uid() as is_me, agg.field_size::int as field_size,
+           (count(*) over ())::int as in_profit
+      from agg
+      join profiles p on p.id = agg.user_id
+      join stk on stk.user_id = agg.user_id
+      left join bal on bal.user_id = agg.user_id
+     where agg.net > 0
+  )
+  select * from ranked where rank <= 20 or is_me order by rank;
 $$;
 revoke execute on function public.leaderboard(text, text) from public, anon;
 grant execute on function public.leaderboard(text, text) to authenticated;

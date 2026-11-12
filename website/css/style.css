@@ -733,3 +733,6 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
   .lb-medal { width: 32px; height: 32px; }
 }
 @media (prefers-reduced-motion: reduce) { .pod__banner, .podium__sparks i, .lb-tr::after { animation: none !important; } .podium__sparks { display: none; } }
+.lb-more { display: flex; justify-content: center; margin-top: 14px; }
+.lb-gap { display: flex; align-items: center; gap: 12px; padding: 6px 4px 0; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.lb-gap::before, .lb-gap::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--line), transparent); }
