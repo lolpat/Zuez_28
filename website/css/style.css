@@ -835,3 +835,23 @@ button.jc-d:hover { transform: translateY(-2px); }
 .score.score--stack { grid-template-columns: 1fr !important; justify-items: center; gap: 0; }
 .score--stack .gauge { width: min(100%, 210px); }
 .score--stack .radar { width: 100%; }
+
+/* journal: account strip (up to 10 accounts) */
+.acc-strip { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 8px; margin: -4px 0 12px; scrollbar-width: thin; }
+.acc-chip { position: relative; flex: none; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 14px 8px 10px; border-radius: 14px; cursor: pointer; text-align: left;
+  font: inherit; color: var(--text); background: var(--metal-red); border: 1px solid var(--line); box-shadow: var(--metal-edge); transition: border-color .2s, transform .15s; }
+.acc-chip:hover:not(:disabled) { border-color: rgba(var(--accent-2-rgb), .45); transform: translateY(-1px); }
+.acc-chip[aria-pressed="true"] { border-color: var(--accent); box-shadow: var(--metal-edge), 0 0 0 1px rgba(var(--accent-rgb), .35), 0 8px 22px rgba(var(--accent-rgb), .12); }
+.acc-chip img { width: 54px; height: auto; border-radius: 6px; flex: none; }
+.acc-chip__b { font-size: .72rem; padding: 3px 6px; border-radius: 6px; background: var(--bg-2); }
+.acc-chip__txt { display: flex; flex-direction: column; line-height: 1.25; }
+.acc-chip__txt b { font-weight: 600; font-size: .9rem; font-feature-settings: "tnum" 1; white-space: nowrap; }
+.acc-chip__txt small { font-size: .72rem; color: var(--muted); white-space: nowrap; }
+.acc-chip--all { padding-left: 14px; }
+.acc-chip__sync { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.acc-chip__sync--ok { background: var(--profit); box-shadow: 0 0 0 3px rgba(123, 211, 148, .18); }
+.acc-chip__sync--connecting { background: var(--accent); }
+.acc-chip__sync--error { background: var(--loss); }
+.acc-chip--add { border-style: dashed; border-color: rgba(var(--accent-rgb), .45); background: rgba(var(--accent-rgb), .04); box-shadow: none; }
+.acc-chip--add:disabled { opacity: .5; cursor: not-allowed; }
+.acc-chip__plus { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font-size: 1.2rem; line-height: 1; color: #1a1209; background: var(--metal-gold); flex: none; }

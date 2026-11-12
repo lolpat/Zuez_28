@@ -325,13 +325,23 @@
       <div class="view-head">
         <h2>Trading Journal</h2>
         <div class="actions">
-          <select class="input" id="acc-pick" aria-label="account" style="width:auto;min-height:44px">
-            <option value="all">${t("j.allAccounts")}</option>
-            ${state.accounts.map((a) => `<option value="${a.id}" ${f.account === a.id ? "selected" : ""}>${esc(accName(a))}</option>`).join("")}
-          </select>
           <button class="btn btn--ghost" type="button" id="btn-import">${t("j.import")}</button>
           <button class="btn btn--gold" type="button" id="btn-add">${t("j.add")}</button>
         </div>
+      </div>
+      <div class="acc-strip" role="group" aria-label="${esc(t("acc.strip"))}">
+        <button type="button" class="acc-chip acc-chip--all" data-acc="all" aria-pressed="${f.account === "all"}">
+          <span class="acc-chip__txt"><b>${t("j.allAccounts")}</b><small>${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</small></span>
+        </button>
+        ${state.accounts.map((a) => { const b = cfg.BROKERS.find((x) => x.id === a.broker); const n = state.trades.filter((x) => x.account_id === a.id).length;
+          return `<button type="button" class="acc-chip" data-acc="${a.id}" aria-pressed="${f.account === a.id}" title="${esc(accName(a))}">
+            ${b && b.logo ? `<img src="${b.logo}" alt="${esc(b.name)}" width="54" height="22">` : `<span class="acc-chip__b">${esc(brokerName(a.broker))}</span>`}
+            <span class="acc-chip__txt"><b>${esc(a.account_number)}</b><small>${a.account_type === "demo" ? "Demo" : "Live"} · ${t("j.cal.trades", { n })}</small></span>
+            ${a.metaapi_id ? `<i class="acc-chip__sync acc-chip__sync--${a.sync_status || "off"}" title="${esc(t("sync." + (a.sync_status || "off")))}"></i>` : ""}
+          </button>`; }).join("")}
+        <button type="button" class="acc-chip acc-chip--add" id="acc-add" ${state.accounts.length >= maxAcc() ? "disabled" : ""} title="${esc(state.accounts.length >= maxAcc() ? t("acc.limit", { m: maxAcc() }) : t("prof.addAcc"))}">
+          <span class="acc-chip__plus" aria-hidden="true">+</span><span class="acc-chip__txt"><b>${t("prof.addAcc")}</b><small>${state.accounts.length >= maxAcc() ? t("acc.full") : t("acc.left", { n: maxAcc() - state.accounts.length })}</small></span>
+        </button>
       </div>
       ${syncOn() && state.accounts.length ? (() => {
         const on = state.accounts.filter((a) => a.metaapi_id);
@@ -419,7 +429,9 @@
       const setRange = () => { f.from = fFrom.value; f.to = fTo.value; if (f.from && f.to && f.from > f.to) [f.from, f.to] = [f.to, f.from]; state.daysShown = 31; render(); };
       fFrom.addEventListener("change", setRange); fTo.addEventListener("change", setRange);
     }
-    $("#acc-pick", v).addEventListener("change", (e) => { f.account = e.target.value; render(); });
+    $$("[data-acc]", v).forEach((b) => b.addEventListener("click", () => { f.account = b.dataset.acc; state.cal = null; state.shown = 25; render(); }));
+    $("#acc-add", v).addEventListener("click", () => addAccountModal((a) => { f.account = a.id; state.cal = null; render(); }));
+    { const on = $('.acc-strip [aria-pressed="true"]', v), strip = $(".acc-strip", v); if (on && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = on.offsetLeft - 16; }
     $("#sym-pick", v).addEventListener("change", (e) => { f.symbol = e.target.value; render(); });
     $("#btn-import", v).addEventListener("click", importModal);
     const sn = $("#sync-now", v); if (sn) sn.addEventListener("click", () => runSyncNow(state.accounts.filter((a) => a.metaapi_id).map((a) => a.id), sn));
@@ -796,6 +808,35 @@
     });
   }
 
+  const maxAcc = () => cfg.MAX_ACCOUNTS || 10;
+  function addAccountModal(after) {
+    if (state.accounts.length >= maxAcc()) { toast(t("acc.limit", { m: maxAcc() })); return; }
+    openModal(t("prof.addAcc"), `
+      <p class="muted" style="margin:0 0 12px;font-size:.86rem">${t("acc.count", { n: state.accounts.length, m: maxAcc() })}</p>
+      <form class="form-grid form-grid--2" id="acc-form">
+        <label class="field"><span>${t("auth.broker")}</span><select class="input" name="broker">${cfg.BROKERS.map((b) => `<option value="${b.id}">${b.name}</option>`).join("")}</select></label>
+        <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
+        <label class="field span-2"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live">${t("lb.live")}</option><option value="demo">${t("lb.demo")}</option></select><small>${t("prof.type.hint")}</small></label>
+        <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" required><small>${t("auth.account.hint")}</small></label>
+        <label class="field"><span>${t("prof.server")}</span><input class="input" name="server" placeholder="${esc(t("prof.server.ph"))}"></label>
+        <label class="field"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="0"></label>
+        <div id="acc-msg" class="span-2"></div>
+        <div class="modal__foot span-2"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${t("app.save")}</button></div>
+      </form>`, (box) => {
+      $("#acc-form", box).addEventListener("submit", async (e) => {
+        e.preventDefault(); const F = e.target;
+        if (!F.account_number.value.trim()) { F.account_number.setAttribute("aria-invalid", "true"); return; }
+        try {
+          await state.store.addAccount({ broker: F.broker.value, platform: F.platform.value, account_type: F.account_type.value, account_number: F.account_number.value.trim(), server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 });
+          const before = new Set(state.accounts.map((x) => x.id));
+          await reload(["accounts"]); closeModal(); toast(t("app.saved"));
+          const added = state.accounts.find((x) => !before.has(x.id));
+          if (after && added) after(added); else render();
+        } catch (err) { $("#acc-msg", box).innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : err.message === "account-limit" ? t("acc.limit", { m: maxAcc() }) : esc(err.message)}</p>`; }
+      });
+    });
+  }
+
   const FEELINGS = ["calm", "focused", "confident", "anxious", "fomo", "revenge", "tired"];
   function noteModal(tr) {
     if (!tr) return;
@@ -1117,26 +1158,7 @@
         await reload(["accounts", "trades"]); toast(t("prof.removed")); render();
       } catch (err) { b.disabled = false; fail(err); }
     }));
-    $("#add-acc", v).addEventListener("click", () => openModal(t("prof.addAcc"), `
-      <form class="form-grid form-grid--2" id="acc-form">
-        <label class="field"><span>${t("auth.broker")}</span><select class="input" name="broker">${cfg.BROKERS.map((b) => `<option value="${b.id}">${b.name}</option>`).join("")}</select></label>
-        <label class="field"><span>${t("auth.platform")}</span><select class="input" name="platform"><option>MT5</option><option>MT4</option></select></label>
-        <label class="field span-2"><span>${t("prof.type")}</span><select class="input" name="account_type"><option value="live">${t("lb.live")}</option><option value="demo">${t("lb.demo")}</option></select><small>${t("prof.type.hint")}</small></label>
-        <label class="field span-2"><span>${t("auth.account")}</span><input class="input" name="account_number" inputmode="numeric" required><small>${t("auth.account.hint")}</small></label>
-        <label class="field"><span>${t("prof.server")}</span><input class="input" name="server" placeholder="${esc(t("prof.server.ph"))}"></label>
-        <label class="field"><span>${t("prof.start")}</span><input class="input" name="start_balance" type="number" inputmode="decimal" value="0"></label>
-        <div id="acc-msg" class="span-2"></div>
-        <div class="modal__foot span-2"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${t("app.save")}</button></div>
-      </form>`, (box) => {
-      $("#acc-form", box).addEventListener("submit", async (e) => {
-        e.preventDefault(); const F = e.target;
-        if (!F.account_number.value.trim()) { F.account_number.setAttribute("aria-invalid", "true"); return; }
-        try {
-          await state.store.addAccount({ broker: F.broker.value, platform: F.platform.value, account_type: F.account_type.value, account_number: F.account_number.value.trim(), server: F.server.value.trim(), start_balance: +F.start_balance.value || 0 });
-          await reload(["accounts"]); closeModal(); toast(t("app.saved")); render();
-        } catch (err) { $("#acc-msg", box).innerHTML = `<p class="alert alert--err">${err.message === "account-taken" ? t("prof.taken") : esc(err.message)}</p>`; }
-      });
-    }));
+    $("#add-acc", v).addEventListener("click", () => addAccountModal());
     $$("[data-sync-connect]", v).forEach((b) => b.addEventListener("click", () => connectModal(state.accounts.find((a) => a.id === b.dataset.syncConnect))));
     $$("[data-sync-now]", v).forEach((b) => b.addEventListener("click", () => runSyncNow([b.dataset.syncNow], b)));
     $$("[data-sync-off]", v).forEach((b) => b.addEventListener("click", async () => {

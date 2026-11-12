@@ -348,3 +348,17 @@ begin
 end $$;
 revoke execute on function public.set_account_type(uuid, text) from public, anon;
 grant execute on function public.set_account_type(uuid, text) to authenticated;
+
+-- ---------------------------------------------------------------- at most 10 broker accounts per member
+create or replace function public.limit_accounts()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  perform pg_advisory_xact_lock(hashtext(new.user_id::text));
+  if (select count(*) from broker_accounts where user_id = new.user_id) >= 10 then
+    raise exception 'account-limit';
+  end if;
+  return new;
+end $$;
+drop trigger if exists broker_accounts_limit on public.broker_accounts;
+create trigger broker_accounts_limit before insert on public.broker_accounts
+  for each row execute function public.limit_accounts();

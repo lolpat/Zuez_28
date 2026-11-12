@@ -193,6 +193,7 @@
     async listAccounts() { return db.accounts.filter((a) => a.user_id === db.session); },
     async addAccount(a) {
       if (db.accounts.some((x) => x.broker === a.broker && x.account_number === a.account_number)) throw new Error("account-taken");
+      if (db.accounts.filter((x) => x.user_id === db.session).length >= (cfg.MAX_ACCOUNTS || 10)) throw new Error("account-limit");
       const acc = { id: uid(), user_id: db.session, server: "", platform: "MT5", currency: "USD", start_balance: 0, created_at: new Date().toISOString(), ...a };
       db.accounts.push(acc); saveDemo(); return acc;
     },
@@ -310,7 +311,7 @@
     async listAccounts() { return must(await sb.from("broker_accounts").select("*").eq("user_id", profileCache.id).order("created_at")); },
     async addAccount(a) {
       const { data, error } = await sb.from("broker_accounts").insert({ ...a, user_id: profileCache.id }).select().single();
-      if (error) throw new Error(/duplicate/i.test(error.message) ? "account-taken" : error.message);
+      if (error) throw new Error(/duplicate/i.test(error.message) ? "account-taken" : /account-limit/.test(error.message) ? "account-limit" : error.message);
       return data;
     },
     async updateAccount(id, f) { return must(await sb.from("broker_accounts").update(f).eq("id", id).select().single()); },

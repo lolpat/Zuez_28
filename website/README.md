@@ -70,6 +70,10 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Balance** = the starting balance set per account in Profile + all net profit.
 - **Trading score** = average of six 0–100 parts: win rate, profit factor, average win vs average
   loss, recovery (net profit ÷ max drawdown), drawdown control, share of profitable weeks.
+- **Accounts:** each member can add up to **10** MT4/MT5 accounts from any of the three brokers
+  (`MAX_ACCOUNTS` in `js/config.js`; the database refuses an 11th as well). The journal shows them
+  as a strip of cards (broker logo, number, live/demo, trade count, sync dot) with "All accounts" first
+  and "Add account" last; tap one to see only that account.
 - **Layout:** six tiles on top (balance, win rate, net P/L, max drawdown, best day, worst day), then a
   full-width **trading calendar** (Monday first, each day's P/L, trades and win rate, a total for each
   week; tap a day to see its trades), then account balance, results by symbol and daily P/L, then four

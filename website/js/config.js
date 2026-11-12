@@ -7,6 +7,9 @@ window.OTM_CONFIG = {
   SUPABASE_URL: "",
   SUPABASE_ANON_KEY: "",
 
+  // Most MT4/MT5 accounts one member can add (keeps the journal quick). The database enforces 10 too.
+  MAX_ACCOUNTS: 10,
+
   // Automatic MT4/MT5 history (members connect an account with its read-only investor password).
   // Needs the mt-sync function and a MetaApi token in Supabase (see README). Set to false to hide it.
   AUTO_SYNC: true,
