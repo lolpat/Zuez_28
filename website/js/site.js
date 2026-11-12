@@ -20,7 +20,60 @@
   }
 
   // ------------------------------------------------------------ landing
+  const usd = (n) => "$" + Number(n).toLocaleString("en-US");
+  function bonusBox(x) {
+    if (!x || (!x.first && !x.next)) return "";
+    const cell = (key, pct, sub) => pct ? `<div class="bonus__cell">
+        <span class="bonus__lbl" data-i18n="${key}"></span>
+        <b class="bonus__pct">${pct}%</b>
+        ${sub || ""}
+      </div>` : "";
+    const firstSub = x.firstMax ? `<small><span data-i18n="bonus.upto"></span> ${usd(x.firstMax)}</small>` : "";
+    return `<div class="bonus">
+      <p class="bonus__kicker" data-i18n="bonus.kicker"></p>
+      <div class="bonus__row">${cell("bonus.first", x.first, firstSub)}${cell("bonus.next", x.next, "")}</div>
+      ${x.cap ? `<p class="bonus__cap"><span data-i18n="bonus.cap"></span> ${usd(x.cap)}</p>` : ""}
+    </div>`;
+  }
+  // first-deposit bonus panel: pick a broker, see what a deposit turns into
+  function bonusCalc() {
+    const box = $("#bonus-calc");
+    if (!box) return;
+    const list = cfg.BROKERS.filter((b) => b.bonus && b.bonus.first);
+    if (!list.length) { box.remove(); return; }
+    let cur = list[0].id;
+    const shield = `<svg class="calc__icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.6c0 4.6-3.2 8.3-7.5 9.4-4.3-1.1-7.5-4.8-7.5-9.4V6z"/><path d="M8.6 12.2l2.4 2.4 4.5-4.8"/></svg>`;
+    const draw = () => {
+      const b = list.find((o) => o.id === cur), x = b.bonus;
+      const mult = String(+(1 + x.first / 100).toFixed(2));
+      const tiles = [300, 500, 1000].map((d) => {
+        const bonus = Math.min(d * x.first / 100, x.firstMax || Infinity);
+        return `<div class="calc__tile">
+            <span class="calc__dep">${usd(d)} <i aria-hidden="true">→</i></span>
+            <b class="calc__bal">${usd(d + bonus)}</b>
+            <small>+${usd(bonus)} <span data-i18n="calc.credit"></span></small>
+          </div>`;
+      }).join("");
+      const ready = b.url && b.url !== "#";
+      box.innerHTML = `
+        <div class="calc__head">${shield}<h3 data-i18n="calc.title"></h3></div>
+        <div class="calc__tabs" role="tablist" data-i18n-aria="calc.pick">
+          ${list.map((o) => `<button type="button" role="tab" class="calc__tab" aria-selected="${o.id === cur}" data-b="${o.id}">${o.name} <em>${o.bonus.first}%</em></button>`).join("")}
+        </div>
+        <p class="calc__lead">${t("calc.lead", { name: b.name, pct: x.first, mult })}${x.firstMax ? " " + t("calc.max", { max: usd(x.firstMax) }) : ""}</p>
+        <ol class="calc__steps"><li data-i18n="calc.s1"></li><li data-i18n="calc.s2"></li><li data-i18n="calc.s3"></li></ol>
+        <div class="calc__tiles">${tiles}</div>
+        ${ready ? `<a class="btn btn--gold calc__cta" href="${b.url}" target="_blank" rel="noopener sponsored">${t("calc.cta", { name: b.name, pct: x.first })}
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>` : ""}
+        ${b.code ? `<p class="calc__code"><span data-i18n="brokers.code"></span> <b>${b.code}</b></p>` : ""}`;
+      apply(box);
+      box.querySelectorAll("[data-b]").forEach((btn) => btn.addEventListener("click", () => { cur = btn.dataset.b; draw(); box.querySelector(`[data-b="${cur}"]`).focus(); }));
+    };
+    draw();
+    document.addEventListener("otm:lang", draw);
+  }
   function landing() {
+    bonusCalc();
     const box = $("#brokers");
     if (box) {
       box.innerHTML = cfg.BROKERS.map((b) => {
@@ -28,6 +81,7 @@
         return `<article class="broker reveal">
           ${b.logo ? `<img class="broker__logo" src="${b.logo}" alt="${b.name}" width="200" height="80" loading="lazy">` : ""}
           <h3 ${b.logo ? 'class="sr-only"' : ""}>${b.name}</h3>
+          ${bonusBox(b.bonus)}
           ${b.code ? `<div class="broker__code"><span data-i18n="brokers.code"></span><b>${b.code}</b>
             <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
           ${ready ? `<a class="btn btn--gold" href="${b.url}" target="_blank" rel="noopener sponsored" data-i18n="brokers.open"></a>`
