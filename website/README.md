@@ -26,8 +26,9 @@ Or type a sample email (`krit@demo`, `somchai@demo`, `nok@demo`, `owner@demo`) w
 - `TELEGRAM_URL` / `TELEGRAM_HANDLE`: set to https://t.me/zuez_28. Every "Talk to the team" button and
   the landing page's Telegram button open it. **This is where visitors' questions end up.**
 - `BROKERS[]`: your IB sign-up link and broker referral code for Vantage (ZUEZ28), PU Prime
-  (OTM2028) and VT Markets (OTM2028). The landing page shows each code with a Copy button next to
-  an "Open through our link" button. These broker codes are separate from the portal referral
+  (OTM2028) and VT Markets (OTM2028), plus each one's deposit bonus. The landing page shows one
+  broker panel: a visitor picks a broker at the top and sees its bonus, its code with a Copy button,
+  the "Open … and get the …% bonus" link and what a $300 / $500 / $1,000 first deposit becomes. These broker codes are separate from the portal referral
   codes IBs share for registering on this site.
 - `AUTO_SYNC`: shows the "Automatic history" feature (connect an MT4/MT5 account with its investor
   password). Leave it `true` once the steps in "Automatic MT4/MT5 history" below are done; set it to

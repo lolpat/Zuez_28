@@ -40,68 +40,61 @@
       <p class="bonus__cap">${x.cap ? `<span data-i18n="bonus.cap"></span> ${usd(x.cap)}` : `<span data-i18n="bonus.noCap"></span>`}</p>
     </div>`;
   }
-  // first-deposit bonus panel: pick a broker, see what a deposit turns into
-  function bonusCalc() {
-    const box = $("#bonus-calc");
-    if (!box) return;
-    const list = cfg.BROKERS.filter((b) => b.bonus && b.bonus.first);
-    if (!list.length) { box.remove(); return; }
-    let cur = list[0].id;
+  // broker panel: pick a broker at the top, see its bonus, code, link and what a deposit turns into
+  function brokerPanel() {
+    const box = $("#brokers");
+    if (!box || !cfg.BROKERS.length) return;
+    let cur = cfg.BROKERS[0].id;
     const shield = `<svg class="calc__icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.6c0 4.6-3.2 8.3-7.5 9.4-4.3-1.1-7.5-4.8-7.5-9.4V6z"/><path d="M8.6 12.2l2.4 2.4 4.5-4.8"/></svg>`;
-    const draw = () => {
-      const b = list.find((o) => o.id === cur), x = b.bonus;
-      const mult = String(+(1 + x.first / 100).toFixed(2));
-      const tiles = [300, 500, 1000].map((d) => {
+    const ext = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
+    const draw = (focus) => {
+      const b = cfg.BROKERS.find((o) => o.id === cur), x = b.bonus || {}, ready = b.url && b.url !== "#";
+      const mult = x.first ? String(+(1 + x.first / 100).toFixed(2)) : "";
+      const tiles = x.first ? [300, 500, 1000].map((d) => {
         const bonus = Math.min(d * x.first / 100, x.firstMax || Infinity);
         return `<div class="calc__tile">
             <span class="calc__dep">${usd(d)} <i aria-hidden="true">→</i></span>
             <b class="calc__bal">${usd(d + bonus)}</b>
             <small>+${usd(bonus)} <span data-i18n="calc.credit"></span></small>
           </div>`;
-      }).join("");
-      const ready = b.url && b.url !== "#";
+      }).join("") : "";
       box.innerHTML = `
-        <div class="calc__head">${shield}<h3 data-i18n="calc.title"></h3></div>
-        <div class="calc__tabs" role="tablist" data-i18n-aria="calc.pick">
-          ${list.map((o) => `<button type="button" role="tab" class="calc__tab" aria-selected="${o.id === cur}" data-b="${o.id}">${o.name} <em>${o.bonus.first}%</em></button>`).join("")}
+        <div class="bx-tabs" role="tablist" data-i18n-aria="calc.pick">
+          ${cfg.BROKERS.map((o) => `<button type="button" role="tab" class="bx-tab" aria-selected="${o.id === cur}" data-b="${o.id}">
+            ${o.logo ? `<img src="${o.logo}" alt="${o.name}" width="150" height="60">` : `<span class="bx-tab__name">${o.name}</span>`}
+            ${o.bonus && o.bonus.first ? `<em>${o.bonus.first}%</em>` : ""}</button>`).join("")}
         </div>
-        <p class="calc__lead">${t("calc.lead", { name: b.name, pct: x.first, mult })}${x.firstMax ? " " + t("calc.max", { max: usd(x.firstMax) }) : ""}</p>
-        <ol class="calc__steps"><li data-i18n="calc.s1"></li><li data-i18n="calc.s2"></li><li data-i18n="calc.s3"></li></ol>
-        <div class="calc__tiles">${tiles}</div>
-        ${ready ? `<a class="btn btn--gold calc__cta" href="${b.url}" target="_blank" rel="noopener sponsored">${t("calc.cta", { name: b.name, pct: x.first })}
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>` : ""}
-        ${b.code ? `<p class="calc__code"><span data-i18n="brokers.code"></span> <b>${b.code}</b></p>` : ""}`;
+        <div class="bx-body" role="tabpanel">
+          <div class="bx-left">
+            ${bonusBox(b.bonus)}
+            ${b.code ? `<div class="broker__code"><span class="broker__codelbl" data-i18n="brokers.code"></span><b>${b.code}</b>
+              <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
+            ${ready ? `<a class="btn btn--gold bx-cta" href="${b.url}" target="_blank" rel="noopener sponsored">${x.first ? t("calc.cta", { name: b.name, pct: x.first }) : t("brokers.open")} ${ext}</a>`
+                    : `<span class="badge" data-i18n="brokers.soon"></span>`}
+          </div>
+          <div class="bx-right">
+            <div class="calc__head">${shield}<h3 data-i18n="calc.title"></h3></div>
+            ${x.first ? `<p class="calc__lead">${t("calc.lead", { name: b.name, pct: x.first, mult })}${x.firstMax ? " " + t("calc.max", { max: usd(x.firstMax) }) : ""}</p>` : ""}
+            <ol class="calc__steps"><li data-i18n="calc.s1"></li><li data-i18n="calc.s2"></li><li data-i18n="calc.s3"></li></ol>
+            ${tiles ? `<div class="calc__tiles">${tiles}</div>` : ""}
+          </div>
+        </div>`;
       apply(box);
-      box.querySelectorAll("[data-b]").forEach((btn) => btn.addEventListener("click", () => { cur = btn.dataset.b; draw(); box.querySelector(`[data-b="${cur}"]`).focus(); }));
-    };
-    draw();
-    document.addEventListener("otm:lang", draw);
-  }
-  function landing() {
-    bonusCalc();
-    if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
-    if (window.OTMSignals) window.OTMSignals.render($("[data-signals]"));
-    const box = $("#brokers");
-    if (box) {
-      box.innerHTML = cfg.BROKERS.map((b) => {
-        const ready = b.url && b.url !== "#";
-        return `<article class="broker reveal">
-          ${b.logo ? `<img class="broker__logo" src="${b.logo}" alt="${b.name}" width="200" height="80" loading="lazy">` : ""}
-          <h3 ${b.logo ? 'class="sr-only"' : ""}>${b.name}</h3>
-          ${bonusBox(b.bonus)}
-          ${b.code ? `<div class="broker__code"><span class="broker__codelbl" data-i18n="brokers.code"></span><b>${b.code}</b>
-            <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
-          ${ready ? `<a class="btn btn--gold" href="${b.url}" target="_blank" rel="noopener sponsored" data-i18n="brokers.open"></a>`
-                  : `<span class="badge" data-i18n="brokers.soon"></span>`}
-        </article>`;
-      }).join("");
+      box.querySelectorAll("[data-b]").forEach((btn) => btn.addEventListener("click", () => { cur = btn.dataset.b; draw(true); }));
       box.querySelectorAll("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
         try { await navigator.clipboard.writeText(btn.dataset.copy); } catch { const el = btn.previousElementSibling, r = document.createRange(); r.selectNodeContents(el); getSelection().removeAllRanges(); getSelection().addRange(r); return; }
         btn.textContent = t("app.copied");
         setTimeout(() => { btn.textContent = t("app.copy"); }, 1600);
       }));
-      apply(box);
-    }
+      if (focus) box.querySelector(`[data-b="${cur}"]`).focus();
+    };
+    draw();
+    document.addEventListener("otm:lang", () => draw());
+  }
+  function landing() {
+    brokerPanel();
+    if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
+    if (window.OTMSignals) window.OTMSignals.render($("[data-signals]"));
     // sample journal card: a made-up month and equity line (labelled as samples on the card)
     const cal = $("#jx-cal"), eq = $("#jx-eq");
     if (cal) {
