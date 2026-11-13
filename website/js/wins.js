@@ -18,7 +18,7 @@
   // videos play muted and looped in the rows; they carry no sound
   function media(w) {
     if (isVid(w)) return `<video src="${esc(w.src)}"${w.poster ? ` poster="${esc(w.poster)}"` : ""} muted loop playsinline preload="metadata"${still ? "" : " autoplay"} aria-label="${esc(w.alt || t("wins.alt"))}"></video><span class="win__play" aria-hidden="true">▶</span>`;
-    return `<img src="${esc(w.src)}" alt="${esc(w.alt || t("wins.alt"))}" loading="lazy" decoding="async">`;
+    return `<img src="${esc(w.thumb || w.src)}" alt="${esc(w.alt || t("wins.alt"))}" loading="lazy" decoding="async">`;
   }
   function tile(w, copy) {
     const hide = copy ? ' aria-hidden="true" tabindex="-1"' : "";

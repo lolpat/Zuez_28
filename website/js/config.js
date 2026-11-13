@@ -8,35 +8,10 @@ window.OTM_CONFIG = {
   SUPABASE_ANON_KEY: "",
 
   // Member wins: profit screenshots shown on the home page (two moving rows) and on the Client Profit
-  // page. Put the files in assets/img/wins/ and list them here, e.g.
-  //   WINS: ["assets/img/wins/01.jpg", { src: "assets/img/wins/02.jpg", alt: "XAUUSD +$118" }],
-  // With an empty list the demo shows empty frames; the live site hides the section.
-  WINS: [
-    "assets/img/wins/win-01.jpg",
-    "assets/img/wins/win-02.jpg",
-    "assets/img/wins/win-03.jpg",
-    { src: "assets/img/wins/clip-01.mp4", poster: "assets/img/wins/clip-01.jpg" },
-    "assets/img/wins/win-04.jpg",
-    "assets/img/wins/win-05.jpg",
-    "assets/img/wins/win-06.jpg",
-    "assets/img/wins/win-07.jpg",
-    "assets/img/wins/win-08.jpg",
-    "assets/img/wins/win-09.jpg",
-    "assets/img/wins/win-10.jpg",
-    "assets/img/wins/win-11.jpg",
-    "assets/img/wins/win-12.jpg",
-    "assets/img/wins/win-13.jpg",
-    { src: "assets/img/wins/clip-02.mp4", poster: "assets/img/wins/clip-02.jpg" },
-    "assets/img/wins/win-14.jpg",
-    "assets/img/wins/win-15.jpg",
-    "assets/img/wins/win-16.jpg",
-    "assets/img/wins/win-17.jpg",
-    "assets/img/wins/win-18.jpg",
-    "assets/img/wins/win-19.jpg",
-    "assets/img/wins/win-20.jpg",
-    "assets/img/wins/win-21.jpg",
-    "assets/img/wins/win-22.jpg"
-  ],
+  // page. Files go in assets/img/wins/; js/wins-data.js lists them ({ src, thumb } or a clip
+  // { src: "...mp4", poster }). With an empty list the demo shows empty frames and the live site hides it.
+  // The list itself lives in js/wins-data.js.
+  WINS: [],
 
   // Most MT4/MT5 accounts one member can add (keeps the journal quick). The database enforces 10 too.
   MAX_ACCOUNTS: 10,
