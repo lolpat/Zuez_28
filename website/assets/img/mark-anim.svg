@@ -25,7 +25,7 @@
   .s4 { animation-delay: 1.65s, 2.2s; } .s5 { animation-delay: 1.75s, 3.3s; } .s6 { animation-delay: 1.85s, 2.8s; } .s7 { animation-delay: 1.95s, 3.9s; }
   @keyframes pop { from { opacity: 0; transform: scale(0) rotate(-90deg); } }
   @keyframes twinkle { 0%, 100% { opacity: 1; transform: scale(1) rotate(0); } 45% { opacity: .2; transform: scale(.45) rotate(45deg); } }
-  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } .sheen { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .p-spark { animation-duration: .45s, 5s; } }
 </style><g transform="matrix(1.9211538461538462 0 0 1.9211538461538462 640 417.0399312231501)" id="logo-logo"  >
 <g style=""  paint-order="stroke"   >
 		<g transform="matrix(0.8238682813246218 0 0 0.8238682813246218 -1.538944033424002 5.508716837690059)"  >

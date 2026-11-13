@@ -64,6 +64,7 @@
       "bonus.first": "ฝากครั้งแรก",
       "bonus.next": "ฝากครั้งถัดไป",
       "bonus.upto": "สูงสุด",
+      "bonus.noCap": "ดูเพดานโบนัสรวมบนเว็บโบรก",
       "bonus.cap": "โบนัสรวมสูงสุด",
       "bonus.note": "โบนัสเป็นเครดิตสำหรับเทรด ถอนเป็นเงินสดไม่ได้ ตัวเลขและเงื่อนไขขึ้นอยู่กับแคมเปญและประเทศของแต่ละโบรกในช่วงนั้น อ่านเงื่อนไขบนเว็บโบรกก่อนฝาก",
 
@@ -624,6 +625,7 @@
       "bonus.first": "First deposit",
       "bonus.next": "Later deposits",
       "bonus.upto": "Up to",
+      "bonus.noCap": "Total limit: see the broker's terms",
       "bonus.cap": "Total bonus up to",
       "bonus.note": "Bonuses are trading credit and can't be withdrawn as cash. Rates and terms depend on each broker's current campaign and your country. Read the terms on the broker's site before you deposit.",
 

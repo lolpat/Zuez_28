@@ -1003,3 +1003,75 @@ button.jc-d:hover { transform: translateY(-2px); }
 .wins .win { background: #000; }
 .wins .win img, .wins .win video { max-width: 440px; object-fit: contain; }
 @media (max-width: 640px) { .wins .win img, .wins .win video { max-width: 280px; } }
+
+/* ------------------------------------------------------------------ the logo as the centre of a small universe
+   Everything turns clockwise around the mark: three orbits with planets and comet tails, the gold arc,
+   slow light rays behind the logo, and two layers of twinkling stars. */
+.cosmos { isolation: isolate; }
+.cosmos__stars { position: absolute; inset: -6%; border-radius: 50%; pointer-events: none; z-index: -1;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 22%, #fff6d6, transparent), radial-gradient(1px 1px at 28% 78%, #f0d68c, transparent),
+    radial-gradient(1.2px 1.2px at 74% 14%, #fff, transparent), radial-gradient(1px 1px at 88% 62%, #ffc9d4, transparent),
+    radial-gradient(1.6px 1.6px at 62% 90%, #f0d68c, transparent), radial-gradient(1px 1px at 8% 56%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 46% 6%, #ffe6a8, transparent), radial-gradient(1px 1px at 94% 34%, #fff, transparent);
+  -webkit-mask-image: radial-gradient(circle, transparent 30%, #000 46%); mask-image: radial-gradient(circle, transparent 30%, #000 46%);
+  animation: spin 160s linear infinite, twinkle 5s ease-in-out infinite; }
+.cosmos__stars--2 { inset: 0; transform: rotate(40deg); animation: spin 110s linear infinite, twinkle 4s ease-in-out infinite; animation-delay: 0s, -2s;
+  background-image:
+    radial-gradient(1px 1px at 18% 40%, #fff, transparent), radial-gradient(1.3px 1.3px at 82% 80%, #f0d68c, transparent),
+    radial-gradient(1px 1px at 40% 96%, #fff, transparent), radial-gradient(1.2px 1.2px at 58% 4%, #ffc9d4, transparent),
+    radial-gradient(1px 1px at 96% 50%, #fff6d6, transparent), radial-gradient(1.2px 1.2px at 4% 30%, #f0d68c, transparent); }
+@keyframes twinkle { 0%, 100% { opacity: .9; } 50% { opacity: .35; } }
+
+/* orbits: a thin ring with a comet tail that follows its planet round */
+.cosmos__orb { position: absolute; border-radius: 50%; animation: spin var(--t) linear infinite; animation-delay: var(--d, 0s); }
+.cosmos__orb::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 62%, rgba(var(--c), .05) 72%, rgba(var(--c), .75) 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); }
+.cosmos__orb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(var(--c), .1); }
+.cosmos__orb--a { inset: 1%;  --t: 26s; --c: 240, 214, 140; --d: -4s; }
+.cosmos__orb--b { inset: 9%;  --t: 17s; --c: 229, 33, 80;   --d: -9s; }
+.cosmos__orb--c { inset: 16%; --t: 11s; --c: 255, 246, 214; --d: -2s; }
+.cosmos__orb--b::after { border-style: dashed; }
+.cosmos__planet { position: absolute; top: 0; left: 50%; border-radius: 50%; transform: translate(-50%, -50%); }
+.cosmos__planet--gold { width: 14px; height: 14px; background: radial-gradient(circle at 35% 30%, #fff6d6, #e6c76e 45%, #8f6a1c);
+  box-shadow: 0 0 14px 3px rgba(240, 214, 140, .55), 0 0 40px 6px rgba(240, 214, 140, .2); }
+.cosmos__planet--red { width: 10px; height: 10px; background: radial-gradient(circle at 35% 30%, #ffd0d9, #e52150 50%, #6d0317);
+  box-shadow: 0 0 12px 3px rgba(229, 33, 80, .55); }
+.cosmos__planet--tiny { top: auto; bottom: 0; width: 5px; height: 5px; transform: translate(-50%, 50%); background: #f0d68c; box-shadow: 0 0 8px 2px rgba(240, 214, 140, .6); }
+.cosmos__planet--spark { width: 6px; height: 6px; background: #fff; box-shadow: 0 0 10px 3px rgba(255, 246, 214, .8); }
+
+/* the gold arc now sweeps clockwise too */
+.cosmos .orbit__arc { animation: spin 14s linear infinite; animation-delay: -5s; }
+.cosmos .orbit__ring--1 { border-color: rgba(var(--accent-2-rgb), .14); }
+
+/* light rays turning slowly behind the logo */
+.cosmos__rays { position: absolute; inset: 14%; border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg, rgba(240, 214, 140, .10) 0deg 4deg, transparent 4deg 22deg);
+  -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 70%); mask-image: radial-gradient(circle, #000 18%, transparent 70%);
+  animation: spin 38s linear infinite; }
+
+/* the owner wants this always moving; with reduce-motion on it just turns more slowly */
+@media (prefers-reduced-motion: reduce) {
+  .cosmos .cosmos__orb { animation: spin calc(var(--t) * 2) linear infinite !important; }
+  .cosmos .orbit__arc { animation: spin 28s linear infinite !important; }
+  .cosmos .cosmos__rays { animation: spin 76s linear infinite !important; }
+  .cosmos .cosmos__stars { animation: spin 200s linear infinite !important; }
+  .cosmos .orbit__mark { animation: floaty 10s ease-in-out infinite !important; }
+}
+@media (max-width: 520px) { .cosmos__planet--gold { width: 11px; height: 11px; } }
+
+/* broker cards: logo, bonus, code and button sit on the same lines in all three cards */
+@media (min-width: 760px) {
+  .brokers { grid-template-rows: auto auto auto auto; row-gap: 0; }
+  .broker { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 18px; align-content: start; }
+}
+.broker__logo { height: 64px; }
+.broker .bonus { align-self: stretch; display: flex; flex-direction: column; }
+.broker .bonus__cap { margin-top: auto; padding-top: 10px; }
+.broker__code { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-items: center; column-gap: 8px; row-gap: 0; padding: 10px 8px 10px 14px; }
+.broker__codelbl { grid-column: 1 / -1; font-size: .78rem; }
+.broker__code b { white-space: nowrap; }
+.broker__code .btn { margin-left: 0; }
+.broker > .btn--gold { align-self: end; justify-self: stretch; text-align: center; justify-content: center; }

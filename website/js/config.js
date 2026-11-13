@@ -32,7 +32,7 @@ window.OTM_CONFIG = {
   // to hide it, or remove `bonus` to hide the box. Brokers change these by campaign: keep them current.
   BROKERS: [
     { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28", logo: "assets/img/brokers/vantage.png",
-      bonus: { first: 150, next: 50 }, servers: [] },
+      bonus: { first: 150, firstMax: 1500, next: 50, cap: 3000 }, servers: [] },
     { id: "puprime", name: "PU Prime", url: "https://puvip.co/la-partners/OTM2028", code: "OTM2028", logo: "assets/img/brokers/puprime.jpg",
       bonus: { first: 100, firstMax: 1000, next: 20, cap: 10000 }, servers: [] },
     { id: "vtmarkets", name: "VT Markets", url: "https://vtm.pro/la5-com/global/OTM2028", code: "OTM2028", logo: "assets/img/brokers/vtmarkets.svg",

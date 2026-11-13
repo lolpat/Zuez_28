@@ -28,11 +28,12 @@
         <b class="bonus__pct">${pct}%</b>
         ${sub || ""}
       </div>` : "";
-    const firstSub = x.firstMax ? `<small><span data-i18n="bonus.upto"></span> ${usd(x.firstMax)}</small>` : "";
+    // the small lines are always there (blank when a broker has no limit), so all three boxes line up
+    const firstSub = x.firstMax ? `<small><span data-i18n="bonus.upto"></span> ${usd(x.firstMax)}</small>` : `<small aria-hidden="true">&nbsp;</small>`;
     return `<div class="bonus">
       <p class="bonus__kicker" data-i18n="bonus.kicker"></p>
-      <div class="bonus__row">${cell("bonus.first", x.first, firstSub)}${cell("bonus.next", x.next, "")}</div>
-      ${x.cap ? `<p class="bonus__cap"><span data-i18n="bonus.cap"></span> ${usd(x.cap)}</p>` : ""}
+      <div class="bonus__row">${cell("bonus.first", x.first, firstSub)}${cell("bonus.next", x.next, `<small aria-hidden="true">&nbsp;</small>`)}</div>
+      <p class="bonus__cap">${x.cap ? `<span data-i18n="bonus.cap"></span> ${usd(x.cap)}` : `<span data-i18n="bonus.noCap"></span>`}</p>
     </div>`;
   }
   // first-deposit bonus panel: pick a broker, see what a deposit turns into
@@ -83,7 +84,7 @@
           ${b.logo ? `<img class="broker__logo" src="${b.logo}" alt="${b.name}" width="200" height="80" loading="lazy">` : ""}
           <h3 ${b.logo ? 'class="sr-only"' : ""}>${b.name}</h3>
           ${bonusBox(b.bonus)}
-          ${b.code ? `<div class="broker__code"><span data-i18n="brokers.code"></span><b>${b.code}</b>
+          ${b.code ? `<div class="broker__code"><span class="broker__codelbl" data-i18n="brokers.code"></span><b>${b.code}</b>
             <button class="btn btn--quiet btn--sm" type="button" data-copy="${b.code}" data-i18n="app.copy"></button></div>` : ""}
           ${ready ? `<a class="btn btn--gold" href="${b.url}" target="_blank" rel="noopener sponsored" data-i18n="brokers.open"></a>`
                   : `<span class="badge" data-i18n="brokers.soon"></span>`}
