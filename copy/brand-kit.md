@@ -52,7 +52,7 @@ The logo artwork keeps its own gold and maroon (see `brand/README.md`); it is ne
 | accent-2 | `#E52150` | owner's pink-red: borders, soft tints, glows, gradient start (pink-red → yellow) |
 | gold-mid | `#FF7D9B` | small labels and kickers (a lighter pink-red that stays readable) |
 | line | `#272223` | dividers and card borders |
-| profit / loss | `#32CD32` / `#FF6B5E` | P/L only |
+| profit / loss | `#7CFC00` / `#FF6B5E` | P/L only |
 
 **Finish (owner's request): metallic.** Cards are brushed graphite (a dark gradient with a lit top edge;
 feature cards add a crimson corner glow) and get a slow light sweep on hover on the landing page. Buttons, avatars and big figures are
