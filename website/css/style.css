@@ -990,3 +990,11 @@ button.jc-d:hover { transform: translateY(-2px); }
 .winbox figcaption { color: var(--muted); font-size: .82rem; }
 .winbox__x { position: absolute; top: 12px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 1.4rem; cursor: pointer; }
 .winbox__nav { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 1.5rem; cursor: pointer; }
+.win { position: relative; }
+.win video { display: block; height: 100%; width: auto; max-width: none; }
+.win--grid video { width: 100%; height: auto; }
+.win__play { position: absolute; right: 8px; bottom: 8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: .62rem; color: #1a1209; background: var(--metal-gold); box-shadow: 0 2px 8px rgba(0, 0, 0, .5); pointer-events: none; }
+.winbox video { max-width: 100%; max-height: calc(100vh - 140px); max-height: calc(100dvh - 140px); border-radius: 12px; }
+.wins .win { background: #000; }
+.wins .win img, .wins .win video { max-width: 440px; object-fit: contain; }
+@media (max-width: 640px) { .wins .win img, .wins .win video { max-width: 280px; } }

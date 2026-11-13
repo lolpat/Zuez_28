@@ -11,7 +11,32 @@ window.OTM_CONFIG = {
   // page. Put the files in assets/img/wins/ and list them here, e.g.
   //   WINS: ["assets/img/wins/01.jpg", { src: "assets/img/wins/02.jpg", alt: "XAUUSD +$118" }],
   // With an empty list the demo shows empty frames; the live site hides the section.
-  WINS: [],
+  WINS: [
+    "assets/img/wins/win-01.jpg",
+    "assets/img/wins/win-02.jpg",
+    "assets/img/wins/win-03.jpg",
+    { src: "assets/img/wins/clip-01.mp4", poster: "assets/img/wins/clip-01.jpg" },
+    "assets/img/wins/win-04.jpg",
+    "assets/img/wins/win-05.jpg",
+    "assets/img/wins/win-06.jpg",
+    "assets/img/wins/win-07.jpg",
+    "assets/img/wins/win-08.jpg",
+    "assets/img/wins/win-09.jpg",
+    "assets/img/wins/win-10.jpg",
+    "assets/img/wins/win-11.jpg",
+    "assets/img/wins/win-12.jpg",
+    "assets/img/wins/win-13.jpg",
+    { src: "assets/img/wins/clip-02.mp4", poster: "assets/img/wins/clip-02.jpg" },
+    "assets/img/wins/win-14.jpg",
+    "assets/img/wins/win-15.jpg",
+    "assets/img/wins/win-16.jpg",
+    "assets/img/wins/win-17.jpg",
+    "assets/img/wins/win-18.jpg",
+    "assets/img/wins/win-19.jpg",
+    "assets/img/wins/win-20.jpg",
+    "assets/img/wins/win-21.jpg",
+    "assets/img/wins/win-22.jpg"
+  ],
 
   // Most MT4/MT5 accounts one member can add (keeps the journal quick). The database enforces 10 too.
   MAX_ACCOUNTS: 10,
