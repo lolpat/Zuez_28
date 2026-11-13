@@ -1,0 +1,657 @@
+[
+{
+"text": "always",
+"start": 0.0,
+"end": 0.48
+},
+{
+"text": "forward,",
+"start": 0.48,
+"end": 1.02
+},
+{
+"text": "never",
+"start": 1.68,
+"end": 2.0
+},
+{
+"text": "backward.",
+"start": 2.0,
+"end": 2.46
+},
+{
+"text": "Once",
+"start": 3.24,
+"end": 3.4
+},
+{
+"text": "you've",
+"start": 3.4,
+"end": 3.68
+},
+{
+"text": "chosen",
+"start": 3.68,
+"end": 3.96
+},
+{
+"text": "your",
+"start": 3.96,
+"end": 4.2
+},
+{
+"text": "goal,",
+"start": 4.2,
+"end": 4.5
+},
+{
+"text": "stop",
+"start": 5.12,
+"end": 5.26
+},
+{
+"text": "leaving",
+"start": 5.26,
+"end": 5.54
+},
+{
+"text": "the",
+"start": 5.54,
+"end": 5.76
+},
+{
+"text": "back",
+"start": 5.76,
+"end": 5.98
+},
+{
+"text": "door",
+"start": 5.98,
+"end": 6.18
+},
+{
+"text": "open.",
+"start": 6.18,
+"end": 6.58
+},
+{
+"text": "Maybe",
+"start": 7.24,
+"end": 7.52
+},
+{
+"text": "I'll",
+"start": 7.52,
+"end": 7.8
+},
+{
+"text": "quit",
+"start": 7.8,
+"end": 8.06
+},
+{
+"text": "if",
+"start": 8.06,
+"end": 8.22
+},
+{
+"text": "this",
+"start": 8.22,
+"end": 8.42
+},
+{
+"text": "month",
+"start": 8.42,
+"end": 8.62
+},
+{
+"text": "goes",
+"start": 8.62,
+"end": 8.86
+},
+{
+"text": "badly.",
+"start": 8.86,
+"end": 9.3
+},
+{
+"text": "That",
+"start": 9.88,
+"end": 10.16
+},
+{
+"text": "thought",
+"start": 10.16,
+"end": 10.46
+},
+{
+"text": "is",
+"start": 10.46,
+"end": 11.04
+},
+{
+"text": "already",
+"start": 11.04,
+"end": 11.56
+},
+{
+"text": "a",
+"start": 11.56,
+"end": 11.82
+},
+{
+"text": "plan",
+"start": 11.82,
+"end": 12.0
+},
+{
+"text": "to",
+"start": 12.0,
+"end": 12.2
+},
+{
+"text": "fail.",
+"start": 12.2,
+"end": 12.5
+},
+{
+"text": "Now,",
+"start": 13.08,
+"end": 13.28
+},
+{
+"text": "in",
+"start": 13.48,
+"end": 13.68
+},
+{
+"text": "trading,",
+"start": 13.68,
+"end": 13.98
+},
+{
+"text": "you",
+"start": 14.48,
+"end": 14.52
+},
+{
+"text": "do",
+"start": 14.52,
+"end": 14.78
+},
+{
+"text": "plan",
+"start": 14.78,
+"end": 15.08
+},
+{
+"text": "for",
+"start": 15.08,
+"end": 15.32
+},
+{
+"text": "losses.",
+"start": 15.32,
+"end": 15.66
+},
+{
+"text": "That's",
+"start": 16.2,
+"end": 16.4
+},
+{
+"text": "what",
+"start": 16.4,
+"end": 16.5
+},
+{
+"text": "a",
+"start": 16.5,
+"end": 16.62
+},
+{
+"text": "stop",
+"start": 16.62,
+"end": 16.84
+},
+{
+"text": "loss",
+"start": 16.84,
+"end": 17.04
+},
+{
+"text": "is",
+"start": 17.04,
+"end": 17.24
+},
+{
+"text": "for.",
+"start": 17.24,
+"end": 17.5
+},
+{
+"text": "But",
+"start": 17.9,
+"end": 18.12
+},
+{
+"text": "planning",
+"start": 18.12,
+"end": 18.48
+},
+{
+"text": "for",
+"start": 18.48,
+"end": 18.76
+},
+{
+"text": "a",
+"start": 18.76,
+"end": 18.94
+},
+{
+"text": "loss",
+"start": 18.94,
+"end": 19.26
+},
+{
+"text": "is",
+"start": 19.26,
+"end": 19.74
+},
+{
+"text": "not",
+"start": 19.74,
+"end": 20.1
+},
+{
+"text": "planning",
+"start": 20.1,
+"end": 20.48
+},
+{
+"text": "to",
+"start": 20.48,
+"end": 20.7
+},
+{
+"text": "quit.",
+"start": 20.7,
+"end": 20.98
+},
+{
+"text": "Every",
+"start": 21.6,
+"end": 21.92
+},
+{
+"text": "trader",
+"start": 21.92,
+"end": 22.2
+},
+{
+"text": "who",
+"start": 22.2,
+"end": 22.44
+},
+{
+"text": "made",
+"start": 22.44,
+"end": 22.72
+},
+{
+"text": "it",
+"start": 22.72,
+"end": 22.88
+},
+{
+"text": "had",
+"start": 22.88,
+"end": 23.08
+},
+{
+"text": "a",
+"start": 23.08,
+"end": 23.26
+},
+{
+"text": "month",
+"start": 23.26,
+"end": 23.46
+},
+{
+"text": "that",
+"start": 23.46,
+"end": 23.68
+},
+{
+"text": "almost",
+"start": 23.68,
+"end": 24.16
+},
+{
+"text": "broke",
+"start": 24.16,
+"end": 24.5
+},
+{
+"text": "them.",
+"start": 24.5,
+"end": 24.84
+},
+{
+"text": "A",
+"start": 25.2,
+"end": 25.36
+},
+{
+"text": "losing",
+"start": 25.36,
+"end": 25.64
+},
+{
+"text": "streak.",
+"start": 25.64,
+"end": 26.0
+},
+{
+"text": "A",
+"start": 26.36,
+"end": 26.44
+},
+{
+"text": "blown",
+"start": 26.44,
+"end": 26.62
+},
+{
+"text": "account.",
+"start": 26.62,
+"end": 27.0
+},
+{
+"text": "A",
+"start": 27.5,
+"end": 27.62
+},
+{
+"text": "day",
+"start": 27.62,
+"end": 27.82
+},
+{
+"text": "they",
+"start": 27.82,
+"end": 28.02
+},
+{
+"text": "wanted",
+"start": 28.02,
+"end": 28.22
+},
+{
+"text": "to",
+"start": 28.22,
+"end": 28.48
+},
+{
+"text": "walk",
+"start": 28.48,
+"end": 28.72
+},
+{
+"text": "away.",
+"start": 28.72,
+"end": 29.1
+},
+{
+"text": "The",
+"start": 29.66,
+"end": 29.84
+},
+{
+"text": "difference?",
+"start": 29.84,
+"end": 30.14
+},
+{
+"text": "They",
+"start": 30.66,
+"end": 30.9
+},
+{
+"text": "didn't.",
+"start": 30.9,
+"end": 31.46
+},
+{
+"text": "Persistence",
+"start": 31.92,
+"end": 32.4
+},
+{
+"text": "isn't",
+"start": 32.4,
+"end": 32.84
+},
+{
+"text": "a",
+"start": 32.84,
+"end": 32.98
+},
+{
+"text": "mood.",
+"start": 32.98,
+"end": 33.3
+},
+{
+"text": "It's",
+"start": 33.74,
+"end": 33.9
+},
+{
+"text": "a",
+"start": 33.9,
+"end": 34.0
+},
+{
+"text": "decision.",
+"start": 34.0,
+"end": 34.4
+},
+{
+"text": "The",
+"start": 35.04,
+"end": 35.16
+},
+{
+"text": "market",
+"start": 35.16,
+"end": 35.4
+},
+{
+"text": "will",
+"start": 35.4,
+"end": 35.68
+},
+{
+"text": "test",
+"start": 35.68,
+"end": 35.94
+},
+{
+"text": "you",
+"start": 35.94,
+"end": 36.18
+},
+{
+"text": "from",
+"start": 36.18,
+"end": 36.34
+},
+{
+"text": "the",
+"start": 36.34,
+"end": 36.5
+},
+{
+"text": "outside.",
+"start": 36.5,
+"end": 36.92
+},
+{
+"text": "Whether",
+"start": 37.44,
+"end": 37.58
+},
+{
+"text": "you",
+"start": 37.58,
+"end": 37.8
+},
+{
+"text": "keep",
+"start": 37.8,
+"end": 37.98
+},
+{
+"text": "going",
+"start": 37.98,
+"end": 38.4
+},
+{
+"text": "is",
+"start": 38.4,
+"end": 38.82
+},
+{
+"text": "decided",
+"start": 38.82,
+"end": 39.24
+},
+{
+"text": "on",
+"start": 39.24,
+"end": 39.5
+},
+{
+"text": "the",
+"start": 39.5,
+"end": 39.66
+},
+{
+"text": "inside.",
+"start": 39.66,
+"end": 40.12
+},
+{
+"text": "Cut",
+"start": 40.78,
+"end": 40.9
+},
+{
+"text": "the",
+"start": 40.9,
+"end": 41.08
+},
+{
+"text": "loss.",
+"start": 41.08,
+"end": 41.4
+},
+{
+"text": "Keep",
+"start": 41.94,
+"end": 42.1
+},
+{
+"text": "the",
+"start": 42.1,
+"end": 42.36
+},
+{
+"text": "dream.",
+"start": 42.36,
+"end": 42.66
+},
+{
+"text": "Always",
+"start": 43.32,
+"end": 43.58
+},
+{
+"text": "forward,",
+"start": 43.58,
+"end": 44.04
+},
+{
+"text": "never",
+"start": 44.72,
+"end": 44.84
+},
+{
+"text": "backward.",
+"start": 44.84,
+"end": 45.36
+},
+{
+"text": "Order",
+"start": 45.98,
+"end": 46.14
+},
+{
+"text": "the",
+"start": 46.14,
+"end": 46.32
+},
+{
+"text": "market.",
+"start": 46.32,
+"end": 46.64
+},
+{
+"text": "Don't",
+"start": 47.16,
+"end": 47.3
+},
+{
+"text": "let",
+"start": 47.3,
+"end": 47.42
+},
+{
+"text": "the",
+"start": 47.42,
+"end": 47.58
+},
+{
+"text": "market",
+"start": 47.58,
+"end": 47.92
+},
+{
+"text": "order",
+"start": 47.92,
+"end": 48.18
+},
+{
+"text": "you.",
+"start": 48.18,
+"end": 48.56
+},
+{
+"text": "Follow",
+"start": 49.12,
+"end": 49.4
+},
+{
+"text": "for",
+"start": 49.4,
+"end": 49.6
+},
+{
+"text": "more.",
+"start": 49.6,
+"end": 49.8
+}
+]
