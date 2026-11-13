@@ -23,6 +23,10 @@ window.OTM_CONFIG = {
   // Telegram: the main contact channel (from the owner).
   TELEGRAM_URL: "https://t.me/zuez_28",
   TELEGRAM_HANDLE: "@zuez_28",
+  // Free signal room (public Telegram group) and Instagram, shown in the contact section and footer.
+  SIGNAL_URL: "https://t.me/+Zyobh3qn3pI1ZmFk",
+  INSTAGRAM_URL: "https://www.instagram.com/fxzuez_28/",
+  INSTAGRAM_HANDLE: "@fxzuez_28",
 
   // IB sign-up links, referral codes and official logos per broker (from the owner; logos from
   // each broker's partner brand kit, used unaltered).

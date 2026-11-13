@@ -9,6 +9,10 @@
     apply();
     $$("[data-lang-toggle]").forEach((b) => b.addEventListener("click", () => setLang(window.OTMI18n.lang === "th" ? "en" : "th")));
     $$("[data-telegram]").forEach((a) => { a.href = cfg.TELEGRAM_URL; a.target = "_blank"; a.rel = "noopener"; });
+    $$("[data-signal]").forEach((a) => { if (cfg.SIGNAL_URL) { a.href = cfg.SIGNAL_URL; a.target = "_blank"; a.rel = "noopener"; } else a.hidden = true; });
+    $$("[data-instagram]").forEach((a) => { if (cfg.INSTAGRAM_URL) { a.href = cfg.INSTAGRAM_URL; a.target = "_blank"; a.rel = "noopener"; } else a.hidden = true; });
+    $$("[data-tg-handle]").forEach((el) => { if (cfg.TELEGRAM_HANDLE) el.textContent = cfg.TELEGRAM_HANDLE; });
+    $$("[data-ig-handle]").forEach((el) => { if (cfg.INSTAGRAM_HANDLE) el.textContent = cfg.INSTAGRAM_HANDLE; });
     $$("[data-year]").forEach((el) => { el.textContent = new Date().getFullYear(); });
 
     // entrances

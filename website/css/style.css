@@ -1075,3 +1075,28 @@ button.jc-d:hover { transform: translateY(-2px); }
 .broker__code b { white-space: nowrap; }
 .broker__code .btn { margin-left: 0; }
 .broker > .btn--gold { align-self: end; justify-self: stretch; text-align: center; justify-content: center; }
+
+/* contact: Telegram, free signal room, Instagram */
+.band .contact { display: grid; gap: 14px; max-width: 1000px; margin: 0 auto; text-align: left; position: relative; z-index: 1; }
+@media (min-width: 860px) { .band .contact { grid-template-columns: 1fr 1fr 1fr; } }
+.contact__card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 22px 20px 18px; border-radius: 18px; color: var(--text);
+  background: var(--metal-red); border: 1px solid var(--line); box-shadow: var(--metal-edge), 0 14px 34px rgba(0, 0, 0, .3); transition: transform .2s var(--ease), border-color .2s; }
+.contact__card:hover { color: var(--text); transform: translateY(-3px); border-color: rgba(var(--accent-rgb), .55); }
+.contact__card b { font: 600 1.12rem var(--font-head); }
+.contact__card small { color: var(--muted); font-size: .86rem; line-height: 1.55; }
+.contact__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; color: var(--accent-hi);
+  background: linear-gradient(160deg, rgba(255, 220, 228, .14), rgba(255, 255, 255, 0) 60%), var(--crimson); border: 1px solid rgba(var(--accent-2-rgb), .4); }
+.contact__go { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--accent-hi); }
+.contact__go i { font-style: normal; transition: transform .2s; }
+.contact__card:hover .contact__go i { transform: translateX(4px); }
+.contact__card--signal { border-color: rgba(var(--accent-rgb), .5); background: radial-gradient(120% 90% at 100% 0%, rgba(220, 184, 74, .18), transparent 60%), var(--metal-red); }
+.contact__card--signal .contact__ic { color: #1a1209; background: var(--metal-gold); border-color: rgba(120, 82, 10, .5); }
+.contact__badge { position: absolute; top: 14px; right: 14px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; padding: 3px 10px; border-radius: 999px; color: #0b1a10; background: var(--profit); }
+.band .contact__note { margin: 18px auto 0; font-size: .78rem; max-width: 70ch; }
+.footer-social { display: flex; gap: 8px; margin-top: 18px; }
+.footer-social a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--muted); border: 1px solid var(--line); background: var(--surface); }
+.footer-social a:hover { color: var(--accent-hi); border-color: rgba(var(--accent-rgb), .5); }
+.footer-social svg { width: 18px; height: 18px; }
+.footer-social a .brand-ic { width: 26px; height: 26px; }
+.contact__ic:has(.brand-ic) { background: none; border: 0; width: 48px; height: 48px; }
+.contact__ic .brand-ic { width: 48px; height: 48px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .4)); }
