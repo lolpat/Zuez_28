@@ -84,23 +84,21 @@
       <div class="wrap">
         <p class="kicker wide-caps" data-i18n="feat.kicker">สิ่งที่ได้รับ</p>
         <h2 class="reveal" data-i18n="feat.title">เครื่องมือที่เทรดเดอร์จริงใช้ทุกสัปดาห์</h2>
-        <div class="features">
-          <article class="feature-main reveal">
-            <h3 data-i18n="feat.journal.t">Trading Journal</h3>
-            <p data-i18n="feat.journal.d">นำเข้ารายงานจาก MT4/MT5 แล้วดู Win Rate, Profit Factor, Expectancy, ปฏิทินกำไรรายวัน, Equity Curve และคะแนนการเทรด 0 ถึง 100 พร้อมจดบันทึกอารมณ์และบทเรียนของแต่ละเทรด</p>
-            <ul class="ticks">
-              <li data-i18n="feat.journal.l1">แยกผลตามคู่เงิน วัน และช่วงตลาด</li>
-              <li data-i18n="feat.journal.l2">จดว่ารู้สึกอย่างไร ทำตามแผนแค่ไหน</li>
-              <li data-i18n="feat.journal.l3">ดูได้ทั้งในคอมและมือถือ</li>
-            </ul>
-            <div class="preview" aria-hidden="true">
-              <div class="preview__tag"><span>Journal</span><span data-i18n="hero.sample">ตัวอย่างหน้าจอ ตัวเลขสมมติ</span></div>
-              <div class="preview__kpis">
-                <div class="preview__kpi"><span>Win Rate</span><b>61.4%</b></div>
-                <div class="preview__kpi"><span>Profit Factor</span><b>1.72</b></div>
-                <div class="preview__kpi"><span>Expectancy</span><b class="up">+$4.80</b></div>
+        <div class="features features--wide">
+          <article class="feature-main jx reveal">
+            <div class="jx-head"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></span><h3 data-i18n="feat.journal.t">Trading Journal</h3></div>
+            <p data-i18n="jx.d">เชื่อม MetaTrader 5 ครั้งเดียว ทุกเทรดที่ปิดแล้วจะเข้าสมุดบันทึกเอง ดูปฏิทินกำไร ช่วงตลาด คู่เงิน และอารมณ์ตอนเทรดได้ในที่เดียว</p>
+            <div class="jx-grid" aria-hidden="true">
+              <div class="jx-card"><div class="jx-card__h"><b data-i18n="jx.cal">ปฏิทิน</b><em data-i18n="jx.sampleMonth">เดือนตัวอย่าง</em></div><div class="jx-cal" id="jx-cal"></div></div>
+              <div class="jx-col">
+                <div class="jx-card jx-link">
+                  <img class="jx-link__ic" src="assets/img/mt5.png" width="46" height="46" alt="" loading="lazy">
+                  <div><b data-i18n="jx.linked">เชื่อม MetaTrader 5 แล้ว</b><span data-i18n="jx.readonly">อ่านอย่างเดียว ส่งคำสั่งเทรดไม่ได้</span></div>
+                  <span class="jx-sync" data-i18n="jx.synced">ซิงก์แล้ว</span>
+                </div>
+                <div class="jx-card jx-eq"><div class="jx-card__h"><b>Equity</b><em data-i18n="jx.sampleAcct">บัญชีตัวอย่าง</em></div><div id="jx-eq"></div>
+                  <div class="jx-chips"><span data-i18n="jx.c1">ช่วงตลาด</span><span data-i18n="jx.c2">คู่เงิน</span><span data-i18n="jx.c3">อารมณ์</span><span data-i18n="jx.c4">ตารางรายวัน</span></div></div>
               </div>
-              <div id="preview-chart"></div>
             </div>
           </article>
           <div class="feature-list">

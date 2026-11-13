@@ -102,13 +102,24 @@
       }));
       apply(box);
     }
-    // sample journal preview (made-up numbers, labelled as such)
-    const pv = $("#preview-chart");
-    if (pv) {
-      let v = 0; const pts = [];
-      const steps = [12, -6, 18, 9, -11, 22, 14, -4, 26, 8, -9, 31, 17, -7, 24, 19, -12, 28, 16, 21];
-      steps.forEach((s, i) => { v += s; pts.push({ x: i, y: v }); });
-      pv.innerHTML = window.OTMCharts.line(pts, { fmt: (x) => "$" + x.toFixed(0), label: "sample equity curve" });
+    // sample journal card: a made-up month and equity line (labelled as samples on the card)
+    const cal = $("#jx-cal"), eq = $("#jx-eq");
+    if (cal) {
+      let seed = 41; const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+      const tiles = [];
+      for (let i = 0; i < 35; i++) { if (i % 7 > 4) { tiles.push("<i></i>"); continue; } const up = rnd() < 0.72; tiles.push(`<i class="${up ? "g" : "r"}" style="--a:${(up ? 0.1 + rnd() * 0.26 : 0.16 + rnd() * 0.2).toFixed(2)}"></i>`); }
+      const drawCal = () => { cal.innerHTML = t("jx.days").split(",").map((d) => `<small>${d}</small>`).join("") + tiles.join(""); };
+      drawCal(); document.addEventListener("otm:lang", drawCal);
+      if (eq) {
+        const N = 70, pts = []; let v = 10;
+        for (let i = 0; i < N; i++) { v += 0.55 + Math.sin(i / 5) * 0.5 + (i > 28 && i < 40 ? -1.1 : 0) + (rnd() - 0.5) * 2.2; pts.push(v); }
+        const lo = Math.min(...pts), hi = Math.max(...pts), Wd = 400, H = 130;
+        const X = (i) => (i / (N - 1)) * (Wd - 8), Y = (y) => 8 + (1 - (y - lo) / (hi - lo)) * (H - 16);
+        const d = pts.map((y, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(y).toFixed(1)}`).join("");
+        eq.innerHTML = `<svg viewBox="0 0 ${Wd} ${H}"><defs><linearGradient id="jxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcb84a" stop-opacity=".35"/><stop offset="1" stop-color="#dcb84a" stop-opacity="0"/></linearGradient></defs>
+          <path d="${d}L${X(N - 1).toFixed(1)},${H}L0,${H}Z" fill="url(#jxg)"/><path d="${d}" fill="none" stroke="#dcb84a" stroke-width="2"/>
+          <circle cx="${X(N - 1).toFixed(1)}" cy="${Y(pts[N - 1]).toFixed(1)}" r="4" fill="#f0d68c"/></svg>`;
+      }
     }
   }
 
