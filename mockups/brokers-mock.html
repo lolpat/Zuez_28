@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- Design mockup: the bonus panel and the three broker cards merged into one. Copy into website/ and open over HTTP; not part of the site. -->
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { padding: 40px 0; }
+.bx { margin-top: 36px; padding: clamp(18px, 3vw, 30px); border-radius: var(--radius); border: 1px solid rgba(var(--accent-2-rgb), .26);
+  background: radial-gradient(120% 90% at 0% 0%, rgba(var(--crimson-rgb), .32), transparent 60%), var(--surface); display: grid; gap: 22px; }
+.bx-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.bx-tab { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 72px; padding: 10px 14px; border-radius: 16px; cursor: pointer;
+  border: 1.5px solid var(--line); background: var(--bg-2); color: var(--muted); font: inherit; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.bx-tab img { height: 40px; width: auto; max-width: 62%; border-radius: 8px; opacity: .65; transition: opacity .2s; }
+.bx-tab em { font-style: normal; font: 600 1.05rem var(--font-head); color: var(--accent); }
+.bx-tab:hover { transform: translateY(-1px); border-color: rgba(var(--accent-rgb), .45); }
+.bx-tab:hover img { opacity: 1; }
+.bx-tab.on { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .14), 0 10px 26px rgba(0, 0, 0, .35); background: radial-gradient(120% 120% at 50% 0%, rgba(var(--accent-rgb), .12), transparent 70%), var(--bg-2); }
+.bx-tab.on img { opacity: 1; }
+.bx-tab.on::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; transform: translateX(-50%) rotate(45deg); background: var(--surface); border-right: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); }
+.bx-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 22px; align-items: start; }
+.bx-left { display: grid; gap: 14px; }
+.bx-left .bonus { margin: 0; }
+.bx-left .broker__code { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 8px; padding: 10px 8px 10px 14px; border-radius: 12px; background: var(--bg-2); border: 1px dashed rgba(var(--accent-2-rgb), .35); }
+.bx-left .broker__codelbl { grid-column: 1 / -1; font-size: .78rem; color: var(--muted); }
+.bx-left .btn--gold { justify-content: center; text-align: center; }
+.bx-right { display: grid; gap: 16px; }
+.bx-right .calc__head { margin-bottom: -4px; }
+.bx-right .calc__steps { grid-template-columns: 1fr; }
+.bx .bonus-note { margin: 0; }
+@media (max-width: 860px) {
+  .bx-body { grid-template-columns: 1fr; }
+  .bx-right { order: -1; }
+  .bx-tab { flex-direction: column; gap: 4px; min-height: 76px; padding: 8px 6px; }
+  .bx-tab img { height: 28px; max-width: 92%; }
+  .bx-tab em { font-size: .9rem; }
+  .bx-right .calc__tiles .calc__bal { font-size: 1.15rem; }
+}
+</style></head>
+<body><div class="wrap">
+<p class="kicker wide-caps">โบรกเกอร์</p>
+<h2 style="font-size:clamp(1.7rem,4vw,2.6rem);margin:0">เปิดบัญชีกับโบรกที่เราดูแล</h2>
+<p class="lead">สมาชิกต้องมีบัญชีใต้ IB ของ Order The Market อย่างน้อยหนึ่งโบรก เปิดบัญชีจากลิงก์ด้านล่าง และถ้าโบรกถามรหัสแนะนำ ใส่รหัสในการ์ดของโบรกนั้น</p>
+<div class="bx" id="bx"></div>
+</div>
+<script src="js/config.js"></script>
+<script>
+const B = window.OTM_CONFIG.BROKERS, usd = (n) => "$" + Number(n).toLocaleString("en-US");
+let cur = 0;
+const ext = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
+const shield = `<svg class="calc__icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.6c0 4.6-3.2 8.3-7.5 9.4-4.3-1.1-7.5-4.8-7.5-9.4V6z"/><path d="M8.6 12.2l2.4 2.4 4.5-4.8"/></svg>`;
+function draw() {
+  const b = B[cur], x = b.bonus, mult = String(+(1 + x.first / 100).toFixed(2));
+  const tiles = [300, 500, 1000].map((d) => { const bo = Math.min(d * x.first / 100, x.firstMax || Infinity);
+    return `<div class="calc__tile"><span class="calc__dep">${usd(d)} <i>→</i></span><b class="calc__bal">${usd(d + bo)}</b><small>+${usd(bo)} โบนัส</small></div>`; }).join("");
+  document.getElementById("bx").innerHTML = `
+    <div class="bx-tabs" role="tablist">${B.map((o, i) => `<button class="bx-tab ${i === cur ? "on" : ""}" data-i="${i}" role="tab"><img src="${o.logo}" alt="${o.name}"><em>${o.bonus.first}%</em></button>`).join("")}</div>
+    <div class="bx-body">
+      <div class="bx-left">
+        <div class="bonus"><p class="bonus__kicker">โบนัสเงินฝาก</p>
+          <div class="bonus__row"><div class="bonus__cell"><span class="bonus__lbl">ฝากครั้งแรก</span><b class="bonus__pct">${x.first}%</b><small>${x.firstMax ? "สูงสุด " + usd(x.firstMax) : "&nbsp;"}</small></div>
+          <div class="bonus__cell"><span class="bonus__lbl">ฝากครั้งถัดไป</span><b class="bonus__pct">${x.next}%</b><small>&nbsp;</small></div></div>
+          <p class="bonus__cap">โบนัสรวมสูงสุด ${usd(x.cap)}</p></div>
+        <div class="broker__code"><span class="broker__codelbl">รหัสแนะนำ</span><b>${b.code}</b><button class="btn btn--quiet btn--sm" type="button">คัดลอก</button></div>
+        <a class="btn btn--gold" href="#">เปิดบัญชี ${b.name} รับโบนัส ${x.first}% ${ext}</a>
+      </div>
+      <div class="bx-right">
+        <div class="calc__head">${shield}<h3>ยืนยันตัวตนและฝากเงินเข้าบัญชี</h3></div>
+        <p class="calc__lead">พอยืนยันตัวตนและฝากเงินครั้งแรกกับ ${b.name} แล้ว คุณจะได้โบนัส <b>${x.first}%</b> ยอดในบัญชีจะเป็น <b>${mult} เท่า</b>ของเงินที่ฝาก${x.firstMax ? ` (โบนัสฝากครั้งแรกสูงสุด ${usd(x.firstMax)})` : ""}</p>
+        <ol class="calc__steps"><li>เปิดบัญชีผ่านลิงก์ของเรา และใส่รหัสแนะนำ</li><li>ยืนยันตัวตนบนเว็บโบรก</li><li>ฝากเงินครั้งแรก รับโบนัสเป็นเครดิตเทรด</li></ol>
+        <div class="calc__tiles">${tiles}</div>
+      </div>
+    </div>
+    <p class="bonus-note">โบนัสเป็นเครดิตสำหรับเทรด ถอนเป็นเงินสดไม่ได้ ตัวเลขและเงื่อนไขขึ้นอยู่กับแคมเปญและประเทศของแต่ละโบรกในช่วงนั้น อ่านเงื่อนไขบนเว็บโบรกก่อนฝาก</p>`;
+  document.querySelectorAll("[data-i]").forEach((t) => t.addEventListener("click", () => { cur = +t.dataset.i; draw(); }));
+}
+draw();
+</script></body></html>
