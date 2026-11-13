@@ -14,11 +14,11 @@
   const placeholders = (n) => Array.from({ length: n }, (_, i) => ({ ph: true, n: i + 1, w: [210, 250, 180, 270, 230, 200][i % 6] }));
 
   const isVid = (w) => /\.(mp4|webm|mov)$/i.test(w.src);
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // videos play muted and looped in the rows; they carry no sound
   function media(w) {
-    if (isVid(w)) return `<video src="${esc(w.src)}"${w.poster ? ` poster="${esc(w.poster)}"` : ""} muted loop playsinline preload="metadata"${still ? "" : " autoplay"} aria-label="${esc(w.alt || t("wins.alt"))}"></video><span class="win__play" aria-hidden="true">▶</span>`;
-    return `<img src="${esc(w.thumb || w.src)}" alt="${esc(w.alt || t("wins.alt"))}" loading="lazy" decoding="async">`;
+    if (isVid(w)) return `<video src="${esc(w.src)}"${w.w && w.h ? ` width="${w.w}" height="${w.h}"` : ""}${w.poster ? ` poster="${esc(w.poster)}"` : ""} muted loop playsinline preload="metadata" autoplay aria-label="${esc(w.alt || t("wins.alt"))}"></video><span class="win__play" aria-hidden="true">▶</span>`;
+    const wh = w.w && w.h ? ` width="${w.w}" height="${w.h}"` : "";
+    return `<img src="${esc(w.thumb || w.src)}"${wh} alt="${esc(w.alt || t("wins.alt"))}" loading="lazy" decoding="async">`;
   }
   function tile(w, copy) {
     const hide = copy ? ' aria-hidden="true" tabindex="-1"' : "";
@@ -39,7 +39,7 @@
     if (!rows[1].length) rows[1] = rows[0].slice().reverse();
     const fill = (r) => { let out = r.slice(); while (out.length < 7) out = out.concat(r); return out; };
     el.innerHTML = rows.map((r, ri) => {
-      const f = fill(r), dur = Math.max(36, f.length * 7);
+      const f = fill(r), dur = Math.max(30, f.length * 5);
       return `<div class="wins__row wins__row--${ri ? "right" : "left"}" style="--dur:${dur}s">
         <div class="wins__track"><div class="wins__set">${f.map((w) => tile(w, false)).join("")}</div><div class="wins__set" aria-hidden="true">${f.map((w) => tile(w, true)).join("")}</div></div>
       </div>`;
