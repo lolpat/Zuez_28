@@ -69,6 +69,37 @@
     };
   }
 
+  // rooms recorded per day from the weekly summaries: [date, pips won, pips lost, stop losses, signals]
+  function computeDays(room, deduct) {
+    const ds = room.days.slice().sort((a, b) => a[0].localeCompare(b[0]));
+    const won = ds.reduce((s, d) => s + d[1], 0), lost = ds.reduce((s, d) => s + d[2], 0), net = won - lost;
+    const sls = ds.reduce((s, d) => s + d[3], 0);
+    const green = ds.filter((d) => d[1] - d[2] > 0).length;
+    const withSig = ds.filter((d) => d[4] != null), signals = withSig.reduce((s, d) => s + d[4], 0);
+    // weeks, keyed by their Monday
+    const monday = (iso) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return d.toISOString().slice(0, 10); };
+    const weeks = new Map();
+    for (const d of ds) { const k = monday(d[0]), g = weeks.get(k) || { k, net: 0, sl: 0 }; g.net += d[1] - d[2]; g.sl += d[3]; weeks.set(k, g); }
+    const wl = [...weeks.values()].sort((a, b) => a.k.localeCompare(b.k));
+    let run = 0, noSl = 0; for (const w of wl) { run = w.sl ? 0 : run + 1; noSl = Math.max(noSl, run); }
+    let dRun = 0, dBest = 0; for (const d of ds) { dRun = d[1] - d[2] > 0 ? dRun + 1 : 0; dBest = Math.max(dBest, dRun); }
+    const bestWeek = wl.reduce((a, b) => (!a || b.net > a.net ? b : a), null);
+    const bestDay = ds.reduce((a, d) => (!a || d[1] - d[2] > a[1] ? [d[0], d[1] - d[2]] : a), null);
+    const byMonth = new Map();
+    for (const d of ds) {
+      const m = d[0].slice(0, 7), g = byMonth.get(m) || { m, days: 0, won: 0, lost: 0, sl: 0, weeks: new Set() };
+      g.days++; g.won += d[1]; g.lost += d[2]; g.sl += d[3]; g.weeks.add(monday(d[0])); byMonth.set(m, g);
+    }
+    const pv = (room.pipValue && Object.values(room.pipValue)[0]) || 10;
+    return {
+      days: ds.length, weeks: wl.length, won, lost, net, sls, green, pf: lost ? won / lost : Infinity,
+      signals, sigDays: withSig.length, noSl, dBest, bestWeek, bestDay, avgWeek: wl.length ? net / wl.length : 0,
+      months: [...byMonth.values()].map((g) => ({ ...g, pips: g.won - g.lost, weeks: g.weeks.size })).sort((a, b) => b.m.localeCompare(a.m)),
+      lots: [0.01, 0.1, 0.5, 1].map((lot) => [lot, net * pv * lot * (1 - deduct)]),
+      from: ds.length ? ds[0][0] : null, to: ds.length ? ds[ds.length - 1][0] : null
+    };
+  }
+
   // ---------------------------------------------------------------- room badges (drawn, no images)
   function badge(room) {
     if (room.hype) return `<span class="sig-hype">HYPE</span>`;
@@ -87,23 +118,21 @@
   function render(el, opts = {}) {
     if (!el) return;
     const D = root.OTM_SIGNALS || { rooms: [] };
-    const anyReal = D.rooms.some((r) => r.trades && r.trades.length);
-    const isSample = !anyReal && !live;
-    if (!anyReal && live) { el.innerHTML = `<p class="sig-soon">${t("sig.soon")}</p>`; return; }
-    const rooms = D.rooms.map((r, k) => ({ ...r, trades: anyReal ? r.trades || [] : sample(r, k) }));
+    const hasData = (r) => (r.trades && r.trades.length) || (r.days && r.days.length);
+    const rooms = D.rooms.map((r, k) => hasData(r) ? { ...r, real: true } : { ...r, real: false, trades: live ? [] : sample(r, k) });
     let cur = 0;
     const months = (m) => new Date(m + "-15T12:00:00").toLocaleDateString(root.OTMI18n.lang === "th" ? "th-TH" : "en-GB", { month: "long", year: "numeric" });
     const draw = () => {
-      const r = rooms[cur], s = compute(r, D.deduct ?? 0.15);
+      const r = rooms[cur], isSample = !r.real && !live;
+      if (r.days && r.days.length) return drawDays(r);
+      const s = compute(r, D.deduct ?? 0.15);
       const bars = s.months.slice().reverse();
       el.innerHTML = `
+        ${tabs()}
         ${isSample ? `<div class="sig-sample"><b>${t("sig.sample.t")}</b> ${t("sig.sample.d")}</div>` : ""}
-        <div class="sig-tabs" role="tablist" aria-label="${esc(t("sig.rooms"))}">${rooms.map((x, i) => `
-          <button type="button" role="tab" class="sig-tab ${i === cur ? "is-on" : ""}" aria-selected="${i === cur}" data-room="${i}">
-            <span class="sig-tab__b">${badge(x)}</span><span>${esc(x.name)}</span></button>`).join("")}</div>
         <div class="sig-head card">
           <span class="sig-head__b">${badge(r)}</span>
-          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}${s.from ? ` · ${t("sig.range", { a: s.from, b: s.to })}` : ""}${D.updated && !isSample ? ` · ${t("sig.updated", { d: D.updated })}` : ""}</small></div>
+          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}${s.from ? ` · ${t("sig.range", { a: s.from, b: s.to })}` : ""}</small></div>
           ${isSample ? `<span class="sig-pill">${t("sig.sample.pill")}</span>` : ""}
         </div>
         ${s.n ? `
@@ -131,7 +160,48 @@
             ${root.OTMCharts ? root.OTMCharts.bars(bars.map((g) => ({ label: months(g.m).replace(/\s*\d{4}$/, ""), value: g.pips, sub: String(g.m.slice(0, 4)) })), { fmt: (x) => sgn(x) + " pips", short: (x) => (Math.abs(x) >= 1000 ? sgn(x / 1000, 1) + "k" : sgn(x)), label: t("sig.byMonth"), w: 420, h: 230 }) : ""}</section>
         </div>` : `<p class="sig-soon">${t("sig.soon")}</p>`}
         <p class="sig-note">${t("sig.note")}</p>`;
-      el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
+      wire();
+    };
+    const wire = () => el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
+    const tabs = () => `<div class="sig-tabs" role="tablist" aria-label="${esc(t("sig.rooms"))}">${rooms.map((x, i) => `
+          <button type="button" role="tab" class="sig-tab ${i === cur ? "is-on" : ""}" aria-selected="${i === cur}" data-room="${i}">
+            <span class="sig-tab__b">${badge(x)}</span><span>${esc(x.name)}</span></button>`).join("")}</div>`;
+    // a room recorded from its weekly summaries
+    const drawDays = (r) => {
+      const s = computeDays(r, D.deduct ?? 0.15), bars = s.months.slice().reverse(), pf = s.pf === Infinity ? "∞" : num(s.pf, 1);
+      el.innerHTML = `
+        ${tabs()}
+        <div class="sig-head card">
+          <span class="sig-head__b">${badge(r)}</span>
+          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })} · ${t("sig.range", { a: s.from, b: s.to })} · ${t("sig.fromWeekly", { n: s.weeks })}</small></div>
+        </div>
+        <div class="sig-kpis">
+          <div><b class="gold">${sgn(s.net)}</b><span>${t("sig.d.net")}</span></div>
+          <div><b>${s.days}</b><span>${t("sig.d.days")}</span></div>
+          <div><b class="gold">${num((s.green / s.days) * 100, 0)}%</b><span>${t("sig.d.green")}</span></div>
+          <div><b>${s.sls}</b><span>${t("sig.d.sl")}</span></div>
+          <div><b class="gold">${pf}</b><span>${t("sig.k.pf")}</span></div>
+        </div>
+        <div class="sig-row3">
+          <section class="card sig-card"><h4>🔥 ${t("sig.pips")}</h4><b class="sig-big up">${sgn(s.net)}</b>
+            <ul class="sig-lots"><li><span>${t("sig.d.won")}</span><b class="up">${sgn(s.won)}</b></li><li><span>${t("sig.d.lost")}</span><b class="down">${sgn(-s.lost)}</b></li>
+            <li><span>${t("sig.d.avgWeek")}</span><b>${sgn(s.avgWeek)}</b></li></ul>
+            ${s.bestDay ? `<small>↗ ${t("sig.bestDay", { p: sgn(s.bestDay[1]), d: s.bestDay[0] })}</small>` : ""}</section>
+          <section class="card sig-card"><h4>⚡ ${t("sig.streaks")}</h4>
+            <div class="sig-2x2"><div><small>${t("sig.d.dayStreak")}</small><b class="gold">${s.dBest}</b></div><div><small>${t("sig.d.noSl")}</small><b class="gold">${s.noSl}</b></div>
+            <div><small>${t("sig.d.weeks")}</small><b>${s.weeks}</b></div><div><small>${t("sig.d.bestWeek")}</small><b>${s.bestWeek ? sgn(s.bestWeek.net) : "–"}</b></div></div></section>
+          <section class="card sig-card"><h4>◎ ${t("sig.benefit")}</h4><small>${t("sig.benefit.d", { p: num((D.deduct ?? 0.15) * 100) })}</small>
+            <ul class="sig-lots">${s.lots.map(([lot, v]) => `<li><span>${lot} lot</span><b class="${v >= 0 ? "up" : "down"}">${usd(v)}</b></li>`).join("")}</ul></section>
+        </div>
+        <div class="sig-row2">
+          <section class="card sig-card"><h4>📊 ${t("sig.monthly")}</h4>
+            <div class="table-wrap"><table class="table sig-mtab"><thead><tr><th>${t("sig.col.month")}</th><th class="r">${t("sig.d.colDays")}</th><th class="r">SL</th><th class="r">${t("sig.d.colWon")}</th><th class="r">${t("sig.d.colLost")}</th><th class="r">${t("sig.d.colNet")}</th></tr></thead>
+            <tbody>${s.months.map((g) => `<tr><td>${months(g.m)}</td><td class="r">${g.days}</td><td class="r">${g.sl}</td><td class="r up">${sgn(g.won)}</td><td class="r down">${g.lost ? sgn(-g.lost) : "0"}</td><td class="r gold"><b>${sgn(g.pips)}</b></td></tr>`).join("")}</tbody></table></div></section>
+          <section class="card sig-card"><h4>📈 ${t("sig.byMonth")}</h4>
+            ${root.OTMCharts ? root.OTMCharts.bars(bars.map((g) => ({ label: months(g.m).replace(/\s*\d{4}$/, "").slice(0, 3), value: g.pips, sub: "" })), { fmt: (x) => sgn(x) + " pips", short: (x) => (Math.abs(x) >= 1000 ? sgn(x / 1000, 0) + "k" : sgn(x)), label: t("sig.byMonth"), w: 460, h: 230 }) : ""}</section>
+        </div>
+        <p class="sig-note">${t("sig.d.note")}</p>`;
+      wire();
     };
     draw();
     document.addEventListener("otm:lang", draw);
