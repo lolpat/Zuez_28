@@ -1,5 +1,6 @@
 <!doctype html>
 <!-- Design mockup for the signal results section. Copy into website/ and open over HTTP to view; not part of the site. -->
+<!-- Design mockup for the signal results section. Copy into website/ and open over HTTP to view; not part of the site. -->
 <html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -33,13 +34,24 @@ body { padding: 40px 0; }
 .ss-hrow { display: grid; grid-template-columns: 58px repeat(5, minmax(0, 1fr)) 84px; gap: 7px; align-items: center; }
 .ss-hrow > small { color: var(--muted); font-size: .78rem; }
 .ss-hrow > em { font-style: normal; text-align: right; font-weight: 600; color: var(--accent-hi); font-size: .86rem; }
-.ss-w { position: relative; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: .74rem; font-weight: 600; color: #2a1a08;
-  background: linear-gradient(180deg, rgba(246, 228, 166, calc(var(--a) + .05)), rgba(200, 159, 58, var(--a))); border: 1px solid rgba(240, 214, 140, .25); }
-.ss-w.lo { color: var(--text); }
+.ss-w { position: relative; overflow: hidden; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: .74rem; font-weight: 700; color: #2a1a08;
+  text-shadow: 0 1px 0 rgba(255, 244, 210, .55);
+  /* polished gold: a bright band across the top, a metal sweep left to right; stronger weeks shine brighter */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .12) 38%, rgba(255, 255, 255, 0) 52%, rgba(0, 0, 0, .18) 100%),
+    linear-gradient(100deg, #8f6a1c 0%, #d2ab42 18%, #f6e4a6 34%, #e6c76e 48%, #b38b2d 66%, #f0d68c 84%, #8f6a1c 100%);
+  border: 1px solid rgba(120, 82, 10, .7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -1px 0 rgba(70, 40, 0, .45), 0 4px 12px rgba(0, 0, 0, .35);
+  filter: brightness(calc(.62 + var(--a) * .5)) saturate(calc(.8 + var(--a) * .35)); }
+.ss-w::after { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75), transparent); animation: tileShine 6s ease-in-out infinite; animation-delay: var(--dl, 0s); }
+@keyframes tileShine { 0%, 70% { left: -40%; } 100% { left: 130%; } }
+.ss-w.lo { color: #2a1a08; }
 .ss-w i { position: absolute; top: 4px; right: 5px; display: flex; gap: 2px; }
 .ss-w i::before, .ss-w i::after { content: ""; }
 .ss-w .d { width: 6px; height: 6px; border-radius: 50%; background: #ff3b52; box-shadow: 0 0 0 2px rgba(0, 0, 0, .35); }
-.ss-w.ss-none { background: none; border-style: dashed; border-color: var(--line); }
+.ss-w.ss-none { background: none; border: 1px dashed var(--line); box-shadow: none; filter: none; }
+.ss-w.ss-none::after { display: none; }
 .ss-legend { display: flex; gap: 16px; margin-top: 10px; font-size: .76rem; color: var(--muted); align-items: center; }
 .ss-legend .d { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #ff3b52; margin-right: 5px; }
 .ss-lot { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
@@ -107,7 +119,7 @@ const ledger = [["วันที่กำไร", `${ds.filter((d) => d[1] - d[
 // heatmap: a row per month, a tile per week
 const byM = new Map(); weeks.forEach((w) => { const m = w.k.slice(0, 7); if (!byM.has(m)) byM.set(m, []); byM.get(m).push(w); });
 const heat = [...byM.entries()].map(([m, ws]) => `<div class="ss-hrow"><small>${mName(m)}</small>${[0, 1, 2, 3, 4].map((i) => { const w = ws[i]; if (!w) return `<div class="ss-w ss-none"></div>`; const a = (.25 + .75 * w.net / maxW).toFixed(2);
-  return `<div class="ss-w ${a < .5 ? "lo" : ""}" style="--a:${a}" title="${w.k}">${sg(w.net / 1000, 1)}k${w.sl ? `<i>${"<span class=d></span>".repeat(w.sl)}</i>` : ""}</div>`; }).join("")}<em>${sg(ws.reduce((s, w) => s + w.net, 0))}</em></div>`).join("");
+  return `<div class="ss-w ${a < .5 ? "lo" : ""}" style="--a:${a};--dl:${(-((i * 0.9 + Number(w.k.slice(8)) * 0.17) % 6)).toFixed(2)}s" title="${w.k}">${sg(w.net / 1000, 1)}k${w.sl ? `<i>${"<span class=d></span>".repeat(w.sl)}</i>` : ""}</div>`; }).join("")}<em>${sg(ws.reduce((s, w) => s + w.net, 0))}</em></div>`).join("");
 let cum = 0; const pts = ds.map((d) => ({ x: d[0], y: (cum += d[1] - d[2]) }));
 const cumSvg = OTMCharts.line(pts, { fmt: (x) => sg(x), dateFmt: (x) => new Date(x + "T12:00:00").toLocaleDateString("th-TH", { day: "numeric", month: "short" }), label: "cum", h: 220 });
 const medal = (k) => k === "hype" ? '<span class="ss-hype">HYPE</span>' : `<span style="font-size:1.5rem">${{ swing: "🥇", scalp: "🥈", rr: "🥉" }[k]}</span>`;
@@ -117,7 +129,7 @@ document.getElementById("ss").innerHTML = `
     <div class="ss-head"><h3>Swing Elite</h3><span>ทองคำ (XAUUSD) · 9 มี.ค. – 6 พ.ย. 2026 · จากสรุปประจำสัปดาห์</span></div>
     <div class="ss-top"><div class="ss-card ss-orbit">${orbit}</div><div class="ss-card ss-ledger"><h4>สมุดผลงาน</h4><ul>${ledger}</ul></div></div>
     <div class="ss-card ss-cum"><h4>Pips สะสม</h4>${cumSvg}</div>
-    <div class="ss-card"><h4>ทุกสัปดาห์</h4><div class="ss-heat">${heat}</div><div class="ss-legend"><span>ยิ่งทองเข้ม ยิ่งได้มาก</span><span><span class="d"></span>ติด SL 1 ครั้ง</span></div></div>
+    <div class="ss-card"><h4>ทุกสัปดาห์</h4><div class="ss-heat">${heat}</div><div class="ss-legend"><span>ยิ่งทองสว่าง ยิ่งได้มาก</span><span><span class="d"></span>ติด SL 1 ครั้ง</span></div></div>
     <div class="ss-card ss-lot"><div><h4>ถ้าเทรดตามทุกสัญญาณ</h4><input type="range" min="1" max="100" value="10"><div class="ss-chips"><span>0.01</span><span class="on">0.1</span><span>0.5</span><span>1.0 lot</span></div></div>
       <div class="out"><b>+$${n(net * 10 * 0.1 * 0.85)}</b><small>ที่ 0.1 lot หลังหักสเปรด/คอม 15% · เฉลี่ย +$${n(net / weeks.length * 10 * 0.1 * 0.85)}/สัปดาห์</small></div></div>
     <p class="ss-note">รวมจากสรุปผลประจำสัปดาห์ที่ประกาศในห้อง ผลในอดีตไม่ได้รับประกันผลในอนาคต</p>
