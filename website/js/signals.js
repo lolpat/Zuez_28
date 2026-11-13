@@ -166,11 +166,11 @@
           [t("sig.d.bestWeek"), s.bestWeek ? sgn(s.bestWeek.net) : "–"],
           [t("ss.l.noSl"), t(s.noSl === 1 ? "ss.v.week" : "ss.v.weeks", { n: s.noSl })]
         ].filter(Boolean).map(([k, v]) => `<li><span>${k}</span><i></i><b>${v}</b></li>`).join("");
-        const cum = root.OTMCharts ? root.OTMCharts.line(s.cum, { fmt: (x) => kfmt(x), dateFmt: (x) => dShort(x), label: t("ss.cum"), ...(el.clientWidth < 600 ? { w: 440, h: 230 } : { h: 220 }) }) : "";
+        const cum = root.OTMCharts ? root.OTMCharts.bars(s.months.map(([m, v]) => ({ label: mShort(m), value: v, sub: "" })), { fmt: (x) => sgn(x) + " pips", short: (x) => kfmt(x), label: t("sig.byMonth"), ...(el.clientWidth < 600 ? { w: 440, h: 250 } : { w: 900, h: 240 }) }) : "";
         const o = lotOut(s);
         body = `
           <div class="ss-top"><div class="ss-card ss-orbit">${orbit(s)}</div><div class="ss-card ss-ledger"><h4>${t("ss.ledger")}</h4><ul>${rows}</ul></div></div>
-          <div class="ss-card ss-cum"><h4>${t("ss.cum")}</h4>${cum}</div>
+          <div class="ss-card ss-cum"><h4>${t("sig.byMonth")}</h4>${cum}</div>
           <div class="ss-card"><h4>${t("ss.weeks")}</h4><div class="ss-heat">${heat(s)}</div>
             <div class="ss-legend"><span>${t("ss.legend.gold")}</span><span><span class="ss-dot"></span>${t("ss.legend.sl")}</span></div></div>
           <div class="ss-card ss-lot"><div><h4>${t("sig.benefit")}</h4>

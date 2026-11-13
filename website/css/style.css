@@ -1144,7 +1144,7 @@ button.jc-d:hover { transform: translateY(-2px); }
 .ss-ledger li b small { color: var(--muted); font-weight: 400; }
 .ss-ledger li i { flex: 1; min-width: 12px; border-bottom: 1px dotted rgba(240, 214, 140, .25); transform: translateY(-4px); }
 .ss-ledger li b { font-feature-settings: "tnum" 1; font-weight: 600; white-space: nowrap; }
-.ss-cum svg { width: 100%; height: auto; }
+.ss-cum svg { width: 100%; height: auto; display: block; }
 .ss-heat { display: grid; gap: 7px; }
 .ss-hrow { display: grid; grid-template-columns: 58px repeat(5, minmax(0, 1fr)) 84px; gap: 7px; align-items: center; }
 .ss-hrow > small { color: var(--muted); font-size: .78rem; }
