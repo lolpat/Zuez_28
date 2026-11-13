@@ -1218,3 +1218,5 @@ button.jc-d:hover { transform: translateY(-2px); }
   .bx-tab em { font-size: .9rem; }
   .bx-right .calc__bal { font-size: 1.15rem; }
 }
+/* the contact band now sits between the brokers and the FAQ */
+#contact { margin-bottom: clamp(64px, 9vw, 110px); }
