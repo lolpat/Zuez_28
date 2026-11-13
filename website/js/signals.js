@@ -7,6 +7,7 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const num = (v, d = 0) => Number(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
   const sgn = (v, d = 0) => (v > 0 ? "+" : v < 0 ? "−" : "") + num(Math.abs(v), d);
+  const nb = (d) => String(d).replace(/-/g, "\u2011"); // keep dates on one line
   const usd = (v) => (v >= 0 ? "+$" : "−$") + num(Math.abs(v));
 
   // ---------------------------------------------------------------- sample data (demo preview only)
@@ -132,7 +133,7 @@
         ${isSample ? `<div class="sig-sample"><b>${t("sig.sample.t")}</b> ${t("sig.sample.d")}</div>` : ""}
         <div class="sig-head card">
           <span class="sig-head__b">${badge(r)}</span>
-          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}${s.from ? ` · ${t("sig.range", { a: s.from, b: s.to })}` : ""}</small></div>
+          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}${s.from ? ` · ${t("sig.range", { a: nb(s.from), b: nb(s.to) })}` : ""}</small></div>
           ${isSample ? `<span class="sig-pill">${t("sig.sample.pill")}</span>` : ""}
         </div>
         ${s.n ? `
@@ -173,7 +174,7 @@
         ${tabs()}
         <div class="sig-head card">
           <span class="sig-head__b">${badge(r)}</span>
-          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })} · ${t("sig.range", { a: s.from, b: s.to })} · ${t("sig.fromWeekly", { n: s.weeks })}</small></div>
+          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })} · ${t("sig.range", { a: nb(s.from), b: nb(s.to) })} · ${t("sig.fromWeekly", { n: s.weeks })}</small></div>
         </div>
         <div class="sig-kpis">
           <div><b class="gold">${sgn(s.net)}</b><span>${t("sig.d.net")}</span></div>

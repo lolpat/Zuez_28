@@ -1115,7 +1115,8 @@ button.jc-d:hover { transform: translateY(-2px); }
 .sig-hype { display: inline-block; font: 800 .78rem var(--font-head); letter-spacing: .06em; padding: 2px 7px; border-radius: 6px; color: #fff; background: linear-gradient(135deg, #ff4fd8, #e52150 60%, #ff9a3d); box-shadow: 0 0 12px rgba(255, 79, 216, .45); }
 .sig-flash { font-size: .9rem; margin-left: -4px; }
 .sig-head { display: flex; align-items: center; gap: 14px; }
-.sig-head__b { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 16px; background: var(--bg-2); border: 1px solid var(--line); flex: none; }
+.sig-head__b { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 16px; background: var(--bg-2); border: 1px solid var(--line); flex: none; position: relative; }
+.sig-head__b .sig-flash { position: absolute; right: -7px; bottom: -7px; margin: 0; width: 24px; height: 24px; display: grid; place-items: center; font-size: .78rem; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 2px 8px rgba(0, 0, 0, .4); }
 .sig-head h3 { margin: 0; font-size: 1.35rem; }
 .sig-head small { color: var(--muted); font-size: .8rem; }
 .sig-pill { margin-left: auto; font-size: .72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--accent-hi); border: 1px dashed rgba(var(--accent-rgb), .6); }

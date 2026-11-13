@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- Design mockup for the landing-page Trading Journal card. Copy into website/ and open over HTTP to view; not part of the site. -->
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { padding: 40px 0; }
+/* the journal card now spans the full width; the three small features sit in a row under it */
+@media (min-width: 960px) { .features.v2 { grid-template-columns: 1fr; } .features.v2 .feature-list { grid-template-columns: repeat(3, 1fr); } }
+.jx { padding: 30px; }
+.jx-head { display: flex; align-items: center; gap: 14px; }
+.jx-head h3 { margin: 0; font-size: 1.5rem; }
+.jx > p { color: var(--muted); margin: 14px 0 0; max-width: 46ch; }
+.jx-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 24px; }
+.jx-col { display: grid; gap: 16px; align-content: start; }
+.jx-card { padding: 18px 18px 20px; border-radius: 18px; background: var(--bg-2); border: 1px solid var(--line); min-width: 0; }
+.jx-card__h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.jx-card__h b { font: 600 .95rem var(--font-head); }
+.jx-card__h em { font-size: .78rem; color: var(--muted); }
+.jx-cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
+.jx-cal small { text-align: center; font-size: .66rem; letter-spacing: .08em; color: var(--muted); padding-bottom: 2px; }
+.jx-cal i { aspect-ratio: 1.5; border-radius: 8px; background: rgba(255, 255, 255, .035); border: 1px solid rgba(255, 255, 255, .03); }
+.jx-cal i.g { background: rgba(124, 252, 0, var(--a)); border-color: rgba(124, 252, 0, calc(var(--a) + .08)); }
+.jx-cal i.r { background: rgba(229, 33, 80, var(--a)); border-color: rgba(229, 33, 80, calc(var(--a) + .1)); }
+.jx-link { display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center; }
+.jx-link__ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: linear-gradient(145deg, #2a2224, #120e0f); border: 1px solid rgba(var(--accent-rgb), .35); color: var(--accent); }
+.jx-link__ic svg { width: 24px; height: 24px; }
+.jx-link b { display: block; font: 600 .95rem var(--font-head); }
+.jx-link span { font-size: .8rem; color: var(--muted); }
+.jx-sync { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; color: var(--text); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); }
+.jx-sync::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--profit); box-shadow: 0 0 8px var(--profit); }
+.jx-eq svg { width: 100%; height: auto; display: block; }
+.jx-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.jx-chips span { font-size: .78rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); background: rgba(255, 255, 255, .02); }
+@media (max-width: 760px) { .jx { padding: 22px 18px; } .jx-grid { grid-template-columns: 1fr; } .jx-cal { gap: 5px; } .jx-link { grid-template-columns: 42px 1fr; } .jx-sync { grid-column: 2; justify-self: start; } }
+</style></head>
+<body><div class="wrap">
+<p class="kicker wide-caps">สิ่งที่ได้รับ</p>
+<h2 style="font-size:clamp(1.7rem,4vw,2.6rem);margin:0">เครื่องมือที่เทรดเดอร์จริงใช้ทุกสัปดาห์</h2>
+<div class="features v2">
+  <article class="feature-main jx">
+    <div class="jx-head"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></span><h3>Trading Journal</h3></div>
+    <p>เชื่อม MetaTrader 5 ครั้งเดียว ทุกเทรดที่ปิดแล้วจะเข้าสมุดบันทึกเอง ดูปฏิทินกำไร ช่วงตลาด คู่เงิน และอารมณ์ตอนเทรดได้ในที่เดียว</p>
+    <div class="jx-grid">
+      <div class="jx-card"><div class="jx-card__h"><b>ปฏิทิน</b><em>เดือนตัวอย่าง</em></div><div class="jx-cal" id="cal"></div></div>
+      <div class="jx-col">
+        <div class="jx-card jx-link">
+          <span class="jx-link__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 4v16M6 8h-1.5v7H6M12 3v18M12 7h-1.5v5H12M18 6v14M18 10h-1.5v6H18"/><path d="M6 8h1.5v7H6M12 7h1.5v5H12M18 10h1.5v6H18"/></svg></span>
+          <div><b>เชื่อม MetaTrader 5 แล้ว</b><span>อ่านอย่างเดียว ส่งคำสั่งเทรดไม่ได้</span></div>
+          <span class="jx-sync">ซิงก์แล้ว</span>
+        </div>
+        <div class="jx-card jx-eq"><div class="jx-card__h"><b>Equity</b><em>บัญชีตัวอย่าง</em></div><div id="eq"></div>
+          <div class="jx-chips"><span>ช่วงตลาด</span><span>คู่เงิน</span><span>อารมณ์</span><span>ตารางรายวัน</span></div></div>
+      </div>
+    </div>
+  </article>
+  <div class="feature-list">
+    <article class="feature-sm"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="3"/></svg></span><div><h3>เครื่องคำนวณ</h3><p>คำนวณ Lot จากความเสี่ยงที่รับได้ และดูการเติบโตแบบทบต้นก่อนตั้งเป้า</p></div></article>
+    <article class="feature-sm"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg></span><div><h3>คอมมูนิตี้บน Telegram</h3><p>คุยกับทีมและเพื่อนเทรดเดอร์ได้โดยตรง ไม่ใช่บอท</p></div></article>
+    <article class="feature-sm"><span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/></svg></span><div><h3>หน้าเครือข่ายสำหรับ IB</h3><p>พาร์ตเนอร์ IB เห็นลูกค้าและทีมใต้ตัวเองทุกชั้น อนุมัติสมาชิกใหม่ได้เอง</p></div></article>
+  </div>
+</div></div>
+<script>
+// a made-up month: weekdays coloured by P/L, weekends empty
+let s = 41; const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+let h = ["จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"].map((d) => `<small>${d}</small>`).join("");
+for (let i = 0; i < 35; i++) { const wd = i % 7; if (wd > 4) { h += "<i></i>"; continue; } const up = rnd() < 0.72; h += `<i class="${up ? "g" : "r"}" style="--a:${(up ? .1 + rnd() * .26 : .16 + rnd() * .2).toFixed(2)}"></i>`; }
+document.getElementById("cal").innerHTML = h;
+// equity: a gentle climb with a dip in the middle
+const N = 70, pts = []; let v = 10;
+for (let i = 0; i < N; i++) { v += 0.55 + Math.sin(i / 5) * 0.5 + (i > 28 && i < 40 ? -1.1 : 0) + (rnd() - .5) * 2.2; pts.push(v); }
+const lo = Math.min(...pts), hi = Math.max(...pts), W = 400, H = 130;
+const X = (i) => (i / (N - 1)) * (W - 8), Y = (y) => 8 + (1 - (y - lo) / (hi - lo)) * (H - 16);
+const d = pts.map((y, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(y).toFixed(1)}`).join("");
+document.getElementById("eq").innerHTML = `<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="eqg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcb84a" stop-opacity=".35"/><stop offset="1" stop-color="#dcb84a" stop-opacity="0"/></linearGradient></defs>
+  <path d="${d}L${X(N - 1)},${H}L0,${H}Z" fill="url(#eqg)"/><path d="${d}" fill="none" stroke="#dcb84a" stroke-width="2"/>
+  <circle cx="${X(N - 1)}" cy="${Y(pts[N - 1])}" r="4" fill="#f0d68c"/></svg>`;
+</script></body></html>
