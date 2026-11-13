@@ -1,0 +1,125 @@
+<!doctype html>
+<!-- Design mockup for the signal results section. Copy into website/ and open over HTTP to view; not part of the site. -->
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { padding: 40px 0; }
+.ss { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 18px; }
+.ss-rail { display: flex; flex-direction: column; gap: 10px; }
+.ss-room { display: grid; grid-template-columns: 46px 1fr; align-items: center; gap: 10px; padding: 12px; border-radius: 16px; text-align: left; border: 1px solid var(--line); background: var(--metal-red); box-shadow: var(--metal-edge); color: var(--text); font: inherit; }
+.ss-room b { display: block; font: 600 .95rem var(--font-head); }
+.ss-room small { color: var(--muted); font-size: .75rem; }
+.ss-room.on { border-color: var(--accent); box-shadow: var(--metal-edge), 0 0 0 1px rgba(var(--accent-rgb), .35), 0 10px 30px rgba(var(--accent-rgb), .12); background: radial-gradient(120% 100% at 0% 0%, rgba(220, 184, 74, .16), transparent 60%), var(--metal-red); }
+.ss-room .net { color: var(--accent-hi); font-weight: 600; }
+.ss-room .pill { font-size: .66rem; padding: 1px 8px; border-radius: 999px; border: 1px dashed rgba(var(--accent-rgb), .6); color: var(--accent-hi); }
+.ss-medal { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); }
+.ss-hype { font: 800 .7rem var(--font-head); padding: 2px 6px; border-radius: 6px; color: #fff; background: linear-gradient(135deg, #ff4fd8, #e52150 60%, #ff9a3d); }
+.ss-panel { display: grid; gap: 16px; min-width: 0; }
+.ss-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ss-head h3 { margin: 0; font-size: 1.6rem; }
+.ss-head span { color: var(--muted); font-size: .85rem; }
+.ss-top { display: grid; grid-template-columns: 300px 1fr; gap: 16px; }
+.ss-card { padding: 20px 22px; border-radius: 20px; border: 1px solid var(--line); background: var(--metal-red); box-shadow: var(--metal-edge); min-width: 0; }
+.ss-card h4 { margin: 0 0 12px; font: 600 .8rem var(--font-head); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-mid); }
+.ss-orbit { display: grid; place-items: center; background: radial-gradient(closest-side, rgba(var(--crimson-rgb), .45), transparent), var(--metal-red); }
+.ss-orbit svg { width: 100%; max-width: 270px; height: auto; overflow: visible; }
+.ss-ledger ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.ss-ledger li { display: flex; align-items: baseline; gap: 8px; font-size: .92rem; }
+.ss-ledger li span { color: var(--muted); }
+.ss-ledger li i { flex: 1; border-bottom: 1px dotted rgba(240, 214, 140, .25); transform: translateY(-4px); }
+.ss-ledger li b { font-feature-settings: "tnum" 1; font-weight: 600; }
+.ss-heat { display: grid; gap: 7px; }
+.ss-hrow { display: grid; grid-template-columns: 58px repeat(5, minmax(0, 1fr)) 84px; gap: 7px; align-items: center; }
+.ss-hrow > small { color: var(--muted); font-size: .78rem; }
+.ss-hrow > em { font-style: normal; text-align: right; font-weight: 600; color: var(--accent-hi); font-size: .86rem; }
+.ss-w { position: relative; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: .74rem; font-weight: 600; color: #2a1a08;
+  background: linear-gradient(180deg, rgba(246, 228, 166, calc(var(--a) + .05)), rgba(200, 159, 58, var(--a))); border: 1px solid rgba(240, 214, 140, .25); }
+.ss-w.lo { color: var(--text); }
+.ss-w i { position: absolute; top: 4px; right: 5px; display: flex; gap: 2px; }
+.ss-w i::before, .ss-w i::after { content: ""; }
+.ss-w .d { width: 6px; height: 6px; border-radius: 50%; background: #ff3b52; box-shadow: 0 0 0 2px rgba(0, 0, 0, .35); }
+.ss-w.ss-none { background: none; border-style: dashed; border-color: var(--line); }
+.ss-legend { display: flex; gap: 16px; margin-top: 10px; font-size: .76rem; color: var(--muted); align-items: center; }
+.ss-legend .d { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #ff3b52; margin-right: 5px; }
+.ss-lot { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+.ss-lot input { width: 100%; accent-color: #dcb84a; }
+.ss-chips { display: flex; gap: 6px; margin-top: 10px; }
+.ss-chips span { padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+.ss-chips span.on { color: #1a1209; background: var(--metal-gold); border-color: transparent; }
+.ss-lot .out { text-align: right; }
+.ss-lot .out b { display: block; font: 600 2.2rem var(--font-head); background: var(--metal-gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ss-lot .out small { color: var(--muted); }
+.ss-cum svg { width: 100%; height: auto; }
+.ss-note { font-size: .78rem; color: var(--muted); margin: 0; }
+@media (max-width: 760px) {
+  .ss { grid-template-columns: 1fr; }
+  .ss-rail { flex-direction: row; overflow-x: auto; }
+  .ss-room { min-width: 190px; }
+  .ss-top { grid-template-columns: 1fr; }
+  .ss-hrow { grid-template-columns: 40px repeat(5, minmax(0, 1fr)); }
+  .ss-hrow > em { display: none; }
+  .ss-w { height: 34px; font-size: .62rem; }
+  .ss-lot { grid-template-columns: 1fr; }
+  .ss-lot .out { text-align: left; }
+}
+</style></head>
+<body><div class="wrap">
+<p class="kicker wide-caps">ผลงานสัญญาณ</p>
+<h2 style="font-size:clamp(1.7rem,4vw,2.6rem);margin:0 0 26px">ผลงานจริงของห้องสัญญาณแต่ละห้อง</h2>
+<div class="ss" id="ss"></div>
+</div>
+<script src="js/config.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/signals-data.js"></script>
+<script>
+const D = window.OTM_SIGNALS, r = D.rooms[0], ds = r.days;
+const n = (v, d = 0) => Number(v).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
+const sg = (v, d = 0) => (v > 0 ? "+" : v < 0 ? "−" : "") + n(Math.abs(v), d);
+const mon = (iso) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return d.toISOString().slice(0, 10); };
+const won = ds.reduce((s, d) => s + d[1], 0), lost = ds.reduce((s, d) => s + d[2], 0), net = won - lost, sls = ds.reduce((s, d) => s + d[3], 0);
+const W = new Map(); ds.forEach((d) => { const k = mon(d[0]), g = W.get(k) || { k, net: 0, sl: 0 }; g.net += d[1] - d[2]; g.sl += d[3]; W.set(k, g); });
+const weeks = [...W.values()]; const maxW = Math.max(...weeks.map((w) => w.net));
+const M = new Map(); ds.forEach((d) => { const m = d[0].slice(0, 7); M.set(m, (M.get(m) || 0) + d[1] - d[2]); });
+const months = [...M.entries()];
+const mName = (m) => new Date(m + "-15T12:00:00").toLocaleDateString("th-TH", { month: "short" });
+let run = 0, noSl = 0; weeks.forEach((w) => { run = w.sl ? 0 : run + 1; noSl = Math.max(noSl, run); });
+const best = weeks.reduce((a, b) => (b.net > a.net ? b : a));
+// orbit: one gold arc per month around the net total
+const R = 100, C = 140, tot = months.reduce((s, [, v]) => s + v, 0); let a0 = -90;
+const pt = (a, rr) => [C + rr * Math.cos(a * Math.PI / 180), C + rr * Math.sin(a * Math.PI / 180)];
+const arcs = months.map(([m, v], i) => {
+  const sweep = (v / tot) * 360 - 3, a1 = a0 + sweep, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), mid = a0 + sweep / 2, [lx, ly] = pt(mid, R + 24);
+  const out = `<path d="M${x0} ${y0} A${R} ${R} 0 ${sweep > 180 ? 1 : 0} 1 ${x1} ${y1}" stroke="url(#og)" stroke-width="${12 + 10 * v / Math.max(...months.map((x) => x[1]))}" fill="none" stroke-linecap="butt" opacity="${.55 + .45 * (i % 2)}"/>
+    <text x="${lx}" y="${ly + 4}" text-anchor="middle" style="font:500 10px var(--font);fill:var(--muted)">${mName(m)}</text>`;
+  a0 = a1 + 3; return out;
+}).join("");
+const pd = 100, [g0x, g0y] = pt(-90, 76), [g1x, g1y] = pt(-90 + 359.9 * (pd / 100), 76);
+const orbit = `<svg viewBox="0 0 280 280"><defs><linearGradient id="og" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e4a6"/><stop offset=".5" stop-color="#dcb84a"/><stop offset="1" stop-color="#a8832c"/></linearGradient></defs>
+  <circle cx="140" cy="140" r="${R}" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="24"/>${arcs}
+  <circle cx="140" cy="140" r="76" fill="none" stroke="rgba(229,33,80,.25)" stroke-width="3" stroke-dasharray="2 5"/>
+  <text x="140" y="128" text-anchor="middle" style="font:600 11px var(--font);letter-spacing:.14em;fill:var(--gold-mid)">PIPS สุทธิ</text>
+  <text x="140" y="158" text-anchor="middle" style="font:600 30px var(--font-head);fill:#f0d68c">${sg(net)}</text>
+  <text x="140" y="180" text-anchor="middle" style="font:400 11px var(--font);fill:var(--muted)">${weeks.length} สัปดาห์ · ${ds.length} วันเทรด</text></svg>`;
+const ledger = [["วันที่กำไร", `${ds.filter((d) => d[1] - d[2] > 0).length}/${ds.length} วัน`], ["Pips ที่ได้", `<span class="up">${sg(won)}</span>`], ["Pips ที่เสีย (SL)", `<span class="down">${sg(-lost)}</span>`],
+  ["ติด SL", `${sls} ครั้ง`], ["Profit factor", n(won / lost, 1)], ["เฉลี่ยต่อสัปดาห์", sg(net / weeks.length)], ["สัปดาห์ที่ดีที่สุด", sg(best.net)], ["ไม่ติด SL ติดกัน", `${noSl} สัปดาห์`]]
+  .map(([k, v]) => `<li><span>${k}</span><i></i><b>${v}</b></li>`).join("");
+// heatmap: a row per month, a tile per week
+const byM = new Map(); weeks.forEach((w) => { const m = w.k.slice(0, 7); if (!byM.has(m)) byM.set(m, []); byM.get(m).push(w); });
+const heat = [...byM.entries()].map(([m, ws]) => `<div class="ss-hrow"><small>${mName(m)}</small>${[0, 1, 2, 3, 4].map((i) => { const w = ws[i]; if (!w) return `<div class="ss-w ss-none"></div>`; const a = (.25 + .75 * w.net / maxW).toFixed(2);
+  return `<div class="ss-w ${a < .5 ? "lo" : ""}" style="--a:${a}" title="${w.k}">${sg(w.net / 1000, 1)}k${w.sl ? `<i>${"<span class=d></span>".repeat(w.sl)}</i>` : ""}</div>`; }).join("")}<em>${sg(ws.reduce((s, w) => s + w.net, 0))}</em></div>`).join("");
+let cum = 0; const pts = ds.map((d) => ({ x: d[0], y: (cum += d[1] - d[2]) }));
+const cumSvg = OTMCharts.line(pts, { fmt: (x) => sg(x), dateFmt: (x) => new Date(x + "T12:00:00").toLocaleDateString("th-TH", { day: "numeric", month: "short" }), label: "cum", h: 220 });
+const medal = (k) => k === "hype" ? '<span class="ss-hype">HYPE</span>' : `<span style="font-size:1.5rem">${{ swing: "🥇", scalp: "🥈", rr: "🥉" }[k]}</span>`;
+document.getElementById("ss").innerHTML = `
+  <nav class="ss-rail">${D.rooms.map((x, i) => `<button class="ss-room ${i ? "" : "on"}"><span class="ss-medal">${medal(x.id)}</span><span><b>${x.name}${x.id === "scalp" ? " ⚡" : ""}</b>${i ? '<span class="pill">เร็ว ๆ นี้</span>' : `<small class="net">${sg(net)} pips</small>`}</span></button>`).join("")}</nav>
+  <div class="ss-panel">
+    <div class="ss-head"><h3>Swing Elite</h3><span>ทองคำ (XAUUSD) · 9 มี.ค. – 6 พ.ย. 2026 · จากสรุปประจำสัปดาห์</span></div>
+    <div class="ss-top"><div class="ss-card ss-orbit">${orbit}</div><div class="ss-card ss-ledger"><h4>สมุดผลงาน</h4><ul>${ledger}</ul></div></div>
+    <div class="ss-card ss-cum"><h4>Pips สะสม</h4>${cumSvg}</div>
+    <div class="ss-card"><h4>ทุกสัปดาห์</h4><div class="ss-heat">${heat}</div><div class="ss-legend"><span>ยิ่งทองเข้ม ยิ่งได้มาก</span><span><span class="d"></span>ติด SL 1 ครั้ง</span></div></div>
+    <div class="ss-card ss-lot"><div><h4>ถ้าเทรดตามทุกสัญญาณ</h4><input type="range" min="1" max="100" value="10"><div class="ss-chips"><span>0.01</span><span class="on">0.1</span><span>0.5</span><span>1.0 lot</span></div></div>
+      <div class="out"><b>+$${n(net * 10 * 0.1 * 0.85)}</b><small>ที่ 0.1 lot หลังหักสเปรด/คอม 15% · เฉลี่ย +$${n(net / weeks.length * 10 * 0.1 * 0.85)}/สัปดาห์</small></div></div>
+    <p class="ss-note">รวมจากสรุปผลประจำสัปดาห์ที่ประกาศในห้อง ผลในอดีตไม่ได้รับประกันผลในอนาคต</p>
+  </div>`;
+</script></body></html>
