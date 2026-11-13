@@ -32,6 +32,16 @@ education content), and #fyp (huge, but no evidence it helps; spend the slot on 
 | Risk (Which Losses, 5 Rules) | #forex #forextrader #riskmanagement #daytrading #OrderTheMarket | #forex #forextrading #riskmanagement #OrderTheMarket |
 | Technical (MSNR, CRT, Why Price Moves) | #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket | #forex #priceaction #forexeducation #OrderTheMarket |
 | Gold-specific | #forex #xauusd #goldtrading #priceaction #OrderTheMarket | #forex #xauusd #goldtrading #OrderTheMarket |
+| Investing / ownership, not forex-specific (Own the Seed, Headlines vs. the Trend) | #investing #financialliteracy #financialeducation #tradingmindset #OrderTheMarket | (Instagram only) |
+| Thai-language videos (Own the Seed TH) | #ลงทุน #การเงิน #ความรู้การเงิน #investing #OrderTheMarket | (Instagram only) |
+
+Investing and Thai sets were added in November 2026. #investing is a big tag; #financialliteracy and #financialeducation
+are the educational mid / niche tags; #tradingmindset ties the post back to the trading channel. A search found no
+reliable public counts for Thai hashtags, so check #ลงทุน, #การเงิน and #ความรู้การเงิน in Instagram's own search before
+a big campaign.
+
+For these topics, also avoid #financialfreedom, #wealthbuilding and #getrichquick: like #money / #wealth, they read as
+promises of riches, which is a compliance risk for education content.
 
 ## Caption shape
 
@@ -46,7 +56,9 @@ education content), and #fyp (huge, but no evidence it helps; spend the slot on 
 - [Display Purposes: #trading](https://displaypurposes.com/hashtags/hashtag/trading) and [#forex](https://displaypurposes.com/hashtags/hashtag/forex)
 - [Top-Hashtags: #forex](https://top-hashtags.com/hashtag/forex/) and [#forextrading](https://top-hashtags.com/hashtag/forextrading/)
 - [HashtagRadar: #forex on TikTok](https://hashtagradar.com/hashtag/forex/)
-- [IQHashtags: #smartmoney](https://iqhashtags.com/hashtags/hashtag/smartmoney)
+- [IQHashtags: #smartmoney](https://iqhashtags.com/hashtags/hashtag/smartmoney) and [#financialgoals](https://iqhashtags.com/hashtags/hashtag/financialgoals)
+- [Display Purposes: #financialliteracy](https://displaypurposes.com/hashtags/hashtag/financialliteracy) and [#financialeducation](https://displaypurposes.com/hashtags/hashtag/financialeducation)
+- [Flick: #investing](https://www.flick.social/learn/hashtags/investing)
 - [Postiz: how many hashtags for Instagram (2026)](https://postiz.com/blog/how-many-hashtags-for-instagram)
 - [Lilach Bullock: Instagram hashtag limit](https://www.lilachbullock.com/instagram-hashtag-limit/)
 - [Circleboom: how many hashtags on Instagram in 2026](https://circleboom.com/blog/how-many-hashtags-should-you-use-on-instagram-in-2026/)
