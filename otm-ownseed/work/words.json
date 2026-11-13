@@ -1,0 +1,787 @@
+[
+{
+"text": "This",
+"start": 0.0,
+"end": 0.4
+},
+{
+"text": "is",
+"start": 0.4,
+"end": 0.6
+},
+{
+"text": "why",
+"start": 0.6,
+"end": 0.86
+},
+{
+"text": "the",
+"start": 0.86,
+"end": 1.02
+},
+{
+"text": "rich",
+"start": 1.02,
+"end": 1.4
+},
+{
+"text": "keep",
+"start": 1.4,
+"end": 1.72
+},
+{
+"text": "getting",
+"start": 1.72,
+"end": 2.04
+},
+{
+"text": "richer.",
+"start": 2.04,
+"end": 2.48
+},
+{
+"text": "In",
+"start": 3.32,
+"end": 3.38
+},
+{
+"text": "America,",
+"start": 3.38,
+"end": 3.78
+},
+{
+"text": "a",
+"start": 4.32,
+"end": 4.42
+},
+{
+"text": "farmer",
+"start": 4.42,
+"end": 4.62
+},
+{
+"text": "can",
+"start": 4.62,
+"end": 4.88
+},
+{
+"text": "buy",
+"start": 4.88,
+"end": 5.16
+},
+{
+"text": "seeds,",
+"start": 5.16,
+"end": 5.62
+},
+{
+"text": "grow",
+"start": 6.02,
+"end": 6.14
+},
+{
+"text": "a",
+"start": 6.14,
+"end": 6.28
+},
+{
+"text": "crop,",
+"start": 6.28,
+"end": 6.56
+},
+{
+"text": "and",
+"start": 6.86,
+"end": 6.98
+},
+{
+"text": "sell",
+"start": 6.98,
+"end": 7.26
+},
+{
+"text": "the",
+"start": 7.26,
+"end": 7.48
+},
+{
+"text": "whole",
+"start": 7.48,
+"end": 7.8
+},
+{
+"text": "harvest.",
+"start": 7.8,
+"end": 8.24
+},
+{
+"text": "But",
+"start": 8.88,
+"end": 9.08
+},
+{
+"text": "if",
+"start": 9.08,
+"end": 9.18
+},
+{
+"text": "he",
+"start": 9.18,
+"end": 9.34
+},
+{
+"text": "saves",
+"start": 9.34,
+"end": 9.64
+},
+{
+"text": "the",
+"start": 9.64,
+"end": 9.88
+},
+{
+"text": "seeds",
+"start": 9.88,
+"end": 10.12
+},
+{
+"text": "and",
+"start": 10.12,
+"end": 10.32
+},
+{
+"text": "plants",
+"start": 10.32,
+"end": 10.54
+},
+{
+"text": "them",
+"start": 10.54,
+"end": 10.76
+},
+{
+"text": "again,",
+"start": 10.76,
+"end": 11.1
+},
+{
+"text": "he",
+"start": 11.62,
+"end": 11.84
+},
+{
+"text": "can",
+"start": 11.84,
+"end": 11.96
+},
+{
+"text": "be",
+"start": 11.96,
+"end": 12.1
+},
+{
+"text": "sued.",
+"start": 12.1,
+"end": 12.48
+},
+{
+"text": "Because",
+"start": 13.0,
+"end": 13.24
+},
+{
+"text": "the",
+"start": 13.24,
+"end": 13.46
+},
+{
+"text": "company",
+"start": 13.46,
+"end": 13.72
+},
+{
+"text": "that",
+"start": 13.72,
+"end": 13.96
+},
+{
+"text": "made",
+"start": 13.96,
+"end": 14.26
+},
+{
+"text": "the",
+"start": 14.26,
+"end": 14.48
+},
+{
+"text": "seed",
+"start": 14.48,
+"end": 14.76
+},
+{
+"text": "owns",
+"start": 14.76,
+"end": 15.14
+},
+{
+"text": "the",
+"start": 15.14,
+"end": 15.4
+},
+{
+"text": "patent.",
+"start": 15.4,
+"end": 15.74
+},
+{
+"text": "The",
+"start": 16.34,
+"end": 16.58
+},
+{
+"text": "farmer",
+"start": 16.58,
+"end": 16.88
+},
+{
+"text": "owns",
+"start": 16.88,
+"end": 17.3
+},
+{
+"text": "the",
+"start": 17.3,
+"end": 17.52
+},
+{
+"text": "crop.",
+"start": 17.52,
+"end": 17.82
+},
+{
+"text": "The",
+"start": 18.42,
+"end": 18.54
+},
+{
+"text": "company",
+"start": 18.54,
+"end": 18.9
+},
+{
+"text": "owns",
+"start": 18.9,
+"end": 19.38
+},
+{
+"text": "the",
+"start": 19.38,
+"end": 19.6
+},
+{
+"text": "recipe.",
+"start": 19.6,
+"end": 20.02
+},
+{
+"text": "So",
+"start": 20.62,
+"end": 20.84
+},
+{
+"text": "every",
+"start": 20.84,
+"end": 21.2
+},
+{
+"text": "season,",
+"start": 21.2,
+"end": 21.62
+},
+{
+"text": "the",
+"start": 21.82,
+"end": 21.98
+},
+{
+"text": "farmer",
+"start": 21.98,
+"end": 22.24
+},
+{
+"text": "comes",
+"start": 22.24,
+"end": 22.46
+},
+{
+"text": "back",
+"start": 22.46,
+"end": 22.84
+},
+{
+"text": "and",
+"start": 22.84,
+"end": 23.4
+},
+{
+"text": "pays",
+"start": 23.4,
+"end": 23.66
+},
+{
+"text": "again.",
+"start": 23.66,
+"end": 24.06
+},
+{
+"text": "That's",
+"start": 24.62,
+"end": 24.96
+},
+{
+"text": "the",
+"start": 24.96,
+"end": 25.08
+},
+{
+"text": "whole",
+"start": 25.08,
+"end": 25.38
+},
+{
+"text": "game.",
+"start": 25.38,
+"end": 25.74
+},
+{
+"text": "Most",
+"start": 26.26,
+"end": 26.58
+},
+{
+"text": "people",
+"start": 26.58,
+"end": 26.94
+},
+{
+"text": "sell",
+"start": 26.94,
+"end": 27.3
+},
+{
+"text": "the",
+"start": 27.3,
+"end": 27.5
+},
+{
+"text": "crop.",
+"start": 27.5,
+"end": 27.78
+},
+{
+"text": "Their",
+"start": 28.3,
+"end": 28.36
+},
+{
+"text": "hours,",
+"start": 28.36,
+"end": 28.76
+},
+{
+"text": "their",
+"start": 29.16,
+"end": 29.26
+},
+{
+"text": "effort.",
+"start": 29.26,
+"end": 29.62
+},
+{
+"text": "They",
+"start": 30.08,
+"end": 30.26
+},
+{
+"text": "get",
+"start": 30.26,
+"end": 30.4
+},
+{
+"text": "paid",
+"start": 30.4,
+"end": 30.58
+},
+{
+"text": "once,",
+"start": 30.58,
+"end": 31.02
+},
+{
+"text": "then",
+"start": 31.38,
+"end": 31.66
+},
+{
+"text": "start",
+"start": 31.66,
+"end": 31.96
+},
+{
+"text": "over.",
+"start": 31.96,
+"end": 32.28
+},
+{
+"text": "The",
+"start": 32.92,
+"end": 33.06
+},
+{
+"text": "rich",
+"start": 33.06,
+"end": 33.36
+},
+{
+"text": "own",
+"start": 33.36,
+"end": 33.78
+},
+{
+"text": "the",
+"start": 33.78,
+"end": 33.94
+},
+{
+"text": "seed.",
+"start": 33.94,
+"end": 34.34
+},
+{
+"text": "Shares,",
+"start": 35.28,
+"end": 35.28
+},
+{
+"text": "businesses,",
+"start": 35.72,
+"end": 36.02
+},
+{
+"text": "patents.",
+"start": 36.58,
+"end": 36.84
+},
+{
+"text": "Things",
+"start": 37.54,
+"end": 37.68
+},
+{
+"text": "that",
+"start": 37.68,
+"end": 37.9
+},
+{
+"text": "pay",
+"start": 37.9,
+"end": 38.08
+},
+{
+"text": "them",
+"start": 38.08,
+"end": 38.26
+},
+{
+"text": "again",
+"start": 38.26,
+"end": 38.72
+},
+{
+"text": "and",
+"start": 38.72,
+"end": 39.1
+},
+{
+"text": "again",
+"start": 39.1,
+"end": 39.52
+},
+{
+"text": "every",
+"start": 39.52,
+"end": 40.14
+},
+{
+"text": "season.",
+"start": 40.14,
+"end": 40.56
+},
+{
+"text": "A",
+"start": 41.06,
+"end": 41.3
+},
+{
+"text": "crop",
+"start": 41.3,
+"end": 41.6
+},
+{
+"text": "gets",
+"start": 41.6,
+"end": 41.9
+},
+{
+"text": "eaten.",
+"start": 41.9,
+"end": 42.24
+},
+{
+"text": "A",
+"start": 42.78,
+"end": 42.92
+},
+{
+"text": "seed",
+"start": 42.92,
+"end": 43.26
+},
+{
+"text": "makes",
+"start": 43.26,
+"end": 43.64
+},
+{
+"text": "more",
+"start": 43.64,
+"end": 43.92
+},
+{
+"text": "crops.",
+"start": 43.92,
+"end": 44.3
+},
+{
+"text": "So",
+"start": 44.86,
+"end": 45.06
+},
+{
+"text": "the",
+"start": 45.06,
+"end": 45.18
+},
+{
+"text": "real",
+"start": 45.18,
+"end": 45.42
+},
+{
+"text": "question",
+"start": 45.42,
+"end": 45.8
+},
+{
+"text": "isn't",
+"start": 45.8,
+"end": 46.22
+},
+{
+"text": "how",
+"start": 46.22,
+"end": 46.46
+},
+{
+"text": "hard",
+"start": 46.46,
+"end": 46.8
+},
+{
+"text": "you",
+"start": 46.8,
+"end": 46.98
+},
+{
+"text": "work.",
+"start": 46.98,
+"end": 47.3
+},
+{
+"text": "It's",
+"start": 47.7,
+"end": 47.94
+},
+{
+"text": "what",
+"start": 47.94,
+"end": 48.12
+},
+{
+"text": "you",
+"start": 48.12,
+"end": 48.32
+},
+{
+"text": "own.",
+"start": 48.32,
+"end": 48.66
+},
+{
+"text": "Every",
+"start": 49.34,
+"end": 49.64
+},
+{
+"text": "month,",
+"start": 49.64,
+"end": 49.96
+},
+{
+"text": "take",
+"start": 50.12,
+"end": 50.44
+},
+{
+"text": "part",
+"start": 50.44,
+"end": 50.74
+},
+{
+"text": "of",
+"start": 50.74,
+"end": 50.86
+},
+{
+"text": "your",
+"start": 50.86,
+"end": 51.0
+},
+{
+"text": "harvest",
+"start": 51.0,
+"end": 51.36
+},
+{
+"text": "and",
+"start": 51.36,
+"end": 51.9
+},
+{
+"text": "turn",
+"start": 51.9,
+"end": 52.14
+},
+{
+"text": "it",
+"start": 52.14,
+"end": 52.28
+},
+{
+"text": "into",
+"start": 52.28,
+"end": 52.54
+},
+{
+"text": "seed.",
+"start": 52.54,
+"end": 52.96
+},
+{
+"text": "Own",
+"start": 53.66,
+"end": 53.74
+},
+{
+"text": "the",
+"start": 53.74,
+"end": 53.96
+},
+{
+"text": "recipe.",
+"start": 53.96,
+"end": 54.42
+},
+{
+"text": "Not",
+"start": 54.42,
+"end": 55.02
+},
+{
+"text": "just",
+"start": 55.02,
+"end": 55.22
+},
+{
+"text": "the",
+"start": 55.22,
+"end": 55.4
+},
+{
+"text": "crop.",
+"start": 55.4,
+"end": 55.7
+},
+{
+"text": "Order",
+"start": 56.42,
+"end": 56.52
+},
+{
+"text": "the",
+"start": 56.52,
+"end": 56.74
+},
+{
+"text": "market.",
+"start": 56.74,
+"end": 57.08
+},
+{
+"text": "Don't",
+"start": 57.62,
+"end": 57.74
+},
+{
+"text": "let",
+"start": 57.74,
+"end": 57.88
+},
+{
+"text": "the",
+"start": 57.88,
+"end": 58.04
+},
+{
+"text": "market",
+"start": 58.04,
+"end": 58.34
+},
+{
+"text": "order",
+"start": 58.34,
+"end": 58.66
+},
+{
+"text": "you.",
+"start": 58.66,
+"end": 59.04
+},
+{
+"text": "Follow",
+"start": 59.6,
+"end": 59.9
+},
+{
+"text": "for",
+"start": 59.9,
+"end": 60.16
+},
+{
+"text": "more.",
+"start": 60.16,
+"end": 60.38
+}
+]
