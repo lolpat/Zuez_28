@@ -187,3 +187,13 @@ shows "Problem" in Profile until they reconnect.
 - `js/worldmap.js`: world outline for the market-hours map (Natural Earth, public domain)
 - `../supabase/functions/mt-sync/`: automatic MT4/MT5 history; `../supabase/sync-schedule.sql`: its schedule
 - `assets/img/`: logo mark (from `brand/logo/`), app icon, share image
+
+## Signal results (home page)
+
+- Four rooms (Swing Elite, Scalping Pro, RR High Reward, BTCUSD / NAS100) as tabs. Every figure
+  (trades, win rate, TP/SL, profit factor, total pips, best day, streaks, "if you had followed" at
+  0.01 / 0.1 / 0.5 / 1 lot after a 15% deduction, monthly table, pips by month) is computed from
+  each room's trade log in `js/signals-data.js`: one line per signal, `["2026-11-03", "XAUUSD",
+  "buy", 145]` (pips, minus for a stop loss). Include the losing signals too.
+- With empty logs the demo shows clearly labelled sample numbers; the live site shows
+  "results coming soon" instead. Sample numbers never appear on the live site.

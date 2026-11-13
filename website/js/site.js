@@ -80,6 +80,7 @@
   function landing() {
     bonusCalc();
     if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
+    if (window.OTMSignals) window.OTMSignals.render($("[data-signals]"));
     const box = $("#brokers");
     if (box) {
       box.innerHTML = cfg.BROKERS.map((b) => {
