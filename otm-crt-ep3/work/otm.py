@@ -177,6 +177,7 @@ def gp(p, base=4100.0, k=0.6):
 class Chart:
     """candles [(o, h, l, c)]; price pmin..pmax maps to y bot..top, index 0..nx maps to x x0..x1"""
     def __init__(self, candles, nx=None, x0=80, x1=1000, top=600, bot=1240, pmin=0, pmax=100, bwf=0.7):
+        connect(candles)
         self.c = candles
         self.nx = nx or len(candles)
         self.x0, self.x1, self.top, self.bot, self.pmin, self.pmax, self.bwf = x0, x1, top, bot, pmin, pmax, bwf
@@ -202,6 +203,16 @@ class Chart:
         return "".join(self.candle(i) for i in range(i0, i1))
 
     def edge(self, i): return round(self.x(i) + self.sp * 0.55, 1)
+
+
+def connect(candles):
+    """make the chart continuous, in place: every candle opens exactly at the previous candle's close (the closes, and so
+    the shape of the move, stay as they are; each wick is stretched if the new open lies outside it)"""
+    for i in range(1, len(candles)):
+        o, h, lo, c = candles[i]
+        o = candles[i - 1][3]
+        candles[i] = (o, max(h, o, c), min(lo, o, c), c)
+    return candles
 
 
 def path_candles(pivots, seed=3, noise=1.2, wick=0.9, start=None):

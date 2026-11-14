@@ -21,6 +21,7 @@ ch = Chart(path_candles([(0, 44), (3, 50), (7, 38), (9, 42), (12, 24), (15, 40),
 ch.c[10] = (41, 41.6, 35.5, 36); ch.c[11] = (36, 36.6, 31, 31.4)
 ch.c[12] = (31.4, 33.6, 24, 33.2)                    # the sweep: wick under the low, close back inside
 ch.c[13] = (33.2, 37.8, 32.6, 37.4)
+connect(ch.c)                                         # open each candle at the previous close
 SW = 12
 N = len(ch.c)
 HX, HW = 165, 84                                      # the higher-timeframe candle
