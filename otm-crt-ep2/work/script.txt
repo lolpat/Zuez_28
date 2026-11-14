@@ -1,0 +1,8 @@
+[hook] The sweep is not the signal. The close is.
+[setup] Here's a 4-hour range, with the CRT low marked. [dip] Price drops under the low. Two things can happen next.
+[a] A: the candle closes back inside the range. [areal] That's a real sweep. The stops are taken, and price is back in the box.
+[b] B: the candle closes below the low. [bfake] That's not a sweep. That's price accepting lower prices, [bstop] and buying it is how your stop gets taken.
+[c] And if price never takes either side? [cno] No sweep, no trade. Wait for the next candle.
+[rule] So the rule is simple. [rule2] No close back inside, no CRT.
+[next] Next: where the entry, the stop and the target go.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

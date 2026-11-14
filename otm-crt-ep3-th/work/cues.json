@@ -1,0 +1,97 @@
+[
+{
+"t": 0.3,
+"snd": "whoosh-short_1",
+"gain": -22
+},
+{
+"t": 3.82,
+"snd": "whoosh-long_1",
+"gain": -22
+},
+{
+"t": 8.19,
+"snd": "whoosh-short_2",
+"gain": -20
+},
+{
+"t": 10.5,
+"snd": "click-confirm_1",
+"gain": -18
+},
+{
+"t": 14.0,
+"snd": "pop_1",
+"gain": -18
+},
+{
+"t": 17.3,
+"snd": "swell_1",
+"gain": -22
+},
+{
+"t": 20.32,
+"snd": "bell_E5",
+"gain": -20
+},
+{
+"t": 21.82,
+"snd": "click_1",
+"gain": -18
+},
+{
+"t": 22.55,
+"snd": "tock_1",
+"gain": -18
+},
+{
+"t": 29.28,
+"snd": "bell_G5",
+"gain": -20
+},
+{
+"t": 34.87,
+"snd": "pop_2",
+"gain": -18
+},
+{
+"t": 37.39,
+"snd": "click-confirm_1",
+"gain": -16
+},
+{
+"t": 38.22,
+"snd": "tick-crisp_1",
+"gain": -16
+},
+{
+"t": 38.91,
+"snd": "tick-crisp_2",
+"gain": -16
+},
+{
+"t": 39.99,
+"snd": "tick-crisp_3",
+"gain": -16
+},
+{
+"t": 40.74,
+"snd": "tick-crisp_1",
+"gain": -16
+},
+{
+"t": 41.83,
+"snd": "whoosh-long_1",
+"gain": -22
+},
+{
+"t": 44.52,
+"snd": "bell_A4",
+"gain": -16
+},
+{
+"t": 47.83,
+"snd": "click-confirm_1",
+"gain": -16
+}
+]

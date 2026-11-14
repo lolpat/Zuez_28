@@ -1,0 +1,10 @@
+[hook] Before every CRT trade, run this checklist.
+[c1] One: a higher-timeframe candle sets the range.
+[c2] Two: price sweeps one side.
+[c3] Three: a candle closes back inside.
+[c4] Four: the lower timeframe shifts, [c4b] and you enter at the middle of the fair value gap.
+[c5] Five: stop beyond the wick, [c5b] target the other side of the range.
+[miss] Miss one box, and there's no trade.
+[save] Save this, and check it before you click buy or sell.
+[ask] Which pair do you use? 4-hour into 5-minute, [ask2] or daily into 1-hour? [cm] Tell me in the comments.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

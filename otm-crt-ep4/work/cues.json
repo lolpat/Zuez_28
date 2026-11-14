@@ -1,0 +1,77 @@
+[
+{
+"t": 3.53,
+"snd": "pop_1",
+"gain": -18
+},
+{
+"t": 8.2,
+"snd": "pop_2",
+"gain": -18
+},
+{
+"t": 11.41,
+"snd": "tick_1",
+"gain": -20
+},
+{
+"t": 14.44,
+"snd": "tock_1",
+"gain": -20
+},
+{
+"t": 15.84,
+"snd": "bell_E5",
+"gain": -20
+},
+{
+"t": 17.78,
+"snd": "whoosh-short_1",
+"gain": -22
+},
+{
+"t": 23.47,
+"snd": "tick_2",
+"gain": -20
+},
+{
+"t": 27.5,
+"snd": "click_2",
+"gain": -18
+},
+{
+"t": 28.7,
+"snd": "bell_C5",
+"gain": -20
+},
+{
+"t": 28.75,
+"snd": "click_2",
+"gain": -18
+},
+{
+"t": 32.71,
+"snd": "tick_3",
+"gain": -20
+},
+{
+"t": 37.11,
+"snd": "click-confirm_1",
+"gain": -16
+},
+{
+"t": 39.46,
+"snd": "whoosh-long_1",
+"gain": -22
+},
+{
+"t": 42.37,
+"snd": "bell_A4",
+"gain": -16
+},
+{
+"t": 45.56,
+"snd": "click-confirm_1",
+"gain": -16
+}
+]

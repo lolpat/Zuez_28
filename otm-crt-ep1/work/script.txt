@@ -1,0 +1,11 @@
+[hook] One candle can map the next move. It's called Candle Range Theory, or CRT.
+[hl] Every candle has a high and a low. [box] CRT treats that range like a box, and inside it, price does three things.
+[p1] One: the range. A higher-timeframe candle sets the high and the low.
+[liq] Above the high sit buy stops. [liq2] Below the low sit sell stops.
+[p2] Two: the sweep. The next candle runs one side, [take] and takes those stops.
+[p3] Three: delivery. Price closes back inside the box, [run] and travels to the other side.
+[why] Why? The traders who sold the breakdown are now trapped under the range.
+[fuel] Their stops are buy orders. As they get hit, they push price up, [target] toward the untouched highs.
+[recap] Range. Sweep. Delivery.
+[next] Next: how to tell a real sweep from a fake one.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

@@ -1,0 +1,9 @@
+[hook] The range and the entry live on different charts.
+[p1] A 4-hour range? Find the entry on the 5-minute, or the 15-minute. [p2] A daily range? Drop to the 1-hour.
+[close] Too close together, and the sweep is just noise. [far] Too far apart, and you can wait days for one setup.
+[mist] Here's the classic mistake. [m1] A trader drops all the way to the 1-minute.
+[m2] Inside the range, every small dip looks like a sweep. [m3] They buy one, and get stopped. [m3b] Then another.
+[m4] But none of those lows were the CRT low. [m4b] They were tiny swings, with almost no stops under them.
+[m5] Only the sweep of the range's own low matters.
+[next] Next: the full CRT checklist.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

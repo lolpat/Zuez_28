@@ -1,0 +1,11 @@
+[hook] You found a real sweep. Now, where do you get in?
+[ltf] Drop from the 4-hour range to the 5-minute chart. [sweep] Here's the sweep: the wick under the CRT low, [close] and the close back inside.
+[shift] Now wait for a shift. Price breaks above the last lower high. [fvg] That push leaves a fair value gap behind.
+[mid] Your entry is the middle of that gap.
+[stop] Your stop goes below the wick that swept the low. [fail] If price trades back under it, the sweep failed.
+[target] Your target is the other side of the range: the CRT high.
+[half] Halfway up sits the range fifty percent, [part] a natural place to take a partial.
+[hit] Target hit.
+[recap] Sweep, shift, gap, entry.
+[next] Next: which timeframes to pair.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.
