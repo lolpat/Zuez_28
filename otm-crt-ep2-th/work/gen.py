@@ -35,8 +35,8 @@ def frame(s, op=1, labels=True):
     hline(s, cA, HI, BX0, NX, GOLD, 3, "14 10", op); hline(s, cA, LO, BX0, NX, GOLD, 3, "14 10", op)
     s.label(HX, y(HI) - 22, "4H", 26, GREY, op, 800, 0.1)
     if labels:
-        s.label(BX1 - 6, y(HI) - 14, L("CRT HIGH", "ไฮของกรอบ"), 26, GOLD, op, 800, 0.12, "end")
-        s.label(BX1 - 6, y(LO) - 14, L("CRT LOW", "โลว์ของกรอบ"), 26, GOLD, op, 800, 0.12, "end")
+        s.label(BX1 - 6, y(HI) - 14, L("CRT HIGH", "ไฮของกรอบ") + "  " + gp(HI), 26, GOLD, op, 800, 0.08, "end")
+        s.label(BX1 - 6, y(LO) - 14, L("CRT LOW", "โลว์ของกรอบ") + "  " + gp(LO), 26, GOLD, op, 800, 0.08, "end")
 
 def mini(s, x, ok, op=1):
     """thumbnail icon: one candle against a line, closing back above it (ok) or below it"""
@@ -52,6 +52,7 @@ def mini(s, x, ok, op=1):
 
 # 1  hook: the sweep is not the signal, the close is
 s = S(0, K("setup") - 0.15, first=True)
+sym_pill(s)
 s.label(540, 330, L("THE SWEEP IS NOT THE SIGNAL.", "ไส้เทียนไม่ใช่สัญญาณ"), 44, WHITE, 1, 800, 0.04)
 s.label(540, 420, L("THE CLOSE IS.", "ราคาปิดคือสัญญาณ"), 64, GOLD, 1, 800, 0.06)
 mini(s, 300, True); mini(s, 780, False)

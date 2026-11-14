@@ -6,6 +6,8 @@ Thai version: built from the same scene file as `otm-crt-ep5` with LANG = "th". 
 The CRT series (5 parts, English and Thai) was inspired by a long candle range theory lesson; the scripts, charts and
 layout are original. This part: Five boxes before every CRT trade: a higher-timeframe candle sets the range, price sweeps one side, a candle closes back inside, the lower timeframe shifts with the entry at the middle of the fair value gap, stop beyond the wick and target the other side. Miss one box and there's no trade. Save it, and tell me which pair you use in the comments.
 
+Market: XAUUSD (gold) only; the series tag and the opening badge say so, and the prices on the level lines are
+illustrative gold prices.
 Candle colours: up candles #2962ff (blue), down candles white.
 
 Charts: synthetic example data (work/gen.py, seeded candles through hand-placed pivots). They are not real market data and
@@ -24,8 +26,8 @@ then npx hyperframes@0.8.214 render
 
 ## Instagram captions
 
-1. เช็กลิสต์ CRT 5 ข้อ ก่อนเข้าเทรดทุกครั้ง ขาดข้อไหน ไม่มีเทรด เซฟไว้ 📌 ตอนที่ 5/5
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+1. XAUUSD · เช็กลิสต์ CRT 5 ข้อ ก่อนเข้าเทรดทุกครั้ง ขาดข้อไหน ไม่มีเทรด เซฟไว้ 📌 ตอนที่ 5/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. คุณใช้คู่ไหน 4H กับ 5M หรือรายวันกับ 1H? บอกกันในคอมเมนต์ 👇 ซีรีส์ CRT ตอนที่ 5/5
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+2. XAUUSD · คุณใช้คู่ไหน 4H กับ 5M หรือรายวันกับ 1H? บอกกันในคอมเมนต์ 👇 ซีรีส์ CRT ตอนที่ 5/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket

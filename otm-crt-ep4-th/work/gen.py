@@ -37,6 +37,7 @@ def pair_row(s, yc, left, right, op=1):
 # 1  the pairs (frame 0 is the thumbnail)
 o1, c1 = 0, K("close") - 0.1
 s = S(o1, c1, first=True)
+sym_pill(s)
 s.label(540, 330, L("THE RANGE AND THE ENTRY", "กรอบราคา กับจุดเข้า"), 44, WHITE, 1, 800, 0.04)
 s.label(540, 420, L("LIVE ON DIFFERENT CHARTS", "อยู่คนละกราฟ"), 52, GOLD, 1, 800, 0.04)
 r1 = pair_row(s, 760, "4H", L("5M / 15M", "5M / 15M"))
@@ -90,10 +91,10 @@ o3, c3 = K("mist") - 0.1, K("next") - 0.1
 s = S(o3, c3)
 series_tag(s, 4)
 mp = s.pill(540, 470, L("THE CLASSIC MISTAKE", "ความผิดพลาดที่เจอบ่อย"), RED, WHITE, 26); s.pop(mp, K("mist") + 0.1, 0.4, 0.5); cue(K("mist") + 0.1, "whoosh-short_1", -22)
-for p, lab, ly in ((HI, L("CRT HIGH", "ไฮของกรอบ"), -14), (LO, L("CRT LOW", "โลว์ของกรอบ"), 36)):
+for p, lab, ly in ((HI, L("CRT HIGH", "ไฮของกรอบ") + "  " + gp(HI), -14), (LO, L("CRT LOW", "โลว์ของกรอบ") + "  " + gp(LO), 36)):
     s.raw(f'<line id="@ID@" x1="90" y1="{y(p)}" x2="1000" y2="{y(p)}" stroke="{GOLD}" stroke-width="3" stroke-dasharray="14 10"/>', "lv")
     s.label(1000, y(p) + ly, lab, 24, GOLD, 1, 800, 0.1, "end")
-m1 = s.label(100, y(HI) + 40, "1M", 26, GREY, 0, 800, 0.1, "start"); s.fade(m1, K("m1") + 0.3)
+m1 = s.label(100, y(HI) + 40, "XAUUSD 1M", 26, GREY, 0, 800, 0.1, "start"); s.fade(m1, K("m1") + 0.3)
 rid = candles_clip(s, ch)
 keys = [(o3, -1), (K("m1") + 0.2, -1), (K("m2") - 0.2, 6), (K("m2") + 1.4, 8), (K("m3") + 0.4, 8), (K("m3") + 1.6, 13),
         (K("m3b") - 0.1, 13), (K("m3b") + 1.0, 19), (K("m5") - 0.4, 19), (K("m5") + 1.6, SWI + 1), (K("next") - 0.5, N - 1)]

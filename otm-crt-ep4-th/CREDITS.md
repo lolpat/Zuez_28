@@ -6,6 +6,8 @@ Thai version: built from the same scene file as `otm-crt-ep4` with LANG = "th". 
 The CRT series (5 parts, English and Thai) was inspired by a long candle range theory lesson; the scripts, charts and
 layout are original. This part: The range and the entry live on different charts: a 4-hour range with a 5- or 15-minute entry, a daily range with a 1-hour entry. Too close and the sweep is noise; too far and you wait days. The classic mistake: on the 1-minute every small dip inside the range looks like a sweep, and buying them gets stopped. Only the sweep of the range's own low matters.
 
+Market: XAUUSD (gold) only; the series tag and the opening badge say so, and the prices on the level lines are
+illustrative gold prices.
 Candle colours: up candles #2962ff (blue), down candles white.
 
 Charts: synthetic example data (work/gen.py, seeded candles through hand-placed pivots). They are not real market data and
@@ -24,8 +26,8 @@ then npx hyperframes@0.8.214 render
 
 ## Instagram captions
 
-1. กรอบ 4H เข้าที่ 5M หรือ 15M กรอบรายวัน เข้าที่ 1H จับคู่ให้ถูก ไม่งั้นทุกการย่อจะดูเหมือนการกวาด CRT ตอนที่ 4/5 📌
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+1. XAUUSD · กรอบ 4H เข้าที่ 5M หรือ 15M กรอบรายวัน เข้าที่ 1H จับคู่ให้ถูก ไม่งั้นทุกการย่อจะดูเหมือนการกวาด CRT ตอนที่ 4/5 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. ลงไปดูกราฟ 1 นาที? โลว์เล็กๆ แทบไม่มีสต็อปข้างใต้ สำคัญแค่โลว์ของกรอบ ตอนที่ 4/5
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+2. XAUUSD · ลงไปดูกราฟ 1 นาที? โลว์เล็กๆ แทบไม่มีสต็อปข้างใต้ สำคัญแค่โลว์ของกรอบ ตอนที่ 4/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket

@@ -24,6 +24,7 @@ MISS = 2                                               # the row that goes missi
 # 1  the checklist (frame 0 is the thumbnail: the title and the five boxes)
 o1, c1 = 0, K("save") - 0.1
 s = S(o1, c1, first=True)
+sym_pill(s)
 s.label(540, 330, L("BEFORE EVERY CRT TRADE", "ก่อนเข้าเทรด CRT ทุกครั้ง"), 40, WHITE, 1, 800, 0.04)
 s.label(540, 430, L("THE CRT CHECKLIST", "เช็กลิสต์ CRT"), 64, GOLD, 1, 800, 0.04)
 row_ids = []

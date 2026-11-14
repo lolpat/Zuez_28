@@ -6,6 +6,8 @@ English version; the Thai version is `otm-crt-ep1-th` (same scene file, LANG = "
 The CRT series (5 parts, English and Thai) was inspired by a long candle range theory lesson; the scripts, charts and
 layout are original. This part: One higher-timeframe candle sets a range (the CRT high and low, with buy stops above and sell stops below). The next candles sweep one side, close back inside and deliver to the other side, fuelled by the trapped breakdown sellers' stops. Recap: range, sweep, delivery.
 
+Market: XAUUSD (gold) only; the series tag and the opening badge say so, and the prices on the level lines are
+illustrative gold prices.
 Candle colours: up candles #2962ff (blue), down candles white.
 
 Charts: synthetic example data (work/gen.py, seeded candles through hand-placed pivots). They are not real market data and
@@ -23,8 +25,8 @@ then npx hyperframes@0.8.214 render
 
 ## Instagram captions
 
-1. One candle can map the next move 🕯️ Candle Range Theory in 3 steps: range, sweep, delivery. Part 1/5 of the CRT series.
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+1. XAUUSD · One candle can map the next move 🕯️ Candle Range Theory in 3 steps: range, sweep, delivery. Part 1/5 of the CRT series.
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. Why does price sweep the low and run to the high? Trapped sellers. Their stops are buy orders. CRT part 1/5 📌
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+2. XAUUSD · Why does price sweep the low and run to the high? Trapped sellers. Their stops are buy orders. CRT part 1/5 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket

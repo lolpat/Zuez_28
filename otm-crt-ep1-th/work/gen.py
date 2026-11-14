@@ -35,6 +35,7 @@ def htf(s, op=1):
 
 # 1  thumbnail / hook: the whole picture
 s = S(0, K("hl") - 0.15, first=True)
+sym_pill(s)
 s.label(540, 330, L("CANDLE RANGE THEORY", "CANDLE RANGE THEORY"), 46, WHITE, 1, 800, 0.06)
 s.label(540, 430, "CRT", 96, GOLD, 1, 800, 0.12)
 range_box(s, 1)
@@ -68,8 +69,8 @@ llo = s.raw(f'<line id="@ID@" x1="{BX0}" y1="{y(LO)}" x2="{BX0}" y2="{y(LO)}" st
 for i in (lhi, llo):
     tl(f'tl.to("#{i}", {{attr: {{x2: {BX1}}}, duration: 0.8, ease: "power2.out"}}, {K("box"):.3f});')
 bx = range_box(s); s.fade(bx, K("box") + 0.3, 0.6); cue(K("box"), "whoosh-short_2", -22)
-chh = s.label(BX1 - 6, y(HI) - 14, L("CRT HIGH", "ไฮของกรอบ"), 26, GOLD, 0, 800, 0.12, "end"); s.fade(chh, K("box") + 0.6)
-chl = s.label(BX1 - 6, y(LO) + 36, L("CRT LOW", "โลว์ของกรอบ"), 26, GOLD, 0, 800, 0.12, "end"); s.fade(chl, K("box") + 0.8)
+chh = s.label(BX1 - 6, y(HI) - 14, L("CRT HIGH", "ไฮของกรอบ") + "  " + gp(HI), 26, GOLD, 0, 800, 0.08, "end"); s.fade(chh, K("box") + 0.6)
+chl = s.label(BX1 - 6, y(LO) + 36, L("CRT LOW", "โลว์ของกรอบ") + "  " + gp(LO), 26, GOLD, 0, 800, 0.08, "end"); s.fade(chl, K("box") + 0.8)
 # stops above and below
 up_chips = stop_chips(s, [480, 590, 700, 810], y(HI) - 34, RED, L("STOP", "STOP"), 18)
 dn_chips = stop_chips(s, [330, 440, 550, 660], y(LO) + 30, RED, L("STOP", "STOP"), 18)

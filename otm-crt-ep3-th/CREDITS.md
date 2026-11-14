@@ -6,6 +6,8 @@ Thai version: built from the same scene file as `otm-crt-ep3` with LANG = "th". 
 The CRT series (5 parts, English and Thai) was inspired by a long candle range theory lesson; the scripts, charts and
 layout are original. This part: On the 5-minute chart under a 4-hour range: the sweep of the CRT low and the close back inside, the shift above the last lower high, the fair value gap it leaves, the entry at the middle of the gap, the stop under the sweep wick, the target at the CRT high and a partial at the range 50%. Recap: sweep, shift, gap, entry.
 
+Market: XAUUSD (gold) only; the series tag and the opening badge say so, and the prices on the level lines are
+illustrative gold prices.
 Candle colours: up candles #2962ff (blue), down candles white.
 
 Charts: synthetic example data (work/gen.py, seeded candles through hand-placed pivots). They are not real market data and
@@ -24,8 +26,8 @@ then npx hyperframes@0.8.214 render
 
 ## Instagram captions
 
-1. จุดเข้า CRT อยู่ตรงไหน? กึ่งกลางแฟร์แวลูแก็ป สต็อปใต้ไส้ที่กวาด เป้าที่ไฮของกรอบ ตอนที่ 3/5 📌
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+1. XAUUSD · จุดเข้า CRT อยู่ตรงไหน? กึ่งกลางแฟร์แวลูแก็ป สต็อปใต้ไส้ที่กวาด เป้าที่ไฮของกรอบ ตอนที่ 3/5 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. กวาด เปลี่ยนโครงสร้าง แก็ป จุดเข้า แผนเทรด CRT ครบในกราฟเดียว ตอนที่ 3/5
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+2. XAUUSD · กวาด เปลี่ยนโครงสร้าง แก็ป จุดเข้า แผนเทรด CRT ครบในกราฟเดียว ตอนที่ 3/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket

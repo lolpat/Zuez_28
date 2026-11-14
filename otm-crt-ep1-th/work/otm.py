@@ -158,9 +158,19 @@ def captions(s, items, end, y=CAP_Y, size=32):
 def header(s, text, y=500):
     return s.label(540, y, text, 28, GREY, 1, 700, 0.2)
 
+SYMBOL = "XAUUSD"                                 # the whole series is made for gold
+
 def series_tag(s, ep):
     """small series marker at the top of every chart scene"""
-    return s.label(540, 300, L(f"CRT SERIES  ·  PART {ep}/5", f"ซีรีส์ CRT  ·  ตอนที่ {ep}/5"), 26, GOLD, 1, 700, 0.2)
+    return s.label(540, 300, L(f"{SYMBOL}  ·  CRT SERIES  ·  PART {ep}/5", f"{SYMBOL}  ·  ซีรีส์ CRT  ·  ตอนที่ {ep}/5"), 26, GOLD, 1, 700, 0.2)
+
+def sym_pill(s, y=235):
+    """the symbol badge on the opening (thumbnail) scene"""
+    return s.pill(540, y, L(f"{SYMBOL}  ·  GOLD", f"{SYMBOL}  ·  ทองคำ"), GOLD, "#111", 28, 1)
+
+def gp(p, base=4100.0, k=0.6):
+    """example XAUUSD price for chart price p (illustrative, not real data)"""
+    return f"{base + p * k:,.2f}"
 
 
 # ================================================================================================= candles

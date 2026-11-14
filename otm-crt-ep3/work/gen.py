@@ -39,11 +39,12 @@ def lvl(s, p, col, label, op=0, dash="14 10", w=3, i0=0, ly=-14, size=24):
 
 # 1  hook / thumbnail: the finished trade
 s = S(0, K("ltf") - 0.15, first=True)
+sym_pill(s)
 s.label(540, 330, L("THE SWEEP IS REAL.", "เจอการกวาดของจริงแล้ว"), 44, WHITE, 1, 800, 0.04)
 s.label(540, 420, L("WHERE DO YOU GET IN?", "จะเข้าตรงไหน?"), 58, GOLD, 1, 800, 0.04)
 rbox(s, ch.x(FILL), y(ENTRY), XR, y(HI), GREEN, 0.12, 0, 0, 1)
 rbox(s, ch.x(FILL), y(SL), XR, y(ENTRY), RED, 0.12, 0, 0, 1)
-for p, col, lab in ((HI, GOLD, L("TARGET · CRT HIGH", "เป้า · ไฮของกรอบ")), (LO, GOLD, L("CRT LOW", "โลว์ของกรอบ")), (ENTRY, LBLUE, L("ENTRY", "จุดเข้า")), (SL, RED, L("STOP", "สต็อป"))):
+for p, col, lab in ((HI, GOLD, L("TARGET · CRT HIGH", "เป้า · ไฮของกรอบ") + "  " + gp(HI)), (LO, GOLD, L("CRT LOW", "โลว์ของกรอบ") + "  " + gp(LO)), (ENTRY, LBLUE, L("ENTRY", "จุดเข้า")), (SL, RED, L("STOP", "สต็อป"))):
     lvl(s, p, col, lab, 1)
 rbox(s, ch.x(14), y(GAP_HI), ch.x(22), y(GAP_LO), LBLUE, 0.3, 0.9, 2, 1)
 s.raw('<g id="@ID@">' + ch.candles() + "</g>", "cg")
@@ -55,8 +56,8 @@ cue(0.3, "whoosh-short_1", -22)
 o2, c2 = K("ltf") - 0.15, K("recap") - 0.1
 s = S(o2, c2)
 series_tag(s, 3)
-tf = s.pill(540, 470, L("4H RANGE  ·  5M ENTRY", "กรอบ 4H  ·  เข้าที่ 5M"), WHITE, "#0b0b0b", 26); s.pop(tf, K("ltf") + 0.2, 0.4, 0.5); cue(K("ltf") + 0.2, "whoosh-long_1", -22)
-hiL, hiT = lvl(s, HI, GOLD, L("CRT HIGH", "ไฮของกรอบ")); loL, loT = lvl(s, LO, GOLD, L("CRT LOW", "โลว์ของกรอบ"), ly=36)
+tf = s.pill(540, 470, L("XAUUSD  ·  4H RANGE  ·  5M ENTRY", "XAUUSD  ·  กรอบ 4H  ·  เข้าที่ 5M"), WHITE, "#0b0b0b", 26); s.pop(tf, K("ltf") + 0.2, 0.4, 0.5); cue(K("ltf") + 0.2, "whoosh-long_1", -22)
+hiL, hiT = lvl(s, HI, GOLD, L("CRT HIGH", "ไฮของกรอบ") + "  " + gp(HI)); loL, loT = lvl(s, LO, GOLD, L("CRT LOW", "โลว์ของกรอบ") + "  " + gp(LO), ly=36)
 for i in (hiL, hiT, loL, loT): s.fade(i, K("ltf") + 0.4, 0.5)
 pr = rbox(s, ch.x(FILL), y(ENTRY), XR, y(HI), GREEN, 0.12, 0, 0)
 rk = rbox(s, ch.x(FILL), y(SL), XR, y(ENTRY), RED, 0.12, 0, 0)

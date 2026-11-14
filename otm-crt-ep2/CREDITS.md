@@ -6,6 +6,8 @@ English version; the Thai version is `otm-crt-ep2-th` (same scene file, LANG = "
 The CRT series (5 parts, English and Thai) was inspired by a long candle range theory lesson; the scripts, charts and
 layout are original. This part: The sweep is not the signal, the close is. Price drops under the CRT low and either (A) closes back inside: a real sweep, or (B) closes below: price accepting lower prices, and buying it gets stopped out. If neither side is taken there is no trade. The rule: no close back inside, no CRT.
 
+Market: XAUUSD (gold) only; the series tag and the opening badge say so, and the prices on the level lines are
+illustrative gold prices.
 Candle colours: up candles #2962ff (blue), down candles white.
 
 Charts: synthetic example data (work/gen.py, seeded candles through hand-placed pivots). They are not real market data and
@@ -23,8 +25,8 @@ then npx hyperframes@0.8.214 render
 
 ## Instagram captions
 
-1. The wick is not the signal. The close is. Real sweep vs fake sweep in CRT. Part 2/5 📌
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+1. XAUUSD · The wick is not the signal. The close is. Real sweep vs fake sweep in CRT. Part 2/5 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. Closed below the low? That's not a sweep, that's acceptance. No close back inside, no CRT. Part 2/5
-   #forex #forextrading #priceaction #smartmoneyconcepts #OrderTheMarket
+2. XAUUSD · Closed below the low? That's not a sweep, that's acceptance. No close back inside, no CRT. Part 2/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
