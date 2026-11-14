@@ -100,7 +100,7 @@ tg = s.pill(XR - 120, y(HI) - 76, L("TARGET", "เป้าหมาย"), GOLD,
 s.fade(pr, K("target") + 0.7, 0.5)
 hfL, hfT = lvl(s, MID50, GREY, L("RANGE 50%", "50% ของกรอบ"), 0, "6 8", 2)
 s.fade(hfL, K("half") + 0.1, 0.4); s.fade(hfT, K("half") + 0.2)
-pp = s.pill(ch.x(25) + 10, y(MID50) - 40, L("PARTIAL", "ปิดบางส่วน"), WHITE, "#0b0b0b", 20); s.pop(pp, K("part") + 0.3, 0.35, 0.5); cue(K("part") + 0.3, "pop_2", -18)
+pp = s.pill(ch.x(23.2), y(MID50) - 40, L("PARTIAL", "ปิดบางส่วน"), WHITE, "#0b0b0b", 20); s.pop(pp, K("part") + 0.3, 0.35, 0.5); cue(K("part") + 0.3, "pop_2", -18)
 th = s.pill(ch.x(N - 1) - 120, y(HI) + 44, L("TARGET HIT", "ถึงเป้า"), GREEN, "#0b0b0b", 24); s.pop(th, K("hit") + 0.15, 0.4, 0.5); cue(K("hit") + 0.15, "click-confirm_1", -16)
 out(tg, K("hit"))
 captions(s, [(o2 + 0.1, L("DROP FROM THE 4H RANGE TO THE 5M", "ลงจากกรอบ 4H ไปกราฟ 5M"), WHITE),
