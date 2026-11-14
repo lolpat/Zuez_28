@@ -1,0 +1,897 @@
+[
+{
+"text": "trading",
+"start": 0.0,
+"end": 0.48
+},
+{
+"text": "is",
+"start": 0.48,
+"end": 0.84
+},
+{
+"text": "you",
+"start": 0.84,
+"end": 1.32
+},
+{
+"text": "versus",
+"start": 1.32,
+"end": 1.7
+},
+{
+"text": "you.",
+"start": 1.7,
+"end": 2.28
+},
+{
+"text": "Not",
+"start": 2.72,
+"end": 3.04
+},
+{
+"text": "the",
+"start": 3.04,
+"end": 3.18
+},
+{
+"text": "market,",
+"start": 3.18,
+"end": 3.5
+},
+{
+"text": "not",
+"start": 3.96,
+"end": 4.16
+},
+{
+"text": "the",
+"start": 4.16,
+"end": 4.3
+},
+{
+"text": "broker,",
+"start": 4.3,
+"end": 4.68
+},
+{
+"text": "not",
+"start": 5.18,
+"end": 5.38
+},
+{
+"text": "the",
+"start": 5.38,
+"end": 5.54
+},
+{
+"text": "guy",
+"start": 5.54,
+"end": 5.7
+},
+{
+"text": "with",
+"start": 5.7,
+"end": 5.88
+},
+{
+"text": "the",
+"start": 5.88,
+"end": 6.0
+},
+{
+"text": "bigger",
+"start": 6.0,
+"end": 6.22
+},
+{
+"text": "account.",
+"start": 6.22,
+"end": 6.68
+},
+{
+"text": "None",
+"start": 7.44,
+"end": 7.58
+},
+{
+"text": "of",
+"start": 7.58,
+"end": 7.74
+},
+{
+"text": "them",
+"start": 7.74,
+"end": 7.9
+},
+{
+"text": "are",
+"start": 7.9,
+"end": 8.14
+},
+{
+"text": "clicking",
+"start": 8.14,
+"end": 8.36
+},
+{
+"text": "your",
+"start": 8.36,
+"end": 8.62
+},
+{
+"text": "buttons.",
+"start": 8.62,
+"end": 8.9
+},
+{
+"text": "The",
+"start": 9.6,
+"end": 9.76
+},
+{
+"text": "only",
+"start": 9.76,
+"end": 10.08
+},
+{
+"text": "thing",
+"start": 10.08,
+"end": 10.42
+},
+{
+"text": "between",
+"start": 10.42,
+"end": 10.76
+},
+{
+"text": "you",
+"start": 10.76,
+"end": 11.1
+},
+{
+"text": "and",
+"start": 11.1,
+"end": 11.36
+},
+{
+"text": "consistency",
+"start": 11.36,
+"end": 11.88
+},
+{
+"text": "is",
+"start": 11.88,
+"end": 12.62
+},
+{
+"text": "the",
+"start": 12.62,
+"end": 12.78
+},
+{
+"text": "version",
+"start": 12.78,
+"end": 13.1
+},
+{
+"text": "of",
+"start": 13.1,
+"end": 13.26
+},
+{
+"text": "you",
+"start": 13.26,
+"end": 13.48
+},
+{
+"text": "that",
+"start": 13.48,
+"end": 13.66
+},
+{
+"text": "moves",
+"start": 13.66,
+"end": 13.98
+},
+{
+"text": "the",
+"start": 13.98,
+"end": 14.16
+},
+{
+"text": "stop,",
+"start": 14.16,
+"end": 14.5
+},
+{
+"text": "chases",
+"start": 14.8,
+"end": 15.18
+},
+{
+"text": "the",
+"start": 15.18,
+"end": 15.36
+},
+{
+"text": "candle,",
+"start": 15.36,
+"end": 15.7
+},
+{
+"text": "and",
+"start": 15.88,
+"end": 16.0
+},
+{
+"text": "says,",
+"start": 16.0,
+"end": 16.26
+},
+{
+"text": "I'll",
+"start": 16.86,
+"end": 16.92
+},
+{
+"text": "follow",
+"start": 16.92,
+"end": 17.16
+},
+{
+"text": "the",
+"start": 17.16,
+"end": 17.32
+},
+{
+"text": "plan",
+"start": 17.32,
+"end": 17.54
+},
+{
+"text": "next",
+"start": 17.54,
+"end": 17.84
+},
+{
+"text": "week",
+"start": 17.84,
+"end": 18.12
+},
+{
+"text": "for",
+"start": 18.12,
+"end": 18.72
+},
+{
+"text": "the",
+"start": 18.72,
+"end": 18.86
+},
+{
+"text": "third",
+"start": 18.86,
+"end": 19.22
+},
+{
+"text": "year",
+"start": 19.22,
+"end": 19.56
+},
+{
+"text": "in",
+"start": 19.56,
+"end": 19.76
+},
+{
+"text": "a",
+"start": 19.76,
+"end": 19.9
+},
+{
+"text": "row.",
+"start": 19.9,
+"end": 20.18
+},
+{
+"text": "That's",
+"start": 20.6,
+"end": 21.16
+},
+{
+"text": "the",
+"start": 21.16,
+"end": 21.3
+},
+{
+"text": "fight.",
+"start": 21.3,
+"end": 21.58
+},
+{
+"text": "Every",
+"start": 22.02,
+"end": 22.34
+},
+{
+"text": "session,",
+"start": 22.34,
+"end": 22.78
+},
+{
+"text": "the",
+"start": 23.3,
+"end": 23.44
+},
+{
+"text": "trader",
+"start": 23.44,
+"end": 23.7
+},
+{
+"text": "who",
+"start": 23.7,
+"end": 23.94
+},
+{
+"text": "wrote",
+"start": 23.94,
+"end": 24.18
+},
+{
+"text": "the",
+"start": 24.18,
+"end": 24.36
+},
+{
+"text": "rules",
+"start": 24.36,
+"end": 24.7
+},
+{
+"text": "against",
+"start": 24.7,
+"end": 25.18
+},
+{
+"text": "the",
+"start": 25.18,
+"end": 25.38
+},
+{
+"text": "trader",
+"start": 25.38,
+"end": 25.68
+},
+{
+"text": "who",
+"start": 25.68,
+"end": 25.96
+},
+{
+"text": "wants",
+"start": 25.96,
+"end": 26.16
+},
+{
+"text": "to",
+"start": 26.16,
+"end": 26.4
+},
+{
+"text": "break",
+"start": 26.4,
+"end": 26.6
+},
+{
+"text": "them.",
+"start": 26.6,
+"end": 26.86
+},
+{
+"text": "And",
+"start": 27.46,
+"end": 27.54
+},
+{
+"text": "here's",
+"start": 27.54,
+"end": 27.82
+},
+{
+"text": "what",
+"start": 27.82,
+"end": 27.94
+},
+{
+"text": "nobody",
+"start": 27.94,
+"end": 28.34
+},
+{
+"text": "tells",
+"start": 28.34,
+"end": 28.64
+},
+{
+"text": "you.",
+"start": 28.64,
+"end": 28.96
+},
+{
+"text": "The",
+"start": 29.36,
+"end": 29.54
+},
+{
+"text": "other",
+"start": 29.54,
+"end": 29.76
+},
+{
+"text": "trader",
+"start": 29.76,
+"end": 30.12
+},
+{
+"text": "isn't",
+"start": 30.12,
+"end": 30.56
+},
+{
+"text": "reckless",
+"start": 30.56,
+"end": 30.88
+},
+{
+"text": "for",
+"start": 30.88,
+"end": 31.16
+},
+{
+"text": "fun.",
+"start": 31.16,
+"end": 31.5
+},
+{
+"text": "He's",
+"start": 32.02,
+"end": 32.22
+},
+{
+"text": "impatient.",
+"start": 32.22,
+"end": 32.72
+},
+{
+"text": "He",
+"start": 33.28,
+"end": 33.44
+},
+{
+"text": "wants",
+"start": 33.44,
+"end": 33.64
+},
+{
+"text": "action,",
+"start": 33.64,
+"end": 34.14
+},
+{
+"text": "and",
+"start": 34.44,
+"end": 34.64
+},
+{
+"text": "he's",
+"start": 34.64,
+"end": 34.82
+},
+{
+"text": "very",
+"start": 34.82,
+"end": 35.2
+},
+{
+"text": "good",
+"start": 35.2,
+"end": 35.52
+},
+{
+"text": "at",
+"start": 35.52,
+"end": 35.68
+},
+{
+"text": "making",
+"start": 35.68,
+"end": 35.96
+},
+{
+"text": "just",
+"start": 35.96,
+"end": 36.44
+},
+{
+"text": "this",
+"start": 36.44,
+"end": 36.7
+},
+{
+"text": "once",
+"start": 36.7,
+"end": 37.12
+},
+{
+"text": "sound",
+"start": 37.12,
+"end": 37.56
+},
+{
+"text": "reasonable.",
+"start": 37.56,
+"end": 38.02
+},
+{
+"text": "Most",
+"start": 38.62,
+"end": 38.86
+},
+{
+"text": "traders",
+"start": 38.86,
+"end": 39.16
+},
+{
+"text": "lose",
+"start": 39.16,
+"end": 39.48
+},
+{
+"text": "to",
+"start": 39.48,
+"end": 39.72
+},
+{
+"text": "him",
+"start": 39.72,
+"end": 39.88
+},
+{
+"text": "without",
+"start": 39.88,
+"end": 40.12
+},
+{
+"text": "ever",
+"start": 40.12,
+"end": 40.5
+},
+{
+"text": "noticing",
+"start": 40.5,
+"end": 40.86
+},
+{
+"text": "there",
+"start": 40.86,
+"end": 41.1
+},
+{
+"text": "was",
+"start": 41.1,
+"end": 41.22
+},
+{
+"text": "a",
+"start": 41.22,
+"end": 41.38
+},
+{
+"text": "fight.",
+"start": 41.38,
+"end": 41.62
+},
+{
+"text": "They",
+"start": 42.06,
+"end": 42.24
+},
+{
+"text": "blame",
+"start": 42.24,
+"end": 42.42
+},
+{
+"text": "the",
+"start": 42.42,
+"end": 42.62
+},
+{
+"text": "news,",
+"start": 42.62,
+"end": 42.98
+},
+{
+"text": "the",
+"start": 43.32,
+"end": 43.34
+},
+{
+"text": "spread,",
+"start": 43.34,
+"end": 43.8
+},
+{
+"text": "the",
+"start": 44.16,
+"end": 44.26
+},
+{
+"text": "stop",
+"start": 44.26,
+"end": 44.54
+},
+{
+"text": "hunt,",
+"start": 44.54,
+"end": 44.8
+},
+{
+"text": "and",
+"start": 45.18,
+"end": 45.36
+},
+{
+"text": "never",
+"start": 45.36,
+"end": 45.66
+},
+{
+"text": "look",
+"start": 45.66,
+"end": 45.92
+},
+{
+"text": "at",
+"start": 45.92,
+"end": 46.06
+},
+{
+"text": "who",
+"start": 46.06,
+"end": 46.2
+},
+{
+"text": "actually",
+"start": 46.2,
+"end": 46.76
+},
+{
+"text": "clicked",
+"start": 46.76,
+"end": 47.06
+},
+{
+"text": "the",
+"start": 47.06,
+"end": 47.24
+},
+{
+"text": "button.",
+"start": 47.24,
+"end": 47.48
+},
+{
+"text": "You",
+"start": 47.94,
+"end": 48.16
+},
+{
+"text": "don't",
+"start": 48.16,
+"end": 48.36
+},
+{
+"text": "need",
+"start": 48.36,
+"end": 48.58
+},
+{
+"text": "to",
+"start": 48.58,
+"end": 48.82
+},
+{
+"text": "beat",
+"start": 48.82,
+"end": 49.0
+},
+{
+"text": "the",
+"start": 49.0,
+"end": 49.2
+},
+{
+"text": "market.",
+"start": 49.2,
+"end": 49.48
+},
+{
+"text": "You",
+"start": 50.08,
+"end": 50.2
+},
+{
+"text": "need",
+"start": 50.2,
+"end": 50.36
+},
+{
+"text": "to",
+"start": 50.36,
+"end": 50.52
+},
+{
+"text": "beat",
+"start": 50.52,
+"end": 50.72
+},
+{
+"text": "him.",
+"start": 50.72,
+"end": 51.06
+},
+{
+"text": "Once.",
+"start": 51.66,
+"end": 51.96
+},
+{
+"text": "Today.",
+"start": 52.5,
+"end": 52.72
+},
+{
+"text": "Then",
+"start": 52.72,
+"end": 53.5
+},
+{
+"text": "again",
+"start": 53.5,
+"end": 53.74
+},
+{
+"text": "tomorrow.",
+"start": 53.74,
+"end": 54.16
+},
+{
+"text": "That's",
+"start": 54.76,
+"end": 55.04
+},
+{
+"text": "the",
+"start": 55.04,
+"end": 55.2
+},
+{
+"text": "whole",
+"start": 55.2,
+"end": 55.48
+},
+{
+"text": "game.",
+"start": 55.48,
+"end": 55.86
+},
+{
+"text": "Nobody",
+"start": 56.58,
+"end": 56.78
+},
+{
+"text": "is",
+"start": 56.78,
+"end": 57.1
+},
+{
+"text": "coming",
+"start": 57.1,
+"end": 57.3
+},
+{
+"text": "to",
+"start": 57.3,
+"end": 57.54
+},
+{
+"text": "follow",
+"start": 57.54,
+"end": 57.78
+},
+{
+"text": "your",
+"start": 57.78,
+"end": 58.04
+},
+{
+"text": "plan",
+"start": 58.04,
+"end": 58.32
+},
+{
+"text": "for",
+"start": 58.32,
+"end": 58.68
+},
+{
+"text": "you.",
+"start": 58.68,
+"end": 59.02
+},
+{
+"text": "Order",
+"start": 59.5,
+"end": 59.64
+},
+{
+"text": "the",
+"start": 59.64,
+"end": 59.84
+},
+{
+"text": "market.",
+"start": 59.84,
+"end": 60.12
+},
+{
+"text": "Don't",
+"start": 60.74,
+"end": 60.88
+},
+{
+"text": "let",
+"start": 60.88,
+"end": 61.02
+},
+{
+"text": "the",
+"start": 61.02,
+"end": 61.16
+},
+{
+"text": "market",
+"start": 61.16,
+"end": 61.52
+},
+{
+"text": "order",
+"start": 61.52,
+"end": 61.86
+},
+{
+"text": "you.",
+"start": 61.86,
+"end": 62.28
+},
+{
+"text": "Follow",
+"start": 63.02,
+"end": 63.16
+},
+{
+"text": "for",
+"start": 63.16,
+"end": 63.38
+},
+{
+"text": "more.",
+"start": 63.38,
+"end": 63.58
+}
+]

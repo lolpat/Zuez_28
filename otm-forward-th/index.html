@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="th" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-thai-600-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-thai-700-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-forward-th" data-start="0" data-duration="52.98" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust"><circle id="d0" cx="350" cy="290" r="2.5" fill="#fff" opacity="0.06"/><circle id="d1" cx="63" cy="974" r="1.3" fill="#fff" opacity="0.12"/><circle id="d2" cx="458" cy="1588" r="1.4" fill="#fff" opacity="0.09"/><circle id="d3" cx="623" cy="762" r="3.2" fill="#fff" opacity="0.06"/><circle id="d4" cx="156" cy="226" r="1.8" fill="#fff" opacity="0.19"/><circle id="d5" cx="690" cy="715" r="2.3" fill="#fff" opacity="0.06"/><circle id="d6" cx="735" cy="821" r="1.8" fill="#fff" opacity="0.15"/><circle id="d7" cx="858" cy="1342" r="1.7" fill="#fff" opacity="0.15"/><circle id="d8" cx="788" cy="553" r="3.2" fill="#fff" opacity="0.07"/><circle id="d9" cx="164" cy="939" r="1.3" fill="#fff" opacity="0.16"/><circle id="d10" cx="946" cy="602" r="2.6" fill="#fff" opacity="0.15"/><circle id="d11" cx="907" cy="1814" r="2.1" fill="#fff" opacity="0.16"/><circle id="d12" cx="699" cy="1907" r="2.8" fill="#fff" opacity="0.10"/><circle id="d13" cx="24" cy="886" r="1.5" fill="#fff" opacity="0.07"/><circle id="d14" cx="140" cy="475" r="2.0" fill="#fff" opacity="0.20"/><circle id="d15" cx="593" cy="1696" r="2.8" fill="#fff" opacity="0.20"/><circle id="d16" cx="387" cy="1698" r="3.1" fill="#fff" opacity="0.08"/><circle id="d17" cx="252" cy="931" r="2.4" fill="#fff" opacity="0.09"/><circle id="d18" cx="399" cy="1087" r="3.1" fill="#fff" opacity="0.17"/><circle id="d19" cx="730" cy="104" r="3.0" fill="#fff" opacity="0.18"/><circle id="d20" cx="424" cy="766" r="1.4" fill="#fff" opacity="0.16"/><circle id="d21" cx="225" cy="312" r="1.9" fill="#fff" opacity="0.06"/><circle id="d22" cx="110" cy="698" r="1.3" fill="#fff" opacity="0.20"/><circle id="d23" cx="272" cy="667" r="1.9" fill="#fff" opacity="0.07"/><circle id="d24" cx="503" cy="929" r="1.4" fill="#fff" opacity="0.07"/><circle id="d25" cx="895" cy="310" r="1.2" fill="#fff" opacity="0.21"/><circle id="d26" cx="587" cy="52" r="2.3" fill="#fff" opacity="0.22"/><circle id="d27" cx="282" cy="704" r="1.5" fill="#fff" opacity="0.18"/><circle id="d28" cx="356" cy="428" r="2.8" fill="#fff" opacity="0.22"/><circle id="d29" cx="884" cy="1421" r="1.7" fill="#fff" opacity="0.14"/><circle id="d30" cx="30" cy="536" r="1.7" fill="#fff" opacity="0.17"/><circle id="d31" cx="1012" cy="1897" r="3.1" fill="#fff" opacity="0.11"/><circle id="d32" cx="212" cy="392" r="2.4" fill="#fff" opacity="0.20"/><circle id="d33" cx="705" cy="1535" r="1.4" fill="#fff" opacity="0.16"/><circle id="d34" cx="810" cy="918" r="1.6" fill="#fff" opacity="0.18"/><circle id="d35" cx="1049" cy="760" r="2.0" fill="#fff" opacity="0.21"/><circle id="d36" cx="137" cy="290" r="3.0" fill="#fff" opacity="0.19"/><circle id="d37" cx="1059" cy="1262" r="1.9" fill="#fff" opacity="0.14"/><circle id="d38" cx="1049" cy="1247" r="2.3" fill="#fff" opacity="0.21"/><circle id="d39" cx="892" cy="405" r="1.7" fill="#fff" opacity="0.10"/></g>
+        <line id="ground" x1="0" y1="1240" x2="1080" y2="1240" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="12 12"/>
+<g id="sc1" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t2" x="540" y="486" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="69" letter-spacing="0" fill="#ffffff" style="opacity:1">ไปข้างหน้าเสมอ</text><text id="t3" x="540" y="572" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="69" letter-spacing="0" fill="#e8c26a" style="opacity:1">ไม่ถอยหลัง</text><g transform="translate(300,1240) scale(1.0)"><g id="f4" style="opacity:1;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><path id="p5" d="M 180 1300 H 900 M 900 1300 L 872 1286 M 900 1300 L 872 1314" fill="none" stroke="#e8c26a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;filter:drop-shadow(0 0 8px rgba(232,194,106,0.8))" /><path id="p6" d="M 520 1380 H 200 M 200 1380 L 228 1366 M 200 1380 L 228 1394" fill="none" stroke="#6b7079" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p7" d="M 340 1362 L 376 1398 M 376 1362 L 340 1398" fill="none" stroke="#ff4d5e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /></g>
+<g id="sc8" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g transform="translate(540,1240) scale(1.0)"><g id="f9" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><g id="fg10" style="opacity:0;filter:drop-shadow(0 0 14px rgba(232,194,106,0.8))"><rect x="857" y="1010" width="6" height="230" fill="#e8c26a"/><path d="M 863 1010 L 970 1040 L 863 1072 Z" fill="#e8c26a"/></g><text id="t11" x="905" y="1300" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="32" letter-spacing="0" fill="#e8c26a" style="opacity:0">เป้าหมาย</text><text id="t12" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">เมื่อเลือก</text><text id="t13" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#e8c26a" style="opacity:0">เป้าหมายแล้ว</text><rect x="110" y="1030" width="130" height="210" fill="none" stroke="#f4f4f2" stroke-opacity="0.8" stroke-width="5"/><rect id="dl15" x="113" y="1033" width="124" height="204" fill="#ffffff" fill-opacity="0.16"/><path id="do16" d="M 110 1030 L 52 1052 L 52 1222 L 110 1240 Z" fill="#f4f4f2" fill-opacity="0.85"/><rect id="ds17" x="113" y="1033" width="124" height="204" fill="#2a2e35" stroke="#f4f4f2" stroke-width="3" style="opacity:0"/><text id="t18" x="175" y="1300" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:1">ประตูหลัง</text><text id="t19" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">เลิกเปิด</text><text id="t20" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="56" letter-spacing="0" fill="#ffffff" style="opacity:0">ประตูหลังทิ้งไว้</text><g id="lk21" style="opacity:0"><rect x="160" y="1128" width="30" height="24" rx="4" fill="#e8c26a"/><path d="M 165 1128 V 1118 A 10 10 0 0 1 185 1118 V 1128" fill="none" stroke="#e8c26a" stroke-width="4"/></g></g>
+<g id="sc22" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g transform="translate(540,1240) scale(1.0)"><g id="f23" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><circle id="b24" cx="572" cy="1004" r="9" fill="#f4f4f2" style="opacity:0"/><circle id="b25" cx="602" cy="960" r="14" fill="#f4f4f2" style="opacity:0"/><path id="c26" d="M 230 700 H 850 Q 910 700 910 760 V 860 Q 910 920 850 920 H 230 Q 170 920 170 860 V 760 Q 170 700 230 700 Z" fill="#0f1319" stroke="#f4f4f2" stroke-width="4" style="opacity:0"/><text id="t27" x="540" y="795" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="43" letter-spacing="0" fill="#ffffff" style="opacity:0">“ถ้าเดือนนี้แย่...</text><text id="t28" x="540" y="862" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="43" letter-spacing="0" fill="#ffffff" style="opacity:0">ก็คงเลิก”</text><text id="t29" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">ความคิดนี้ คือ</text><text id="t30" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#ff4d5e" style="opacity:0">แผนที่จะล้มเหลว</text></g>
+<g id="sc31" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t32" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">ในการเทรด</text><text id="t33" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="54" letter-spacing="0" fill="#e8c26a" style="opacity:0">ต้องวางแผนรับการขาดทุน</text><path id="p34" d="M 180 1000 L 250 975 L 300 985 L 360 940 L 420 955 L 500 900 L 560 915 L 640 860 L 700 875 L 780 810 L 840 830 L 900 770" fill="none" stroke="#e9ecf1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><circle id="en35" cx="300" cy="985" r="12" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px rgba(232,194,106,0.9))"/><text id="t36" x="300" y="945" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#e8c26a" style="opacity:0">จุดเข้า</text><line id="sl37" x1="180" y1="1060" x2="920" y2="1060" stroke="#ff4d5e" stroke-width="4" stroke-dasharray="14 10" style="opacity:0"/><g id="pl38" style="opacity:0"><rect x="671" y="1092" width="218" height="56" rx="28.0" fill="#ff4d5e" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="780" y="1130" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="28" letter-spacing="0" fill="#fff">สต็อปลอส</text></g><path id="p39" d="M 920 1105 L 935 1122 L 965 1090" fill="none" stroke="#e8c26a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><text id="t40" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">แต่การวางแผนรับการขาดทุน</text><text id="t41" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="52" letter-spacing="0" fill="#ffffff" style="opacity:0">ไม่ใช่การวางแผนที่จะเลิก</text><g id="cd42" style="opacity:0"><path d="M 112 1170 H 488 Q 510 1170 510 1192 V 1318 Q 510 1340 488 1340 H 112 Q 90 1340 90 1318 V 1192 Q 90 1170 112 1170 Z" fill="#0f1319" stroke="#e8c26a" stroke-width="3"/><text x="300" y="1310" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="32" fill="#fff">วางแผนรับขาดทุน</text></g><g id="cd43" style="opacity:0"><path d="M 592 1170 H 968 Q 990 1170 990 1192 V 1318 Q 990 1340 968 1340 H 592 Q 570 1340 570 1318 V 1192 Q 570 1170 592 1170 Z" fill="#0f1319" stroke="#ff4d5e" stroke-width="3"/><text x="780" y="1310" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="32" fill="#fff">วางแผนจะเลิก</text></g><path id="p44" d="M 270 1232 L 292 1256 L 332 1210" fill="none" stroke="#e8c26a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p45" d="M 758 1212 L 802 1256 M 802 1212 L 758 1256" fill="none" stroke="#ff4d5e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /></g>
+<g id="sc46" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g transform="translate(140,1240) scale(1.0)"><g id="f47" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><text id="t48" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">เทรดเดอร์ทุกคนที่ไปถึงฝั่ง</text><text id="t49" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="56" letter-spacing="0" fill="#ffffff" style="opacity:0">เคยมีเดือนที่แทบพัง</text><rect id="wl50" x="364" y="1040" width="32" height="200" rx="6" fill="#ff4d5e" fill-opacity="0.35" stroke="#ff4d5e" stroke-width="3" style="opacity:0;filter:drop-shadow(0 0 10px rgba(255,77,94,0.6))"/><text id="t51" x="380" y="1000" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#ff4d5e" style="opacity:0">ขาดทุนติดกัน</text><rect id="wl52" x="584" y="1040" width="32" height="200" rx="6" fill="#ff4d5e" fill-opacity="0.35" stroke="#ff4d5e" stroke-width="3" style="opacity:0;filter:drop-shadow(0 0 10px rgba(255,77,94,0.6))"/><text id="t53" x="600" y="935" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#ff4d5e" style="opacity:0">พอร์ตแตก</text><rect id="wl54" x="804" y="1040" width="32" height="200" rx="6" fill="#ff4d5e" fill-opacity="0.35" stroke="#ff4d5e" stroke-width="3" style="opacity:0;filter:drop-shadow(0 0 10px rgba(255,77,94,0.6))"/><text id="t55" x="820" y="1000" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#ff4d5e" style="opacity:0">อยากเดินหนี</text><text id="t56" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">ความต่างคืออะไร?</text><text id="t57" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="63" letter-spacing="0" fill="#e8c26a" style="opacity:0">พวกเขาไม่เลิก</text><g id="fg58" style="opacity:0;filter:drop-shadow(0 0 14px rgba(232,194,106,0.8))"><rect x="977" y="1010" width="6" height="230" fill="#e8c26a"/><path d="M 983 1010 L 1090 1040 L 983 1072 Z" fill="#e8c26a"/></g></g>
+<g id="sc59" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t60" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">ความอดทน</text><text id="t61" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#ffffff" style="opacity:0">ไม่ใช่อารมณ์</text><path id="p62" d="M 120 960 Q 150 1030 180 960 Q 210 890 240 960 Q 270 1030 300 960 Q 330 890 360 960 Q 390 1030 420 960 Q 450 890 480 960" fill="none" stroke="#9aa0a8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><text id="t63" x="300" y="1100" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0" fill="#9aa0a8" style="opacity:0">อารมณ์</text><text id="t64" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#e8c26a" style="opacity:0">แต่คือการตัดสินใจ</text><path id="p65" d="M 600 960 H 940 M 940 960 L 910 942 M 940 960 L 910 978" fill="none" stroke="#e8c26a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;filter:drop-shadow(0 0 10px rgba(232,194,106,0.9))" /><text id="t66" x="770" y="1100" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0" fill="#e8c26a" style="opacity:0">การตัดสินใจ</text></g>
+<g id="sc67" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g transform="translate(540,1240) scale(1.0)"><g id="f68" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><text id="t69" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">ตลาดจะทดสอบคุณ</text><text id="t70" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#ff4d5e" style="opacity:0">จากข้างนอก</text><path id="p71" d="M 215 1207 L 422 1171 M 406 1184 L 422 1171 L 402 1164" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p72" d="M 865 1207 L 658 1171 M 678 1164 L 658 1171 L 674 1184" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p73" d="M 263 990 L 436 1090 M 415 1090 L 436 1090 L 425 1072" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p74" d="M 817 990 L 644 1090 M 655 1072 L 644 1090 L 665 1090" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p75" d="M 390 890 L 480 1046 M 462 1035 L 480 1046 L 480 1025" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p76" d="M 690 890 L 600 1046 M 600 1025 L 600 1046 L 618 1035" fill="none" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><text id="t77" x="540" y="488" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="30" letter-spacing="0" fill="#c9ced6" style="opacity:0">จะไปต่อหรือไม่</text><text id="t78" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="60" letter-spacing="0" fill="#e8c26a" style="opacity:0">ตัดสินจากข้างใน</text><circle id="co79" cx="540" cy="1178" r="18" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 16px rgba(232,194,106,1))"/><circle id="rg80" cx="540" cy="1178" r="30" fill="none" stroke="#e8c26a" stroke-width="4" style="opacity:0"/></g>
+<g id="sc81" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t82" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="71" letter-spacing="0" fill="#ff4d5e" style="opacity:0">ตัดขาดทุน</text><path id="p83" d="M 150 820 L 290 940" fill="none" stroke="#ff4d5e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p84" d="M 290 940 L 440 1080" fill="none" stroke="#ff4d5e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p85" d="M 250 990 L 340 900" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><text id="t86" x="230" y="1150" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="32" letter-spacing="0" fill="#ff4d5e" style="opacity:0">ขาดทุน</text><text id="t87" x="540" y="560" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="65" letter-spacing="0" fill="#e8c26a" style="opacity:0">แต่อย่าตัดความฝัน</text><path id="st88" d="M 770.0 840.0 L 799.1 910.0 L 874.6 916.0 L 817.1 965.3 L 834.7 1039.0 L 770.0 999.5 L 705.3 1039.0 L 722.9 965.3 L 665.4 916.0 L 740.9 910.0 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 22px rgba(232,194,106,0.9))"/><text id="t89" x="770" y="1150" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="32" letter-spacing="0" fill="#e8c26a" style="opacity:0">ความฝัน</text></g>
+<g id="sc90" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="sp92" style="opacity:1"><defs><linearGradient id="gr91" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgb(232,194,106)" stop-opacity="0.26"/><stop offset="1" stop-color="rgb(232,194,106)" stop-opacity="0.04"/></linearGradient></defs><path d="M 504 380 L 576 380 L 690 1240 L 390 1240 Z" fill="url(#gr91)"/><ellipse cx="540" cy="1240" rx="160" ry="26" fill="none" stroke="rgb(232,194,106)" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g><g transform="translate(380,1240) scale(1.0)"><g id="f93" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#e8c26a"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#e8c26a"/></g></g><g id="fg94" style="opacity:0;filter:drop-shadow(0 0 14px rgba(232,194,106,0.8))"><rect x="757" y="1010" width="6" height="230" fill="#e8c26a"/><path d="M 763 1010 L 870 1040 L 763 1072 Z" fill="#e8c26a"/></g><text id="t95" x="540" y="620" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="71" letter-spacing="0" fill="#e8c26a" style="opacity:0">ไปข้างหน้าเสมอ</text><text id="t96" x="540" y="712" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="50" letter-spacing="0" fill="#9aa0a8" style="opacity:0">ไม่ถอยหลัง</text></g>
+<g id="sc97" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="sp99" style="opacity:0"><defs><linearGradient id="gr98" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgb(232,194,106)" stop-opacity="0.26"/><stop offset="1" stop-color="rgb(232,194,106)" stop-opacity="0.04"/></linearGradient></defs><path d="M 500 380 L 580 380 L 770 1240 L 310 1240 Z" fill="url(#gr98)"/><ellipse cx="540" cy="1240" rx="240" ry="26" fill="none" stroke="rgb(232,194,106)" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g><image id="i100" href="assets/otm_emblem.png" x="390" y="900" width="300" height="291" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/><text id="t101" x="540" y="1300" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.3em" fill="#e8c26a" style="opacity:0">ORDER THE MARKET</text><text id="t102" x="540" y="1362" text-anchor="middle" font-family="Kanit" font-weight="600" font-size="30" letter-spacing="0" fill="#ffffff" style="opacity:0">อย่าให้ตลาดเป็นฝ่ายสั่งคุณ</text><g id="pl103" style="opacity:0"><rect x="348" y="1441" width="385" height="58" rx="29.0" fill="#e8c26a" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="540" y="1481" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.06em" fill="#111">FOLLOW FOR MORE</text></g><g id="so104" style="opacity:0"><rect x="290" y="1548" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="3"/><circle cx="308" cy="1566" r="8.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="318" cy="1556" r="2.4" fill="#fff"/><text x="338" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text><path d="M 612 1546 V 1574 A 9 9 0 1 1 603 1565 M 612 1546 Q 616 1557 628 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><text x="638" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g><text id="t105" x="540" y="1650" text-anchor="middle" font-family="Montserrat" font-weight="600" font-size="28" letter-spacing="0.12em" fill="#7d838c" style="opacity:0">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</text></g>
+
+      </svg>
+      <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
+      <audio id="otm-forward-th-audio" class="clip" src="assets/audio/mix_forward_th.wav" data-start="0" data-duration="52.98" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#sc1", {opacity: 1, visibility: "visible"}, 0);
+        tl.fromTo("#sc1", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 3.340, ease: "none", immediateRender: false}, 0.000);
+        tl.to("#sc1", {opacity: 0, duration: 0.25, ease: "power2.in"}, 3.090);
+        tl.set("#sc1", {opacity: 0, visibility: "hidden"}, 3.340);
+        tl.to("#f4", {x: "+=360", duration: 3.040, ease: "power1.inOut"}, 0.150);
+        tl.to("#f4", {y: -7, duration: 0.095, yoyo: true, repeat: 31, ease: "sine.inOut"}, 0.150);
+        tl.fromTo("#p5", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 1.000, ease: "power2.inOut", immediateRender: false}, 0.200);
+        tl.fromTo("#p6", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.500, ease: "power2.inOut", immediateRender: false}, 1.720);
+        tl.fromTo("#p7", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.inOut", immediateRender: false}, 2.220);
+        tl.set("#sc8", {visibility: "visible"}, 3.340);
+        tl.fromTo("#sc8", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 3.340);
+        tl.fromTo("#sc8", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 3.440, ease: "none", immediateRender: false}, 3.340);
+        tl.to("#sc8", {opacity: 0, duration: 0.25, ease: "power2.in"}, 6.530);
+        tl.set("#sc8", {opacity: 0, visibility: "hidden"}, 6.780);
+        tl.set("#f9", {opacity: 0}, 3.340);
+        tl.fromTo("#f9", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 3.440);
+        tl.set("#fg10", {opacity: 0}, 3.340);
+        tl.fromTo("#fg10", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.450, ease: "back.out(1.8)", immediateRender: false}, 3.940);
+        tl.fromTo("#t11", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 4.040);
+        tl.fromTo("#t12", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.440);
+        tl.to("#t12", {opacity: 0, duration: 0.15}, 4.650);
+        tl.fromTo("#t13", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.440);
+        tl.to("#t13", {opacity: 0, duration: 0.15}, 4.650);
+        tl.fromTo("#t19", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 4.920);
+        tl.to("#t19", {opacity: 0, duration: 0.15}, 6.610);
+        tl.fromTo("#t20", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 4.920);
+        tl.to("#t20", {opacity: 0, duration: 0.15}, 6.610);
+        tl.to("#do16", {opacity: 0, duration: 0.15}, 6.020);
+        tl.to("#dl15", {opacity: 0, duration: 0.2}, 6.020);
+        tl.fromTo("#ds17", {opacity: 0}, {opacity: 1, duration: 0.120, ease: "power2.out", immediateRender: false}, 6.020);
+        tl.set("#lk21", {opacity: 0}, 3.340);
+        tl.fromTo("#lk21", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 6.170);
+        tl.set("#sc22", {visibility: "visible"}, 6.780);
+        tl.fromTo("#sc22", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 6.780);
+        tl.fromTo("#sc22", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 5.820, ease: "none", immediateRender: false}, 6.780);
+        tl.to("#sc22", {opacity: 0, duration: 0.25, ease: "power2.in"}, 12.350);
+        tl.set("#sc22", {opacity: 0, visibility: "hidden"}, 12.600);
+        tl.fromTo("#f23", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 6.830);
+        tl.set("#b24", {opacity: 0}, 6.780);
+        tl.fromTo("#b24", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.250, ease: "back.out(1.8)", immediateRender: false}, 6.880);
+        tl.set("#b25", {opacity: 0}, 6.780);
+        tl.fromTo("#b25", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.250, ease: "back.out(1.8)", immediateRender: false}, 6.980);
+        tl.set("#c26", {opacity: 0}, 6.780);
+        tl.fromTo("#c26", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 7.080);
+        tl.fromTo("#t27", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 7.180);
+        tl.fromTo("#t28", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 8.170);
+        tl.fromTo("#t29", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.280);
+        tl.to("#t29", {opacity: 0, duration: 0.15}, 12.430);
+        tl.fromTo("#t30", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.280);
+        tl.to("#t30", {opacity: 0, duration: 0.15}, 12.430);
+        tl.to("#c26", {stroke: "#ff4d5e", duration: 0.3}, 10.500);
+        tl.to("#t27", {fill: "#ff4d5e", duration: 0.3}, 10.500);
+        tl.to("#t28", {fill: "#ff4d5e", duration: 0.3}, 10.500);
+        tl.to("#f23", {opacity: 0.45, duration: 0.5}, 10.500);
+        tl.set("#sc31", {visibility: "visible"}, 12.600);
+        tl.fromTo("#sc31", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 12.600);
+        tl.fromTo("#sc31", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 9.540, ease: "none", immediateRender: false}, 12.600);
+        tl.to("#sc31", {opacity: 0, duration: 0.25, ease: "power2.in"}, 21.890);
+        tl.set("#sc31", {opacity: 0, visibility: "hidden"}, 22.140);
+        tl.to("#ground", {opacity: 0, duration: 0.3}, 12.450);
+        tl.to("#ground", {opacity: 1, duration: 0.3}, 21.990);
+        tl.fromTo("#t32", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 12.700);
+        tl.to("#t32", {opacity: 0, duration: 0.15}, 17.970);
+        tl.fromTo("#t33", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 12.700);
+        tl.to("#t33", {opacity: 0, duration: 0.15}, 17.970);
+        tl.fromTo("#p34", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 1.400, ease: "power2.inOut", immediateRender: false}, 12.900);
+        tl.set("#en35", {opacity: 0}, 12.600);
+        tl.fromTo("#en35", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 13.720);
+        tl.fromTo("#t36", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.720);
+        tl.fromTo("#sl37", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 16.020);
+        tl.set("#pl38", {opacity: 0}, 12.600);
+        tl.fromTo("#pl38", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 17.220);
+        tl.fromTo("#p39", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.inOut", immediateRender: false}, 17.620);
+        tl.to("#p34", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.to("#en35", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.to("#t36", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.to("#sl37", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.to("#pl38", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.to("#p39", {opacity: 0.15, duration: 0.4}, 18.040);
+        tl.fromTo("#t40", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.240);
+        tl.to("#t40", {opacity: 0, duration: 0.15}, 21.970);
+        tl.fromTo("#t41", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.240);
+        tl.to("#t41", {opacity: 0, duration: 0.15}, 21.970);
+        tl.set("#cd42", {opacity: 0}, 12.600);
+        tl.fromTo("#cd42", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 18.440);
+        tl.set("#cd43", {opacity: 0}, 12.600);
+        tl.fromTo("#cd43", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 18.690);
+        tl.fromTo("#p44", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.inOut", immediateRender: false}, 18.940);
+        tl.fromTo("#p45", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.inOut", immediateRender: false}, 20.520);
+        tl.set("#sc46", {visibility: "visible"}, 22.140);
+        tl.fromTo("#sc46", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 22.140);
+        tl.fromTo("#sc46", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 10.670, ease: "none", immediateRender: false}, 22.140);
+        tl.to("#sc46", {opacity: 0, duration: 0.25, ease: "power2.in"}, 32.560);
+        tl.set("#sc46", {opacity: 0, visibility: "hidden"}, 32.810);
+        tl.set("#f47", {opacity: 0}, 22.140);
+        tl.fromTo("#f47", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 22.240);
+        tl.to("#f47", {x: "+=110", duration: 1.400, ease: "power1.inOut"}, 22.640);
+        tl.to("#f47", {y: -7, duration: 0.100, yoyo: true, repeat: 13, ease: "sine.inOut"}, 22.640);
+        tl.fromTo("#t48", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 22.240);
+        tl.to("#t48", {opacity: 0, duration: 0.15}, 29.710);
+        tl.fromTo("#t49", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 22.240);
+        tl.to("#t49", {opacity: 0, duration: 0.15}, 29.710);
+        tl.set("#wl50", {opacity: 0}, 22.140);
+        tl.fromTo("#wl50", {opacity: 0, scale: 0.2, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 26.120);
+        tl.fromTo("#t51", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 26.170);
+        tl.set("#wl52", {opacity: 0}, 22.140);
+        tl.fromTo("#wl52", {opacity: 0, scale: 0.2, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 27.440);
+        tl.fromTo("#t53", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 27.490);
+        tl.set("#wl54", {opacity: 0}, 22.140);
+        tl.fromTo("#wl54", {opacity: 0, scale: 0.2, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 28.440);
+        tl.fromTo("#t55", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 28.490);
+        tl.fromTo("#t56", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 29.980);
+        tl.to("#t56", {opacity: 0, duration: 0.15}, 32.640);
+        tl.fromTo("#t57", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 29.980);
+        tl.to("#t57", {opacity: 0, duration: 0.15}, 32.640);
+        tl.to("#wl50", {opacity: 0, scaleY: 0.2, transformOrigin: "50% 100%", duration: 0.3, ease: "power2.in"}, 30.500);
+        tl.to("#t51", {opacity: 0, duration: 0.3}, 30.500);
+        tl.to("#wl52", {opacity: 0, scaleY: 0.2, transformOrigin: "50% 100%", duration: 0.3, ease: "power2.in"}, 31.000);
+        tl.to("#t53", {opacity: 0, duration: 0.3}, 31.000);
+        tl.to("#wl54", {opacity: 0, scaleY: 0.2, transformOrigin: "50% 100%", duration: 0.3, ease: "power2.in"}, 31.500);
+        tl.to("#t55", {opacity: 0, duration: 0.3}, 31.500);
+        tl.to("#f47", {x: "+=640", duration: 1.600, ease: "power1.inOut"}, 30.380);
+        tl.to("#f47", {y: -7, duration: 0.100, yoyo: true, repeat: 15, ease: "sine.inOut"}, 30.380);
+        tl.set("#fg58", {opacity: 0}, 22.140);
+        tl.fromTo("#fg58", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 31.680);
+        tl.set("#sc59", {visibility: "visible"}, 32.760);
+        tl.fromTo("#sc59", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 32.760);
+        tl.fromTo("#sc59", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 4.050, ease: "none", immediateRender: false}, 32.760);
+        tl.to("#sc59", {opacity: 0, duration: 0.25, ease: "power2.in"}, 36.560);
+        tl.set("#sc59", {opacity: 0, visibility: "hidden"}, 36.810);
+        tl.to("#ground", {opacity: 0, duration: 0.3}, 32.610);
+        tl.to("#ground", {opacity: 1, duration: 0.3}, 36.660);
+        tl.fromTo("#t60", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 32.760);
+        tl.to("#t60", {opacity: 0, duration: 0.15}, 34.290);
+        tl.fromTo("#t61", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 32.760);
+        tl.to("#t61", {opacity: 0, duration: 0.15}, 34.290);
+        tl.fromTo("#p62", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.800, ease: "power2.inOut", immediateRender: false}, 33.860);
+        tl.fromTo("#t63", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 34.060);
+        tl.fromTo("#t64", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 34.460);
+        tl.to("#t64", {opacity: 0, duration: 0.15}, 36.640);
+        tl.to("#p62", {opacity: 0.25, duration: 0.4}, 35.040);
+        tl.to("#t63", {opacity: 0.4, duration: 0.4}, 35.040);
+        tl.fromTo("#p65", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.500, ease: "power2.inOut", immediateRender: false}, 35.040);
+        tl.fromTo("#t66", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 35.240);
+        tl.set("#sc67", {visibility: "visible"}, 36.760);
+        tl.fromTo("#sc67", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 36.760);
+        tl.fromTo("#sc67", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 4.500, ease: "none", immediateRender: false}, 36.760);
+        tl.to("#sc67", {opacity: 0, duration: 0.25, ease: "power2.in"}, 41.010);
+        tl.set("#sc67", {opacity: 0, visibility: "hidden"}, 41.260);
+        tl.fromTo("#f68", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 36.810);
+        tl.fromTo("#t69", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 36.810);
+        tl.to("#t69", {opacity: 0, duration: 0.15}, 38.450);
+        tl.fromTo("#t70", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 36.810);
+        tl.to("#t70", {opacity: 0, duration: 0.15}, 38.450);
+        tl.fromTo("#p71", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 36.860);
+        tl.to("#p71", {opacity: 0, duration: 0.3}, 37.760);
+        tl.fromTo("#p72", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 37.140);
+        tl.to("#p72", {opacity: 0, duration: 0.3}, 38.040);
+        tl.fromTo("#p73", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 37.420);
+        tl.to("#p73", {opacity: 0, duration: 0.3}, 38.320);
+        tl.fromTo("#p74", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 37.700);
+        tl.to("#p74", {opacity: 0, duration: 0.3}, 38.600);
+        tl.fromTo("#p75", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 37.980);
+        tl.to("#p75", {opacity: 0, duration: 0.3}, 38.880);
+        tl.fromTo("#p76", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.300, ease: "power2.in", immediateRender: false}, 38.260);
+        tl.to("#p76", {opacity: 0, duration: 0.3}, 39.160);
+        tl.fromTo("#t77", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 38.720);
+        tl.to("#t77", {opacity: 0, duration: 0.15}, 41.090);
+        tl.fromTo("#t78", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 38.720);
+        tl.to("#t78", {opacity: 0, duration: 0.15}, 41.090);
+        tl.set("#co79", {opacity: 0}, 36.760);
+        tl.fromTo("#co79", {opacity: 0, scale: 0.2, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 40.140);
+        tl.fromTo("#rg80", {opacity: 1, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 0, scale: 5, duration: 1.0, ease: "power2.out", immediateRender: false}, 40.240);
+        tl.set("#sc81", {visibility: "visible"}, 41.210);
+        tl.fromTo("#sc81", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 41.210);
+        tl.fromTo("#sc81", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 3.270, ease: "none", immediateRender: false}, 41.210);
+        tl.to("#sc81", {opacity: 0, duration: 0.25, ease: "power2.in"}, 44.230);
+        tl.set("#sc81", {opacity: 0, visibility: "hidden"}, 44.480);
+        tl.to("#ground", {opacity: 0, duration: 0.3}, 41.060);
+        tl.to("#ground", {opacity: 1, duration: 0.3}, 44.330);
+        tl.fromTo("#t82", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 41.260);
+        tl.to("#t82", {opacity: 0, duration: 0.15}, 42.680);
+        tl.fromTo("#p83", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.350, ease: "power2.inOut", immediateRender: false}, 41.510);
+        tl.fromTo("#p84", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.350, ease: "power2.inOut", immediateRender: false}, 41.810);
+        tl.fromTo("#p85", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.180, ease: "power2.inOut", immediateRender: false}, 42.260);
+        tl.to("#p84", {y: 160, opacity: 0, duration: 0.6, ease: "power2.in"}, 42.410);
+        tl.to("#p85", {opacity: 0, duration: 0.3}, 42.560);
+        tl.fromTo("#t86", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 41.560);
+        tl.fromTo("#t87", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 42.850);
+        tl.to("#t87", {opacity: 0, duration: 0.15}, 44.310);
+        tl.set("#st88", {opacity: 0}, 41.210);
+        tl.fromTo("#st88", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.500, ease: "back.out(1.8)", immediateRender: false}, 42.900);
+        tl.fromTo("#t89", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 43.100);
+        tl.set("#sc90", {visibility: "visible"}, 44.430);
+        tl.fromTo("#sc90", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 44.430);
+        tl.fromTo("#sc90", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 2.780, ease: "none", immediateRender: false}, 44.430);
+        tl.to("#sc90", {opacity: 0, duration: 0.25, ease: "power2.in"}, 46.960);
+        tl.set("#sc90", {opacity: 0, visibility: "hidden"}, 47.210);
+        tl.fromTo("#f93", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 44.430);
+        tl.to("#f93", {x: "+=160", duration: 1.300, ease: "power1.inOut"}, 44.480);
+        tl.to("#f93", {y: -7, duration: 0.093, yoyo: true, repeat: 13, ease: "sine.inOut"}, 44.480);
+        tl.set("#fg94", {opacity: 0}, 44.430);
+        tl.fromTo("#fg94", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 44.480);
+        tl.fromTo("#t95", {opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}, 44.480);
+        tl.fromTo("#t96", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 45.580);
+        tl.set("#sc97", {visibility: "visible"}, 47.160);
+        tl.fromTo("#sc97", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 47.160);
+        tl.fromTo("#sc97", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 5.820, ease: "none", immediateRender: false}, 47.160);
+        tl.to("#sc97", {opacity: 0, duration: 0.25, ease: "power2.in"}, 52.730);
+        tl.set("#sc97", {opacity: 0, visibility: "hidden"}, 52.980);
+        tl.fromTo("#sp99", {opacity: 0}, {opacity: 1, duration: 0.600, ease: "power2.out", immediateRender: false}, 47.210);
+        tl.set("#i100", {opacity: 0}, 47.160);
+        tl.fromTo("#i100", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.700, ease: "back.out(1.8)", immediateRender: false}, 47.210);
+        tl.fromTo("#t101", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 47.410);
+        tl.fromTo("#t102", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 48.300);
+        tl.set("#pl103", {opacity: 0}, 47.160);
+        tl.fromTo("#pl103", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 50.300);
+        tl.fromTo("#so104", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.500, ease: "power2.out", immediateRender: false}, 48.900);
+        tl.fromTo("#t105", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 49.200);
+        tl.to("#mark", {opacity: 0, duration: 0.3}, 46.660);
+        tl.fromTo("#d0", {x: 0, y: 0}, {x: 5, y: -271, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d1", {x: 0, y: 0}, {x: -60, y: -180, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d2", {x: 0, y: 0}, {x: 18, y: -463, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d3", {x: 0, y: 0}, {x: 50, y: -246, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d4", {x: 0, y: 0}, {x: -45, y: -342, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d5", {x: 0, y: 0}, {x: -62, y: -218, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d6", {x: 0, y: 0}, {x: -7, y: -249, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d7", {x: 0, y: 0}, {x: 4, y: -439, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d8", {x: 0, y: 0}, {x: -11, y: -400, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d9", {x: 0, y: 0}, {x: 37, y: -339, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d10", {x: 0, y: 0}, {x: 11, y: -301, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d11", {x: 0, y: 0}, {x: -62, y: -381, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d12", {x: 0, y: 0}, {x: -16, y: -371, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d13", {x: 0, y: 0}, {x: -62, y: -404, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d14", {x: 0, y: 0}, {x: -59, y: -298, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d15", {x: 0, y: 0}, {x: -31, y: -287, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d16", {x: 0, y: 0}, {x: -45, y: -227, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d17", {x: 0, y: 0}, {x: -69, y: -288, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d18", {x: 0, y: 0}, {x: 2, y: -354, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d19", {x: 0, y: 0}, {x: 52, y: -413, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d20", {x: 0, y: 0}, {x: -61, y: -172, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d21", {x: 0, y: 0}, {x: -70, y: -200, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d22", {x: 0, y: 0}, {x: 16, y: -199, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d23", {x: 0, y: 0}, {x: 49, y: -478, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d24", {x: 0, y: 0}, {x: -22, y: -237, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d25", {x: 0, y: 0}, {x: 4, y: -198, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d26", {x: 0, y: 0}, {x: 51, y: -380, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d27", {x: 0, y: 0}, {x: 5, y: -407, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d28", {x: 0, y: 0}, {x: 49, y: -416, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d29", {x: 0, y: 0}, {x: -20, y: -160, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d30", {x: 0, y: 0}, {x: 64, y: -298, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d31", {x: 0, y: 0}, {x: -39, y: -225, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d32", {x: 0, y: 0}, {x: 48, y: -308, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d33", {x: 0, y: 0}, {x: 57, y: -408, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d34", {x: 0, y: 0}, {x: -23, y: -414, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d35", {x: 0, y: 0}, {x: 31, y: -206, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d36", {x: 0, y: 0}, {x: -50, y: -423, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d37", {x: 0, y: 0}, {x: -52, y: -155, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d38", {x: 0, y: 0}, {x: -9, y: -438, duration: 52.98, ease: "none"}, 0);
+        tl.fromTo("#d39", {x: 0, y: 0}, {x: -36, y: -344, duration: 52.98, ease: "none"}, 0);
+        window.__timelines["otm-forward-th"] = tl;
+      })();
+    </script>
+  </body>
+</html>

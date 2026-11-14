@@ -1,0 +1,72 @@
+[
+{
+"t": 2.75,
+"snd": "whoosh-short_2",
+"gain": -24
+},
+{
+"t": 6.51,
+"snd": "whoosh-short_3",
+"gain": -24
+},
+{
+"t": 11.79,
+"snd": "whoosh-short_1",
+"gain": -24
+},
+{
+"t": 13.85,
+"snd": "whoosh-short_2",
+"gain": -24
+},
+{
+"t": 15.37,
+"snd": "whoosh-short_3",
+"gain": -24
+},
+{
+"t": 21.17,
+"snd": "whoosh-short_1",
+"gain": -24
+},
+{
+"t": 28.65,
+"snd": "whoosh-short_2",
+"gain": -24
+},
+{
+"t": 34.59,
+"snd": "whoosh-short_3",
+"gain": -24
+},
+{
+"t": 36.89,
+"snd": "whoosh-short_1",
+"gain": -24
+},
+{
+"t": 43.29,
+"snd": "whoosh-short_2",
+"gain": -24
+},
+{
+"t": 45.31,
+"snd": "whoosh-short_3",
+"gain": -24
+},
+{
+"t": 48.13,
+"snd": "whoosh-short_1",
+"gain": -24
+},
+{
+"t": 52.2,
+"snd": "bell_A4",
+"gain": -16
+},
+{
+"t": 55.04,
+"snd": "click-confirm_1",
+"gain": -16
+}
+]

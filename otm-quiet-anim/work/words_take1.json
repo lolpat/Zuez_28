@@ -1,0 +1,647 @@
+[
+{
+"text": "The",
+"start": 0.0,
+"end": 0.2
+},
+{
+"text": "market",
+"start": 0.2,
+"end": 0.5
+},
+{
+"text": "will",
+"start": 0.5,
+"end": 0.8
+},
+{
+"text": "humble",
+"start": 0.8,
+"end": 1.22
+},
+{
+"text": "you",
+"start": 1.22,
+"end": 1.46
+},
+{
+"text": "in",
+"start": 1.46,
+"end": 1.64
+},
+{
+"text": "private",
+"start": 1.64,
+"end": 2.08
+},
+{
+"text": "before",
+"start": 2.08,
+"end": 3.0
+},
+{
+"text": "it",
+"start": 3.0,
+"end": 3.22
+},
+{
+"text": "ever",
+"start": 3.22,
+"end": 3.58
+},
+{
+"text": "pays",
+"start": 3.58,
+"end": 3.92
+},
+{
+"text": "you",
+"start": 3.92,
+"end": 4.14
+},
+{
+"text": "in",
+"start": 4.14,
+"end": 4.3
+},
+{
+"text": "public.",
+"start": 4.3,
+"end": 4.7
+},
+{
+"text": "Watch",
+"start": 5.74,
+"end": 5.9
+},
+{
+"text": "closely.",
+"start": 5.9,
+"end": 6.48
+},
+{
+"text": "Everyone",
+"start": 7.46,
+"end": 7.74
+},
+{
+"text": "sees",
+"start": 7.74,
+"end": 8.1
+},
+{
+"text": "the",
+"start": 8.1,
+"end": 8.34
+},
+{
+"text": "green",
+"start": 8.34,
+"end": 8.62
+},
+{
+"text": "screenshot.",
+"start": 8.62,
+"end": 9.24
+},
+{
+"text": "Nobody",
+"start": 10.04,
+"end": 10.32
+},
+{
+"text": "sees",
+"start": 10.32,
+"end": 10.68
+},
+{
+"text": "the",
+"start": 10.68,
+"end": 10.88
+},
+{
+"text": "hours",
+"start": 10.88,
+"end": 11.28
+},
+{
+"text": "behind",
+"start": 11.28,
+"end": 11.7
+},
+{
+"text": "it.",
+"start": 11.7,
+"end": 12.1
+},
+{
+"text": "The",
+"start": 12.34,
+"end": 12.54
+},
+{
+"text": "backtests.",
+"start": 12.54,
+"end": 13.06
+},
+{
+"text": "The",
+"start": 13.56,
+"end": 13.66
+},
+{
+"text": "journals.",
+"start": 13.66,
+"end": 14.04
+},
+{
+"text": "The",
+"start": 14.68,
+"end": 14.74
+},
+{
+"text": "trades",
+"start": 14.74,
+"end": 15.04
+},
+{
+"text": "you",
+"start": 15.04,
+"end": 15.26
+},
+{
+"text": "didn't",
+"start": 15.26,
+"end": 15.7
+},
+{
+"text": "take.",
+"start": 15.7,
+"end": 15.96
+},
+{
+"text": "Why?",
+"start": 16.62,
+"end": 16.88
+},
+{
+"text": "Because",
+"start": 17.48,
+"end": 17.8
+},
+{
+"text": "discipline",
+"start": 17.8,
+"end": 18.3
+},
+{
+"text": "is",
+"start": 18.3,
+"end": 18.68
+},
+{
+"text": "quiet.",
+"start": 18.68,
+"end": 19.2
+},
+{
+"text": "It",
+"start": 19.66,
+"end": 19.84
+},
+{
+"text": "doesn't",
+"start": 19.84,
+"end": 20.16
+},
+{
+"text": "post.",
+"start": 20.16,
+"end": 20.48
+},
+{
+"text": "It",
+"start": 20.92,
+"end": 21.02
+},
+{
+"text": "doesn't",
+"start": 21.02,
+"end": 21.28
+},
+{
+"text": "brag.",
+"start": 21.28,
+"end": 21.62
+},
+{
+"text": "It",
+"start": 22.14,
+"end": 22.28
+},
+{
+"text": "waits",
+"start": 22.28,
+"end": 22.58
+},
+{
+"text": "for",
+"start": 22.58,
+"end": 22.82
+},
+{
+"text": "the",
+"start": 22.82,
+"end": 22.98
+},
+{
+"text": "setup",
+"start": 22.98,
+"end": 23.32
+},
+{
+"text": "and",
+"start": 23.32,
+"end": 23.94
+},
+{
+"text": "lets",
+"start": 23.94,
+"end": 24.12
+},
+{
+"text": "everything",
+"start": 24.12,
+"end": 24.62
+},
+{
+"text": "else",
+"start": 24.62,
+"end": 24.9
+},
+{
+"text": "go.",
+"start": 24.9,
+"end": 25.26
+},
+{
+"text": "Most",
+"start": 26.1,
+"end": 26.36
+},
+{
+"text": "traders",
+"start": 26.36,
+"end": 26.66
+},
+{
+"text": "lose",
+"start": 26.66,
+"end": 27.04
+},
+{
+"text": "themselves",
+"start": 27.04,
+"end": 27.6
+},
+{
+"text": "chasing",
+"start": 27.6,
+"end": 27.98
+},
+{
+"text": "the",
+"start": 27.98,
+"end": 28.28
+},
+{
+"text": "next",
+"start": 28.28,
+"end": 28.46
+},
+{
+"text": "trade.",
+"start": 28.46,
+"end": 28.9
+},
+{
+"text": "Do",
+"start": 28.9,
+"end": 29.62
+},
+{
+"text": "not",
+"start": 29.62,
+"end": 30.02
+},
+{
+"text": "chase",
+"start": 30.02,
+"end": 30.42
+},
+{
+"text": "the",
+"start": 30.42,
+"end": 30.64
+},
+{
+"text": "market.",
+"start": 30.64,
+"end": 30.96
+},
+{
+"text": "That",
+"start": 31.48,
+"end": 31.72
+},
+{
+"text": "is",
+"start": 31.72,
+"end": 31.96
+},
+{
+"text": "where",
+"start": 31.96,
+"end": 32.16
+},
+{
+"text": "accounts",
+"start": 32.16,
+"end": 32.56
+},
+{
+"text": "disappear.",
+"start": 32.56,
+"end": 33.2
+},
+{
+"text": "If",
+"start": 33.98,
+"end": 34.08
+},
+{
+"text": "you",
+"start": 34.08,
+"end": 34.2
+},
+{
+"text": "have",
+"start": 34.2,
+"end": 34.32
+},
+{
+"text": "to",
+"start": 34.32,
+"end": 34.48
+},
+{
+"text": "force",
+"start": 34.48,
+"end": 34.76
+},
+{
+"text": "a",
+"start": 34.76,
+"end": 34.96
+},
+{
+"text": "trade",
+"start": 34.96,
+"end": 35.24
+},
+{
+"text": "just",
+"start": 35.24,
+"end": 35.5
+},
+{
+"text": "to",
+"start": 35.5,
+"end": 35.74
+},
+{
+"text": "feel",
+"start": 35.74,
+"end": 35.98
+},
+{
+"text": "something,",
+"start": 35.98,
+"end": 36.42
+},
+{
+"text": "the",
+"start": 36.82,
+"end": 37.04
+},
+{
+"text": "market",
+"start": 37.04,
+"end": 37.28
+},
+{
+"text": "has",
+"start": 37.28,
+"end": 37.54
+},
+{
+"text": "already",
+"start": 37.54,
+"end": 38.0
+},
+{
+"text": "told",
+"start": 38.0,
+"end": 38.28
+},
+{
+"text": "you",
+"start": 38.28,
+"end": 38.54
+},
+{
+"text": "everything.",
+"start": 38.54,
+"end": 39.02
+},
+{
+"text": "Progress",
+"start": 40.26,
+"end": 40.26
+},
+{
+"text": "does",
+"start": 40.26,
+"end": 40.54
+},
+{
+"text": "not",
+"start": 40.54,
+"end": 40.9
+},
+{
+"text": "always",
+"start": 40.9,
+"end": 41.28
+},
+{
+"text": "come",
+"start": 41.28,
+"end": 41.58
+},
+{
+"text": "with",
+"start": 41.58,
+"end": 41.78
+},
+{
+"text": "applause.",
+"start": 41.78,
+"end": 42.16
+},
+{
+"text": "Sometimes,",
+"start": 42.84,
+"end": 43.3
+},
+{
+"text": "the",
+"start": 43.56,
+"end": 43.84
+},
+{
+"text": "clearest",
+"start": 43.84,
+"end": 44.26
+},
+{
+"text": "proof",
+"start": 44.26,
+"end": 44.56
+},
+{
+"text": "that",
+"start": 44.56,
+"end": 44.76
+},
+{
+"text": "you've",
+"start": 44.76,
+"end": 44.98
+},
+{
+"text": "grown",
+"start": 44.98,
+"end": 45.24
+},
+{
+"text": "is",
+"start": 45.24,
+"end": 45.78
+},
+{
+"text": "a",
+"start": 45.78,
+"end": 45.92
+},
+{
+"text": "week",
+"start": 45.92,
+"end": 46.08
+},
+{
+"text": "of",
+"start": 46.08,
+"end": 46.24
+},
+{
+"text": "doing",
+"start": 46.24,
+"end": 46.5
+},
+{
+"text": "nothing",
+"start": 46.5,
+"end": 46.84
+},
+{
+"text": "and",
+"start": 46.84,
+"end": 47.44
+},
+{
+"text": "still",
+"start": 47.44,
+"end": 47.8
+},
+{
+"text": "being",
+"start": 47.8,
+"end": 48.08
+},
+{
+"text": "right.",
+"start": 48.08,
+"end": 48.46
+},
+{
+"text": "Order",
+"start": 49.24,
+"end": 49.42
+},
+{
+"text": "the",
+"start": 49.42,
+"end": 49.64
+},
+{
+"text": "market.",
+"start": 49.64,
+"end": 49.96
+},
+{
+"text": "Don't",
+"start": 50.54,
+"end": 50.74
+},
+{
+"text": "let",
+"start": 50.74,
+"end": 50.86
+},
+{
+"text": "the",
+"start": 50.86,
+"end": 51.04
+},
+{
+"text": "market",
+"start": 51.04,
+"end": 51.38
+},
+{
+"text": "order",
+"start": 51.38,
+"end": 51.64
+},
+{
+"text": "you.",
+"start": 51.64,
+"end": 52.04
+},
+{
+"text": "Follow",
+"start": 52.64,
+"end": 52.92
+},
+{
+"text": "for",
+"start": 52.92,
+"end": 53.14
+},
+{
+"text": "more.",
+"start": 53.14,
+"end": 53.34
+}
+]

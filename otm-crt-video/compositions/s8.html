@@ -1,0 +1,108 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s8-cam, #s8-shake { position: absolute; inset: 0; }
+    #s8-cam { transform-origin: 360px 1490px; }
+    .s8-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s8-lyr { position: absolute; }
+    .s8-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s8-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s8-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s8-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s8-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s8-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s8-pop, #s8-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s8-pop { z-index: 80; opacity: 0; }
+    #s8-flash { z-index: 90; opacity: 0; }
+        #s8-sweep { left:50px; top:155px; width:1015px; height:223px; -webkit-mask-image:url(assets/layers/s8_title.png); mask-image:url(assets/layers/s8_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s8" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s8-cam">
+      <div id="s8-shake">
+                <img id="s8-plate" class="s8-full" src="assets/plates/s8.jpg" alt="" />
+        <div id="s8-title" class="s8-lyr" style="left:50px;top:155px;width:1015px;height:223px;overflow:visible;z-index:10"><img id="s8-title-img" src="assets/layers/s8_title.png" alt="" style="width:1015px;height:223px" /></div>
+        <div id="s8-char" class="s8-lyr" style="left:560px;top:1185px;width:520px;height:513px;overflow:hidden;z-index:11"><img id="s8-char-img" src="assets/layers/s8_char.png" alt="" style="width:520px;height:513px" /></div>
+        <div id="s8-th" class="s8-lyr" style="left:125px;top:382px;width:830px;height:92px;overflow:visible;z-index:12"><img id="s8-th-img" src="assets/layers/s8_th.png" alt="" style="width:830px;height:92px" /></div>
+        <div id="s8-r1" class="s8-lyr" style="left:125px;top:474px;width:830px;height:75px;overflow:visible;z-index:13"><img id="s8-r1-img" src="assets/layers/s8_r1.png" alt="" style="width:830px;height:75px" /></div>
+        <div id="s8-r2" class="s8-lyr" style="left:125px;top:549px;width:830px;height:75px;overflow:visible;z-index:14"><img id="s8-r2-img" src="assets/layers/s8_r2.png" alt="" style="width:830px;height:75px" /></div>
+        <div id="s8-r3" class="s8-lyr" style="left:125px;top:624px;width:830px;height:78px;overflow:visible;z-index:15"><img id="s8-r3-img" src="assets/layers/s8_r3.png" alt="" style="width:830px;height:78px" /></div>
+        <div id="s8-r4" class="s8-lyr" style="left:125px;top:702px;width:830px;height:77px;overflow:visible;z-index:16"><img id="s8-r4-img" src="assets/layers/s8_r4.png" alt="" style="width:830px;height:77px" /></div>
+        <div id="s8-r5" class="s8-lyr" style="left:125px;top:779px;width:830px;height:76px;overflow:visible;z-index:17"><img id="s8-r5-img" src="assets/layers/s8_r5.png" alt="" style="width:830px;height:76px" /></div>
+        <div id="s8-r6" class="s8-lyr" style="left:125px;top:855px;width:830px;height:80px;overflow:visible;z-index:18"><img id="s8-r6-img" src="assets/layers/s8_r6.png" alt="" style="width:830px;height:80px" /></div>
+        <div id="s8-seq" class="s8-lyr" style="left:25px;top:955px;width:1050px;height:73px;overflow:visible;z-index:19"><img id="s8-seq-img" src="assets/layers/s8_seq.png" alt="" style="width:1050px;height:73px" /></div>
+        <div id="s8-i1" class="s8-lyr" style="left:90px;top:1028px;width:510px;height:54px;overflow:visible;z-index:20"><img id="s8-i1-img" src="assets/layers/s8_i1.png" alt="" style="width:510px;height:54px" /></div>
+        <div id="s8-i2" class="s8-lyr" style="left:90px;top:1082px;width:510px;height:48px;overflow:visible;z-index:21"><img id="s8-i2-img" src="assets/layers/s8_i2.png" alt="" style="width:510px;height:48px" /></div>
+        <div id="s8-i3" class="s8-lyr" style="left:90px;top:1130px;width:510px;height:48px;overflow:visible;z-index:22"><img id="s8-i3-img" src="assets/layers/s8_i3.png" alt="" style="width:510px;height:48px" /></div>
+        <div id="s8-i4" class="s8-lyr" style="left:90px;top:1178px;width:510px;height:48px;overflow:visible;z-index:23"><img id="s8-i4-img" src="assets/layers/s8_i4.png" alt="" style="width:510px;height:48px" /></div>
+        <div id="s8-i5" class="s8-lyr" style="left:90px;top:1226px;width:510px;height:49px;overflow:visible;z-index:24"><img id="s8-i5-img" src="assets/layers/s8_i5.png" alt="" style="width:510px;height:49px" /></div>
+        <div id="s8-mini" class="s8-lyr" style="left:120px;top:1275px;width:440px;height:423px;overflow:visible;z-index:25"><img id="s8-mini-img" src="assets/layers/s8_mini.png" alt="" style="width:440px;height:423px" /></div>
+        <svg id="s8-hl" class="s8-full" viewBox="0 0 1080 1920" style="z-index:60" fill="none" stroke="#ff2d3d" stroke-width="9" stroke-linecap="round"><g id="s8-hl-g"><rect x="125" y="474" width="830" height="75" rx="10" pathLength="1" /></g></svg>
+        <div id="s8-ring1" class="s8-ring" style="left:270px;top:1400px"></div>
+        <div id="s8-ring2" class="s8-ring" style="left:270px;top:1400px"></div>
+        <img id="s8-rgb-r" class="s8-full s8-rgb" src="assets/slides/s8_tf.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s8-rgb-c" class="s8-full s8-rgb" src="assets/slides/s8_tf.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s8-sweep"><div id="s8-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s8-pop"></div>
+    <div id="s8-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s8-cam", {scale: 1.45, filter: "blur(14px)"}, {scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out"}, 0);
+      tl.fromTo("#s8-flash", {opacity: 0.9}, {opacity: 0, duration: 0.22, ease: "power2.out"}, 0);
+      tl.fromTo("#s8-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s8-shake", 0.25, 22);
+      tl.fromTo("#s8-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s8-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s8-char-img", {y: 523}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s8-th-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.31);
+      tl.fromTo("#s8-th", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.31);
+      tl.fromTo("#s8-r1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 2.45);
+      tl.fromTo("#s8-r1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 2.45);
+      tl.fromTo("#s8-r2-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 3.31);
+      tl.fromTo("#s8-r2", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 3.31);
+      tl.fromTo("#s8-r3-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 4.17);
+      tl.fromTo("#s8-r3", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 4.17);
+      tl.fromTo("#s8-r4-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 5.02);
+      tl.fromTo("#s8-r4", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 5.02);
+      tl.fromTo("#s8-r5-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 5.88);
+      tl.fromTo("#s8-r5", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 5.88);
+      tl.fromTo("#s8-r6-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 6.74);
+      tl.fromTo("#s8-r6", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 6.74);
+      tl.fromTo("#s8-seq-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 8.45);
+      tl.fromTo("#s8-seq", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 8.45);
+      tl.fromTo("#s8-i1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 9.6);
+      tl.fromTo("#s8-i1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 9.6);
+      tl.fromTo("#s8-i2-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 10.17);
+      tl.fromTo("#s8-i2", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 10.17);
+      tl.fromTo("#s8-i3-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 10.74);
+      tl.fromTo("#s8-i3", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 10.74);
+      tl.fromTo("#s8-i4-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 11.31);
+      tl.fromTo("#s8-i4", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 11.31);
+      tl.fromTo("#s8-i5-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 11.88);
+      tl.fromTo("#s8-i5", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 11.88);
+      tl.fromTo("#s8-mini-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 13.6);
+      tl.fromTo("#s8-mini", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 13.6);
+      tl.fromTo("#s8-hl-g > *", {strokeDasharray: 1, strokeDashoffset: 1}, {strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut"}, 15.1);
+      tl.fromTo("#s8-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 15.80);
+      tl.fromTo("#s8-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 15.98);
+      tl.to("#s8-cam", {scale: 7, filter: "blur(16px)", duration: 0.45, ease: "power3.in"}, 16.25);
+      window.__timelines["s8"] = tl;
+    })();
+  </script>
+</template>

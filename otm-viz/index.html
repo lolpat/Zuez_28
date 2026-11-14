@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face { font-family: "Orbitron"; src: url("assets/fonts/Orbitron-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #01050c; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #01050c; font-family: Montserrat, sans-serif; color: #fff; }
+#cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#timer { position: absolute; left: 0; top: 1400px; width: 1080px; height: 90px; }
+.tm { position: absolute; left: 0; top: 0; width: 1080px; text-align: center; font-family: Orbitron, Montserrat, sans-serif; font-weight: 700;
+  font-size: 66px; letter-spacing: 0.06em; color: #7fdcff; opacity: 0; text-shadow: 0 0 18px rgba(40,200,255,0.9), 0 0 4px rgba(200,240,255,0.8); }
+#tag { position: absolute; left: 0; top: 1510px; width: 1080px; text-align: center; font-size: 30px; font-weight: 700; letter-spacing: 0.42em;
+  color: #e8c26a; opacity: 0; text-shadow: 0 0 12px rgba(232,194,106,0.5); }
+#end { position: absolute; inset: 0; background: rgba(0,3,8,0.8); opacity: 0; z-index: 50; }
+#end-logo { position: absolute; left: 110px; top: 470px; width: 860px; }
+#end-tag { position: absolute; left: 0; width: 1080px; top: 920px; text-align: center; font-size: 44px; font-weight: 800; letter-spacing: 0.04em; }
+#end-tag span { color: #e8c26a; }
+#end-cta { position: absolute; left: 0; width: 1080px; top: 1040px; text-align: center; font-family: "Archivo Black"; font-size: 92px; }
+#end-cta span { color: #2962ff; }
+#end-note { position: absolute; left: 0; width: 1080px; top: 1180px; text-align: center; font-size: 28px; font-weight: 700; letter-spacing: 0.12em; color: #9aa3ad; }
+#end-credit { position: absolute; left: 0; width: 1080px; top: 1230px; text-align: center; font-size: 28px; font-weight: 500; color: #9aa3ad; }
+#end-foot { position: absolute; left: 0; top: 1665px; width: 1080px; height: 255px; overflow: hidden; }
+#end-foot img { width: 1080px; height: 255px; display: block; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-viz" data-start="0" data-duration="33.03" data-width="1080" data-height="1920">
+      <canvas id="cv" width="1080" height="1920" data-layout-allow-occlusion></canvas>
+      <div id="timer"><div class="tm" id="tm0">0:00</div><div class="tm" id="tm1">0:01</div><div class="tm" id="tm2">0:02</div><div class="tm" id="tm3">0:03</div><div class="tm" id="tm4">0:04</div><div class="tm" id="tm5">0:05</div><div class="tm" id="tm6">0:06</div><div class="tm" id="tm7">0:07</div><div class="tm" id="tm8">0:08</div><div class="tm" id="tm9">0:09</div><div class="tm" id="tm10">0:10</div><div class="tm" id="tm11">0:11</div><div class="tm" id="tm12">0:12</div><div class="tm" id="tm13">0:13</div><div class="tm" id="tm14">0:14</div><div class="tm" id="tm15">0:15</div><div class="tm" id="tm16">0:16</div><div class="tm" id="tm17">0:17</div><div class="tm" id="tm18">0:18</div><div class="tm" id="tm19">0:19</div><div class="tm" id="tm20">0:20</div><div class="tm" id="tm21">0:21</div><div class="tm" id="tm22">0:22</div><div class="tm" id="tm23">0:23</div><div class="tm" id="tm24">0:24</div><div class="tm" id="tm25">0:25</div><div class="tm" id="tm26">0:26</div><div class="tm" id="tm27">0:27</div><div class="tm" id="tm28">0:28</div><div class="tm" id="tm29">0:29</div><div class="tm" id="tm30">0:30</div><div class="tm" id="tm31">0:31</div><div class="tm" id="tm32">0:32</div><div class="tm" id="tm33">0:33</div></div>
+      <div id="tag">ORDER THE MARKET</div>
+      <div id="end"><img id="end-logo" src="assets/otm_logo.png" alt="Order the Market" />
+        <div id="end-tag">DON'T LET THE MARKET <span>ORDER YOU</span></div>
+        <div id="end-cta">FOLLOW FOR <span>MORE</span></div>
+        <div id="end-note">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</div>
+        <div id="end-credit">music: “Trap Monopoly” by Robbero · CC BY 3.0</div>
+        <div id="end-foot"><img id="end-foot-img" src="assets/footer.jpg" alt="" /></div></div>
+      <audio id="otm-viz-audio" class="clip" src="assets/audio/mix_viz.wav" data-start="0" data-duration="33.03" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+(function () {
+  const D = {"fps":30,"drop":6.16,"switch":20.28,"end":27.34,"bar":1.765,"total":33.03,"bass":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,1,5,14,13,12,12,12,13,20,24,23,18,13,9,7,5,4,3,2,2,1,1,1,13,13,10,7,19,30,30,28,26,25,26,26,28,29,28,28,27,27,30,29,28,27,25,24,27,26,30,29,27,25,25,27,26,27,26,25,24,27,27,27,26,25,24,24,26,26,27,27,25,24,26,26,26,27,27,25,24,25,25,29,29,27,27,27,26,26,27,26,25,26,27,27,27,26,26,25,24,24,28,27,26,25,26,26,26,30,29,28,28,27,27,26,28,27,27,27,27,27,29,28,28,28,28,27,31,30,29,25,18,13,69,82,81,77,75,74,74,78,88,86,83,81,81,81,80,80,80,79,78,78,81,81,81,80,80,81,80,77,74,75,80,79,78,78,78,78,78,78,77,76,76,90,89,86,85,84,83,83,83,83,82,82,87,86,90,90,86,85,84,84,83,83,83,83,84,84,83,80,79,79,78,77,76,84,94,92,88,86,85,84,81,79,81,83,83,82,82,82,81,81,81,80,81,79,77,76,75,73,72,72,75,75,74,72,70,70,75,76,84,81,78,77,77,80,83,84,81,79,79,79,76,76,76,75,75,74,78,78,77,77,77,77,76,71,69,70,73,72,72,77,82,88,85,83,82,82,80,79,79,77,77,76,79,80,79,79,78,77,76,79,84,86,83,81,80,79,85,89,88,84,83,83,82,80,79,79,78,77,78,85,89,88,85,83,82,81,78,77,76,77,76,77,76,78,79,77,77,81,81,80,76,73,71,69,67,67,66,65,65,65,63,62,75,90,88,85,84,84,83,88,93,89,86,85,85,84,83,82,81,81,80,79,79,82,83,83,81,80,79,73,71,75,79,80,80,79,78,78,77,79,78,78,81,90,87,84,83,82,82,82,85,85,83,83,85,84,89,87,84,83,83,84,85,84,84,84,83,83,81,78,78,78,77,75,78,88,92,89,86,85,84,82,79,77,80,81,80,80,80,80,80,80,80,81,81,80,78,76,75,73,72,74,74,73,72,71,70,71,77,76,83,80,79,79,80,80,85,84,81,80,80,79,77,77,79,78,78,77,80,81,79,78,77,77,75,70,68,70,71,71,70,78,83,86,82,81,82,82,80,78,78,77,76,76,76,78,78,78,77,77,76,80,85,87,83,82,82,81,87,88,87,84,84,83,81,79,78,80,79,78,78,87,89,88,84,83,83,82,83,83,83,81,81,80,80,80,79,77,80,81,82,81,80,78,78,77,76,75,75,74,73,71,71,70,78,80,77,75,74,76,77,89,90,87,85,84,84,83,82,82,83,83,82,81,84,84,84,83,84,84,82,76,74,77,79,80,79,80,79,79,78,78,77,76,87,91,88,86,85,84,83,81,83,84,85,86,86,85,91,88,86,86,86,85,81,81,84,84,85,86,84,82,81,80,80,79,79,93,95,91,88,87,87,85,82,81,85,85,84,84,84,84,83,83,83,84,83,80,78,76,74,72,72,71,70,71,71,70,70,73,78,85,85,82,81,81,82,82,88,86,84,84,83,82,79,79,78,77,78,79,80,79,78,78,77,75,73,68,67,67,66,66,66,81,86,86,82,82,82,81,79,79,78,77,77,77,76,74,76,77,77,76,77,84,88,88,84,84,84,84,86,88,87,85,87,87,84,82,81,81,79,79,81,89,90,90,87,86,86,84,80,80,82,85,85,84,83,83,83,82,82,81,80,77,75,73,71,68,67,66,66,66,68,66,64,66,88,92,89,87,86,86,87,94,93,90,88,88,88,87,85,84,84,83,82,83,85,86,86,85,85,85,81,76,75,78,79,79,80,80,79,79,78,77,76,79,90,90,87,85,84,84,82,81,84,84,85,86,86,88,93,89,87,87,87,85,83,84,85,86,87,87,84,82,81,81,81,81,84,95,95,90,89,88,88,85,82,81,86,86,85,84,84,85,84,84,84,84,83,80,79,77,75,74,73,71,70,70,70,71,73,78,78,86,85,83,83,82,81,81,89,86,85,86,85,83,81,81,80,78,78,78,80,79,78,78,76,75,72,69,68,68,68,67,76,81,88,87,85,84,85,84,81,81,80,79,79,79,78,77,78,78,76,76,76,85,89,88,86,85,84,85,86,89,87,85],"mid":[62,66,65,64,61,60,60,60,60,59,58,56,56,55,58,58,56,54,54,56,55,53,51,50,50,62,73,79,77,73,68,65,67,72,74,72,68,64,62,62,69,71,70,67,65,65,64,63,64,62,61,61,68,68,70,69,67,65,64,69,72,74,72,69,66,64,62,60,60,65,65,71,71,68,64,61,61,61,65,77,81,81,78,75,72,70,69,70,69,68,65,65,68,68,68,67,63,60,60,59,66,66,64,61,60,67,67,69,67,66,64,63,61,59,58,57,56,54,54,58,59,59,58,57,57,56,54,57,55,54,54,64,76,79,78,75,72,69,68,69,73,74,77,76,76,76,74,73,72,70,68,66,65,63,69,70,69,67,65,64,66,66,66,64,62,60,58,57,59,58,69,80,81,80,80,79,76,75,72,69,66,64,64,62,61,59,57,57,60,61,64,65,64,63,64,66,68,71,71,74,77,77,76,75,73,71,71,71,72,75,79,81,79,78,80,79,77,75,75,74,74,74,73,76,74,69,67,74,78,76,74,72,70,69,68,67,67,66,65,64,63,66,68,72,77,78,78,77,75,74,76,75,75,77,78,78,76,75,70,66,65,66,68,74,77,75,73,74,72,71,71,72,73,73,73,73,75,74,73,73,77,76,75,74,72,70,70,68,67,66,65,64,64,65,71,74,74,72,71,70,69,69,69,69,69,78,81,81,79,77,77,79,79,78,79,79,83,85,83,83,83,83,81,78,73,69,66,66,73,74,73,73,73,74,77,76,75,74,74,75,81,81,79,76,71,68,67,68,73,74,72,69,68,69,73,74,74,73,73,77,78,78,79,77,71,68,67,67,68,78,79,75,74,73,72,73,73,74,74,72,72,71,71,70,69,69,74,74,74,73,71,70,69,69,67,69,68,66,65,65,66,66,71,71,69,67,67,67,70,74,74,75,75,76,75,73,72,71,72,74,74,74,80,81,77,77,80,79,78,77,76,75,74,74,74,73,70,66,64,72,74,73,71,69,68,67,66,66,65,65,64,62,67,71,72,75,77,77,76,75,74,74,74,73,74,81,82,81,81,79,74,71,71,72,72,75,75,72,71,71,70,69,72,74,74,74,75,75,76,74,73,73,76,79,77,75,72,71,70,70,70,69,67,66,66,68,75,76,75,72,71,69,69,73,73,72,75,81,85,84,82,81,81,80,79,79,79,79,83,82,80,80,79,78,78,75,71,67,64,65,68,68,68,71,75,79,79,77,75,74,72,71,73,75,74,71,68,67,66,70,74,73,69,67,66,69,72,72,71,72,77,77,77,76,77,74,71,69,68,73,76,75,74,73,74,74,74,78,77,78,77,75,75,75,73,72,75,75,76,79,78,77,77,77,77,76,75,74,71,62,55,51,48,48,55,52,48,45,50,56,58,58,61,68,74,76,74,72,68,66,64,63,62,61,76,75,72,69,66,65,63,61,61,60,61,60,58,58,56,56,63,72,72,70,71,66,63,65,64,64,64,61,55,50,49,49,54,70,67,63,62,61,61,60,58,64,72,80,81,79,76,72,64,58,56,55,64,76,75,71,68,66,62,61,61,66,68,68,68,66,63,61,65,68,71,71,70,77,72,68,65,63,61,61,60,58,56,57,58,58,58,55,52,49,51,55,55,53,54,68,73,73,71,69,66,62,59,58,56,56,79,78,75,73,71,68,65,61,57,53,50,51,51,54,57,69,75,75,74,72,78,72,67,64,62,61,59,57,50,45,43,43,43,62,56,49,44,42,42,43,42,57,67,74,74,72,70,64,55,49,47,46,45,75,73,67,63,60,58,57,57,56,56,57,57,56,53,52,64,70,72,71,68,63,58,55,51,47,43,52,52,47,45,45,48,50,57,52,46,44,44,45,45,44,57,68,75,74,72,69,63,57,53,50,47,46,77,75,69,66,64,63,61,58,54,52,52,51,52,55,53,57,63,71,71,71,71,65,60,55,55,63,62,59,55,53,52,52,51,70,65,63,61,59,57,55,53,60,68,76,78,76,74,67,58,53,50,48,51,76,74,67,62,58,55,54,52,50,48,45,44,47,47,56,67,71,71,70,73,74,66,60,55,50,47,55,52,50,48,50,53,54,53,51,47,44,44,49,50,49,60,70,75,74,72,69,64,59,56,53,51,63,80,77,73,70,67,66,64,61,57,51,49,48,47,47,55,68,73,76,75,79,79,71,66,60,55,51,51,46,42,40,39,39,48,60,53,45,41,39],"high":[7,10,24,27,27,25,17,11,7,6,7,6,7,12,14,25,29,34,33,24,16,11,14,16,16,14,13,12,12,12,12,11,7,5,3,8,12,16,18,23,25,30,31,30,29,27,24,22,21,21,25,25,27,30,33,40,51,51,49,47,51,57,64,70,72,91,91,88,86,78,70,64,56,48,43,42,49,53,60,68,65,74,79,75,72,81,79,73,74,71,68,81,80,74,77,79,76,74,80,76,75,81,79,73,80,79,74,81,80,74,83,82,77,76,86,82,79,85,83,78,85,83,76,83,81,72,83,85,80,80,94,92,87,89,87,82,88,100,100,100,100,92,90,92,90,87,93,91,98,100,100,99,100,100,92,89,95,92,97,100,98,97,97,93,84,91,96,81,95,97,88,88,100,96,94,100,96,92,96,94,71,59,52,42,93,99,98,97,97,96,94,90,84,81,79,78,77,91,94,86,80,75,75,72,67,64,78,78,70,63,82,93,85,73,66,78,76,74,73,79,83,74,65,60,84,79,68,63,71,73,66,60,58,75,69,57,48,87,85,71,60,67,74,65,52,43,76,72,60,48,92,94,84,75,69,76,70,58,43,63,63,53,40,80,89,80,65,56,73,70,68,67,79,81,71,60,61,94,97,99,97,94,94,97,100,100,100,100,100,100,100,91,76,61,64,70,62,49,38,62,58,47,38,92,94,84,76,72,76,70,61,52,79,78,65,53,88,93,83,65,51,82,79,71,64,64,65,57,50,56,93,87,78,71,76,75,65,55,70,80,72,58,52,77,74,64,54,68,72,62,46,34,63,58,48,39,93,94,83,75,71,74,67,54,38,60,58,47,35,85,89,77,61,52,76,71,70,67,78,78,68,59,82,100,100,100,100,100,100,100,100,100,100,100,100,100,99,90,74,61,71,74,63,49,36,63,59,47,38,94,93,83,73,71,73,67,55,45,79,76,62,48,86,89,78,64,56,83,77,75,73,80,81,72,62,82,90,80,69,64,73,71,65,55,73,78,67,54,51,85,79,66,57,71,74,63,52,58,77,70,57,49,91,89,78,71,71,76,68,54,38,63,60,47,35,83,85,74,57,46,70,65,66,65,78,77,67,57,87,96,98,97,96,95,95,98,100,100,100,100,100,100,97,86,72,60,73,75,63,47,47,61,55,44,36,94,91,81,74,74,78,72,63,52,78,73,60,50,89,90,79,69,67,84,79,72,65,64,63,56,51,87,93,85,76,71,78,74,64,54,79,83,72,59,56,78,72,61,53,72,72,60,44,54,65,57,47,44,91,88,78,71,71,74,65,50,36,63,58,45,33,25,21,19,19,19,21,20,18,16,13,10,13,17,20,29,29,27,26,26,24,21,17,15,15,16,15,72,97,97,96,96,98,97,94,89,84,82,80,79,78,97,92,85,80,79,78,73,69,65,82,77,68,62,90,89,76,64,74,84,78,76,73,85,82,70,61,83,86,75,66,63,75,71,76,72,77,78,65,51,73,85,77,64,56,77,75,75,73,73,79,69,55,55,93,87,78,72,79,80,68,52,48,65,60,45,32,88,86,73,58,69,77,72,71,68,82,78,67,58,91,94,99,97,96,95,95,96,100,100,100,100,100,100,95,83,69,58,74,71,59,42,59,64,55,42,54,94,89,80,75,79,79,70,57,69,83,76,60,49,93,90,76,59,79,84,76,70,63,64,61,55,48,92,95,85,78,74,81,77,85,79,83,81,68,55,73,80,71,61,54,77,73,71,67,66,67,57,50,60,95,88,78,73,75,75,65,46,56,66,59,46,52,90,86,72,59,77,81,77,75,72,84,78,68,58,99,100,100,100,100,100,100,100,100,100,100,100,100,100,96,82,68,58,77,72,59,43,62,66,57,44,78,97,90,79,73,75,74,66,56,75,82,73,57,63,91,87,76,66,80,83,78,77,73,84,79,68,60,86,85,73,65,67,75,72,76,69,79,76,62,48,83,87,76,64,56,78,73,76,72,77,79,66,50,84,95,88,79,73,81,79,67,50,58,66,58,45,62,91,85,73,63,74,77,73,72,72,83,76,66,58,95,93,100,99,98,97,95,100,100,100,100,100,100,100,94,81,66,58,79,73,58,42,63,63,53,41,86,95,88,80,74,79,76,66,55,79,84,73,60,67,93,87,77,69,81,82,74,67,64,66,61,54,50,95,92,83,76,78,83,82,85,75,82,77,64,52,76,78,69,59,59,76,70,69,62,65,64,55],"kicks":[184,191,215,225,237,258,284,291,299,320,326,351,364,397,403,426,437,469,504,511,531,537,556,561,576,609,615,639,648,662,681,691,714,723,743,749,768,788,796,820,827,850,860,874,893,928,934,955,961,980],"beats":[0.0,0.44,0.88,1.31,1.77,2.2,2.64,3.08,3.59,4.03,4.45,4.88,5.3,5.73,6.16,6.61,7.05,7.49,7.93,8.37,8.82,9.26,9.7,10.14,10.58,11.02,11.47,11.91,12.34,12.78,13.22,13.67,14.11,14.55,14.99,15.43,15.87,16.32,16.76,17.2,17.64,18.08,18.52,18.96,19.4,19.85,20.28,20.72,21.16,21.61,22.05,22.49,22.93,23.37,23.81,24.26,24.7,25.14,25.58,26.02,26.46,26.91,27.34,27.78,28.22,28.66,29.11,29.55,29.99,30.43,30.87,31.31,31.76,32.2,32.64]};
+  const W = 1080, H = 1920, FPS = D.fps, CX = 540, CY = 880;
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const logo = new Image(); logo.src = "assets/otm_emblem.png";
+  const ready = new Promise((r) => { if (logo.complete && logo.naturalWidth) r(); else { logo.onload = () => r(); logo.onerror = () => r(); } });
+  function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const hash = (n) => rng(n * 7919 + 13)();
+  const R = rng(11);
+  const fr = (t) => Math.max(0, Math.min(D.bass.length - 1, Math.round(t * FPS)));
+  const ev = (a, t) => a[fr(t)] / 100;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const ease = (u) => u * u * (3 - 2 * u);
+  const KT = D.kicks.map((k) => k / FPS);
+  function pulse(t) {
+    let p = 0;
+    for (const k of KT) if (k <= t && t - k < 0.6) p = Math.max(p, Math.exp(-(t - k) / 0.13));
+    for (let i = 0; i < D.beats.length; i++) { const b = D.beats[i]; if (b <= t && t - b < 0.6) p = Math.max(p, (i % 2 ? 0.45 : 0.75) * Math.exp(-(t - b) / 0.12)); }
+    return t < D.drop ? p * 0.35 : p;
+  }
+  const dist = (t) => (t < D.drop ? t : D.drop + (t - D.drop) * 1.8);
+
+  // ---- seeded scene ----
+  const P = []; for (let i = 0; i < 190; i++) { const z = R(); P.push({ x: R() * 1500 - 200, y: R() * 2100, z, v: 200 + 600 * z, a: 1.83 + R() * 0.14 }); }
+  const BK = []; for (let i = 0; i < 46; i++) { BK.push({ t0: i * D.total / 46 + R() * 0.5, life: 0.8 + R() * 0.8, x: R() * 1200 - 60, y: R() * 1500 - 300,
+    vx: (R() - 0.65) * 900, vy: 500 + R() * 900, r: 60 + R() * 170, a: 0.36 + R() * 0.26, keep: i % 3 === 0 }); }
+  const FOG = []; for (let i = 0; i < 8; i++) FOG.push({ x: R() * 1080, y: 300 + R() * 1500, r: 450 + R() * 450, ph: R() * 6.28 });
+  function row(n, x0, span, wmin, wmax, tmin, tmax) { const a = []; let x = x0; for (let i = 0; i < n; i++) { const w = wmin + R() * (wmax - wmin); a.push({ x, w, top: tmin + R() * (tmax - tmin), wick: 60 + R() * 160 }); x += span / n; } return a; }
+  const FAR = row(24, -300, 1750, 34, 58, 980, 1480), NEAR = row(13, -260, 1700, 70, 120, 1180, 1660);
+  const PATS = [
+    [[-0.78, 0.36, 1], [0.78, 0.36, 1]],
+    [[-Math.PI / 2, 0.55, 1], [Math.PI / 2, 0.55, 1]],
+    [[-0.62, 0.26, 0.8], [0, 0.26, 1], [0.62, 0.26, 0.8]],
+    [[Math.PI - 0.7, 0.4, 1], [Math.PI + 0.7, 0.4, 1]],
+    [[0, 0.48, 1], [Math.PI, 0.48, 1]],
+  ];
+  function lob(pat, th, rot) { let s = 0; for (const [a, w, amp] of pat) { let d = th - (a + rot); d = Math.atan2(Math.sin(d), Math.cos(d)); s += amp * Math.exp(-(d * d) / (w * w)); } return Math.min(1.2, s); }
+  function shape(th, t) {
+    const rot = 0.2 * Math.sin(t * 0.9);
+    if (t < D.drop) return 0.5 * lob(PATS[0], th, rot);
+    const bar = Math.floor((t - D.drop) / (2 * D.bar)), k = bar % PATS.length, pk = (bar + PATS.length - 1) % PATS.length;
+    const u = bar === 0 ? 1 : ease(clamp(((t - D.drop) - bar * 2 * D.bar) / 0.18, 0, 1));
+    return lob(PATS[pk], th, rot) * (1 - u) + lob(PATS[k], th, rot) * u;
+  }
+  function blob(t, sc, extra) {
+    const b = ev(D.bass, t), m = ev(D.mid, t), h = ev(D.high, t), p = pulse(t);
+    const drive = t < D.drop ? 0.18 + 0.3 * b + 0.3 * p : 0.45 + 0.25 * clamp((b - 0.55) / 0.4, 0, 1) + 0.5 * p;
+    const pts = [];
+    for (let i = 0; i <= 180; i++) {
+      const th = i / 180 * Math.PI * 2;
+      const r = (232 + extra + 14 * p + drive * (16 + 135 * shape(th, t)) + m * 7 * Math.sin(9 * th + 4 * t) + h * 4 * Math.sin(23 * th - 7 * t)) * sc;
+      pts.push([CX + Math.sin(th) * r, CY - Math.cos(th) * r]);
+    }
+    return pts;
+  }
+  function path(pts) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); ctx.closePath(); }
+  function glitchWin(t) {
+    const w = [[D.drop, 0.42, 1], [D.switch, 0.3, 0.8], [D.switch + 2 * D.bar, 0.3, 0.8], [D.end - 0.12, 0.12, 0.6]];
+    let g = 0; for (const [a, d, s] of w) if (t >= a && t < a + d) g = Math.max(g, s * (1 - (t - a) / d)); return g;
+  }
+
+  function background(t, b) {
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#01050c"); g.addColorStop(0.45, "#05203b"); g.addColorStop(1, "#010409");
+    ctx.fillStyle = g; ctx.fillRect(-200, -200, W + 400, H + 400);
+    // god rays from above the disk
+    ctx.save(); ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < 6; i++) {
+      const a = Math.PI / 2 + (i - 2.5) * 0.17 + 0.08 * Math.sin(t * 0.21 + i), w = 0.035 + 0.02 * ((i * 37) % 5) / 5, L = 2300;
+      const rg = ctx.createLinearGradient(CX, -150, CX + Math.cos(a) * L, -150 + Math.sin(a) * L);
+      rg.addColorStop(0, `rgba(90,180,255,${0.05 + 0.05 * b})`); rg.addColorStop(1, "rgba(90,180,255,0)");
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.moveTo(CX, -150);
+      ctx.lineTo(CX + Math.cos(a - w) * L, -150 + Math.sin(a - w) * L); ctx.lineTo(CX + Math.cos(a + w) * L, -150 + Math.sin(a + w) * L); ctx.fill();
+    }
+    ctx.restore();
+    // fog
+    for (const f of FOG) {
+      const x = f.x + Math.sin(t * 0.13 + f.ph) * 140, y = f.y + Math.cos(t * 0.09 + f.ph) * 80;
+      const rg = ctx.createRadialGradient(x, y, 0, x, y, f.r);
+      rg.addColorStop(0, `rgba(35,120,200,${0.13 * (0.8 + 0.4 * b)})`); rg.addColorStop(1, "rgba(35,120,200,0)");
+      ctx.fillStyle = rg; ctx.fillRect(x - f.r, y - f.r, f.r * 2, f.r * 2);
+    }
+    // candlestick towers: far row in the fog, near row as dark silhouettes with a cold rim light
+    const offF = -t * 4, offN = -t * 9;
+    ctx.fillStyle = "rgba(14,50,90,0.55)"; ctx.strokeStyle = "rgba(14,50,90,0.55)"; ctx.lineWidth = 6;
+    for (const c of FAR) { const x = c.x + offF; ctx.fillRect(x, c.top, c.w, H - c.top + 50); ctx.beginPath(); ctx.moveTo(x + c.w / 2, c.top); ctx.lineTo(x + c.w / 2, c.top - c.wick); ctx.stroke(); }
+    for (const c of NEAR) {
+      const x = c.x + offN;
+      ctx.fillStyle = "rgba(1,5,12,0.94)"; ctx.fillRect(x, c.top, c.w, H - c.top + 50);
+      ctx.strokeStyle = "rgba(1,5,12,0.94)"; ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(x + c.w / 2, c.top); ctx.lineTo(x + c.w / 2, c.top - c.wick); ctx.stroke();
+      ctx.strokeStyle = `rgba(90,185,255,${0.22 + 0.2 * b})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, c.top + 1); ctx.lineTo(x + c.w, c.top + 1); ctx.stroke();
+    }
+  }
+  function ash(t, front) {
+    const d = dist(t), fast = t >= D.drop && t < D.end + 0.4 ? 1.7 : 1;
+    ctx.lineCap = "round";
+    for (let i = 0; i < P.length; i++) {
+      const p = P[i]; if ((p.z > 0.72) !== front) continue;
+      const dx = Math.cos(p.a), dy = Math.sin(p.a), s = d * p.v;
+      const x = ((p.x + dx * s) % 1500 + 1500) % 1500 - 200, y = ((p.y + dy * s) % 2100 + 2100) % 2100 - 100;
+      const L = (8 + 46 * p.z) * fast;
+      ctx.strokeStyle = `rgba(150,220,255,${0.16 + 0.6 * p.z})`; ctx.lineWidth = 1 + 3.4 * p.z;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - dx * L, y - dy * L); ctx.stroke();
+    }
+  }
+  function bokeh(t) {
+    ctx.save(); ctx.globalCompositeOperation = "lighter";
+    for (const k of BK) {
+      if (!k.keep && t < D.drop) continue;
+      const u = (t - k.t0) / k.life; if (u < 0 || u > 1) continue;
+      const x = k.x + k.vx * u * k.life, y = k.y + k.vy * u * k.life, a = k.a * Math.sin(Math.PI * u);
+      const rg = ctx.createRadialGradient(x, y, 0, x, y, k.r);
+      rg.addColorStop(0, `rgba(80,200,255,${a})`); rg.addColorStop(0.55, `rgba(60,170,255,${a * 0.55})`); rg.addColorStop(1, "rgba(60,170,255,0)");
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.ellipse(x, y, k.r * 1.25, k.r * 0.8, 0.6, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function disk(t, p, h, alpha, sc) {
+    ctx.save(); ctx.globalAlpha = alpha;
+    const r = 215 * sc;
+    const g = ctx.createRadialGradient(CX, CY - 40, 20, CX, CY, r);
+    g.addColorStop(0, "#0a1f36"); g.addColorStop(1, "#02070f");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, r, 0, Math.PI * 2); ctx.fill();
+    ctx.shadowColor = "rgba(232,194,106,0.8)"; ctx.shadowBlur = 14; ctx.strokeStyle = "#e8c26a"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(CX, CY, r, 0, Math.PI * 2); ctx.stroke(); ctx.shadowBlur = 0;
+    // dial ticks that light with the hi-hats
+    for (let i = 0; i < 72; i++) {
+      const a = i / 72 * Math.PI * 2 + t * 0.15, lit = 0.12 + 0.6 * h * (0.5 + 0.5 * Math.sin(i * 1.7 + t * 6));
+      ctx.strokeStyle = `rgba(110,210,255,${lit})`; ctx.lineWidth = i % 6 ? 2 : 3;
+      const r1 = r - 18, r2 = r - (i % 6 ? 9 : 4);
+      ctx.beginPath(); ctx.moveTo(CX + Math.sin(a) * r1, CY - Math.cos(a) * r1); ctx.lineTo(CX + Math.sin(a) * r2, CY - Math.cos(a) * r2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function emblem(t, p, alpha, sc) {
+    const s = sc * (1 + 0.05 * p), w = 280 * s, h = 272 * s, x = CX - w / 2, y = CY - h / 2 - 4;
+    const g = glitchWin(t), f = fr(t);
+    ctx.save(); ctx.globalAlpha = alpha;
+    const inSwitch = t >= D.switch && t < D.switch + 2 * D.bar;
+    if (inSwitch) {
+      // the emblem turns into a live chart for two bars
+      const hs = [80, 130, 105, 175], cols = ["#2962ff", "#e8c26a", "#2962ff", "#e8c26a"];
+      for (let i = 0; i < 4; i++) {
+        const k = 0.75 + 0.5 * pulse(t - i * 0.06), bh = hs[i] * k * sc, cx = CX - 105 * sc + i * 70 * sc, base = CY + 95 * sc;
+        ctx.strokeStyle = cols[i]; ctx.lineWidth = 4 * sc; ctx.beginPath(); ctx.moveTo(cx, base - bh - 34 * sc); ctx.lineTo(cx, base + 18 * sc); ctx.stroke();
+        ctx.fillStyle = cols[i]; ctx.shadowColor = cols[i]; ctx.shadowBlur = 18; ctx.fillRect(cx - 20 * sc, base - bh, 40 * sc, bh); ctx.shadowBlur = 0;
+      }
+    } else if (logo.naturalWidth) {
+      if (g > 0) {
+        const n = 10, sh = logo.naturalHeight / n;
+        for (let j = 0; j < n; j++) {
+          const dx = (hash(f * 31 + j) - 0.5) * 90 * g;
+          ctx.drawImage(logo, 0, j * sh, logo.naturalWidth, sh, x + dx, y + j * sh * s, w, sh * s + 1);
+        }
+        ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = alpha * 0.45 * g;
+        ctx.drawImage(logo, x - 14 * g, y, w, h); ctx.drawImage(logo, x + 14 * g, y, w, h);
+      } else {
+        ctx.drawImage(logo, x, y, w, h);
+      }
+    }
+    ctx.restore();
+  }
+  function ring(t, alpha, sc) {
+    if (alpha <= 0) return;
+    ctx.save(); ctx.lineJoin = "round";
+    const trail = blob(t - 0.07, sc, 0);
+    path(trail); ctx.strokeStyle = `rgba(30,110,255,${0.55 * alpha})`; ctx.lineWidth = 5; ctx.stroke();
+    const pts = blob(t, sc, 0);
+    path(pts); ctx.shadowColor = "rgba(40,200,255,0.95)"; ctx.shadowBlur = 30; ctx.strokeStyle = `rgba(60,210,255,${alpha})`; ctx.lineWidth = 10; ctx.stroke();
+    ctx.shadowBlur = 0; ctx.strokeStyle = `rgba(235,250,255,${alpha})`; ctx.lineWidth = 3; ctx.stroke();
+    const outer = blob(t - 0.03, sc, 18);
+    path(outer); ctx.strokeStyle = `rgba(80,200,255,${0.4 * alpha})`; ctx.lineWidth = 2; ctx.stroke();
+    ctx.restore();
+  }
+  function renderAt(t) {
+    t = clamp(t, 0, D.total);
+    const b = ev(D.bass, t), h = ev(D.high, t), p = pulse(t), f = fr(t);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, W, H);
+    // camera: slow push through the build, a breath after the drop, hits on kicks, shake on the big moments
+    let cs = t < D.drop ? 1.07 - 0.07 * ease(t / D.drop) : 1 + 0.02 * Math.sin((t - D.drop) * 0.6) + 0.018 * p;
+    let amp = 0;
+    for (const [a, d, s] of [[D.drop, 0.5, 26], [D.switch, 0.3, 12], [D.end, 0.45, 20]]) if (t >= a && t < a + d) amp = Math.max(amp, s * (1 - (t - a) / d));
+    const sx = (hash(f * 3 + 1) - 0.5) * 2 * amp, sy = (hash(f * 3 + 2) - 0.5) * 2 * amp;
+    ctx.translate(CX + sx, CY + sy); ctx.scale(cs, cs); ctx.translate(-CX, -CY);
+    background(t, b);
+    ash(t, false);
+    // the disk and its ring leave with a burst at the end card
+    const e = t >= D.end ? clamp((t - D.end) / 0.35, 0, 1) : 0, burst = 1 + 1.6 * e * e, al = 1 - e;
+    ring(t, al, burst);
+    disk(t, p, h, al, 1 + 0.25 * e);
+    emblem(t, p, al, 1 + 0.25 * e);
+    bokeh(t);
+    ash(t, true);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // vignette and flashes
+    const vg = ctx.createRadialGradient(CX, CY, 420, CX, CY, 1250);
+    vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.78)");
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    let fl = 0;
+    for (const [a, s, d] of [[D.drop, 0.85, 0.09], [D.switch, 0.45, 0.07], [D.switch + 2 * D.bar, 0.45, 0.07], [D.end, 0.9, 0.1]]) if (t >= a) fl = Math.max(fl, s * Math.exp(-(t - a) / d));
+    if (fl > 0.01) { ctx.fillStyle = `rgba(220,240,255,${fl})`; ctx.fillRect(0, 0, W, H); }
+  }
+  window.addEventListener("hf-seek", (e) => {
+    const t = e.detail.time;
+    if (e.detail.waitUntil) e.detail.waitUntil(ready.then(() => renderAt(t))); else renderAt(t);
+  });
+  renderAt(0); ready.then(() => renderAt(0));
+})();
+</script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#tm0", {opacity: 1}, 0.000);
+        tl.set("#tm0", {opacity: 0}, 1.000);
+        tl.set("#tm1", {opacity: 1}, 1.000);
+        tl.set("#tm1", {opacity: 0}, 2.000);
+        tl.set("#tm2", {opacity: 1}, 2.000);
+        tl.set("#tm2", {opacity: 0}, 3.000);
+        tl.set("#tm3", {opacity: 1}, 3.000);
+        tl.set("#tm3", {opacity: 0}, 4.000);
+        tl.set("#tm4", {opacity: 1}, 4.000);
+        tl.set("#tm4", {opacity: 0}, 5.000);
+        tl.set("#tm5", {opacity: 1}, 5.000);
+        tl.set("#tm5", {opacity: 0}, 6.000);
+        tl.set("#tm6", {opacity: 1}, 6.000);
+        tl.set("#tm6", {opacity: 0}, 7.000);
+        tl.set("#tm7", {opacity: 1}, 7.000);
+        tl.set("#tm7", {opacity: 0}, 8.000);
+        tl.set("#tm8", {opacity: 1}, 8.000);
+        tl.set("#tm8", {opacity: 0}, 9.000);
+        tl.set("#tm9", {opacity: 1}, 9.000);
+        tl.set("#tm9", {opacity: 0}, 10.000);
+        tl.set("#tm10", {opacity: 1}, 10.000);
+        tl.set("#tm10", {opacity: 0}, 11.000);
+        tl.set("#tm11", {opacity: 1}, 11.000);
+        tl.set("#tm11", {opacity: 0}, 12.000);
+        tl.set("#tm12", {opacity: 1}, 12.000);
+        tl.set("#tm12", {opacity: 0}, 13.000);
+        tl.set("#tm13", {opacity: 1}, 13.000);
+        tl.set("#tm13", {opacity: 0}, 14.000);
+        tl.set("#tm14", {opacity: 1}, 14.000);
+        tl.set("#tm14", {opacity: 0}, 15.000);
+        tl.set("#tm15", {opacity: 1}, 15.000);
+        tl.set("#tm15", {opacity: 0}, 16.000);
+        tl.set("#tm16", {opacity: 1}, 16.000);
+        tl.set("#tm16", {opacity: 0}, 17.000);
+        tl.set("#tm17", {opacity: 1}, 17.000);
+        tl.set("#tm17", {opacity: 0}, 18.000);
+        tl.set("#tm18", {opacity: 1}, 18.000);
+        tl.set("#tm18", {opacity: 0}, 19.000);
+        tl.set("#tm19", {opacity: 1}, 19.000);
+        tl.set("#tm19", {opacity: 0}, 20.000);
+        tl.set("#tm20", {opacity: 1}, 20.000);
+        tl.set("#tm20", {opacity: 0}, 21.000);
+        tl.set("#tm21", {opacity: 1}, 21.000);
+        tl.set("#tm21", {opacity: 0}, 22.000);
+        tl.set("#tm22", {opacity: 1}, 22.000);
+        tl.set("#tm22", {opacity: 0}, 23.000);
+        tl.set("#tm23", {opacity: 1}, 23.000);
+        tl.set("#tm23", {opacity: 0}, 24.000);
+        tl.set("#tm24", {opacity: 1}, 24.000);
+        tl.set("#tm24", {opacity: 0}, 25.000);
+        tl.set("#tm25", {opacity: 1}, 25.000);
+        tl.set("#tm25", {opacity: 0}, 26.000);
+        tl.set("#tm26", {opacity: 1}, 26.000);
+        tl.set("#tm26", {opacity: 0}, 27.000);
+        tl.set("#tm27", {opacity: 1}, 27.000);
+        tl.set("#tm27", {opacity: 0}, 28.000);
+        tl.set("#tm28", {opacity: 1}, 28.000);
+        tl.set("#tm28", {opacity: 0}, 29.000);
+        tl.set("#tm29", {opacity: 1}, 29.000);
+        tl.set("#tm29", {opacity: 0}, 30.000);
+        tl.set("#tm30", {opacity: 1}, 30.000);
+        tl.set("#tm30", {opacity: 0}, 31.000);
+        tl.set("#tm31", {opacity: 1}, 31.000);
+        tl.set("#tm31", {opacity: 0}, 32.000);
+        tl.set("#tm32", {opacity: 1}, 32.000);
+        tl.set("#tm32", {opacity: 0}, 33.000);
+        tl.set("#tm33", {opacity: 1}, 33.000);
+        tl.set("#tm33", {opacity: 0}, 33.030);
+        tl.fromTo("#tag", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 1.2, ease: "power2.out"}, 0.6);
+        tl.to(["#timer", "#tag"], {opacity: 0, duration: 0.25}, 27.340);
+        tl.fromTo("#end", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out"}, 27.390);
+        tl.fromTo("#end-logo", {opacity: 0, scale: 2.2, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out"}, 27.390);
+        tl.fromTo("#end-tag", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.3, ease: "expo.out"}, 28.960);
+        tl.fromTo("#end-cta", {opacity: 0, scale: 1.4}, {opacity: 1, scale: 1, duration: 0.25, ease: "power4.out"}, 30.980);
+        tl.fromTo("#end-note", {opacity: 0}, {opacity: 1, duration: 0.4}, 28.040);
+        tl.fromTo("#end-credit", {opacity: 0}, {opacity: 1, duration: 0.4}, 28.240);
+        tl.fromTo("#end-foot-img", {y: 255}, {y: 0, duration: 0.4, ease: "back.out(1.4)"}, 27.740);
+        window.__timelines["otm-viz"] = tl;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-dropstone" data-start="0" data-duration="58.08" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust"><circle id="d0" cx="350" cy="290" r="2.5" fill="#fff" opacity="0.06"/><circle id="d1" cx="63" cy="974" r="1.3" fill="#fff" opacity="0.12"/><circle id="d2" cx="458" cy="1588" r="1.4" fill="#fff" opacity="0.09"/><circle id="d3" cx="623" cy="762" r="3.2" fill="#fff" opacity="0.06"/><circle id="d4" cx="156" cy="226" r="1.8" fill="#fff" opacity="0.19"/><circle id="d5" cx="690" cy="715" r="2.3" fill="#fff" opacity="0.06"/><circle id="d6" cx="735" cy="821" r="1.8" fill="#fff" opacity="0.15"/><circle id="d7" cx="858" cy="1342" r="1.7" fill="#fff" opacity="0.15"/><circle id="d8" cx="788" cy="553" r="3.2" fill="#fff" opacity="0.07"/><circle id="d9" cx="164" cy="939" r="1.3" fill="#fff" opacity="0.16"/><circle id="d10" cx="946" cy="602" r="2.6" fill="#fff" opacity="0.15"/><circle id="d11" cx="907" cy="1814" r="2.1" fill="#fff" opacity="0.16"/><circle id="d12" cx="699" cy="1907" r="2.8" fill="#fff" opacity="0.10"/><circle id="d13" cx="24" cy="886" r="1.5" fill="#fff" opacity="0.07"/><circle id="d14" cx="140" cy="475" r="2.0" fill="#fff" opacity="0.20"/><circle id="d15" cx="593" cy="1696" r="2.8" fill="#fff" opacity="0.20"/><circle id="d16" cx="387" cy="1698" r="3.1" fill="#fff" opacity="0.08"/><circle id="d17" cx="252" cy="931" r="2.4" fill="#fff" opacity="0.09"/><circle id="d18" cx="399" cy="1087" r="3.1" fill="#fff" opacity="0.17"/><circle id="d19" cx="730" cy="104" r="3.0" fill="#fff" opacity="0.18"/><circle id="d20" cx="424" cy="766" r="1.4" fill="#fff" opacity="0.16"/><circle id="d21" cx="225" cy="312" r="1.9" fill="#fff" opacity="0.06"/><circle id="d22" cx="110" cy="698" r="1.3" fill="#fff" opacity="0.20"/><circle id="d23" cx="272" cy="667" r="1.9" fill="#fff" opacity="0.07"/><circle id="d24" cx="503" cy="929" r="1.4" fill="#fff" opacity="0.07"/><circle id="d25" cx="895" cy="310" r="1.2" fill="#fff" opacity="0.21"/><circle id="d26" cx="587" cy="52" r="2.3" fill="#fff" opacity="0.22"/><circle id="d27" cx="282" cy="704" r="1.5" fill="#fff" opacity="0.18"/><circle id="d28" cx="356" cy="428" r="2.8" fill="#fff" opacity="0.22"/><circle id="d29" cx="884" cy="1421" r="1.7" fill="#fff" opacity="0.14"/><circle id="d30" cx="30" cy="536" r="1.7" fill="#fff" opacity="0.17"/><circle id="d31" cx="1012" cy="1897" r="3.1" fill="#fff" opacity="0.11"/><circle id="d32" cx="212" cy="392" r="2.4" fill="#fff" opacity="0.20"/><circle id="d33" cx="705" cy="1535" r="1.4" fill="#fff" opacity="0.16"/><circle id="d34" cx="810" cy="918" r="1.6" fill="#fff" opacity="0.18"/><circle id="d35" cx="1049" cy="760" r="2.0" fill="#fff" opacity="0.21"/><circle id="d36" cx="137" cy="290" r="3.0" fill="#fff" opacity="0.19"/><circle id="d37" cx="1059" cy="1262" r="1.9" fill="#fff" opacity="0.14"/><circle id="d38" cx="1049" cy="1247" r="2.3" fill="#fff" opacity="0.21"/><circle id="d39" cx="892" cy="405" r="1.7" fill="#fff" opacity="0.10"/></g>
+        <line id="ground" x1="0" y1="1240" x2="1080" y2="1240" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="12 12"/>
+<g id="sc1" style="opacity:0;visibility:hidden" data-layout-allow-overlap><path id="cl2" d="M 40 560 L 80 568 L 140 554 L 200 568 L 260 554 L 320 568 L 380 554 L 440 568 L 500 554 L 560 568 L 620 554 L 680 568 L 740 554 L 800 568 L 860 554 L 920 568 L 980 554 L 500 560 L 540 610 L 580 560 L 1040 560" fill="none" stroke="#c9ced6" stroke-width="4" stroke-linejoin="round"/><g><path d="M 348 860 H 732 Q 750 860 750 878 V 1142 Q 750 1160 732 1160 H 348 Q 330 1160 330 1142 V 878 Q 330 860 348 860 Z" fill="#14120a" stroke="#e8c26a" stroke-width="3"/><path d="M 360 1110 L 430 1080 L 480 1095 L 550 1020 L 600 1035 L 690 950 L 720 930" fill="none" stroke="#e8c26a" stroke-width="7" stroke-linecap="round" style="filter:drop-shadow(0 0 12px rgba(232,194,106,0.9))"/><text x="540" y="905" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.14em" fill="#e8c26a">CONSISTENCY</text></g><g id="lh4"><path d="M 250 1240 C 220 1060 270 800 520 772 L 545 830 L 520 900 L 560 980 L 525 1060 L 555 1150 L 530 1240 Z" fill="#06080b"/></g><g id="rh5"><path d="M 530 1240 L 555 1150 L 525 1060 L 560 980 L 520 900 L 545 830 L 520 772 C 760 760 860 980 830 1240 Z" fill="#06080b"/></g><path id="ol6" d="M 250 1240 C 220 1060 270 800 520 772 C 760 760 860 980 830 1240" fill="none" stroke="#e9ecf1" stroke-width="5" style="filter:drop-shadow(0 0 14px rgba(255,255,255,0.25))"/><path id="le7" d="M 250 1240 C 220 1060 270 800 520 772 L 545 830 L 520 900 L 560 980 L 525 1060 L 555 1150 L 530 1240 Z" fill="none" stroke="#e9ecf1" stroke-width="5" stroke-linejoin="round" style="opacity:0"/><path id="re8" d="M 530 1240 L 555 1150 L 525 1060 L 560 980 L 520 900 L 545 830 L 520 772 C 760 760 860 980 830 1240 Z" fill="none" stroke="#e9ecf1" stroke-width="5" stroke-linejoin="round" style="opacity:0"/><path id="p9" d="M 520 772 L 545 830 L 520 900" fill="none" stroke="#e9ecf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="p10" d="M 520 900 L 560 980 L 525 1060 L 555 1150 L 530 1240" fill="none" stroke="#e9ecf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><text id="t11" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">PICTURE A WALL BETWEEN YOU AND</text><text id="t12" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="52" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">CONSISTENT TRADING</text><text id="t13" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">MOST TRADERS TRY TO</text><text id="t14" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">SMASH THROUGH IT</text><text id="t15" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ff4d5e" style="opacity:0">BIGGER LOTS</text><text id="t16" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ff4d5e" style="opacity:0">HIGHER LEVERAGE</text><text id="t17" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">ONE MORE TRADE TO</text><text id="t18" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ff4d5e" style="opacity:0">WIN IT ALL BACK</text><text id="t19" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">FOR A FEW WEEKS</text><text id="t20" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">THEY SWING HARDER</text><text id="t21" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ff4d5e" style="opacity:0">THEN THEY BLOW UP</text><text id="t22" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#9aa0a8" style="opacity:0">AND WALK AWAY</text><g transform="translate(110,1240) scale(0.72)"><g id="f23" style="opacity:1;"><circle cx="0" cy="-158" r="31" fill="#9aa0a8"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#9aa0a8"/></g></g><g id="hm24"><line x1="140" y1="1110" x2="230" y2="1070" stroke="#c9ced6" stroke-width="7" stroke-linecap="round"/><rect x="212" y="1040" width="36" height="56" rx="6" fill="#c9ced6" transform="rotate(-24 230 1070)"/></g><g transform="translate(200,1240) scale(0.72)"><g id="f25" style="opacity:1;"><circle cx="0" cy="-158" r="31" fill="#9aa0a8"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#9aa0a8"/></g></g><g id="hm26"><line x1="230" y1="1110" x2="320" y2="1070" stroke="#c9ced6" stroke-width="7" stroke-linecap="round"/><rect x="302" y="1040" width="36" height="56" rx="6" fill="#c9ced6" transform="rotate(-24 320 1070)"/></g><g transform="translate(880,1240) scale(0.72)"><g id="f27" style="opacity:1;"><circle cx="0" cy="-158" r="31" fill="#9aa0a8"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#9aa0a8"/></g></g><g id="hm28"><line x1="850" y1="1110" x2="760" y2="1070" stroke="#c9ced6" stroke-width="7" stroke-linecap="round"/><rect x="742" y="1040" width="36" height="56" rx="6" fill="#c9ced6" transform="rotate(24 760 1070)"/></g><g transform="translate(970,1240) scale(0.72)"><g id="f29" style="opacity:1;"><circle cx="0" cy="-158" r="31" fill="#9aa0a8"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#9aa0a8"/></g></g><g id="hm30"><line x1="940" y1="1110" x2="850" y2="1070" stroke="#c9ced6" stroke-width="7" stroke-linecap="round"/><rect x="832" y="1040" width="36" height="56" rx="6" fill="#c9ced6" transform="rotate(24 850 1070)"/></g><rect id="fl31" x="0" y="0" width="1080" height="1920" fill="#ff4d5e" style="opacity:0"/><text id="t32" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">ONE TRADER DOES</text><text id="t33" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">SOMETHING DIFFERENT</text><g transform="translate(150,1240) scale(0.8)"><g id="f34" style="opacity:1.0;filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));"><circle cx="0" cy="-158" r="31" fill="#ffffff"/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" fill="#ffffff"/></g></g><text id="t35" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">HE FINDS</text><text id="t36" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">ONE SMALL EDGE</text><text id="t37" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">ONE SETUP</text><path id="d038" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 10px #e8c26a)"/><text id="t39" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">THE SAME WAY</text><text id="t40" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">EVERY DAY</text><text id="t41" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">SAME RISK</text><text id="t42" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">SAME RULES</text><text id="t43" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">SAME JOURNAL</text><path id="dp44" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp45" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp46" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp47" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp48" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp49" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp50" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp51" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp52" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp53" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp54" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp55" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp56" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp57" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp58" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp59" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp60" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp61" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp62" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp63" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp64" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp65" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp66" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp67" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp68" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp69" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp70" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp71" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp72" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp73" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp74" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp75" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp76" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp77" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp78" d="M 540 604 C 549 618 549 628 540 630 C 531 628 531 618 540 604 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp79" d="M 518 768 Q 526 750 534 764 M 562 768 Q 554 750 546 764" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><text id="t80" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#9aa0a8" style="opacity:0">NOTHING CHANGES</text><text id="t81" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="72" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">DAY 1</text><text id="t82" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#ffffff" style="opacity:0">A CRACK APPEARS</text><text id="t83" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="72" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">DAY 100</text><text id="t84" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#e8c26a" style="opacity:0">THE WALL GIVES WAY</text><text id="t85" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="72" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">DAY 300</text><text id="t86" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">THE TRADERS WHO SWUNG HARDEST</text><text id="t87" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#9aa0a8" style="opacity:0">LEFT THE GAME</text><g id="dh88" style="opacity:0"><line x1="40" y1="1232" x2="130" y2="1232" stroke="#5a606b" stroke-width="7" stroke-linecap="round"/><rect x="120" y="1206" width="36" height="30" rx="5" fill="#5a606b"/></g><g id="dh89" style="opacity:0"><line x1="940" y1="1232" x2="1030" y2="1232" stroke="#5a606b" stroke-width="7" stroke-linecap="round"/><rect x="924" y="1206" width="36" height="30" rx="5" fill="#5a606b"/></g></g>
+<g id="sc90" style="opacity:0;visibility:hidden" data-layout-allow-overlap><path id="p91" d="M 160 1240 C 200 1020 340 900 540 890 C 740 900 880 1020 920 1240" fill="none" stroke="#e9ecf1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 14px rgba(255,255,255,0.25))" /><path id="p92" d="M 120 600 L 500 600 L 540 660 L 580 600 L 960 600" fill="none" stroke="#c9ced6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"  /><path id="p93" d="M 540 890 L 548 930 L 532 970" fill="none" stroke="#e9ecf1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1;" /><path id="dp94" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp95" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp96" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp97" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp98" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp99" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp100" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp101" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp102" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp103" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp104" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp105" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp106" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp107" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp108" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp109" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><path id="dp110" d="M 540 654 C 549 668 549 678 540 680 C 531 678 531 668 540 654 Z" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 8px #e8c26a)"/><path id="sp111" d="M 518 884 Q 526 866 534 880 M 562 884 Q 554 866 546 880" fill="none" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><text id="t112" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">WATER DOESN'T BREAK STONE</text><text id="t113" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#ffffff" style="opacity:0">WITH FORCE</text><text id="t114" x="540" y="380" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">IT BREAKS IT BY</text><text id="t115" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">SHOWING UP</text><text id="t116" x="540" y="455" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="58" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">DROP AFTER DROP</text></g>
+<g id="sc117" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t118" x="540" y="600" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="30" letter-spacing="0.2em" fill="#c9ced6" style="opacity:1">IN TRADING</text><g id="fc119" style="opacity:0"><path d="M 630 700 H 950 Q 970 700 970 720 V 1060 Q 970 1080 950 1080 H 630 Q 610 1080 610 1060 V 720 Q 610 700 630 700 Z" fill="#0f1319" stroke="#ffffff40" stroke-width="2.5"/><line x1="750" y1="930" x2="830" y2="830" stroke="#9aa0a8" stroke-width="10" stroke-linecap="round"/><rect x="800" y="780" width="60" height="80" rx="8" fill="#9aa0a8" transform="rotate(38 830 820)"/><text x="790" y="1030" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="36" fill="#9aa0a8">FORCE</text></g><g id="cc120" style="opacity:0;filter:drop-shadow(0 0 14px rgba(232,194,106,0.5))"><path d="M 130 700 H 450 Q 470 700 470 720 V 1060 Q 470 1080 450 1080 H 130 Q 110 1080 110 1060 V 720 Q 110 700 130 700 Z" fill="#14120a" stroke="#e8c26a" stroke-width="3"/><path d="M 290 780 C 330 840 340 880 290 900 C 240 880 250 840 290 780 Z" fill="#e8c26a"/><text x="290" y="1030" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" fill="#e8c26a">CONSISTENCY</text></g><text id="t121" x="540" y="905" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.15em" fill="#ffffff" style="opacity:0">BEATS</text><text id="t122" x="540" y="1200" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="52" letter-spacing="0.2em" fill="#e8c26a" style="opacity:0">EVERY TIME</text></g>
+<g id="sc123" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="sp125" style="opacity:0"><defs><linearGradient id="gr124" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgb(232,194,106)" stop-opacity="0.26"/><stop offset="1" stop-color="rgb(232,194,106)" stop-opacity="0.04"/></linearGradient></defs><path d="M 500 380 L 580 380 L 770 1240 L 310 1240 Z" fill="url(#gr124)"/><ellipse cx="540" cy="1240" rx="240" ry="26" fill="none" stroke="rgb(232,194,106)" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g><image id="i126" href="assets/otm_emblem.png" x="390" y="900" width="300" height="291" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/><text id="t127" x="540" y="1300" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.3em" fill="#e8c26a" style="opacity:0">ORDER THE MARKET</text><text id="t128" x="540" y="1360" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.12em" fill="#ffffff" style="opacity:0">DON'T LET THE MARKET ORDER YOU</text><g id="pl129" style="opacity:0"><rect x="348" y="1441" width="385" height="58" rx="29.0" fill="#e8c26a" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="540" y="1481" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.06em" fill="#111">FOLLOW FOR MORE</text></g><g id="so130" style="opacity:0"><rect x="290" y="1548" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="3"/><circle cx="308" cy="1566" r="8.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="318" cy="1556" r="2.4" fill="#fff"/><text x="338" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text><path d="M 612 1546 V 1574 A 9 9 0 1 1 603 1565 M 612 1546 Q 616 1557 628 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><text x="638" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g><text id="t131" x="540" y="1650" text-anchor="middle" font-family="Montserrat" font-weight="600" font-size="28" letter-spacing="0.12em" fill="#7d838c" style="opacity:0">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</text></g>
+
+      </svg>
+      <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
+      <audio id="otm-dropstone-audio" class="clip" src="assets/audio/mix_dropstone.wav" data-start="0" data-duration="58.08" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#sc1", {opacity: 1, visibility: "visible"}, 0);
+        tl.fromTo("#sc1", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 42.200, ease: "none", immediateRender: false}, 0.000);
+        tl.to("#sc1", {opacity: 0, duration: 0.25, ease: "power2.in"}, 41.950);
+        tl.set("#sc1", {opacity: 0, visibility: "hidden"}, 42.200);
+        tl.fromTo("#t11", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 0.000);
+        tl.to("#t11", {opacity: 0, duration: 0.15}, 4.470);
+        tl.fromTo("#t12", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 0.000);
+        tl.to("#t12", {opacity: 0, duration: 0.15}, 4.470);
+        tl.fromTo("#t13", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 4.740);
+        tl.to("#t13", {opacity: 0, duration: 0.15}, 6.810);
+        tl.fromTo("#t14", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 4.740);
+        tl.to("#t14", {opacity: 0, duration: 0.15}, 6.810);
+        tl.fromTo("#t15", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 7.080);
+        tl.to("#t15", {opacity: 0, duration: 0.15}, 7.690);
+        tl.fromTo("#t16", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 7.960);
+        tl.to("#t16", {opacity: 0, duration: 0.15}, 8.830);
+        tl.fromTo("#t17", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.100);
+        tl.to("#t17", {opacity: 0, duration: 0.15}, 11.330);
+        tl.fromTo("#t18", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.100);
+        tl.to("#t18", {opacity: 0, duration: 0.15}, 11.330);
+        tl.fromTo("#t19", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 11.600);
+        tl.to("#t19", {opacity: 0, duration: 0.15}, 14.590);
+        tl.fromTo("#t20", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 11.600);
+        tl.to("#t20", {opacity: 0, duration: 0.15}, 14.590);
+        tl.fromTo("#t21", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 14.860);
+        tl.to("#t21", {opacity: 0, duration: 0.15}, 15.850);
+        tl.fromTo("#t22", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 16.120);
+        tl.to("#t22", {opacity: 0, duration: 0.15}, 17.110);
+        tl.set("#f23", {opacity: 0}, 0.000);
+        tl.fromTo("#f23", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 4.980);
+        tl.set("#hm24", {opacity: 0}, 0.000);
+        tl.fromTo("#hm24", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 5.740);
+        tl.fromTo("#hm24", {rotation: 0, svgOrigin: "140 1110"}, {rotation: -28, svgOrigin: "140 1110", duration: 0.22, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 6.060);
+        tl.fromTo("#hm24", {rotation: 0, svgOrigin: "140 1110"}, {rotation: -34, svgOrigin: "140 1110", duration: 0.14, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 12.660);
+        tl.set("#f25", {opacity: 0}, 0.000);
+        tl.fromTo("#f25", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 5.100);
+        tl.set("#hm26", {opacity: 0}, 0.000);
+        tl.fromTo("#hm26", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 5.840);
+        tl.fromTo("#hm26", {rotation: 0, svgOrigin: "230 1110"}, {rotation: -28, svgOrigin: "230 1110", duration: 0.22, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 6.130);
+        tl.fromTo("#hm26", {rotation: 0, svgOrigin: "230 1110"}, {rotation: -34, svgOrigin: "230 1110", duration: 0.14, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 12.710);
+        tl.set("#f27", {opacity: 0}, 0.000);
+        tl.fromTo("#f27", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 5.220);
+        tl.set("#hm28", {opacity: 0}, 0.000);
+        tl.fromTo("#hm28", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 5.940);
+        tl.fromTo("#hm28", {rotation: 0, svgOrigin: "850 1110"}, {rotation: 28, svgOrigin: "850 1110", duration: 0.22, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 6.200);
+        tl.fromTo("#hm28", {rotation: 0, svgOrigin: "850 1110"}, {rotation: 34, svgOrigin: "850 1110", duration: 0.14, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 12.760);
+        tl.set("#f29", {opacity: 0}, 0.000);
+        tl.fromTo("#f29", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 5.340);
+        tl.set("#hm30", {opacity: 0}, 0.000);
+        tl.fromTo("#hm30", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 6.040);
+        tl.fromTo("#hm30", {rotation: 0, svgOrigin: "940 1110"}, {rotation: 28, svgOrigin: "940 1110", duration: 0.22, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 6.270);
+        tl.fromTo("#hm30", {rotation: 0, svgOrigin: "940 1110"}, {rotation: 34, svgOrigin: "940 1110", duration: 0.14, yoyo: true, repeat: 15, ease: "power2.in", immediateRender: false}, 12.810);
+        tl.fromTo("#fl31", {opacity: 0.22}, {opacity: 0, duration: 0.6, immediateRender: false}, 15.110);
+        tl.to("#hm24", {y: 120, rotation: -90, svgOrigin: "110 1110", opacity: 0, duration: 0.5, ease: "power2.in"}, 15.160);
+        tl.to("#f23", {x: -420, opacity: 0, duration: 1.2, ease: "power1.in"}, 16.020);
+        tl.to("#hm26", {y: 120, rotation: -90, svgOrigin: "200 1110", opacity: 0, duration: 0.5, ease: "power2.in"}, 15.160);
+        tl.to("#f25", {x: -420, opacity: 0, duration: 1.2, ease: "power1.in"}, 16.020);
+        tl.to("#hm28", {y: 120, rotation: 90, svgOrigin: "880 1110", opacity: 0, duration: 0.5, ease: "power2.in"}, 15.160);
+        tl.to("#f27", {x: 420, opacity: 0, duration: 1.2, ease: "power1.in"}, 16.020);
+        tl.to("#hm30", {y: 120, rotation: 90, svgOrigin: "970 1110", opacity: 0, duration: 0.5, ease: "power2.in"}, 15.160);
+        tl.to("#f29", {x: 420, opacity: 0, duration: 1.2, ease: "power1.in"}, 16.020);
+        tl.fromTo("#t32", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 17.380);
+        tl.to("#t32", {opacity: 0, duration: 0.15}, 19.270);
+        tl.fromTo("#t33", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 17.380);
+        tl.to("#t33", {opacity: 0, duration: 0.15}, 19.270);
+        tl.set("#f34", {opacity: 0}, 0.000);
+        tl.fromTo("#f34", {opacity: 0, scale: 0.4, transformOrigin: "50% 100%"}, {opacity: 1, scale: 1, duration: 0.450, ease: "back.out(1.8)", immediateRender: false}, 17.380);
+        tl.fromTo("#t35", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 19.540);
+        tl.to("#t35", {opacity: 0, duration: 0.15}, 21.570);
+        tl.fromTo("#t36", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 19.540);
+        tl.to("#t36", {opacity: 0, duration: 0.15}, 21.570);
+        tl.fromTo("#t37", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 21.840);
+        tl.to("#t37", {opacity: 0, duration: 0.15}, 23.510);
+        tl.set("#d038", {opacity: 0}, 0.000);
+        tl.fromTo("#d038", {opacity: 0, scale: 0.3, transformOrigin: "50% 0%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 20.360);
+        tl.set("#d038", {opacity: 0}, 23.730);
+        tl.fromTo("#t39", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 23.780);
+        tl.to("#t39", {opacity: 0, duration: 0.15}, 26.450);
+        tl.fromTo("#t40", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 23.780);
+        tl.to("#t40", {opacity: 0, duration: 0.15}, 26.450);
+        tl.fromTo("#t41", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 26.720);
+        tl.to("#t41", {opacity: 0, duration: 0.15}, 27.430);
+        tl.fromTo("#t42", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 27.700);
+        tl.to("#t42", {opacity: 0, duration: 0.15}, 28.510);
+        tl.fromTo("#t43", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 28.780);
+        tl.to("#t43", {opacity: 0, duration: 0.15}, 29.510);
+        tl.fromTo("#dp44", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 23.780);
+        tl.set("#dp44", {opacity: 0}, 24.200);
+        tl.fromTo("#sp45", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 24.200);
+        tl.fromTo("#dp46", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 24.530);
+        tl.set("#dp46", {opacity: 0}, 24.950);
+        tl.fromTo("#sp47", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 24.950);
+        tl.fromTo("#dp48", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 25.280);
+        tl.set("#dp48", {opacity: 0}, 25.700);
+        tl.fromTo("#sp49", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 25.700);
+        tl.fromTo("#dp50", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 26.030);
+        tl.set("#dp50", {opacity: 0}, 26.450);
+        tl.fromTo("#sp51", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 26.450);
+        tl.fromTo("#dp52", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 26.780);
+        tl.set("#dp52", {opacity: 0}, 27.200);
+        tl.fromTo("#sp53", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 27.200);
+        tl.fromTo("#dp54", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 27.530);
+        tl.set("#dp54", {opacity: 0}, 27.950);
+        tl.fromTo("#sp55", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 27.950);
+        tl.fromTo("#dp56", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 28.280);
+        tl.set("#dp56", {opacity: 0}, 28.700);
+        tl.fromTo("#sp57", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 28.700);
+        tl.fromTo("#dp58", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 29.030);
+        tl.set("#dp58", {opacity: 0}, 29.450);
+        tl.fromTo("#sp59", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 29.450);
+        tl.fromTo("#dp60", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 29.780);
+        tl.set("#dp60", {opacity: 0}, 30.200);
+        tl.fromTo("#sp61", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 30.200);
+        tl.fromTo("#dp62", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 30.530);
+        tl.set("#dp62", {opacity: 0}, 30.950);
+        tl.fromTo("#sp63", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 30.950);
+        tl.fromTo("#dp64", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 31.280);
+        tl.set("#dp64", {opacity: 0}, 31.700);
+        tl.fromTo("#sp65", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 31.700);
+        tl.fromTo("#dp66", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 32.030);
+        tl.set("#dp66", {opacity: 0}, 32.450);
+        tl.fromTo("#sp67", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 32.450);
+        tl.fromTo("#dp68", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 32.780);
+        tl.set("#dp68", {opacity: 0}, 33.200);
+        tl.fromTo("#sp69", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 33.200);
+        tl.fromTo("#dp70", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 33.530);
+        tl.set("#dp70", {opacity: 0}, 33.950);
+        tl.fromTo("#sp71", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 33.950);
+        tl.fromTo("#dp72", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 34.280);
+        tl.set("#dp72", {opacity: 0}, 34.700);
+        tl.fromTo("#sp73", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 34.700);
+        tl.fromTo("#dp74", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 35.030);
+        tl.set("#dp74", {opacity: 0}, 35.450);
+        tl.fromTo("#sp75", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 35.450);
+        tl.fromTo("#dp76", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 35.780);
+        tl.set("#dp76", {opacity: 0}, 36.200);
+        tl.fromTo("#sp77", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 36.200);
+        tl.fromTo("#dp78", {opacity: 1, y: 0}, {opacity: 1, y: 146, duration: 0.42, ease: "power2.in", immediateRender: false}, 36.530);
+        tl.set("#dp78", {opacity: 0}, 36.950);
+        tl.fromTo("#sp79", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 36.950);
+        tl.fromTo("#t80", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 29.780);
+        tl.to("#t80", {opacity: 0, duration: 0.15}, 32.030);
+        tl.fromTo("#t81", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 29.780);
+        tl.to("#t81", {opacity: 0, duration: 0.15}, 32.030);
+        tl.fromTo("#t82", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 32.300);
+        tl.to("#t82", {opacity: 0, duration: 0.15}, 34.570);
+        tl.fromTo("#t83", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 32.300);
+        tl.to("#t83", {opacity: 0, duration: 0.15}, 34.570);
+        tl.fromTo("#p9", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.600, ease: "power2.inOut", immediateRender: false}, 33.300);
+        tl.fromTo("#t84", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 34.840);
+        tl.to("#t84", {opacity: 0, duration: 0.15}, 37.650);
+        tl.fromTo("#t85", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 34.840);
+        tl.to("#t85", {opacity: 0, duration: 0.15}, 37.650);
+        tl.fromTo("#p10", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 0.700, ease: "power2.inOut", immediateRender: false}, 35.000);
+        tl.set("#ol6", {opacity: 0}, 36.320);
+        tl.set("#le7", {opacity: 1}, 36.320);
+        tl.to("#lh4", {x: -170, rotation: -7, svgOrigin: "250 1240", duration: 1.0, ease: "power3.inOut"}, 36.320);
+        tl.to("#le7", {x: -170, rotation: -7, svgOrigin: "250 1240", duration: 1.0, ease: "power3.inOut"}, 36.320);
+        tl.set("#re8", {opacity: 1}, 36.320);
+        tl.to("#rh5", {x: 170, rotation: 7, svgOrigin: "830 1240", duration: 1.0, ease: "power3.inOut"}, 36.320);
+        tl.to("#re8", {x: 170, rotation: 7, svgOrigin: "830 1240", duration: 1.0, ease: "power3.inOut"}, 36.320);
+        tl.to("#p9", {opacity: 0, duration: 0.2}, 36.320);
+        tl.to("#p10", {opacity: 0, duration: 0.2}, 36.320);
+        tl.to("#f34", {x: 230, duration: 1.2, ease: "power1.inOut"}, 36.620);
+        tl.fromTo("#t86", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 37.920);
+        tl.to("#t86", {opacity: 0, duration: 0.15}, 42.030);
+        tl.fromTo("#t87", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 37.920);
+        tl.to("#t87", {opacity: 0, duration: 0.15}, 42.030);
+        tl.fromTo("#dh88", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 38.780);
+        tl.fromTo("#dh89", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 38.780);
+        tl.set("#sc90", {visibility: "visible"}, 42.200);
+        tl.fromTo("#sc90", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 42.200);
+        tl.fromTo("#sc90", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 5.960, ease: "none", immediateRender: false}, 42.200);
+        tl.to("#sc90", {opacity: 0, duration: 0.25, ease: "power2.in"}, 47.910);
+        tl.set("#sc90", {opacity: 0, visibility: "hidden"}, 48.160);
+        tl.fromTo("#p93", {strokeDashoffset: 1.1}, {strokeDashoffset: 0, duration: 1.400, ease: "power2.inOut", immediateRender: false}, 44.720);
+        tl.fromTo("#dp94", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 42.500);
+        tl.set("#dp94", {opacity: 0}, 42.920);
+        tl.fromTo("#sp95", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 42.920);
+        tl.fromTo("#dp96", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 43.100);
+        tl.set("#dp96", {opacity: 0}, 43.520);
+        tl.fromTo("#sp97", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 43.520);
+        tl.fromTo("#dp98", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 43.700);
+        tl.set("#dp98", {opacity: 0}, 44.120);
+        tl.fromTo("#sp99", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 44.120);
+        tl.fromTo("#dp100", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 44.300);
+        tl.set("#dp100", {opacity: 0}, 44.720);
+        tl.fromTo("#sp101", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 44.720);
+        tl.fromTo("#dp102", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 44.900);
+        tl.set("#dp102", {opacity: 0}, 45.320);
+        tl.fromTo("#sp103", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 45.320);
+        tl.fromTo("#dp104", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 45.500);
+        tl.set("#dp104", {opacity: 0}, 45.920);
+        tl.fromTo("#sp105", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 45.920);
+        tl.fromTo("#dp106", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 46.100);
+        tl.set("#dp106", {opacity: 0}, 46.520);
+        tl.fromTo("#sp107", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 46.520);
+        tl.fromTo("#dp108", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 46.700);
+        tl.set("#dp108", {opacity: 0}, 47.120);
+        tl.fromTo("#sp109", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 47.120);
+        tl.fromTo("#dp110", {opacity: 1, y: 0}, {opacity: 1, y: 212, duration: 0.42, ease: "power2.in", immediateRender: false}, 47.300);
+        tl.set("#dp110", {opacity: 0}, 47.720);
+        tl.fromTo("#sp111", {opacity: 1, scale: 0.6, transformOrigin: "50% 100%"}, {opacity: 0, scale: 1.3, duration: 0.35, ease: "power2.out", immediateRender: false}, 47.720);
+        tl.fromTo("#t112", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 42.300);
+        tl.to("#t112", {opacity: 0, duration: 0.15}, 44.250);
+        tl.fromTo("#t113", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 42.300);
+        tl.to("#t113", {opacity: 0, duration: 0.15}, 44.250);
+        tl.fromTo("#t114", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 44.520);
+        tl.to("#t114", {opacity: 0, duration: 0.15}, 46.170);
+        tl.fromTo("#t115", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 44.520);
+        tl.to("#t115", {opacity: 0, duration: 0.15}, 46.170);
+        tl.fromTo("#t116", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 46.440);
+        tl.to("#t116", {opacity: 0, duration: 0.15}, 47.990);
+        tl.set("#sc117", {visibility: "visible"}, 48.160);
+        tl.fromTo("#sc117", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 48.160);
+        tl.fromTo("#sc117", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 4.330, ease: "none", immediateRender: false}, 48.160);
+        tl.to("#sc117", {opacity: 0, duration: 0.25, ease: "power2.in"}, 52.240);
+        tl.set("#sc117", {opacity: 0, visibility: "hidden"}, 52.490);
+        tl.to("#ground", {opacity: 0, duration: 0.3}, 48.010);
+        tl.to("#ground", {opacity: 1, duration: 0.3}, 52.340);
+        tl.set("#cc120", {opacity: 0}, 48.160);
+        tl.fromTo("#cc120", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.450, ease: "back.out(1.8)", immediateRender: false}, 49.440);
+        tl.set("#fc119", {opacity: 0}, 48.160);
+        tl.fromTo("#fc119", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 50.140);
+        tl.fromTo("#t121", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 49.700);
+        tl.fromTo("#t122", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.400, ease: "power2.out", immediateRender: false}, 50.540);
+        tl.set("#sc123", {visibility: "visible"}, 52.490);
+        tl.fromTo("#sc123", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 52.490);
+        tl.fromTo("#sc123", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 5.590, ease: "none", immediateRender: false}, 52.490);
+        tl.to("#sc123", {opacity: 0, duration: 0.25, ease: "power2.in"}, 57.830);
+        tl.set("#sc123", {opacity: 0, visibility: "hidden"}, 58.080);
+        tl.fromTo("#sp125", {opacity: 0}, {opacity: 1, duration: 0.600, ease: "power2.out", immediateRender: false}, 52.540);
+        tl.fromTo("#i126", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.700, ease: "back.out(1.8)", immediateRender: false}, 52.540);
+        tl.fromTo("#t127", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 52.840);
+        tl.fromTo("#t128", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 53.700);
+        tl.set("#pl129", {opacity: 0}, 52.490);
+        tl.fromTo("#pl129", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 55.720);
+        tl.fromTo("#so130", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.500, ease: "power2.out", immediateRender: false}, 54.300);
+        tl.fromTo("#t131", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 54.600);
+        tl.to("#mark", {opacity: 0, duration: 0.3}, 52.340);
+        tl.fromTo("#d0", {x: 0, y: 0}, {x: 5, y: -271, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d1", {x: 0, y: 0}, {x: -60, y: -180, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d2", {x: 0, y: 0}, {x: 18, y: -463, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d3", {x: 0, y: 0}, {x: 50, y: -246, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d4", {x: 0, y: 0}, {x: -45, y: -342, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d5", {x: 0, y: 0}, {x: -62, y: -218, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d6", {x: 0, y: 0}, {x: -7, y: -249, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d7", {x: 0, y: 0}, {x: 4, y: -439, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d8", {x: 0, y: 0}, {x: -11, y: -400, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d9", {x: 0, y: 0}, {x: 37, y: -339, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d10", {x: 0, y: 0}, {x: 11, y: -301, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d11", {x: 0, y: 0}, {x: -62, y: -381, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d12", {x: 0, y: 0}, {x: -16, y: -371, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d13", {x: 0, y: 0}, {x: -62, y: -404, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d14", {x: 0, y: 0}, {x: -59, y: -298, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d15", {x: 0, y: 0}, {x: -31, y: -287, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d16", {x: 0, y: 0}, {x: -45, y: -227, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d17", {x: 0, y: 0}, {x: -69, y: -288, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d18", {x: 0, y: 0}, {x: 2, y: -354, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d19", {x: 0, y: 0}, {x: 52, y: -413, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d20", {x: 0, y: 0}, {x: -61, y: -172, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d21", {x: 0, y: 0}, {x: -70, y: -200, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d22", {x: 0, y: 0}, {x: 16, y: -199, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d23", {x: 0, y: 0}, {x: 49, y: -478, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d24", {x: 0, y: 0}, {x: -22, y: -237, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d25", {x: 0, y: 0}, {x: 4, y: -198, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d26", {x: 0, y: 0}, {x: 51, y: -380, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d27", {x: 0, y: 0}, {x: 5, y: -407, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d28", {x: 0, y: 0}, {x: 49, y: -416, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d29", {x: 0, y: 0}, {x: -20, y: -160, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d30", {x: 0, y: 0}, {x: 64, y: -298, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d31", {x: 0, y: 0}, {x: -39, y: -225, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d32", {x: 0, y: 0}, {x: 48, y: -308, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d33", {x: 0, y: 0}, {x: 57, y: -408, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d34", {x: 0, y: 0}, {x: -23, y: -414, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d35", {x: 0, y: 0}, {x: 31, y: -206, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d36", {x: 0, y: 0}, {x: -50, y: -423, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d37", {x: 0, y: 0}, {x: -52, y: -155, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d38", {x: 0, y: 0}, {x: -9, y: -438, duration: 58.08, ease: "none"}, 0);
+        tl.fromTo("#d39", {x: 0, y: 0}, {x: -36, y: -344, duration: 58.08, ease: "none"}, 0);
+        window.__timelines["otm-dropstone"] = tl;
+      })();
+    </script>
+  </body>
+</html>

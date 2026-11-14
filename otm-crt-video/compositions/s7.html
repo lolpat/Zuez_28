@@ -1,0 +1,108 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s7-cam, #s7-shake { position: absolute; inset: 0; }
+    #s7-cam { transform-origin: 500px 540px; }
+    .s7-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s7-lyr { position: absolute; }
+    .s7-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s7-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s7-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s7-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s7-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s7-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s7-pop, #s7-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s7-pop { z-index: 80; opacity: 0; }
+    #s7-flash { z-index: 90; opacity: 0; }
+        #s7-sweep { left:80px; top:180px; width:985px; height:230px; -webkit-mask-image:url(assets/layers/s7_title.png); mask-image:url(assets/layers/s7_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s7" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s7-cam">
+      <div id="s7-shake">
+                <img id="s7-plate" class="s7-full" src="assets/plates/s7.jpg" alt="" />
+        <div id="s7-title" class="s7-lyr" style="left:80px;top:180px;width:985px;height:230px;overflow:visible;z-index:10"><img id="s7-title-img" src="assets/layers/s7_title.png" alt="" style="width:985px;height:230px" /></div>
+        <div id="s7-char" class="s7-lyr" style="left:605px;top:1135px;width:475px;height:565px;overflow:hidden;z-index:11"><img id="s7-char-img" src="assets/layers/s7_char.png" alt="" style="width:475px;height:565px" /></div>
+        <div id="s7-diag" class="s7-lyr" style="left:290px;top:405px;width:615px;height:783px;overflow:visible;z-index:12"><img id="s7-diag-img" src="assets/layers/s7_diag.png" alt="" style="width:615px;height:783px" /></div>
+        <div id="s7-sweep" class="s7-lyr" style="left:392px;top:492px;width:220px;height:100px;overflow:visible;z-index:13"><img id="s7-sweep-img" src="assets/layers/s7_sweep.png" alt="" style="width:220px;height:100px" /></div>
+        <div id="s7-b1" class="s7-lyr" style="left:50px;top:1186px;width:565px;height:62px;overflow:visible;z-index:14"><img id="s7-b1-img" src="assets/layers/s7_b1.png" alt="" style="width:565px;height:62px" /></div>
+        <div id="s7-b2" class="s7-lyr" style="left:50px;top:1248px;width:565px;height:60px;overflow:visible;z-index:15"><img id="s7-b2-img" src="assets/layers/s7_b2.png" alt="" style="width:565px;height:60px" /></div>
+        <div id="s7-b3" class="s7-lyr" style="left:50px;top:1308px;width:565px;height:60px;overflow:visible;z-index:16"><img id="s7-b3-img" src="assets/layers/s7_b3.png" alt="" style="width:565px;height:60px" /></div>
+        <div id="s7-b4" class="s7-lyr" style="left:50px;top:1368px;width:565px;height:118px;overflow:visible;z-index:17"><img id="s7-b4-img" src="assets/layers/s7_b4.png" alt="" style="width:565px;height:118px" /></div>
+        <div id="s7-b5" class="s7-lyr" style="left:50px;top:1486px;width:595px;height:66px;overflow:visible;z-index:18"><img id="s7-b5-img" src="assets/layers/s7_b5.png" alt="" style="width:595px;height:66px" /></div>
+        <div id="s7-sp0-0" class="s7-spark" style="left:496px;top:536px;width:11px;height:11px;background:#ff6b8a"></div>
+        <div id="s7-sp0-1" class="s7-spark" style="left:498px;top:538px;width:8px;height:8px;background:#ff6b8a"></div>
+        <div id="s7-sp0-2" class="s7-spark" style="left:494px;top:534px;width:15px;height:15px;background:#ff6b8a"></div>
+        <div id="s7-sp0-3" class="s7-spark" style="left:496px;top:536px;width:12px;height:12px;background:#ff6b8a"></div>
+        <div id="s7-sp0-4" class="s7-spark" style="left:498px;top:538px;width:9px;height:9px;background:#ff6b8a"></div>
+        <div id="s7-sp0-5" class="s7-spark" style="left:494px;top:534px;width:16px;height:16px;background:#ff6b8a"></div>
+        <div id="s7-sp0-6" class="s7-spark" style="left:496px;top:536px;width:13px;height:13px;background:#ff6b8a"></div>
+        <div id="s7-sp0-7" class="s7-spark" style="left:497px;top:537px;width:10px;height:10px;background:#ff6b8a"></div>
+        <div id="s7-sp0-8" class="s7-spark" style="left:494px;top:534px;width:17px;height:17px;background:#ff6b8a"></div>
+        <div id="s7-sp0-9" class="s7-spark" style="left:495px;top:535px;width:14px;height:14px;background:#ff6b8a"></div>
+        <div id="s7-sp0-10" class="s7-spark" style="left:496px;top:536px;width:11px;height:11px;background:#ff6b8a"></div>
+        <div id="s7-sp0-11" class="s7-spark" style="left:498px;top:538px;width:8px;height:8px;background:#ff6b8a"></div>
+        <div id="s7-ring1" class="s7-ring" style="left:410px;top:450px"></div>
+        <div id="s7-ring2" class="s7-ring" style="left:410px;top:450px"></div>
+        <img id="s7-rgb-r" class="s7-full s7-rgb" src="assets/slides/s7_turtle.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s7-rgb-c" class="s7-full s7-rgb" src="assets/slides/s7_turtle.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s7-sweep"><div id="s7-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s7-pop"></div>
+    <div id="s7-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s7-cam", {y: 1100, filter: "blur(18px)"}, {y: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out"}, 0);
+      tl.fromTo("#s7-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s7-shake", 0.25, 22);
+      tl.fromTo("#s7-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s7-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s7-char-img", {y: 575}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s7-diag-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 2.11);
+      tl.fromTo("#s7-diag", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 2.11);
+      tl.fromTo("#s7-sweep", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 5.18);
+      shake(tl, "#s7-shake", 5.38, 14);
+      tl.fromTo("#s7-b1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 7.08);
+      tl.fromTo("#s7-b1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 7.08);
+      tl.fromTo("#s7-b2-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 7.79);
+      tl.fromTo("#s7-b2", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 7.79);
+      tl.fromTo("#s7-b3-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 8.5);
+      tl.fromTo("#s7-b3", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 8.5);
+      tl.fromTo("#s7-b4-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 9.21);
+      tl.fromTo("#s7-b4", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 9.21);
+      tl.fromTo("#s7-b5-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 9.92);
+      tl.fromTo("#s7-b5", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 9.92);
+      tl.fromTo("#s7-sp0-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 167, y: 16, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 194, y: 121, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 77, y: 148, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -29, y: 223, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -126, y: 146, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -260, y: 98, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -232, y: -22, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -148, y: -92, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -102, y: -200, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 22, y: -174, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 164, y: -191, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-sp0-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 208, y: -78, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 5.38);
+      tl.fromTo("#s7-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 11.50);
+      tl.fromTo("#s7-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 11.68);
+      tl.to("#s7-cam", {scale: 7, filter: "blur(16px)", duration: 0.45, ease: "power3.in"}, 11.95);
+      window.__timelines["s7"] = tl;
+    })();
+  </script>
+</template>

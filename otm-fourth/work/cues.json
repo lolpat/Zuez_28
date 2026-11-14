@@ -1,0 +1,312 @@
+{
+ "total": 58.33,
+ "cues": [
+  {
+   "t": 0,
+   "snd": "bed",
+   "file": "bed"
+  },
+  {
+   "t": 0.3,
+   "snd": "vo",
+   "file": "vo_main",
+   "gain": 0
+  },
+  {
+   "t": 0.66,
+   "snd": "pop",
+   "gain": -3
+  },
+  {
+   "t": 1.52,
+   "snd": "pop",
+   "gain": -3
+  },
+  {
+   "t": 1.8,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:sd-d"
+  },
+  {
+   "t": 2.9,
+   "snd": "land.light",
+   "gain": -2
+  },
+  {
+   "t": 5.16,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:sd-p"
+  },
+  {
+   "t": 5.56,
+   "snd": "tick.crisp",
+   "gain": -2
+  },
+  {
+   "t": 5.88,
+   "snd": "tock",
+   "gain": -3
+  },
+  {
+   "t": 6.8,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 8.8,
+   "snd": "whoosh.short",
+   "gain": -4
+  },
+  {
+   "t": 11.32,
+   "snd": "click",
+   "gain": -1
+  },
+  {
+   "t": 12.0,
+   "snd": "file",
+   "file": "fall",
+   "gain": -14
+  },
+  {
+   "t": 13.32,
+   "snd": "file",
+   "file": "glitch",
+   "gain": -8
+  },
+  {
+   "t": 14.08,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 16.02,
+   "snd": "click",
+   "gain": -2
+  },
+  {
+   "t": 16.28,
+   "snd": "whoosh.short",
+   "gain": -6
+  },
+  {
+   "t": 17.56,
+   "snd": "tock",
+   "gain": -2
+  },
+  {
+   "t": 18.56,
+   "snd": "tock",
+   "gain": -2
+  },
+  {
+   "t": 20.82,
+   "snd": "file",
+   "file": "glitch",
+   "gain": -8
+  },
+  {
+   "t": 21.24,
+   "snd": "drop",
+   "gain": -4
+  },
+  {
+   "t": 22.080000000000002,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 24.68,
+   "snd": "bell",
+   "gain": -6
+  },
+  {
+   "t": 26.7,
+   "snd": "tick",
+   "gain": -2
+  },
+  {
+   "t": 27.0,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:db-q"
+  },
+  {
+   "t": 28.16,
+   "snd": "whoosh.short",
+   "gain": -3
+  },
+  {
+   "t": 28.46,
+   "snd": "file",
+   "file": "glitch",
+   "gain": -8
+  },
+  {
+   "t": 29.39,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 29.64,
+   "snd": "pop",
+   "gain": -3
+  },
+  {
+   "t": 29.94,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:tr2"
+  },
+  {
+   "t": 31.54,
+   "snd": "tock",
+   "gain": -3
+  },
+  {
+   "t": 31.66,
+   "snd": "tock",
+   "gain": -3
+  },
+  {
+   "t": 31.779999999999998,
+   "snd": "tock",
+   "gain": -3
+  },
+  {
+   "t": 32.68,
+   "snd": "land.light",
+   "gain": -2
+  },
+  {
+   "t": 34.34,
+   "snd": "tick.crisp",
+   "gain": -2
+  },
+  {
+   "t": 34.74,
+   "snd": "tock",
+   "gain": -3
+  },
+  {
+   "t": 36.220000000000006,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 36.52,
+   "snd": "land",
+   "gain": -1
+  },
+  {
+   "t": 37.46,
+   "snd": "snap",
+   "gain": 0
+  },
+  {
+   "t": 37.61,
+   "snd": "hit",
+   "gain": -3
+  },
+  {
+   "t": 38.220000000000006,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 38.52,
+   "snd": "whoosh.short",
+   "gain": -5
+  },
+  {
+   "t": 38.88,
+   "snd": "tick",
+   "gain": -2
+  },
+  {
+   "t": 42.02,
+   "snd": "tock",
+   "gain": -2
+  },
+  {
+   "t": 43.12,
+   "snd": "click.confirm",
+   "gain": -2
+  },
+  {
+   "t": 43.42,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:pl-t"
+  },
+  {
+   "t": 44.44,
+   "snd": "tick.crisp",
+   "gain": -2
+  },
+  {
+   "t": 46.92,
+   "snd": "tick",
+   "gain": -8,
+   "src": "real-sfx:pl-x"
+  },
+  {
+   "t": 47.17,
+   "snd": "land",
+   "gain": 2
+  },
+  {
+   "t": 47.22,
+   "snd": "bell",
+   "gain": -4
+  },
+  {
+   "t": 47.82,
+   "snd": "whoosh.short",
+   "gain": -8
+  },
+  {
+   "t": 49.24,
+   "snd": "whoosh.short",
+   "gain": -5
+  },
+  {
+   "t": 50.8,
+   "snd": "tock",
+   "gain": -2
+  },
+  {
+   "t": 51.3,
+   "snd": "hit",
+   "gain": -1
+  },
+  {
+   "t": 52.64,
+   "snd": "whoosh.long",
+   "gain": -1
+  },
+  {
+   "t": 52.89,
+   "snd": "hit",
+   "gain": -1
+  },
+  {
+   "t": 52.94,
+   "snd": "vo",
+   "file": "vo_outro",
+   "gain": 0
+  },
+  {
+   "t": 54.26,
+   "snd": "pop",
+   "gain": -3
+  },
+  {
+   "t": 56.28,
+   "snd": "land",
+   "gain": 0
+  }
+ ]
+}

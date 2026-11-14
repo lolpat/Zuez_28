@@ -1,0 +1,937 @@
+[
+{
+"text": "Everyone",
+"start": 0.0,
+"end": 0.5
+},
+{
+"text": "deserves",
+"start": 0.5,
+"end": 0.82
+},
+{
+"text": "a",
+"start": 0.82,
+"end": 1.06
+},
+{
+"text": "second",
+"start": 1.06,
+"end": 1.24
+},
+{
+"text": "chance",
+"start": 1.24,
+"end": 1.74
+},
+{
+"text": "even",
+"start": 1.74,
+"end": 2.14
+},
+{
+"text": "you",
+"start": 2.14,
+"end": 2.5
+},
+{
+"text": "remember",
+"start": 2.5,
+"end": 3.14
+},
+{
+"text": "the",
+"start": 3.14,
+"end": 3.36
+},
+{
+"text": "promise",
+"start": 3.36,
+"end": 3.66
+},
+{
+"text": "you",
+"start": 3.66,
+"end": 3.88
+},
+{
+"text": "made",
+"start": 3.88,
+"end": 4.04
+},
+{
+"text": "to",
+"start": 4.04,
+"end": 4.2
+},
+{
+"text": "yourself",
+"start": 4.2,
+"end": 4.48
+},
+{
+"text": "when",
+"start": 4.48,
+"end": 4.66
+},
+{
+"text": "you",
+"start": 4.66,
+"end": 4.78
+},
+{
+"text": "opened",
+"start": 4.78,
+"end": 5.04
+},
+{
+"text": "your",
+"start": 5.04,
+"end": 5.2
+},
+{
+"text": "first",
+"start": 5.2,
+"end": 5.46
+},
+{
+"text": "chart",
+"start": 5.46,
+"end": 5.78
+},
+{
+"text": "the",
+"start": 5.78,
+"end": 6.26
+},
+{
+"text": "freedom",
+"start": 6.26,
+"end": 6.66
+},
+{
+"text": "You",
+"start": 6.66,
+"end": 6.9
+},
+{
+"text": "dreamed",
+"start": 6.9,
+"end": 7.22
+},
+{
+"text": "of",
+"start": 7.22,
+"end": 7.58
+},
+{
+"text": "the",
+"start": 7.58,
+"end": 7.86
+},
+{
+"text": "account",
+"start": 7.86,
+"end": 8.24
+},
+{
+"text": "you",
+"start": 8.24,
+"end": 8.42
+},
+{
+"text": "imagined",
+"start": 8.42,
+"end": 8.84
+},
+{
+"text": "growing",
+"start": 8.84,
+"end": 9.32
+},
+{
+"text": "the",
+"start": 9.32,
+"end": 9.76
+},
+{
+"text": "trader",
+"start": 9.76,
+"end": 10.12
+},
+{
+"text": "you",
+"start": 10.12,
+"end": 10.38
+},
+{
+"text": "swore",
+"start": 10.38,
+"end": 10.9
+},
+{
+"text": "you'd",
+"start": 10.9,
+"end": 11.18
+},
+{
+"text": "become",
+"start": 11.18,
+"end": 11.54
+},
+{
+"text": "Remember",
+"start": 11.54,
+"end": 12.16
+},
+{
+"text": "how",
+"start": 12.16,
+"end": 12.38
+},
+{
+"text": "badly",
+"start": 12.38,
+"end": 12.82
+},
+{
+"text": "you",
+"start": 12.82,
+"end": 13.04
+},
+{
+"text": "wanted",
+"start": 13.04,
+"end": 13.28
+},
+{
+"text": "it",
+"start": 13.28,
+"end": 13.6
+},
+{
+"text": "So",
+"start": 13.6,
+"end": 13.92
+},
+{
+"text": "why",
+"start": 13.92,
+"end": 14.14
+},
+{
+"text": "did",
+"start": 14.14,
+"end": 14.26
+},
+{
+"text": "you",
+"start": 14.26,
+"end": 14.38
+},
+{
+"text": "give",
+"start": 14.38,
+"end": 14.52
+},
+{
+"text": "up",
+"start": 14.52,
+"end": 14.7
+},
+{
+"text": "on",
+"start": 14.7,
+"end": 14.88
+},
+{
+"text": "it",
+"start": 14.88,
+"end": 15.12
+},
+{
+"text": "because",
+"start": 15.12,
+"end": 15.46
+},
+{
+"text": "you",
+"start": 15.46,
+"end": 15.64
+},
+{
+"text": "blew",
+"start": 15.64,
+"end": 15.86
+},
+{
+"text": "one",
+"start": 15.86,
+"end": 16.1
+},
+{
+"text": "account",
+"start": 16.1,
+"end": 16.48
+},
+{
+"text": "because",
+"start": 16.48,
+"end": 16.96
+},
+{
+"text": "a",
+"start": 16.96,
+"end": 17.1
+},
+{
+"text": "strategy",
+"start": 17.1,
+"end": 17.5
+},
+{
+"text": "didn't",
+"start": 17.5,
+"end": 17.86
+},
+{
+"text": "work",
+"start": 17.86,
+"end": 18.0
+},
+{
+"text": "the",
+"start": 18.0,
+"end": 18.14
+},
+{
+"text": "way",
+"start": 18.14,
+"end": 18.26
+},
+{
+"text": "you",
+"start": 18.26,
+"end": 18.38
+},
+{
+"text": "planned",
+"start": 18.38,
+"end": 18.72
+},
+{
+"text": "Because",
+"start": 18.72,
+"end": 19.24
+},
+{
+"text": "you're",
+"start": 19.24,
+"end": 19.4
+},
+{
+"text": "not",
+"start": 19.4,
+"end": 19.58
+},
+{
+"text": "where",
+"start": 19.58,
+"end": 19.72
+},
+{
+"text": "you",
+"start": 19.72,
+"end": 19.84
+},
+{
+"text": "thought",
+"start": 19.84,
+"end": 20.12
+},
+{
+"text": "you'd",
+"start": 20.12,
+"end": 20.32
+},
+{
+"text": "be",
+"start": 20.32,
+"end": 20.42
+},
+{
+"text": "by",
+"start": 20.42,
+"end": 20.58
+},
+{
+"text": "now",
+"start": 20.58,
+"end": 20.92
+},
+{
+"text": "look",
+"start": 20.92,
+"end": 21.34
+},
+{
+"text": "at",
+"start": 21.34,
+"end": 21.48
+},
+{
+"text": "the",
+"start": 21.48,
+"end": 21.6
+},
+{
+"text": "market",
+"start": 21.6,
+"end": 22.02
+},
+{
+"text": "thousands",
+"start": 22.02,
+"end": 22.68
+},
+{
+"text": "of",
+"start": 22.68,
+"end": 22.98
+},
+{
+"text": "setups",
+"start": 22.98,
+"end": 23.26
+},
+{
+"text": "You've",
+"start": 23.26,
+"end": 23.56
+},
+{
+"text": "never",
+"start": 23.56,
+"end": 23.82
+},
+{
+"text": "traded",
+"start": 23.82,
+"end": 24.26
+},
+{
+"text": "sessions.",
+"start": 24.26,
+"end": 24.86
+},
+{
+"text": "You've",
+"start": 24.86,
+"end": 25.18
+},
+{
+"text": "never",
+"start": 25.18,
+"end": 25.52
+},
+{
+"text": "studied",
+"start": 25.52,
+"end": 25.98
+},
+{
+"text": "opportunities.",
+"start": 25.98,
+"end": 26.62
+},
+{
+"text": "You",
+"start": 26.62,
+"end": 26.98
+},
+{
+"text": "haven't",
+"start": 26.98,
+"end": 27.34
+},
+{
+"text": "even",
+"start": 27.34,
+"end": 27.52
+},
+{
+"text": "imagined",
+"start": 27.52,
+"end": 28.08
+},
+{
+"text": "yet",
+"start": 28.08,
+"end": 28.4
+},
+{
+"text": "How",
+"start": 28.4,
+"end": 28.88
+},
+{
+"text": "can",
+"start": 28.88,
+"end": 29.02
+},
+{
+"text": "you",
+"start": 29.02,
+"end": 29.12
+},
+{
+"text": "be",
+"start": 29.12,
+"end": 29.26
+},
+{
+"text": "so",
+"start": 29.26,
+"end": 29.56
+},
+{
+"text": "sure",
+"start": 29.56,
+"end": 29.88
+},
+{
+"text": "your",
+"start": 29.88,
+"end": 30.06
+},
+{
+"text": "best",
+"start": 30.06,
+"end": 30.34
+},
+{
+"text": "trades",
+"start": 30.34,
+"end": 30.66
+},
+{
+"text": "are",
+"start": 30.66,
+"end": 30.78
+},
+{
+"text": "behind",
+"start": 30.78,
+"end": 31.12
+},
+{
+"text": "you",
+"start": 31.12,
+"end": 31.36
+},
+{
+"text": "when",
+"start": 31.36,
+"end": 31.6
+},
+{
+"text": "you",
+"start": 31.6,
+"end": 31.74
+},
+{
+"text": "haven't",
+"start": 31.74,
+"end": 32.08
+},
+{
+"text": "seen",
+"start": 32.08,
+"end": 32.28
+},
+{
+"text": "what",
+"start": 32.28,
+"end": 32.44
+},
+{
+"text": "the",
+"start": 32.44,
+"end": 32.58
+},
+{
+"text": "market",
+"start": 32.58,
+"end": 32.78
+},
+{
+"text": "still",
+"start": 32.78,
+"end": 33.16
+},
+{
+"text": "has",
+"start": 33.16,
+"end": 33.38
+},
+{
+"text": "to",
+"start": 33.38,
+"end": 33.56
+},
+{
+"text": "offer?",
+"start": 33.56,
+"end": 33.88
+},
+{
+"text": "Maybe",
+"start": 34.34,
+"end": 34.56
+},
+{
+"text": "it's",
+"start": 34.56,
+"end": 34.8
+},
+{
+"text": "time",
+"start": 34.8,
+"end": 34.98
+},
+{
+"text": "to",
+"start": 34.98,
+"end": 35.16
+},
+{
+"text": "give",
+"start": 35.16,
+"end": 35.32
+},
+{
+"text": "that",
+"start": 35.32,
+"end": 35.54
+},
+{
+"text": "plan",
+"start": 35.54,
+"end": 35.82
+},
+{
+"text": "another",
+"start": 35.82,
+"end": 36.1
+},
+{
+"text": "chance",
+"start": 36.1,
+"end": 36.64
+},
+{
+"text": "open",
+"start": 36.64,
+"end": 37.18
+},
+{
+"text": "the",
+"start": 37.18,
+"end": 37.38
+},
+{
+"text": "journal",
+"start": 37.38,
+"end": 37.64
+},
+{
+"text": "again",
+"start": 37.64,
+"end": 38.0
+},
+{
+"text": "back",
+"start": 38.0,
+"end": 38.52
+},
+{
+"text": "test",
+"start": 38.52,
+"end": 38.72
+},
+{
+"text": "the",
+"start": 38.72,
+"end": 38.94
+},
+{
+"text": "setup",
+"start": 38.94,
+"end": 39.16
+},
+{
+"text": "you",
+"start": 39.16,
+"end": 39.36
+},
+{
+"text": "abandoned",
+"start": 39.36,
+"end": 39.8
+},
+{
+"text": "Become",
+"start": 39.8,
+"end": 40.46
+},
+{
+"text": "the",
+"start": 40.46,
+"end": 40.68
+},
+{
+"text": "trader",
+"start": 40.68,
+"end": 40.96
+},
+{
+"text": "you",
+"start": 40.96,
+"end": 41.2
+},
+{
+"text": "once",
+"start": 41.2,
+"end": 41.5
+},
+{
+"text": "believed",
+"start": 41.5,
+"end": 41.94
+},
+{
+"text": "you",
+"start": 41.94,
+"end": 42.18
+},
+{
+"text": "could",
+"start": 42.18,
+"end": 42.32
+},
+{
+"text": "be",
+"start": 42.32,
+"end": 42.6
+},
+{
+"text": "you",
+"start": 42.6,
+"end": 43.04
+},
+{
+"text": "don't",
+"start": 43.04,
+"end": 43.18
+},
+{
+"text": "have",
+"start": 43.18,
+"end": 43.3
+},
+{
+"text": "to",
+"start": 43.3,
+"end": 43.44
+},
+{
+"text": "start",
+"start": 43.44,
+"end": 43.72
+},
+{
+"text": "over",
+"start": 43.72,
+"end": 43.98
+},
+{
+"text": "as",
+"start": 43.98,
+"end": 44.16
+},
+{
+"text": "the",
+"start": 44.16,
+"end": 44.3
+},
+{
+"text": "trader",
+"start": 44.3,
+"end": 44.54
+},
+{
+"text": "you",
+"start": 44.54,
+"end": 44.74
+},
+{
+"text": "were",
+"start": 44.74,
+"end": 45.06
+},
+{
+"text": "Start",
+"start": 45.06,
+"end": 45.62
+},
+{
+"text": "again",
+"start": 45.62,
+"end": 46.02
+},
+{
+"text": "with",
+"start": 46.02,
+"end": 46.28
+},
+{
+"text": "everything",
+"start": 46.28,
+"end": 46.8
+},
+{
+"text": "your",
+"start": 46.8,
+"end": 47.0
+},
+{
+"text": "losses",
+"start": 47.0,
+"end": 47.3
+},
+{
+"text": "taught",
+"start": 47.3,
+"end": 47.62
+},
+{
+"text": "you",
+"start": 47.62,
+"end": 47.88
+},
+{
+"text": "give",
+"start": 47.88,
+"end": 48.36
+},
+{
+"text": "yourself",
+"start": 48.36,
+"end": 48.74
+},
+{
+"text": "a",
+"start": 48.74,
+"end": 48.98
+},
+{
+"text": "second",
+"start": 48.98,
+"end": 49.34
+},
+{
+"text": "chance",
+"start": 49.34,
+"end": 49.86
+},
+{
+"text": "Your",
+"start": 49.86,
+"end": 50.26
+},
+{
+"text": "equity",
+"start": 50.26,
+"end": 50.6
+},
+{
+"text": "curve",
+"start": 50.6,
+"end": 50.88
+},
+{
+"text": "isn't",
+"start": 50.88,
+"end": 51.28
+},
+{
+"text": "finished",
+"start": 51.28,
+"end": 51.54
+},
+{
+"text": "yet",
+"start": 51.54,
+"end": 51.9
+},
+{
+"text": "order",
+"start": 51.9,
+"end": 52.36
+},
+{
+"text": "the",
+"start": 52.36,
+"end": 52.54
+},
+{
+"text": "market.",
+"start": 52.54,
+"end": 52.9
+},
+{
+"text": "Don't",
+"start": 52.9,
+"end": 53.42
+},
+{
+"text": "let",
+"start": 53.42,
+"end": 53.56
+},
+{
+"text": "the",
+"start": 53.56,
+"end": 53.72
+},
+{
+"text": "market",
+"start": 53.72,
+"end": 54.04
+},
+{
+"text": "order",
+"start": 54.04,
+"end": 54.3
+},
+{
+"text": "you",
+"start": 54.3,
+"end": 54.74
+},
+{
+"text": "follow",
+"start": 54.74,
+"end": 55.26
+},
+{
+"text": "for",
+"start": 55.26,
+"end": 55.5
+},
+{
+"text": "more",
+"start": 55.5,
+"end": 55.74
+}
+]

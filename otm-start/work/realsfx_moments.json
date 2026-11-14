@@ -1,0 +1,1082 @@
+{
+ "video": null,
+ "composition": "/tmp/claude-0/-home-user-Zuez-28/422f2dcc-51bc-5b24-84be-bb3fb22414bf/scratchpad/otm-start/index.html",
+ "info": {
+  "duration": 69.79,
+  "source": "hyperframes",
+  "has_audio": null
+ },
+ "moments": [
+  {
+   "t": 0.0,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "root div 2026 2027 2028 2029 2030 2031",
+   "source": "clip",
+   "tween_s": 69.79,
+   "id": 0,
+   "pct": 0.93
+  },
+  {
+   "t": 0.1,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "rg-f",
+   "source": "gsap",
+   "tween_s": 6.34,
+   "id": 1,
+   "pct": 0.93
+  },
+  {
+   "t": 0.37,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap0",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 2,
+   "pct": 0.93
+  },
+  {
+   "t": 0.45,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc0",
+   "source": "gsap",
+   "tween_s": 6.34,
+   "id": 3,
+   "pct": 0.93
+  },
+  {
+   "t": 0.64,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "rg-l",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 4,
+   "pct": 0.93
+  },
+  {
+   "t": 1.14,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "rg-l",
+   "source": "gsap",
+   "tween_s": 5.1,
+   "id": 5,
+   "pct": 0.93
+  },
+  {
+   "t": 1.5,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "rg-s",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 6,
+   "pct": 0.93
+  },
+  {
+   "t": 2.55,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap1",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 7,
+   "pct": 0.93
+  },
+  {
+   "t": 4.87,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap2",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 8,
+   "pct": 0.93
+  },
+  {
+   "t": 5.74,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "rg-b",
+   "source": "gsap",
+   "tween_s": 0.9,
+   "id": 9,
+   "pct": 0.93
+  },
+  {
+   "t": 6.64,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc1",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 10,
+   "pct": 0.93
+  },
+  {
+   "t": 6.89,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap3",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 11,
+   "pct": 0.93
+  },
+  {
+   "t": 7.09,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc1",
+   "source": "gsap",
+   "tween_s": 5.42,
+   "id": 12,
+   "pct": 0.93
+  },
+  {
+   "t": 7.92,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cr-p",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 13,
+   "pct": 0.93
+  },
+  {
+   "t": 8.91,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap4",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 14,
+   "pct": 0.93
+  },
+  {
+   "t": 8.96,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "cr-c",
+   "source": "gsap",
+   "tween_s": 0.05,
+   "id": 15,
+   "pct": 0.98
+  },
+  {
+   "t": 10.68,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cr-d",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 16,
+   "pct": 0.93
+  },
+  {
+   "t": 11.03,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap5",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 17,
+   "pct": 0.93
+  },
+  {
+   "t": 12.36,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc2",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 18,
+   "pct": 0.93
+  },
+  {
+   "t": 12.61,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap6",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 19,
+   "pct": 0.93
+  },
+  {
+   "t": 12.81,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc2",
+   "source": "gsap",
+   "tween_s": 3.85,
+   "id": 20,
+   "pct": 0.93
+  },
+  {
+   "t": 12.82,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "wt-f",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 21,
+   "pct": 0.93
+  },
+  {
+   "t": 13.5,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "wt-c",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 22,
+   "pct": 0.93
+  },
+  {
+   "t": 14.41,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap7",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 23,
+   "pct": 0.93
+  },
+  {
+   "t": 16.51,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc3",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 24,
+   "pct": 0.93
+  },
+  {
+   "t": 16.71,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap8",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 25,
+   "pct": 0.93
+  },
+  {
+   "t": 16.96,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc3",
+   "source": "gsap",
+   "tween_s": 7.51,
+   "id": 26,
+   "pct": 0.93
+  },
+  {
+   "t": 17.19,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "pl0",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 27,
+   "pct": 0.93
+  },
+  {
+   "t": 18.17,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap9",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 28,
+   "pct": 0.93
+  },
+  {
+   "t": 18.45,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "pl1",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 29,
+   "pct": 0.93
+  },
+  {
+   "t": 19.55,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap10",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 30,
+   "pct": 0.93
+  },
+  {
+   "t": 20.23,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "pl2",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 31,
+   "pct": 0.93
+  },
+  {
+   "t": 21.27,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap11",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 32,
+   "pct": 0.93
+  },
+  {
+   "t": 21.34,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "pl-b",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 33,
+   "pct": 0.93
+  },
+  {
+   "t": 21.64,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "pl-c",
+   "source": "gsap",
+   "tween_s": 0.7,
+   "id": 34,
+   "pct": 0.93
+  },
+  {
+   "t": 23.28,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "pl-c",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 35,
+   "pct": 0.93
+  },
+  {
+   "t": 23.28,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "pl-u",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 36,
+   "pct": 0.93
+  },
+  {
+   "t": 24.32,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc4",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 37,
+   "pct": 0.93
+  },
+  {
+   "t": 24.47,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap12",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 38,
+   "pct": 0.93
+  },
+  {
+   "t": 24.77,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc4",
+   "source": "gsap",
+   "tween_s": 5.08,
+   "id": 39,
+   "pct": 0.93
+  },
+  {
+   "t": 25.88,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sl-b",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 40,
+   "pct": 0.93
+  },
+  {
+   "t": 26.03,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap13",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 41,
+   "pct": 0.93
+  },
+  {
+   "t": 26.6,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sl-f",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 42,
+   "pct": 0.93
+  },
+  {
+   "t": 27.95,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap14",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 43,
+   "pct": 0.93
+  },
+  {
+   "t": 28.2,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sl-g",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 44,
+   "pct": 0.93
+  },
+  {
+   "t": 29.18,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sl-s",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 45,
+   "pct": 0.93
+  },
+  {
+   "t": 29.7,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc5",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 46,
+   "pct": 0.93
+  },
+  {
+   "t": 29.85,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap15",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 47,
+   "pct": 0.93
+  },
+  {
+   "t": 29.98,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "hg-g",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 48,
+   "pct": 0.93
+  },
+  {
+   "t": 30.15,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc5",
+   "source": "gsap",
+   "tween_s": 4.17,
+   "id": 49,
+   "pct": 0.93
+  },
+  {
+   "t": 30.52,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "hg-rt",
+   "source": "gsap",
+   "tween_s": 3.0,
+   "id": 50,
+   "pct": 0.93
+  },
+  {
+   "t": 31.85,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap16",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 51,
+   "pct": 0.93
+  },
+  {
+   "t": 33.5,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "hg-x",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 52,
+   "pct": 0.93
+  },
+  {
+   "t": 34.17,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc6",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 53,
+   "pct": 0.93
+  },
+  {
+   "t": 34.37,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap17",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 54,
+   "pct": 0.93
+  },
+  {
+   "t": 34.62,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc6",
+   "source": "gsap",
+   "tween_s": 6.88,
+   "id": 55,
+   "pct": 0.93
+  },
+  {
+   "t": 36.93,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap18",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 56,
+   "pct": 0.93
+  },
+  {
+   "t": 38.2,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "gd-p",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 57,
+   "pct": 0.93
+  },
+  {
+   "t": 38.83,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap19",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 58,
+   "pct": 0.93
+  },
+  {
+   "t": 40.18,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "gd-n",
+   "source": "gsap",
+   "tween_s": 0.2,
+   "id": 59,
+   "pct": 0.93
+  },
+  {
+   "t": 40.67,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap20",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 60,
+   "pct": 0.93
+  },
+  {
+   "t": 41.35,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc7",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 61,
+   "pct": 0.93
+  },
+  {
+   "t": 41.5,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "la-l",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 62,
+   "pct": 0.93
+  },
+  {
+   "t": 41.8,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc7",
+   "source": "gsap",
+   "tween_s": 4.41,
+   "id": 63,
+   "pct": 0.93
+  },
+  {
+   "t": 42.2,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "la-r",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 64,
+   "pct": 0.93
+  },
+  {
+   "t": 43.39,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap22",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 65,
+   "pct": 0.93
+  },
+  {
+   "t": 44.4,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "la-r",
+   "source": "gsap",
+   "tween_s": 0.05,
+   "id": 66,
+   "pct": 0.98
+  },
+  {
+   "t": 44.99,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap23",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 67,
+   "pct": 0.93
+  },
+  {
+   "t": 46.06,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc8",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 68,
+   "pct": 0.93
+  },
+  {
+   "t": 46.21,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap24",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 69,
+   "pct": 0.93
+  },
+  {
+   "t": 46.51,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc8",
+   "source": "gsap",
+   "tween_s": 4.68,
+   "id": 70,
+   "pct": 0.93
+  },
+  {
+   "t": 46.91,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap25",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 71,
+   "pct": 0.93
+  },
+  {
+   "t": 47.52,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sp-sh",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 72,
+   "pct": 0.93
+  },
+  {
+   "t": 48.8,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sp-s",
+   "source": "gsap",
+   "tween_s": 0.3,
+   "id": 73,
+   "pct": 0.93
+  },
+  {
+   "t": 48.95,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap26",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 74,
+   "pct": 0.93
+  },
+  {
+   "t": 49.3,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "sp-f",
+   "source": "gsap",
+   "tween_s": 0.22,
+   "id": 75,
+   "pct": 0.98
+  },
+  {
+   "t": 49.52,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "sp-f",
+   "source": "gsap",
+   "tween_s": 0.23,
+   "id": 76,
+   "pct": 0.98
+  },
+  {
+   "t": 50.05,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap27",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 77,
+   "pct": 0.93
+  },
+  {
+   "t": 50.4,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "sp-f",
+   "source": "gsap",
+   "tween_s": 0.22,
+   "id": 78,
+   "pct": 0.98
+  },
+  {
+   "t": 50.62,
+   "kind": "burst",
+   "strength": 0.7,
+   "hint": "sp-f",
+   "source": "gsap",
+   "tween_s": 0.23,
+   "id": 79,
+   "pct": 0.98
+  },
+  {
+   "t": 51.04,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc9",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 80,
+   "pct": 0.93
+  },
+  {
+   "t": 51.19,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap28",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 81,
+   "pct": 0.93
+  },
+  {
+   "t": 51.38,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "tr-f",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 82,
+   "pct": 0.93
+  },
+  {
+   "t": 51.49,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc9",
+   "source": "gsap",
+   "tween_s": 3.0,
+   "id": 83,
+   "pct": 0.93
+  },
+  {
+   "t": 51.68,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "tr-c",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 84,
+   "pct": 0.93
+  },
+  {
+   "t": 53.17,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap29",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 85,
+   "pct": 0.93
+  },
+  {
+   "t": 53.32,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "tr-e",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 86,
+   "pct": 0.93
+  },
+  {
+   "t": 54.34,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc10",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 87,
+   "pct": 0.93
+  },
+  {
+   "t": 54.46,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "ct-t",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 88,
+   "pct": 0.93
+  },
+  {
+   "t": 54.79,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc10",
+   "source": "gsap",
+   "tween_s": 3.42,
+   "id": 89,
+   "pct": 0.93
+  },
+  {
+   "t": 54.86,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "ct-b",
+   "source": "gsap",
+   "tween_s": 0.35,
+   "id": 90,
+   "pct": 0.93
+  },
+  {
+   "t": 55.84,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "ct-a",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 91,
+   "pct": 0.93
+  },
+  {
+   "t": 56.83,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap31",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 92,
+   "pct": 0.93
+  },
+  {
+   "t": 58.06,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "sc11",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 93,
+   "pct": 0.93
+  },
+  {
+   "t": 58.21,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap32",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 94,
+   "pct": 0.93
+  },
+  {
+   "t": 58.3,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "st-g",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 95,
+   "pct": 0.93
+  },
+  {
+   "t": 58.51,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "sc11",
+   "source": "gsap",
+   "tween_s": 5.34,
+   "id": 96,
+   "pct": 0.93
+  },
+  {
+   "t": 58.7,
+   "kind": "burst",
+   "strength": 0.55,
+   "hint": "st-f",
+   "source": "gsap",
+   "tween_s": 4.42,
+   "id": 97,
+   "pct": 0.93
+  },
+  {
+   "t": 60.39,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap33",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 98,
+   "pct": 0.93
+  },
+  {
+   "t": 62.21,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "cap34",
+   "source": "gsap",
+   "tween_s": 0.18,
+   "id": 99,
+   "pct": 0.93
+  },
+  {
+   "t": 64.1,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "flash",
+   "source": "gsap",
+   "tween_s": 0.35,
+   "id": 100,
+   "pct": 0.93
+  },
+  {
+   "t": 64.2,
+   "kind": "onset",
+   "strength": 0.9,
+   "hint": "end-logo",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 101,
+   "pct": 1.0
+  },
+  {
+   "t": 65.0,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "end-foot-img",
+   "source": "gsap",
+   "tween_s": 0.5,
+   "id": 102,
+   "pct": 0.93
+  },
+  {
+   "t": 65.1,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "end-note",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 103,
+   "pct": 0.93
+  },
+  {
+   "t": 65.3,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "end-credit",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 104,
+   "pct": 0.93
+  },
+  {
+   "t": 65.72,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "end-tag",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 105,
+   "pct": 0.93
+  },
+  {
+   "t": 67.74,
+   "kind": "onset",
+   "strength": 0.9,
+   "hint": "end-cta",
+   "source": "gsap",
+   "tween_s": 0.45,
+   "id": 106,
+   "pct": 1.0
+  }
+ ],
+ "warnings": []
+}

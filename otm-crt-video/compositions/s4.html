@@ -1,0 +1,102 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; }
+    #s4-cam, #s4-shake { position: absolute; inset: 0; }
+    #s4-cam { transform-origin: 550px 900px; }
+    .s4-full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    .s4-lyr { position: absolute; }
+    .s4-lyr img { position: absolute; left: 0; top: 0; display: block; }
+    .s4-rgb { mix-blend-mode: multiply; z-index: 70; opacity: 0; }
+    .s4-spark { position: absolute; z-index: 65; opacity: 0; border-radius: 2px; }
+    .s4-ring { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 9px solid #1f5cff; z-index: 66; opacity: 0; }
+    #s4-sweep { position: absolute; z-index: 64; overflow: hidden; }
+    #s4-sweep-bar { position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%); }
+    #s4-pop, #s4-flash { position: absolute; inset: 0; background: #ffffff; pointer-events: none; }
+    #s4-pop { z-index: 80; opacity: 0; }
+    #s4-flash { z-index: 90; opacity: 0; }
+        #s4-sweep { left:35px; top:195px; width:1030px; height:215px; -webkit-mask-image:url(assets/layers/s4_title.png); mask-image:url(assets/layers/s4_title.png); -webkit-mask-size:100% 100%; mask-size:100% 100%; }
+  </style>
+  <div id="root" data-composition-id="s4" data-width="1080" data-height="1920" data-layout-allow-overflow data-layout-allow-overlap>
+    <div id="s4-cam">
+      <div id="s4-shake">
+                <img id="s4-plate" class="s4-full" src="assets/plates/s4.jpg" alt="" />
+        <div id="s4-title" class="s4-lyr" style="left:35px;top:195px;width:1030px;height:215px;overflow:visible;z-index:10"><img id="s4-title-img" src="assets/layers/s4_title.png" alt="" style="width:1030px;height:215px" /></div>
+        <div id="s4-char" class="s4-lyr" style="left:0px;top:1150px;width:560px;height:550px;overflow:hidden;z-index:11"><img id="s4-char-img" src="assets/layers/s4_char.png" alt="" style="width:560px;height:550px" /></div>
+        <div id="s4-t1" class="s4-lyr" style="left:70px;top:438px;width:945px;height:62px;overflow:visible;z-index:12"><img id="s4-t1-img" src="assets/layers/s4_t1.png" alt="" style="width:945px;height:62px" /></div>
+        <div id="s4-p3" class="s4-lyr" style="left:260px;top:498px;width:570px;height:100px;overflow:visible;z-index:13"><img id="s4-p3-img" src="assets/layers/s4_p3.png" alt="" style="width:570px;height:100px" /></div>
+        <div id="s4-st1" class="s4-lyr" style="left:80px;top:705px;width:415px;height:610px;overflow:visible;z-index:14"><img id="s4-st1-img" src="assets/layers/s4_st1.png" alt="" style="width:415px;height:610px" /></div>
+        <div id="s4-st2" class="s4-lyr" style="left:495px;top:625px;width:460px;height:373px;overflow:visible;z-index:15"><img id="s4-st2-img" src="assets/layers/s4_st2.png" alt="" style="width:460px;height:373px" /></div>
+        <div id="s4-st3" class="s4-lyr" style="left:612px;top:858px;width:443px;height:557px;overflow:visible;z-index:16"><img id="s4-st3-img" src="assets/layers/s4_st3.png" alt="" style="width:443px;height:557px" /></div>
+        <div id="s4-sp0-0" class="s4-spark" style="left:540px;top:542px;width:11px;height:11px;background:#1f5cff"></div>
+        <div id="s4-sp0-1" class="s4-spark" style="left:541px;top:544px;width:8px;height:8px;background:#1f5cff"></div>
+        <div id="s4-sp0-2" class="s4-spark" style="left:538px;top:540px;width:15px;height:15px;background:#1f5cff"></div>
+        <div id="s4-sp0-3" class="s4-spark" style="left:539px;top:542px;width:12px;height:12px;background:#1f5cff"></div>
+        <div id="s4-sp0-4" class="s4-spark" style="left:540px;top:544px;width:9px;height:9px;background:#1f5cff"></div>
+        <div id="s4-sp0-5" class="s4-spark" style="left:537px;top:540px;width:16px;height:16px;background:#1f5cff"></div>
+        <div id="s4-sp0-6" class="s4-spark" style="left:538px;top:542px;width:13px;height:13px;background:#1f5cff"></div>
+        <div id="s4-sp0-7" class="s4-spark" style="left:540px;top:543px;width:10px;height:10px;background:#1f5cff"></div>
+        <div id="s4-sp0-8" class="s4-spark" style="left:536px;top:540px;width:17px;height:17px;background:#1f5cff"></div>
+        <div id="s4-sp0-9" class="s4-spark" style="left:538px;top:541px;width:14px;height:14px;background:#1f5cff"></div>
+        <div id="s4-sp0-10" class="s4-spark" style="left:540px;top:542px;width:11px;height:11px;background:#1f5cff"></div>
+        <div id="s4-sp0-11" class="s4-spark" style="left:541px;top:544px;width:8px;height:8px;background:#1f5cff"></div>
+        <div id="s4-ring1" class="s4-ring" style="left:460px;top:810px"></div>
+        <div id="s4-ring2" class="s4-ring" style="left:460px;top:810px"></div>
+        <img id="s4-rgb-r" class="s4-full s4-rgb" src="assets/slides/s4_power3.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(-45deg)" />
+        <img id="s4-rgb-c" class="s4-full s4-rgb" src="assets/slides/s4_power3.jpg" alt="" style="filter:grayscale(1) sepia(1) saturate(12) hue-rotate(150deg)" />
+        <div id="s4-sweep"><div id="s4-sweep-bar"></div></div>
+      </div>
+    </div>
+    <div id="s4-pop"></div>
+    <div id="s4-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const SX = [0.9, -0.75, 0.6, -0.8, 0.5, -0.45, 0.3, -0.2], SY = [-0.5, 0.8, -0.6, 0.45, -0.7, 0.3, -0.25, 0.12];
+      function shake(tl, sel, t, amp) {
+        for (let i = 0; i < SX.length; i++) {
+          const k = 1 - i / SX.length;
+          tl.to(sel, { x: amp * SX[i] * k, y: amp * SY[i] * k, duration: 0.035, ease: "none" }, t + i * 0.035);
+        }
+        tl.to(sel, { x: 0, y: 0, duration: 0.05, ease: "power1.out" }, t + SX.length * 0.035);
+      }
+      function jitter(tl, sel, t) {
+        const J = [[-26, 8], [22, -10], [-14, 12], [30, -6], [0, 0]];
+        J.forEach((p, i) => tl.to(sel, { x: p[0], y: p[1], duration: 0.04, ease: "none" }, t + i * 0.05));
+      }
+      tl.fromTo("#s4-cam", {x: 620, filter: "blur(18px)"}, {x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out"}, 0);
+      tl.fromTo("#s4-title", {opacity: 0, scale: 1.75, filter: "blur(14px)"}, {opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out"}, 0.15);
+      shake(tl, "#s4-shake", 0.25, 22);
+      tl.fromTo("#s4-pop", {opacity: 0.75}, {opacity: 0, duration: 0.16, ease: "power2.out", immediateRender: false}, 0.23);
+      tl.fromTo("#s4-sweep-bar", {xPercent: -120}, {xPercent: 260, duration: 0.7, ease: "power2.inOut"}, 0.55);
+      tl.fromTo("#s4-char-img", {y: 560}, {y: 0, duration: 0.62, ease: "back.out(1.25)"}, 0.45);
+      tl.fromTo("#s4-t1-img", {clipPath: "inset(0% 100% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.36, ease: "power3.out"}, 1.03);
+      tl.fromTo("#s4-t1", {x: -26, opacity: 0}, {x: 0, opacity: 1, duration: 0.29, ease: "expo.out"}, 1.03);
+      tl.fromTo("#s4-p3", {opacity: 0, scale: 2.8, rotation: -8}, {opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.2)"}, 2.39);
+      shake(tl, "#s4-shake", 2.59, 14);
+      tl.fromTo("#s4-st1-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 4.53);
+      tl.fromTo("#s4-st1", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 4.53);
+      tl.fromTo("#s4-st2-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 6.47);
+      tl.fromTo("#s4-st2", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 6.47);
+      tl.fromTo("#s4-st3-img", {clipPath: "inset(100% 0% 0% 0%)"}, {clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "expo.out"}, 8.42);
+      tl.fromTo("#s4-st3", {y: 40}, {y: 0, duration: 0.45, ease: "expo.out"}, 8.42);
+      tl.fromTo("#s4-sp0-0", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 238, y: 16, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-1", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 277, y: 121, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-2", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 109, y: 148, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-3", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -41, y: 223, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-4", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -179, y: 146, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-5", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -370, y: 98, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-6", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -332, y: -22, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-7", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -211, y: -92, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-8", {x: 0, y: 0, opacity: 1, scale: 1}, {x: -146, y: -200, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-9", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 31, y: -174, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-10", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 234, y: -191, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-sp0-11", {x: 0, y: 0, opacity: 1, scale: 1}, {x: 296, y: -78, opacity: 0, scale: 0.3, duration: 0.5, ease: "power3.out", immediateRender: false}, 2.59);
+      tl.fromTo("#s4-ring1", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 9.70);
+      tl.fromTo("#s4-ring2", {scale: 0.2, opacity: 1}, {scale: 1.9, opacity: 0, duration: 0.5, ease: "power2.out", immediateRender: false}, 9.88);
+      tl.to("#s4-cam", {scale: 7, filter: "blur(16px)", duration: 0.45, ease: "power3.in"}, 10.15);
+      window.__timelines["s4"] = tl;
+    })();
+  </script>
+</template>

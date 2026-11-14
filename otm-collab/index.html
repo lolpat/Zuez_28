@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.card { position: absolute; z-index: 5; opacity: 0; border-radius: 22px; object-fit: cover; outline: 2px solid rgba(238,138,70,0.75);
+  box-shadow: 0 0 34px rgba(238,138,70,0.35), 0 18px 60px rgba(0,0,0,0.7); }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-collab" data-start="0" data-duration="40.08" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust"><circle id="d0" cx="350" cy="290" r="2.5" fill="#fff" opacity="0.06"/><circle id="d1" cx="63" cy="974" r="1.3" fill="#fff" opacity="0.12"/><circle id="d2" cx="458" cy="1588" r="1.4" fill="#fff" opacity="0.09"/><circle id="d3" cx="623" cy="762" r="3.2" fill="#fff" opacity="0.06"/><circle id="d4" cx="156" cy="226" r="1.8" fill="#fff" opacity="0.19"/><circle id="d5" cx="690" cy="715" r="2.3" fill="#fff" opacity="0.06"/><circle id="d6" cx="735" cy="821" r="1.8" fill="#fff" opacity="0.15"/><circle id="d7" cx="858" cy="1342" r="1.7" fill="#fff" opacity="0.15"/><circle id="d8" cx="788" cy="553" r="3.2" fill="#fff" opacity="0.07"/><circle id="d9" cx="164" cy="939" r="1.3" fill="#fff" opacity="0.16"/><circle id="d10" cx="946" cy="602" r="2.6" fill="#fff" opacity="0.15"/><circle id="d11" cx="907" cy="1814" r="2.1" fill="#fff" opacity="0.16"/><circle id="d12" cx="699" cy="1907" r="2.8" fill="#fff" opacity="0.10"/><circle id="d13" cx="24" cy="886" r="1.5" fill="#fff" opacity="0.07"/><circle id="d14" cx="140" cy="475" r="2.0" fill="#fff" opacity="0.20"/><circle id="d15" cx="593" cy="1696" r="2.8" fill="#fff" opacity="0.20"/><circle id="d16" cx="387" cy="1698" r="3.1" fill="#fff" opacity="0.08"/><circle id="d17" cx="252" cy="931" r="2.4" fill="#fff" opacity="0.09"/><circle id="d18" cx="399" cy="1087" r="3.1" fill="#fff" opacity="0.17"/><circle id="d19" cx="730" cy="104" r="3.0" fill="#fff" opacity="0.18"/><circle id="d20" cx="424" cy="766" r="1.4" fill="#fff" opacity="0.16"/><circle id="d21" cx="225" cy="312" r="1.9" fill="#fff" opacity="0.06"/><circle id="d22" cx="110" cy="698" r="1.3" fill="#fff" opacity="0.20"/><circle id="d23" cx="272" cy="667" r="1.9" fill="#fff" opacity="0.07"/><circle id="d24" cx="503" cy="929" r="1.4" fill="#fff" opacity="0.07"/><circle id="d25" cx="895" cy="310" r="1.2" fill="#fff" opacity="0.21"/><circle id="d26" cx="587" cy="52" r="2.3" fill="#fff" opacity="0.22"/><circle id="d27" cx="282" cy="704" r="1.5" fill="#fff" opacity="0.18"/><circle id="d28" cx="356" cy="428" r="2.8" fill="#fff" opacity="0.22"/><circle id="d29" cx="884" cy="1421" r="1.7" fill="#fff" opacity="0.14"/><circle id="d30" cx="30" cy="536" r="1.7" fill="#fff" opacity="0.17"/><circle id="d31" cx="1012" cy="1897" r="3.1" fill="#fff" opacity="0.11"/><circle id="d32" cx="212" cy="392" r="2.4" fill="#fff" opacity="0.20"/><circle id="d33" cx="705" cy="1535" r="1.4" fill="#fff" opacity="0.16"/><circle id="d34" cx="810" cy="918" r="1.6" fill="#fff" opacity="0.18"/><circle id="d35" cx="1049" cy="760" r="2.0" fill="#fff" opacity="0.21"/><circle id="d36" cx="137" cy="290" r="3.0" fill="#fff" opacity="0.19"/><circle id="d37" cx="1059" cy="1262" r="1.9" fill="#fff" opacity="0.14"/><circle id="d38" cx="1049" cy="1247" r="2.3" fill="#fff" opacity="0.21"/><circle id="d39" cx="892" cy="405" r="1.7" fill="#fff" opacity="0.10"/></g>
+        <line id="ground" x1="0" y1="1240" x2="1080" y2="1240" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="12 12" style="opacity:0"/>
+<g id="sc1" style="opacity:0;visibility:hidden" data-layout-allow-overlap><defs><radialGradient id="eglow"><stop offset="0" stop-color="#e8c26a" stop-opacity="0.38"/><stop offset="1" stop-color="#e8c26a" stop-opacity="0"/></radialGradient></defs><g id="eg2"><circle cx="540" cy="800" r="270" fill="url(#eglow)"/><image href="assets/otm_emblem.png" x="390.0" y="654.5" width="300" height="291" style="filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/><text x="540" y="1012" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" letter-spacing="0.22em" fill="#e8c26a">ORDER THE MARKET</text></g><text id="t3" x="540" y="830" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="84" letter-spacing="0em" fill="#e8c26a" style="opacity:0">×</text><defs><radialGradient id="aglow"><stop offset="0" stop-color="#ee8a46" stop-opacity="0.30"/><stop offset="1" stop-color="#ee8a46" stop-opacity="0"/></radialGradient></defs><g transform="translate(790 800) scale(0.72) translate(-540 -800)"><g id="ac4" style="opacity:0"><circle cx="540" cy="800" r="270" fill="url(#aglow)"/><image href="assets/accurate_icon.png" x="416.9" y="654.5" width="246.2" height="291" style="filter:drop-shadow(0 0 22px rgba(240,138,70,0.5))"/><text x="540" y="1012" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" letter-spacing="0.22em" fill="#ee8a46">ACCURATE</text></g></g><g id="pl5" style="opacity:0"><rect x="325" y="1121" width="429" height="58" rx="29.0" fill="#e8c26a" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="540" y="1161" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.06em" fill="#111">NEW COLLABORATION</text></g><circle id="c6" cx="540" cy="805" r="60" fill="none" stroke="#e8c26a" stroke-width="4" style="opacity:0"/><text id="t7" x="556" y="1262" text-anchor="end" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.14em" fill="#ffffff" style="opacity:0">TWO NAMES ·</text><text id="t8" x="570" y="1262" text-anchor="start" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.14em" fill="#e8c26a" style="opacity:0">ONE MISSION</text></g>
+<g id="sc9" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="duo10" style="opacity:1"><image href="assets/otm_emblem.png" x="348.3" y="564.0" width="74.2" height="72"/><text x="459.6" y="613.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" fill="#e8c26a">×</text><image href="assets/accurate_logo.png" x="492.6" y="565.8" width="239.1" height="68.4"/></g><g id="tl11" style="opacity:0"><path d="M 185 720 H 355 Q 375 720 375 740 V 930 Q 375 950 355 950 H 185 Q 165 950 165 930 V 740 Q 165 720 185 720 Z" fill="#0d1117" stroke="#ffffff90" stroke-width="3"/><path d="M 250.2 830.6 V 810.8 A 19.8 19.8 0 0 1 289.8 810.8 V 830.6" fill="none" stroke="#ffffffd0" stroke-width="5.5"/><rect x="239.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#ffffffd0"/><circle cx="270" cy="850.4" r="5.5" fill="#000"/></g><g id="tg12" style="opacity:0;filter:drop-shadow(0 0 14px #e8c26a)"><path d="M 185 720 H 355 Q 375 720 375 740 V 930 Q 375 950 355 950 H 185 Q 165 950 165 930 V 740 Q 165 720 185 720 Z" fill="none" stroke="#e8c26a" stroke-width="4"/><path d="M 250.2 830.6 V 810.8 A 19.8 19.8 0 0 1 289.8 810.8 V 830.6" fill="none" stroke="#e8c26a" stroke-width="5.5"/><rect x="239.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#e8c26a"/><circle cx="270" cy="850.4" r="5.5" fill="#000"/></g><g id="tl13" style="opacity:0"><path d="M 455 720 H 625 Q 645 720 645 740 V 930 Q 645 950 625 950 H 455 Q 435 950 435 930 V 740 Q 435 720 455 720 Z" fill="#0d1117" stroke="#ffffff90" stroke-width="3"/><path d="M 520.2 830.6 V 810.8 A 19.8 19.8 0 0 1 559.8 810.8 V 830.6" fill="none" stroke="#ffffffd0" stroke-width="5.5"/><rect x="509.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#ffffffd0"/><circle cx="540" cy="850.4" r="5.5" fill="#000"/></g><g id="tg14" style="opacity:0;filter:drop-shadow(0 0 14px #e8c26a)"><path d="M 455 720 H 625 Q 645 720 645 740 V 930 Q 645 950 625 950 H 455 Q 435 950 435 930 V 740 Q 435 720 455 720 Z" fill="none" stroke="#e8c26a" stroke-width="4"/><path d="M 520.2 830.6 V 810.8 A 19.8 19.8 0 0 1 559.8 810.8 V 830.6" fill="none" stroke="#e8c26a" stroke-width="5.5"/><rect x="509.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#e8c26a"/><circle cx="540" cy="850.4" r="5.5" fill="#000"/></g><g id="tl15" style="opacity:0"><path d="M 725 720 H 895 Q 915 720 915 740 V 930 Q 915 950 895 950 H 725 Q 705 950 705 930 V 740 Q 705 720 725 720 Z" fill="#0d1117" stroke="#ffffff90" stroke-width="3"/><path d="M 790.2 830.6 V 810.8 A 19.8 19.8 0 0 1 829.8 810.8 V 830.6" fill="none" stroke="#ffffffd0" stroke-width="5.5"/><rect x="779.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#ffffffd0"/><circle cx="810" cy="850.4" r="5.5" fill="#000"/></g><g id="tg16" style="opacity:0;filter:drop-shadow(0 0 14px #e8c26a)"><path d="M 725 720 H 895 Q 915 720 915 740 V 930 Q 915 950 895 950 H 725 Q 705 950 705 930 V 740 Q 705 720 725 720 Z" fill="none" stroke="#e8c26a" stroke-width="4"/><path d="M 790.2 830.6 V 810.8 A 19.8 19.8 0 0 1 829.8 810.8 V 830.6" fill="none" stroke="#e8c26a" stroke-width="5.5"/><rect x="779.2" y="828.4" width="61.60000000000001" height="48.400000000000006" rx="8.8" fill="#e8c26a"/><circle cx="810" cy="850.4" r="5.5" fill="#000"/></g><rect id="bt17" x="170" y="1050" width="740" height="16" rx="8" fill="#ffffff22"/><rect id="bf18" x="170" y="1050" width="0" height="16" rx="8" fill="#e8c26a" style="filter:drop-shadow(0 0 10px #e8c26a)"/><text id="t19" x="540" y="1130" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="30" letter-spacing="0.24em" fill="#7d838c" style="opacity:1">IN PROGRESS</text><text id="t20" x="540" y="1130" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">FIRST LOOK</text></g>
+<g id="sc21" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="duo22" style="opacity:1"><image href="assets/otm_emblem.png" x="365.8" y="438.0" width="66.0" height="64"/><text x="468.7" y="483.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" fill="#e8c26a">×</text><image href="assets/accurate_logo.png" x="501.7" y="439.6" width="212.5" height="60.8"/></g><text id="t23" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">01 / 10</text><text id="t24" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">ONE PLATFORM. EVERY TOOL.</text><circle id="c25" cx="387" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t26" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">02 / 10</text><text id="t27" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">MARKET HOURS</text><circle id="c28" cx="421" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t29" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">03 / 10</text><text id="t30" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">EVERY MAJOR MARKET UPDATE</text><circle id="c31" cx="455" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t32" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">04 / 10</text><text id="t33" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">FILTERED & ORGANIZED</text><circle id="c34" cx="489" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t35" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">05 / 10</text><text id="t36" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">SIGNAL ROOMS IN ONE CLICK</text><circle id="c37" cx="523" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t38" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">06 / 10</text><text id="t39" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">LIVE CALENDAR</text><circle id="c40" cx="557" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t41" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">07 / 10</text><text id="t42" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">LEARN TRADING</text><circle id="c43" cx="591" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t44" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">08 / 10</text><text id="t45" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">SYNC TO METATRADER</text><circle id="c46" cx="625" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t47" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">09 / 10</text><text id="t48" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">POSITION SIZE CALCULATOR</text><circle id="c49" cx="659" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><text id="t50" x="540" y="556" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="28" letter-spacing="0.24em" fill="#e8c26a" style="opacity:0">10 / 10</text><text id="t51" x="540" y="622" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="46" letter-spacing="0.03em" fill="#ffffff" style="opacity:0">AN AI THAT REMEMBERS YOU</text><circle id="c52" cx="693" cy="1360" r="7" fill="#e8c26a" style="opacity:0;filter:drop-shadow(0 0 6px #e8c26a)"/><circle id="c53" cx="387" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c54" cx="421" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c55" cx="455" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c56" cx="489" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c57" cx="523" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c58" cx="557" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c59" cx="591" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c60" cx="625" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c61" cx="659" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><circle id="c62" cx="693" cy="1360" r="7" fill="none" stroke="#ffffff55" stroke-width="2"/><text id="t63" x="540" y="900" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="150" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">FREE</text><text id="t64" x="540" y="1000" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" letter-spacing="0.08em" fill="#ffffff" style="opacity:0">NO SUBSCRIPTION NEEDED</text><image id="i65" href="assets/accurate_icon.png" x="493" y="1060" width="93" height="110" style="opacity:0;filter:drop-shadow(0 0 18px rgba(240,138,70,0.55))"/></g>
+<g id="sc66" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t67" x="540" y="760" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="34" letter-spacing="0.18em" fill="#c9ced6" style="opacity:0">THIS IS ONLY THE BEGINNING</text><rect id="fl68" x="0" y="0" width="1080" height="1920" fill="#fff" style="opacity:0"/><text id="t69" x="540" y="905" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="94" letter-spacing="0.02em" fill="#ffffff" style="opacity:0">BIGGER THINGS</text><text id="t70" x="540" y="1015" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="94" letter-spacing="0.04em" fill="#e8c26a" style="opacity:0">ARE COMING</text><g id="duo71" style="opacity:0"><image href="assets/otm_emblem.png" x="361.4" y="1087.0" width="68.0" height="66"/><text x="466.4" y="1133.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" fill="#e8c26a">×</text><image href="assets/accurate_logo.png" x="499.4" y="1088.7" width="219.2" height="62.7"/></g></g>
+<g id="sc72" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="sp74" style="opacity:0"><defs><linearGradient id="gr73" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgb(232,194,106)" stop-opacity="0.26"/><stop offset="1" stop-color="rgb(232,194,106)" stop-opacity="0.04"/></linearGradient></defs><path d="M 500 380 L 580 380 L 770 1240 L 310 1240 Z" fill="url(#gr73)"/><ellipse cx="540" cy="1240" rx="240" ry="26" fill="none" stroke="rgb(232,194,106)" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g><image id="i75" href="assets/otm_emblem.png" x="390" y="900" width="300" height="291" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/><text id="t76" x="540" y="1300" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.3em" fill="#e8c26a" style="opacity:0">ORDER THE MARKET</text><g id="o277" style="opacity:0"><text x="290.1" y="1364" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="34" fill="#e8c26a">×</text><image href="assets/accurate_logo.png" x="321.1" y="1326" width="181.8" height="52"/><text x="516.9" y="1362" font-family="Montserrat" font-weight="700" font-size="28" letter-spacing="0.12em" fill="#fff">· COMING SOON</text></g><g id="pl78" style="opacity:0"><rect x="348" y="1441" width="385" height="58" rx="29.0" fill="#e8c26a" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="540" y="1481" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.06em" fill="#111">FOLLOW FOR MORE</text></g><g id="so79" style="opacity:0"><rect x="290" y="1548" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="3"/><circle cx="308" cy="1566" r="8.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="318" cy="1556" r="2.4" fill="#fff"/><text x="338" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text><path d="M 612 1546 V 1574 A 9 9 0 1 1 603 1565 M 612 1546 Q 616 1557 628 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><text x="638" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g><text id="t80" x="540" y="1650" text-anchor="middle" font-family="Montserrat" font-weight="600" font-size="28" letter-spacing="0.12em" fill="#7d838c" style="opacity:0">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</text></g>
+      </svg>
+      <video id="v_web" class="clip card" src="assets/clips/web.mp4" muted playsinline data-start="10.650" data-duration="2.720" data-track-index="4" style="left:83.0px;top:680px;width:914px;height:610px"></video>
+      <video id="v_hours" class="clip card" src="assets/clips/hours.mp4" muted playsinline data-start="13.370" data-duration="0.930" data-track-index="5" style="left:173.0px;top:680px;width:734px;height:610px"></video>
+      <video id="v_chart" class="clip card" src="assets/clips/chart.mp4" muted playsinline data-start="14.300" data-duration="1.730" data-track-index="6" style="left:70.0px;top:680px;width:940px;height:498px"></video>
+      <video id="v_heat" class="clip card" src="assets/clips/heat.mp4" muted playsinline data-start="16.030" data-duration="2.020" data-track-index="7" style="left:70.0px;top:680px;width:940px;height:588px"></video>
+      <video id="v_signal" class="clip card" src="assets/clips/signal.mp4" muted playsinline data-start="18.050" data-duration="1.870" data-track-index="8" style="left:70.0px;top:680px;width:940px;height:551px"></video>
+      <video id="v_cal" class="clip card" src="assets/clips/cal.mp4" muted playsinline data-start="19.920" data-duration="1.530" data-track-index="9" style="left:211.0px;top:680px;width:658px;height:610px"></video>
+      <video id="v_learn" class="clip card" src="assets/clips/learn.mp4" muted playsinline data-start="21.450" data-duration="1.840" data-track-index="10" style="left:92.5px;top:680px;width:895px;height:610px"></video>
+      <video id="v_mt" class="clip card" src="assets/clips/mt.mp4" muted playsinline data-start="23.290" data-duration="1.340" data-track-index="11" style="left:169.5px;top:680px;width:741px;height:610px"></video>
+      <video id="v_calc" class="clip card" src="assets/clips/calc.mp4" muted playsinline data-start="24.630" data-duration="1.900" data-track-index="12" style="left:198.5px;top:680px;width:683px;height:610px"></video>
+      <video id="v_ai" class="clip card" src="assets/clips/ai.mp4" muted playsinline data-start="26.530" data-duration="3.190" data-track-index="13" style="left:168.0px;top:680px;width:744px;height:610px"></video>
+      <audio id="otm-collab-audio" class="clip" src="assets/audio/mix_collab.wav" data-start="0" data-duration="40.08" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#sc1", {opacity: 1, visibility: "visible"}, 0);
+        tl.fromTo("#sc1", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 7.340, ease: "none", immediateRender: false}, 0.000);
+        tl.to("#sc1", {opacity: 0, duration: 0.25, ease: "power2.in"}, 7.090);
+        tl.set("#sc1", {opacity: 0, visibility: "hidden"}, 7.340);
+        tl.fromTo("#eg2", {opacity: 0.6, scale: 0.92, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.9, ease: "power2.out"}, 0);
+        tl.to("#eg2", {x: -250, scale: 0.72, transformOrigin: "50% 50%", duration: 0.7, ease: "power3.inOut"}, 1.070);
+        tl.set("#t3", {opacity: 0}, 0.000);
+        tl.fromTo("#t3", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 1.370);
+        tl.fromTo("#ac4", {opacity: 0, x: 70}, {opacity: 1, x: 0, duration: 0.7, ease: "power3.out", immediateRender: false}, 1.830);
+        tl.set("#pl5", {opacity: 0}, 0.000);
+        tl.fromTo("#pl5", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.450, ease: "back.out(1.8)", immediateRender: false}, 3.240);
+        tl.fromTo("#c6", {opacity: 0.9, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 0, scale: 4.5, duration: 1.0, ease: "power2.out", immediateRender: false}, 5.970);
+        tl.fromTo("#t7", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 4.790);
+        tl.fromTo("#t8", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 5.970);
+        tl.set("#sc9", {visibility: "visible"}, 7.340);
+        tl.fromTo("#sc9", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 7.340);
+        tl.fromTo("#sc9", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 3.310, ease: "none", immediateRender: false}, 7.340);
+        tl.to("#sc9", {opacity: 0, duration: 0.25, ease: "power2.in"}, 10.400);
+        tl.set("#sc9", {opacity: 0, visibility: "hidden"}, 10.650);
+        tl.fromTo("#tl11", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 7.340);
+        tl.fromTo("#tg12", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.600);
+        tl.set("#tl13", {opacity: 0}, 7.340);
+        tl.fromTo("#tl13", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 7.820);
+        tl.fromTo("#tg14", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.700);
+        tl.set("#tl15", {opacity: 0}, 7.340);
+        tl.fromTo("#tl15", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 8.020);
+        tl.fromTo("#tg16", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 9.800);
+        tl.fromTo("#bf18", {attr: {width: 0}}, {attr: {width: 740}, duration: 2.360, ease: "power1.inOut", immediateRender: false}, 7.440);
+        tl.to("#t19", {opacity: 0, duration: 0.2}, 9.040);
+        tl.fromTo("#t20", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 9.240);
+        tl.set("#sc21", {visibility: "visible"}, 10.650);
+        tl.fromTo("#sc21", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 10.650);
+        tl.fromTo("#sc21", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 21.490, ease: "none", immediateRender: false}, 10.650);
+        tl.to("#sc21", {opacity: 0, duration: 0.25, ease: "power2.in"}, 31.890);
+        tl.set("#sc21", {opacity: 0, visibility: "hidden"}, 32.140);
+        tl.fromTo("#t23", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 10.670);
+        tl.set("#t23", {opacity: 0}, 13.370);
+        tl.fromTo("#t24", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 10.670);
+        tl.set("#t24", {opacity: 0}, 13.370);
+        tl.fromTo("#v_web", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 10.660);
+        tl.set("#v_web", {opacity: 0}, 13.370);
+        tl.fromTo("#c25", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 10.670);
+        tl.fromTo("#t26", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 13.390);
+        tl.set("#t26", {opacity: 0}, 14.300);
+        tl.fromTo("#t27", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 13.390);
+        tl.set("#t27", {opacity: 0}, 14.300);
+        tl.fromTo("#v_hours", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 13.380);
+        tl.set("#v_hours", {opacity: 0}, 14.300);
+        tl.fromTo("#c28", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 13.390);
+        tl.fromTo("#t29", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 14.320);
+        tl.set("#t29", {opacity: 0}, 16.030);
+        tl.fromTo("#t30", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 14.320);
+        tl.set("#t30", {opacity: 0}, 16.030);
+        tl.fromTo("#v_chart", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 14.310);
+        tl.set("#v_chart", {opacity: 0}, 16.030);
+        tl.fromTo("#c31", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 14.320);
+        tl.fromTo("#t32", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 16.050);
+        tl.set("#t32", {opacity: 0}, 18.050);
+        tl.fromTo("#t33", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 16.050);
+        tl.set("#t33", {opacity: 0}, 18.050);
+        tl.fromTo("#v_heat", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 16.040);
+        tl.set("#v_heat", {opacity: 0}, 18.050);
+        tl.fromTo("#c34", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 16.050);
+        tl.fromTo("#t35", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 18.070);
+        tl.set("#t35", {opacity: 0}, 19.920);
+        tl.fromTo("#t36", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 18.070);
+        tl.set("#t36", {opacity: 0}, 19.920);
+        tl.fromTo("#v_signal", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 18.060);
+        tl.set("#v_signal", {opacity: 0}, 19.920);
+        tl.fromTo("#c37", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 18.070);
+        tl.fromTo("#t38", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 19.940);
+        tl.set("#t38", {opacity: 0}, 21.450);
+        tl.fromTo("#t39", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 19.940);
+        tl.set("#t39", {opacity: 0}, 21.450);
+        tl.fromTo("#v_cal", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 19.930);
+        tl.set("#v_cal", {opacity: 0}, 21.450);
+        tl.fromTo("#c40", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 19.940);
+        tl.fromTo("#t41", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 21.470);
+        tl.set("#t41", {opacity: 0}, 23.290);
+        tl.fromTo("#t42", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 21.470);
+        tl.set("#t42", {opacity: 0}, 23.290);
+        tl.fromTo("#v_learn", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 21.460);
+        tl.set("#v_learn", {opacity: 0}, 23.290);
+        tl.fromTo("#c43", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 21.470);
+        tl.fromTo("#t44", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 23.310);
+        tl.set("#t44", {opacity: 0}, 24.630);
+        tl.fromTo("#t45", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 23.310);
+        tl.set("#t45", {opacity: 0}, 24.630);
+        tl.fromTo("#v_mt", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 23.300);
+        tl.set("#v_mt", {opacity: 0}, 24.630);
+        tl.fromTo("#c46", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 23.310);
+        tl.fromTo("#t47", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 24.650);
+        tl.set("#t47", {opacity: 0}, 26.530);
+        tl.fromTo("#t48", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 24.650);
+        tl.set("#t48", {opacity: 0}, 26.530);
+        tl.fromTo("#v_calc", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 24.640);
+        tl.set("#v_calc", {opacity: 0}, 26.530);
+        tl.fromTo("#c49", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 24.650);
+        tl.fromTo("#t50", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 26.550);
+        tl.set("#t50", {opacity: 0}, 29.720);
+        tl.fromTo("#t51", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.220, ease: "power2.out", immediateRender: false}, 26.550);
+        tl.set("#t51", {opacity: 0}, 29.720);
+        tl.fromTo("#v_ai", {opacity: 0, scale: 1.07}, {opacity: 1, scale: 1, duration: 0.28, ease: "power2.out", immediateRender: false}, 26.540);
+        tl.set("#v_ai", {opacity: 0}, 29.720);
+        tl.fromTo("#c52", {opacity: 0}, {opacity: 1, duration: 0.200, ease: "power2.out", immediateRender: false}, 26.550);
+        tl.fromTo("#t63", {opacity: 0, scale: 1.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}, 29.720);
+        tl.fromTo("#t64", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 30.590);
+        tl.set("#i65", {opacity: 0}, 10.650);
+        tl.fromTo("#i65", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 30.640);
+        tl.set("#sc66", {visibility: "visible"}, 32.140);
+        tl.fromTo("#sc66", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 32.140);
+        tl.fromTo("#sc66", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 3.850, ease: "none", immediateRender: false}, 32.140);
+        tl.to("#sc66", {opacity: 0, duration: 0.25, ease: "power2.in"}, 35.740);
+        tl.set("#sc66", {opacity: 0, visibility: "hidden"}, 35.990);
+        tl.fromTo("#t67", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.400, ease: "power2.out", immediateRender: false}, 32.240);
+        tl.fromTo("#fl68", {opacity: 0.32}, {opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false}, 34.450);
+        tl.fromTo("#t69", {opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}, 34.450);
+        tl.fromTo("#t70", {opacity: 0, scale: 1.35, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", immediateRender: false}, 34.890);
+        tl.fromTo("#duo71", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 35.160);
+        tl.set("#sc72", {visibility: "visible"}, 35.990);
+        tl.fromTo("#sc72", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 35.990);
+        tl.fromTo("#sc72", {scale: 1}, {scale: 1.035, transformOrigin: "50% 60%", duration: 4.090, ease: "none", immediateRender: false}, 35.990);
+        tl.to("#sc72", {opacity: 0, duration: 0.25, ease: "power2.in"}, 39.830);
+        tl.set("#sc72", {opacity: 0, visibility: "hidden"}, 40.080);
+        tl.to("#ground", {opacity: 1, duration: 0.4}, 35.990);
+        tl.fromTo("#sp74", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 35.990);
+        tl.fromTo("#i75", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.600, ease: "back.out(1.8)", immediateRender: false}, 35.990);
+        tl.fromTo("#t76", {opacity: 0}, {opacity: 1, duration: 0.450, ease: "power2.out", immediateRender: false}, 36.190);
+        tl.fromTo("#o277", {opacity: 0}, {opacity: 1, duration: 0.450, ease: "power2.out", immediateRender: false}, 36.390);
+        tl.set("#pl78", {opacity: 0}, 35.990);
+        tl.fromTo("#pl78", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 36.140);
+        tl.fromTo("#so79", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.500, ease: "power2.out", immediateRender: false}, 36.940);
+        tl.fromTo("#t80", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 37.340);
+        tl.fromTo("#d0", {x: 0, y: 0}, {x: 5, y: -271, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d1", {x: 0, y: 0}, {x: -60, y: -180, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d2", {x: 0, y: 0}, {x: 18, y: -463, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d3", {x: 0, y: 0}, {x: 50, y: -246, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d4", {x: 0, y: 0}, {x: -45, y: -342, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d5", {x: 0, y: 0}, {x: -62, y: -218, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d6", {x: 0, y: 0}, {x: -7, y: -249, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d7", {x: 0, y: 0}, {x: 4, y: -439, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d8", {x: 0, y: 0}, {x: -11, y: -400, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d9", {x: 0, y: 0}, {x: 37, y: -339, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d10", {x: 0, y: 0}, {x: 11, y: -301, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d11", {x: 0, y: 0}, {x: -62, y: -381, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d12", {x: 0, y: 0}, {x: -16, y: -371, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d13", {x: 0, y: 0}, {x: -62, y: -404, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d14", {x: 0, y: 0}, {x: -59, y: -298, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d15", {x: 0, y: 0}, {x: -31, y: -287, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d16", {x: 0, y: 0}, {x: -45, y: -227, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d17", {x: 0, y: 0}, {x: -69, y: -288, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d18", {x: 0, y: 0}, {x: 2, y: -354, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d19", {x: 0, y: 0}, {x: 52, y: -413, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d20", {x: 0, y: 0}, {x: -61, y: -172, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d21", {x: 0, y: 0}, {x: -70, y: -200, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d22", {x: 0, y: 0}, {x: 16, y: -199, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d23", {x: 0, y: 0}, {x: 49, y: -478, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d24", {x: 0, y: 0}, {x: -22, y: -237, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d25", {x: 0, y: 0}, {x: 4, y: -198, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d26", {x: 0, y: 0}, {x: 51, y: -380, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d27", {x: 0, y: 0}, {x: 5, y: -407, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d28", {x: 0, y: 0}, {x: 49, y: -416, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d29", {x: 0, y: 0}, {x: -20, y: -160, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d30", {x: 0, y: 0}, {x: 64, y: -298, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d31", {x: 0, y: 0}, {x: -39, y: -225, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d32", {x: 0, y: 0}, {x: 48, y: -308, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d33", {x: 0, y: 0}, {x: 57, y: -408, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d34", {x: 0, y: 0}, {x: -23, y: -414, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d35", {x: 0, y: 0}, {x: 31, y: -206, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d36", {x: 0, y: 0}, {x: -50, y: -423, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d37", {x: 0, y: 0}, {x: -52, y: -155, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d38", {x: 0, y: 0}, {x: -9, y: -438, duration: 40.08, ease: "none"}, 0);
+        tl.fromTo("#d39", {x: 0, y: 0}, {x: -36, y: -344, duration: 40.08, ease: "none"}, 0);
+        window.__timelines["otm-collab"] = tl;
+      })();
+    </script>
+  </body>
+</html>
