@@ -1,8 +1,8 @@
-[hook] Trade recap. Gold, fifteen-minute chart, November sixth. [two] Two sells, [result] and the day closed at plus one hundred and two thousand dollars.
-[why] Here's the plan. [ob] At the top, an order block: the last push up before the big drop. [sell1] My first sell sat right there, at forty-one thirty-three.
-[sbr] Below it, old support turned into resistance. That's the S.B.R. [sell2] Price rallied back into it, and I added a second sell at forty-one fifteen.
-[choch] Then the structure broke. [lh] Price bounced into the next S.B.R., failed again, [fall] and kept falling.
-[close] I closed both at forty thirty-six point six three. [pts] Ninety-six dollars on the first, seventy-eight on the second.
-[loss] Earlier that day, one buy was stopped out: minus twenty-four hundred. [net] Net for the day: plus one hundred and two thousand, four hundred and forty-four dollars.
-[recap] Order block. S.B.R. Wait for the structure. [let] Then let price do the work.
+[hook] Trade recap. Gold, fifteen-minute chart, November sixth. [two] Two sells, [result] plus one hundred and four thousand dollars.
+[why] Here's the plan. [top] At the top, price stalled under the high. [sell1] My first sell went in at forty-one thirty-three.
+[shift] Then structure shifted down, [fvg] and price left a fair value gap. [sbr] The rally back up ran into old support, now resistance: the S.B.R. [sell2] That's my second sell, at forty-one fifteen.
+[idm] Price broke the inducement, [low] ran to the low, [bounce] bounced into the next sell zone, [fail] failed, and rolled over again.
+[close] I closed both at forty thirty-six point six three, right at that low. [pts] Ninety-six dollars on the first, seventy-eight on the second.
+[pnl] Six lots each: plus fifty-seven thousand, and plus forty-seven thousand.
+[recap] Shift. S.B.R. Inducement. Target the low. [let] Then let price do the work.
 [order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.
