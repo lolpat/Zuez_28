@@ -96,7 +96,7 @@ fx = xmark(s, ch.x(SW + 3), y(18.5), 14, RED, 5); s.draw(fx, K("fail") + 0.6, 0.
 ft = s.label(ch.x(SW + 3) + 26, y(18.5) + 8, L("FAILED", "ล้มเหลว"), 22, RED, 0, 800, 0.06, "start"); s.fade(ft, K("fail") + 0.7)
 for i in (fx, ft): out(i, K("target") - 0.1)
 # the target at the CRT high; the partial at the range 50%
-tg = s.pill(XR - 120, y(HI) - 40, L("TARGET", "เป้าหมาย"), GOLD, "#111", 22); s.pop(tg, K("target") + 0.6, 0.35, 0.5); cue(K("target") + 0.6, "bell_G5", -20)
+tg = s.pill(XR - 120, y(HI) - 76, L("TARGET", "เป้าหมาย"), GOLD, "#111", 22); s.pop(tg, K("target") + 0.6, 0.35, 0.5); cue(K("target") + 0.6, "bell_G5", -20)
 s.fade(pr, K("target") + 0.7, 0.5)
 hfL, hfT = lvl(s, MID50, GREY, L("RANGE 50%", "50% ของกรอบ"), 0, "6 8", 2)
 s.fade(hfL, K("half") + 0.1, 0.4); s.fade(hfT, K("half") + 0.2)
