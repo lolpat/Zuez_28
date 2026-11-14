@@ -1,0 +1,9 @@
+[hook] Trade recap. Gold, five-minute chart. [sold] I sold at thirty-nine fifty-three point eight three, [result] and closed fifteen dollars lower.
+[why] Here's why. [sup] This level used to be support. [brk] Price broke below it, [sbr] so old support became resistance. That's the S.B.R.
+[idm] On the way back up, price made one small dip. [idm2] That's the inducement. It pulled buyers in, and parked their stops right under it.
+[stall] Then price ran into the S.B.R. line, and stalled. [entry] That's where I sold.
+[sl] My stop went above the line, at thirty-nine fifty-eight point two eight. [risk] About four and a half dollars of risk.
+[drop] Price rolled over, [take] took out the inducement low, [fall] and kept falling.
+[close] I closed at thirty-nine thirty-eight point eight three. [rr] Fifteen dollars per ounce, about three point four times the risk. [pnl] On three point eight lots, that's plus five thousand seven hundred dollars.
+[recap] Level. Inducement. Entry. Stop. [let] Then let price do the work.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.
