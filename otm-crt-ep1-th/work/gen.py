@@ -10,7 +10,7 @@ from otm import *
 LANG = "th"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMP = "otm-crt-ep1" + ("-th" if LANG == "th" else "")
-TOTAL = init(ROOT, LANG, COMP, "mix_crt1" + ("_th" if LANG == "th" else ""))
+TOTAL = init(ROOT, LANG, COMP, "mix_crt1" + ("_th" if LANG == "th" else ""), end_key="order")   # ends on the next-part card; only part 5 has the outro
 def KW(key, n): return W(G["marks"][key] + n)        # start of the n-th token after a mark
 
 # ---- the example: a 4H range, then 5-minute candles that sweep the low, close back inside and run to the high
@@ -138,7 +138,7 @@ for k, (en, th, col) in enumerate([("RANGE", "กรอบ", WHITE), ("SWEEP", "
     s.pop(n, t, 0.35, 0.4); s.fade(w_, t + 0.05, 0.35); cue(t, ["tick-crisp_1", "tick-crisp_2", "tick-crisp_3"][k], -16)
 
 # 4  next part
-o4, c4 = K("next") - 0.1, K("order") - 0.05
+o4, c4 = K("next") - 0.1, TOTAL
 s = S(o4, c4)
 nx_ = s.label(540, 760, L("NEXT  ·  PART 2/5", "ตอนต่อไป  ·  ตอนที่ 2/5"), 30, GREY, 0, 700, 0.2); s.fade(nx_, o4 + 0.1)
 a_ = s.label(540, 900, L("REAL SWEEP", "กวาดของจริง"), 68, GREEN, 0, 800, 0.04); s.pop(a_, KW("next", L(5, 1)), 0.4, 0.6)
@@ -146,5 +146,4 @@ v_ = s.label(540, 990, "VS", 40, GREY, 0, 800, 0.1); s.fade(v_, KW("next", L(7, 
 b_ = s.label(540, 1090, L("FAKE SWEEP", "กวาดของปลอม"), 68, RED, 0, 800, 0.04); s.pop(b_, KW("next", L(9, 2)), 0.4, 0.6)
 cue(o4 + 0.2, "whoosh-long_1", -22)
 
-outro(K("order") - 0.05)
 write()

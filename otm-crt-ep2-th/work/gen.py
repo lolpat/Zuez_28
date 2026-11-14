@@ -10,7 +10,7 @@ from otm import *
 LANG = "th"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMP = "otm-crt-ep2" + ("-th" if LANG == "th" else "")
-TOTAL = init(ROOT, LANG, COMP, "mix_crt2" + ("_th" if LANG == "th" else ""))
+TOTAL = init(ROOT, LANG, COMP, "mix_crt2" + ("_th" if LANG == "th" else ""), end_key="order")   # ends on the next-part card; only part 5 has the outro
 def KW(key, n): return W(G["marks"][key] + n)
 
 HI, LO = 72, 32
@@ -133,7 +133,7 @@ r2 = s.label(540, 1000, L("NO CRT", "ก็ไม่ใช่ CRT"), 96, RED, 0,
 cue(K("rule2"), "bell_C5", -18); cue(KW("rule2", L(4, 1)), "land_1", -18)
 
 # 5  next part
-o5, c5 = K("next") - 0.1, K("order") - 0.05
+o5, c5 = K("next") - 0.1, TOTAL
 s = S(o5, c5)
 nx_ = s.label(540, 760, L("NEXT  ·  PART 3/5", "ตอนต่อไป  ·  ตอนที่ 3/5"), 30, GREY, 0, 700, 0.2); s.fade(nx_, o5 + 0.1)
 for k, (en, th, col) in enumerate([("ENTRY", "จุดเข้า", UP), ("STOP", "สต็อป", RED), ("TARGET", "เป้าหมาย", GOLD)]):
@@ -142,5 +142,4 @@ for k, (en, th, col) in enumerate([("ENTRY", "จุดเข้า", UP), ("STO
     cue(t, f"tick_{k + 1}", -20)
 cue(o5 + 0.2, "whoosh-long_1", -22)
 
-outro(K("order") - 0.05)
 write()

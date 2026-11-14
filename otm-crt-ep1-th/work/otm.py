@@ -3,7 +3,7 @@ Same glowing OTM scene system as otm-break / otm-orderblock, plus: a candle char
 Kanit, and timing marks. The script (work/script.txt) carries [key] marks; work/align.py turns the voice into
 work/words.json (one entry per script token) and work/marks.json (key -> token index), and K(key) is the time the voice
 reaches that mark. Candle colours: up #2962ff, down white."""
-import json, math, os, random, re
+import json, math, os, random, re, subprocess
 
 GOLD, RED, WHITE, GREY, LBL = "#e8c26a", "#ff4d5e", "#ffffff", "#7d838c", "#c9ced6"
 UP, DOWN, LBLUE, GREEN = "#2962ff", "#ffffff", "#7d9bff", "#3ddc97"
@@ -16,12 +16,28 @@ G = dict()                                       # ROOT, LANG, COMP, MIX, words,
 rnd = random.Random(7)
 
 
-def init(root, lang, comp, mix):
+def init(root, lang, comp, mix, end_key=None):
+    """end_key: cut the video (and the voice) just before that mark, e.g. "order" for the parts that end on the
+    next-part card instead of the Order the Market outro (only the last part of the series has the outro)"""
     G.update(ROOT=root, LANG=lang, COMP=comp, MIX=mix)
     G["words"] = json.load(open(f"{root}/work/words.json"))
     G["marks"] = json.load(open(f"{root}/work/marks.json"))
-    G["END_T"] = round(G["words"][-1]["end"] + LEAD + 0.6, 2)
-    G["TOTAL"] = round(G["END_T"] + 1.0, 2)          # no end card: the outro holds, then fades out
+    G["VOICE_END"] = None
+    if end_key:
+        # cut the voice inside the real pause before that mark (silencedetect on the take), then hold the card 1 s
+        t_mark = G["words"][G["marks"][end_key]]["start"]
+        o = subprocess.run(["ffmpeg", "-nostats", "-i", f"{root}/work/voice.mp3", "-af", "silencedetect=n=-40dB:d=0.15",
+                            "-f", "null", "-"], capture_output=True, text=True).stderr
+        st = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", o)]
+        en = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", o)]
+        gaps = [(a, b) for a, b in zip(st, en) if a < t_mark + 0.3]
+        a, b = min(gaps, key=lambda g: abs(g[1] - t_mark))          # the pause that ends where the mark's word starts
+        G["VOICE_END"] = round(a + 0.12 + LEAD, 3)                    # keep the last word's natural tail
+        G["END_T"] = G["VOICE_END"]
+        G["TOTAL"] = round(G["VOICE_END"] + 1.0, 2)
+    else:
+        G["END_T"] = round(G["words"][-1]["end"] + LEAD + 0.6, 2)
+        G["TOTAL"] = round(G["END_T"] + 1.0, 2)      # no end card: the outro holds, then fades out
     return G["TOTAL"]
 
 def TH(): return G["LANG"] == "th"
@@ -376,5 +392,5 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 """
     open(f"{ROOT}/index.html", "w").write(html)
     json.dump(sorted(CUES, key=lambda c: c["t"]), open(f"{ROOT}/work/cues.json", "w"), indent=0)
-    json.dump(dict(total=TOTAL, lead=LEAD, end_t=G["END_T"]), open(f"{ROOT}/work/timing.json", "w"))
+    json.dump(dict(total=TOTAL, lead=LEAD, end_t=G["END_T"], voice_end=G["VOICE_END"] or TOTAL), open(f"{ROOT}/work/timing.json", "w"))
     print(COMP, "total", TOTAL, "scenes", len(S.scenes), "tl lines", len(T), "cues", len(CUES))

@@ -22,7 +22,8 @@ Sound effects: the earshot launch kit (code-made, shipped with earshot), soft so
 pops, ticks or clicks), with short fades, at a low level (work/cues.json).
 Voice mix (work/mix.sh): light de-esser, gentle compressor, one static gain to -16 LUFS, look-ahead limiter at -1 dBFS
 (no dynamic loudness normaliser, which made the level jump).
-Engine: work/otm.py (shared by all ten CRT projects).
+Engine: work/otm.py (shared by all ten CRT projects). Parts 1-4 end on the next-part card (the voice stops in the
+pause before the outro line); only part 5 ends on the Order the Market outro with the handles.
 
 Rebuild: python3 work/align.py th && python3 work/gen.py && bash work/mix.sh && python3 work/mix_sfx.py,
 then npx hyperframes@0.8.214 render

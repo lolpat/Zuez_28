@@ -10,7 +10,7 @@ from otm import *
 LANG = "en"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMP = "otm-crt-ep3" + ("-th" if LANG == "th" else "")
-TOTAL = init(ROOT, LANG, COMP, "mix_crt3" + ("_th" if LANG == "th" else ""))
+TOTAL = init(ROOT, LANG, COMP, "mix_crt3" + ("_th" if LANG == "th" else ""), end_key="order")   # ends on the next-part card; only part 5 has the outro
 def KW(key, n): return W(G["marks"][key] + n)
 
 HI, LO = 78, 30
@@ -128,12 +128,11 @@ for k, (en, th, col) in enumerate([("SWEEP", "กวาด", RED), ("SHIFT", "�
         a_ = s.path(f"M 522 {yy} L 540 {yy + 16} L 558 {yy}", GREY, 4, drawn=True, style="opacity:0"); s.fade(a_, t - 0.1, 0.2)
 
 # 4  next part
-o4, c4 = K("next") - 0.1, K("order") - 0.05
+o4, c4 = K("next") - 0.1, TOTAL
 s = S(o4, c4)
 nx_ = s.label(540, 760, L("NEXT  ·  PART 4/5", "ตอนต่อไป  ·  ตอนที่ 4/5"), 30, GREY, 0, 700, 0.2); s.fade(nx_, o4 + 0.1)
 a_ = s.label(540, 900, L("TIMEFRAME", "จับคู่"), 76, GOLD, 0, 800, 0.04); s.pop(a_, o4 + 0.6, 0.4, 0.6)
 b_ = s.label(540, 1000, L("PAIRS", "ไทม์เฟรม"), 76, WHITE, 0, 800, 0.04); s.pop(b_, o4 + 0.9, 0.4, 0.6)
 cue(o4 + 0.2, "whoosh-long_1", -22)
 
-outro(K("order") - 0.05)
 write()
