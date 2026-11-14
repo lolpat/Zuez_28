@@ -33,7 +33,10 @@ def KE(key, n=0):
     """end of the n-th token after the mark"""
     return WE(G["marks"][key] + n)
 def tl(s): T.append(s)
-def cue(t, snd, gain): CUES.append(dict(t=round(t, 3), snd=snd, gain=gain))
+SOFT_SFX = ("whoosh", "swell", "bell")          # only soft sounds; no pop / tick / click / tock / land (they read as glitches)
+def cue(t, snd, gain):
+    if snd.startswith(SOFT_SFX):
+        CUES.append(dict(t=round(t, 3), snd=snd, gain=gain - 3))
 
 
 _COMB = set(range(0x0E31, 0x0E32)) | set(range(0x0E34, 0x0E3B)) | set(range(0x0E47, 0x0E4F))

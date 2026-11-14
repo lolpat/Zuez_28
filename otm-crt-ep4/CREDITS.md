@@ -17,7 +17,10 @@ Voice: ElevenLabs, "Quentin - Narrator and Educator" (eleven_v4), the same calm 
 Timing: the script (work/script.txt) carries [key] marks; work/align.py matches the script to a faster-whisper
 transcript of the voice (small.en, best of three decoding setups) and writes work/words.json and work/marks.json;
 scenes key off K("key").
-Sound effects: the earshot launch kit (code-made, shipped with earshot), at a low level (work/cues.json).
+Sound effects: the earshot launch kit (code-made, shipped with earshot), soft sounds only (whoosh, swell, bell; no
+pops, ticks or clicks), with short fades, at a low level (work/cues.json).
+Voice mix (work/mix.sh): light de-esser, gentle compressor, one static gain to -16 LUFS, look-ahead limiter at -1 dBFS
+(no dynamic loudness normaliser, which made the level jump).
 Engine: work/otm.py (shared by all ten CRT projects).
 
 Rebuild: python3 work/align.py en && python3 work/gen.py && bash work/mix.sh && python3 work/mix_sfx.py,

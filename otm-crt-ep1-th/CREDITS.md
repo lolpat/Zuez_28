@@ -18,7 +18,10 @@ Timing: the script (work/script.txt) carries [key] marks; work/align.py matches 
 transcript of the voice (small, best of three decoding setups) and writes work/words.json and work/marks.json;
 scenes key off K("key").
 Font: Kanit by Cadson Demak, SIL Open Font License 1.1 (assets/fonts; licence in assets/fonts/OFL-Kanit.txt).
-Sound effects: the earshot launch kit (code-made, shipped with earshot), at a low level (work/cues.json).
+Sound effects: the earshot launch kit (code-made, shipped with earshot), soft sounds only (whoosh, swell, bell; no
+pops, ticks or clicks), with short fades, at a low level (work/cues.json).
+Voice mix (work/mix.sh): light de-esser, gentle compressor, one static gain to -16 LUFS, look-ahead limiter at -1 dBFS
+(no dynamic loudness normaliser, which made the level jump).
 Engine: work/otm.py (shared by all ten CRT projects).
 
 Rebuild: python3 work/align.py th && python3 work/gen.py && bash work/mix.sh && python3 work/mix_sfx.py,

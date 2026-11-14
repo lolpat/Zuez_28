@@ -1,4 +1,4 @@
-"""Voice only (work/base.wav from mix.sh, no music), plus soft kit sounds on the drawings (work/cues.json).
+"""Voice only (work/base.wav from mix.sh, no music), plus soft kit sounds (whoosh / swell / bell only) (work/cues.json).
 Each sound is peak-normalised to -6 dBFS, then placed at its cue gain. Writes assets/audio/mix_crt3.wav."""
 import json, os, numpy as np, soundfile as sf
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -9,6 +9,8 @@ for c in json.load(open("work/cues.json")):
     assert s2 == sr, (c, s2)
     if x.shape[1] == 1: x = np.repeat(x, 2, axis=1)
     x = x / (np.abs(x).max() + 1e-9) * 10 ** (-6 / 20) * 10 ** (c["gain"] / 20)
+    fi, fo = min(len(x), int(0.01 * sr)), min(len(x), int(0.04 * sr))     # short fades: no clicks at a sound's edges
+    x[:fi] *= np.linspace(0, 1, fi)[:, None]; x[len(x) - fo:] *= np.linspace(1, 0, fo)[:, None]
     a = int(c["t"] * sr); n = min(len(x), len(out) - a)
     if n > 0: out[a:a + n] += x[:n]
 pk = np.abs(out).max()
