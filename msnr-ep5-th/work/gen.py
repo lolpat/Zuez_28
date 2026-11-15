@@ -11,6 +11,7 @@ LANG = "th"
 EP = 5
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMP = f"msnr-ep{EP}" + ("-th" if LANG == "th" else "")
-TOTAL = init(ROOT, LANG, COMP, f"mix_msnr{EP}" + ("_th" if LANG == "th" else ""))
+# part 6 stops before its spoken outro line: the series continues with the storyline part (7-11), which ends on the outro
+TOTAL = init(ROOT, LANG, COMP, f"mix_msnr{EP}" + ("_th" if LANG == "th" else ""), end_key="order" if EP == 6 else None)
 episode(SPECS[EP])
 write()

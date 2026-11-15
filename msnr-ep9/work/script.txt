@@ -1,0 +1,4 @@
+[hook] At a level, price either rejects, or breaks out. Both need confirmation.
+[rej] A rejection is the market saying: not here. [sig] Look for [g1] long wicks, [g2] engulfing candles, [g3] strong displacement away from the level, [g4] or a lower-timeframe structure shift.
+[brk] A breakout is when price moves decisively through a level it struggled with. [real] It's more likely real when [b1] the candle closes beyond the level, [b2] the level was hit many times before, [b3] and price was squeezed tight before it broke.
+[next] Next: the four timeframes.

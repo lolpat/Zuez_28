@@ -171,7 +171,7 @@ def episode(spec):
     title_block(s, L("BEARISH QM", "คิว เอ็ม ขาลง"), L("THE MIRROR IMAGE", "ภาพกลับด้าน"))
     diagram(s, [(u, 1 - v) for u, v in spec["draw"]["pts"]], o5 + 0.3, 1.6,
             (1 - spec["draw"]["level"][0], spec["draw"]["level"][1], spec["draw"]["level"][2], "QM", o5 + 1.4))
-    o6, c6 = K("save") - 0.1, K("order") - 0.05
+    o6, c6 = K("save") - 0.1, G["TOTAL"]
     s = S(o6, c6)
     series_tag_m(s, n)
     lv = [("CLASSIC V", "คลาสสิก วี"), ("CLASSIC A", "คลาสสิก เอ"), ("SBR", "เอส บี อาร์"), ("RBS", "อาร์ บี เอส"), ("OCL", "โอ ซี แอล"), ("QM", "คิว เอ็ม")]
@@ -181,4 +181,5 @@ def episode(spec):
     sv = s.label(540, 1060, L("SAVE THIS SERIES", "เซฟซีรีส์นี้ไว้"), 56, WHITE, 0, 800, 0.05); s.pop(sv, KW("save", L(3, 1)), 0.4, 0.6)
     hb = s.pill(540, 1180, L("HTF BIAS FIRST", "ยืนยันทิศทางบนไทม์เฟรมใหญ่ก่อน"), GOLD, "#111", 32); s.pop(hb, KW("save", L(7, 2)), 0.4, 0.6)
     cue(o6 + 0.3, "swell_2", -22); cue(KW("save", L(3, 1)), "bell_A4", -20)
-    outro(K("order") - 0.05)
+    nn, en, th = spec["next"]
+    nl = s.label(540, 1290, L(f"NEXT  ·  {en}", f"ตอนต่อไป  ·  {th}"), 30, GREY, 0, 700, 0.16); s.fade(nl, G["VOICE_END"] - 0.4 if G.get("VOICE_END") else KW("save", L(9, 2)) + 1.0)

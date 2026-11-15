@@ -1,0 +1,8 @@
+[hook] A rejection is often followed by a false breakout.
+[trap] Most traders see a level break and rush in. But a wick through a level is not a real breakout.
+[fake] On X2, the first break is often a fake, built to trap traders.
+[first] Remember which candle tapped the key level first. That's where the real breakout has to happen.
+[wait] Wait for it, then let the market decide.
+[sum] So: [m1] don't trade unfresh levels, [m2] don't enter before the rejection, [m3] don't call every wick a breakout, [m4] don't ignore the higher timeframe, [m5] and don't draw too many levels.
+[rule] Find the storyline first, then the setup. No storyline, no trade.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

@@ -1,0 +1,6 @@
+[hook] Before any entry, read the storyline. [q1] Where did price come from? [q2] Where is it now? [q3] And where is it most likely heading?
+[seq] The chart is a sequence of events: [s1] a push, [s2] a pause, [s3] a reaction, [s4] then a continuation, or a reversal.
+[rules] The storyline starts in three steps. [r1] One: price taps a fresh level. [r2] Two: it rejects with a wick, and the candle closes. [r3] Three: one timeframe lower completes a breakout.
+[ex] On the daily chart, price rejected a fresh key level. [ex2] Now we wait for the four-hour breakout.
+[quote] Where one storyline ends, the opposite one begins.
+[next] Next: fresh and unfresh levels.

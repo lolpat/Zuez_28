@@ -1,0 +1,8 @@
+[hook] The storyline plays out across four timeframes.
+[x1] X1: monthly, weekly, or daily. Find the fresh key level, and the rejection.
+[x2] X2: one step lower. Find the breakout, and the key level for entry.
+[x3] X3: refine the level, and build the setup.
+[x4] X4 is optional: a lower timeframe for a tighter entry and stop. It never decides the direction.
+[ex] On gold: the weekly rejected, the daily broke out, the four-hour refined the entry, [ex2] and price ran to the liquidity below.
+[limit] If X1, X2, and X3 line up, you can place a limit order at the X3 level.
+[next] Next: the mistake that traps most traders.

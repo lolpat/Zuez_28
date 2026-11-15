@@ -1,0 +1,32 @@
+# Credits
+
+"MSNR STORYLINE 2/5: Fresh & unfresh": a chart explainer in the OTM glowing style, Instagram Reels only.
+Thai version; the English version is `msnr-ep8` (same scene code, LANG = "en").
+
+The MSNR series (episodes 0-6: the key levels; 7-11: storyline and timeframe alignment) is based on the ideas in
+@x.droi's MSNR KEY guide and Storyline & Timeframe Alignment guide. The scripts, voice, charts and layout are original;
+no pages were copied. This part: Fresh and unfresh: a level is fresh until price touches it; a wick touch makes it unfresh, a body break makes it fresh again, and a level used twice is finished.
+
+Market: XAUUSD (gold) only. Candle colours: up #2962ff (blue), down white; candles are connected (each opens at the
+previous close).
+Charts: synthetic example data (work/story.py). Not real market data and not a forecast.
+Music: none (voice and soft sound effects only).
+Voice: ElevenLabs, "Patinya – Calm Thai Narrator & Explainer" (eleven_v4).
+Timing: work/script.txt carries [key] marks; work/align.py matches the script to a faster-whisper transcript and
+writes work/words.json and work/marks.json.
+Sound effects: the earshot launch kit, soft sounds only (whoosh, swell, bell), low level, short fades.
+Voice mix (work/mix.sh): de-esser, gentle compressor, static gain to -16 LUFS, limiter at -1 dBFS.
+It ends on the next-part card (only part 5/5 of the storyline, msnr-ep11, has the Order the Market outro).
+
+Rebuild: python3 work/align.py th && python3 work/gen.py && bash work/mix.sh && python3 work/mix_sfx.py,
+then npx hyperframes@0.8.214 render
+
+## Instagram captions
+
+1. XAUUSD · ระดับของคุณยังสด หรือถูกใช้ไปแล้ว? 🔍 สตอรี่ไลน์ตอน 2/5
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
+
+2. XAUUSD · ไส้แตะ = ไม่สด เนื้อเทียนเบรก = สดอีกครั้ง ใช้สองครั้ง = จบ 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
+
+Optional credit line for either caption: "Concept: @x.droi's MSNR guide".

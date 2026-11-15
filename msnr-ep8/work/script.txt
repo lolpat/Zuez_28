@@ -1,0 +1,7 @@
+[hook] Every level has a status: fresh, or unfresh.
+[fresh] A level is fresh until price touches it. It keeps its full strength.
+[wick] A wick touch makes it unfresh. It has been used once, and it's weaker.
+[body] A candle body break makes it fresh again. The level starts over.
+[twice] And a level can only be used twice. After that, it's finished.
+[first] Check the status first, before you plan any trade from it.
+[next] Next: rejection and breakout.
