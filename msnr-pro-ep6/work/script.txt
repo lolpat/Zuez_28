@@ -1,0 +1,8 @@
+[hook] Here's the full entry model, step by step.
+[s1] One: price taps a higher timeframe key level.
+[s2] Two: drop exactly two timeframes lower. Daily to one-hour, or four-hour to thirty-minute.
+[s3] Three: wait for a market structure shift, closed by a candle body, not just a wick.
+[s4] Four: mark the levels in that leg, and refine them to one.
+[s5] Five: a limit entry at that level, the stop beyond the wick, the target at the next key level or liquidity.
+[re] And if price shifts again on the way, repeat the steps for a re-entry.
+[next] Next: trendline confirmation.

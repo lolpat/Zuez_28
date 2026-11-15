@@ -1,0 +1,7 @@
+[hook] Price travels from one key level to the next.
+[conf] But a level only counts once a lower timeframe confirms it, with a market structure shift.
+[m] A monthly level needs a shift on the weekly or the daily. [w] A weekly level, on the daily or the four-hour. [d] A daily level, on the four-hour or the one-hour.
+[bias] Once it's confirmed, trade only in that direction, until price reaches the next key level.
+[road] Levels in between are road blocks. They cause pullbacks, but trading against the story is higher risk.
+[ex] On gold: a monthly level held, the daily shifted up, and price ran to the next monthly level.
+[next] Next: the two timeframes lower entry.

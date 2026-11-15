@@ -1,0 +1,14 @@
+  setup 0: matched 98%, marks ok
+  setup 1: matched 98%, marks ok
+  setup 2: matched 98%, marks ok
+139 tokens, 9 marks, matched 98% of script characters; whisper heard:
+ Not  every  classic  A  or  V  is  worth  trading.  Here's  how  to  tell  a  strong  one  from  a  weak  one.  First  rule,  wicks  don't  matter.  The  level  is  the  body  close  of  the  first  candle,  the  one  before  the  turn.  That  way,  a  gap  on  the  second  candle  never  moves  your  level.  A  strong  A.  The  second  candle  closes  below  the  open  of  the  first.  It  swallows  the  whole  body.  Stronger  still.  The  second  candle  sweeps  the  high  of  the  first,  then  closes  back  down.  Liquidity  taken,  sellers  in  control.  For  a  classic  V,  flip  it.  
+  [hook]   0.00  Not
+  [body]   6.74  First
+  [gap]  13.70  That
+  [strong]  17.85  A
+  [sweep]  24.88  Stronger
+  [v]  33.38  For
+  [ex]  41.28  On
+  [ex2]  44.28  while
+  [next]  49.47  Next:

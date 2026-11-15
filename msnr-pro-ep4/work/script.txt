@@ -1,0 +1,7 @@
+[hook] Too many key levels in one move? Refine them down to one.
+[s1] First, set your bias on the higher timeframe.
+[s2] Then, on a lower timeframe, mark every fresh level in the leg.
+[s3] Now step up one timeframe at a time. [del] Any line that isn't a real key level on the higher chart, or is already wicked, gets deleted.
+[s4] Keep stepping up until one level is left. That's your entry, [sl] with the stop just beyond the wick.
+[ex] On gold: six lines on the five-minute, three left on the fifteen, and one on the thirty.
+[next] Next: the storyline road map.

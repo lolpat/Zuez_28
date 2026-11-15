@@ -1,0 +1,7 @@
+[hook] A broken level isn't always dead.
+[clean] If price breaks straight through a level without touching it first, the orders waiting there were never used.
+[flip] The level stays fresh, and it flips. Old support becomes resistance. Old resistance becomes support.
+[touch] But if price tapped the level and reacted, even a little, those orders are used.
+[fail] Come back a second time, and it usually breaks.
+[ex] On gold: a clean break, then a sharp rejection from the flipped level. [ex2] And a level that was tapped once, then broken on the next visit.
+[next] Next: the refinement ladder.

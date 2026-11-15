@@ -1,0 +1,7 @@
+[hook] A trendline is never an entry on its own. It's a confirmation at a key level.
+[t1] Swing one: an engulfing candle. [t2] Swing two: another engulfing candle, and a break of structure.
+[draw] Connect the two swings. [t3] The third touch is the entry.
+[flip] If the line breaks, don't delete it. The retest from the other side is a trade too.
+[body] And when the swings are flat, draw it body to body, not wick to wick.
+[sum] Strong levels. Tight stops. Fresh flips. One refined level. A clear story. A confirmed entry.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

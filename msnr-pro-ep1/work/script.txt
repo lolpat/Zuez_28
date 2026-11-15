@@ -1,0 +1,8 @@
+[hook] Not every Classic A or V is worth trading. Here's how to tell a strong one from a weak one.
+[body] First rule: wicks don't matter. The level is the body close of the first candle, the one before the turn.
+[gap] That way, a gap on the second candle never moves your level.
+[strong] A strong A: the second candle closes below the open of the first. It swallows the whole body.
+[sweep] Stronger still: the second candle sweeps the high of the first, then closes back down. Liquidity taken, sellers in control.
+[v] For a Classic V, flip it: the second candle closes above the open of the first, ideally after sweeping its low.
+[ex] On gold, the strong A held on the retest, [ex2] while the weak one, where the second candle barely closed lower, broke straight through.
+[next] Next: the fifty percent wick.

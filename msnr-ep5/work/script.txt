@@ -1,7 +1,7 @@
 [hook] O.C.L. The open close level.
-[shape] It's the open or close of a significant candle, a daily, session, or news candle, where a major move started.
-[why] Large orders were filled at that exact price, so price often reacts when it comes back.
-[draw] To draw it, find the higher-timeframe candle where the move began, [draw2] and mark its open or close, whichever sits at the origin.
-[ex] Example on gold. [ex1] Price pushes up, [ex2] retraces to the higher-timeframe O.C.L., [ex3] support is confirmed, [ex4] and price takes out the buy-side liquidity.
+[shape] It forms where two candles of the same colour meet: the close of the first candle is the open of the second.
+[why] Price paused there for a moment before the move carried on, so it often reacts when it comes back.
+[draw] To draw it, find two same-colour candles in the move, [draw2] and mark the close of the first one. Ignore the wicks.
+[ex] Example on gold. [ex1] Price pushes up, [ex2] retraces to the O.C.L., [ex3] support is confirmed, [ex4] and price takes out the buy-side liquidity.
 [rule] Push. Retest. Confirmation. Target.
 [next] Next: the Quasimodo.

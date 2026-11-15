@@ -1,0 +1,6 @@
+[hook] A long wick can wreck your risk to reward.
+[problem] If your stop goes beyond the whole wick, it's too wide.
+[rule] So measure the wick, and mark its fifty percent.
+[use] Keep the entry at the level, but put the stop just beyond the midpoint, not beyond the tip.
+[ex] On gold, an A level had a long upper wick. Price came back, tapped the fifty percent, and dropped. [rr] Same entry, same target: about one to two with the full wick, almost one to four from the midpoint.
+[next] Next: the fresh flip.
