@@ -117,7 +117,7 @@ def episode(spec):
     captions(s, [(K(k) - 0.1, L(en, th), col) for k, en, th, col in spec["cap2"]], c2)
 
     # 3  XAUUSD example
-    o3, c3 = K("ex") - 0.1, K("rule") - 0.1
+    o3, c3 = K("ex") - 0.1, (K("mirror") if last else K("rule")) - 0.1
     s = S(o3, c3)
     series_tag_m(s, n)
     hp = s.pill(540, 470, L("XAUUSD  ·  EXAMPLE", "XAUUSD  ·  ตัวอย่าง"), WHITE, "#0b0b0b", 28); s.pop(hp, o3 + 0.2, 0.4, 0.5)
@@ -153,9 +153,16 @@ def episode(spec):
         cue(t, "bell_C5" if col == GOLD else "swell_1", -24)
     captions(s, [(K(k) - 0.1, L(en, th), col) for k, en, th, col in spec["cap3"]], c3)
 
-    # 4  the four-step flow
+    # 4  the four-step flow (episode 6: the bearish mirror comes first, as in the script)
+    if last:
+        o5, c5 = K("mirror") - 0.1, K("rule") - 0.1
+        s = S(o5, c5)
+        series_tag_m(s, n)
+        title_block(s, L("BEARISH QM", "คิว เอ็ม ขาลง"), L("THE MIRROR IMAGE", "ภาพกลับด้าน"))
+        diagram(s, [(u, 1 - v) for u, v in spec["draw"]["pts"]], o5 + 0.3, 1.6,
+                (1 - spec["draw"]["level"][0], spec["draw"]["level"][1], spec["draw"]["level"][2], "QM", o5 + 1.4))
     o4 = K("rule") - 0.1
-    c4 = (K("mirror") if last else K("next")) - 0.1
+    c4 = (K("save") if last else K("next")) - 0.1
     s = S(o4, c4)
     series_tag_m(s, n)
     flow_card(s, spec["flow"], [KW("rule", k) for k in L(*spec["flow_tok"])])
@@ -164,13 +171,7 @@ def episode(spec):
         nn, en, th = spec["next"]
         next_card(s, K("next") - 0.1, G["TOTAL"], nn, en, th)
         return
-    # episode 6: the bearish mirror, the save card, the outro
-    o5, c5 = K("mirror") - 0.1, K("save") - 0.1
-    s = S(o5, c5)
-    series_tag_m(s, n)
-    title_block(s, L("BEARISH QM", "คิว เอ็ม ขาลง"), L("THE MIRROR IMAGE", "ภาพกลับด้าน"))
-    diagram(s, [(u, 1 - v) for u, v in spec["draw"]["pts"]], o5 + 0.3, 1.6,
-            (1 - spec["draw"]["level"][0], spec["draw"]["level"][1], spec["draw"]["level"][2], "QM", o5 + 1.4))
+    # episode 6: the save card (the series continues with the storyline part)
     o6, c6 = K("save") - 0.1, G["TOTAL"]
     s = S(o6, c6)
     series_tag_m(s, n)
