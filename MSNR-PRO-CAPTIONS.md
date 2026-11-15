@@ -1,6 +1,22 @@
-# MSNR PRO (parts 1-7) — Instagram captions
+# MSNR PRO (parts 0-7) — Instagram captions
 
 Each project's CREDITS.md has the full credits; this file only collects the two Instagram captions per video.
+
+## MSNR-PRO-00-EN · MSNR PRO 0/7: Start here
+
+1. XAUUSD · 7 short lessons, 7 skills: strong levels, tight stops, fresh flips, one refined level, a clear story, a confirmed entry 🎯 MSNR PRO, start here.
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
+
+2. XAUUSD · Watch all 7 parts of MSNR PRO and you'll trade key levels with a plan. Save the series and start with part 1 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
+
+## MSNR-PRO-00-TH · MSNR PRO 0/7: Start here
+
+1. XAUUSD · 7 ตอนสั้นๆ 7 ทักษะ: ระดับที่แข็งแรง SL ที่แคบ FRESH FLIP REFINE เส้นเดียว STORYLINE และ ENTRY ที่ยืนยันแล้ว 🎯 MSNR PRO เริ่มที่นี่
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
+
+2. XAUUSD · ดูครบ 7 ตอน MSNR PRO แล้วเทรด KEY LEVEL อย่างมีแผน เซฟซีรีส์ไว้ แล้วเริ่มที่ตอนที่ 1 📌
+   #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
 ## MSNR-PRO-01-EN · MSNR PRO 1/7: Strong A & V
 

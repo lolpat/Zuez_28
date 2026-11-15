@@ -443,3 +443,35 @@ def ep7():
         p = s.pill(540, 620 + 110 * k, L(*it), GOLD if k == 5 else WHITE, "#111", 30); s.pop(p, o5 + 0.3 + step * k, 0.35, 0.5)
     cue(o5 + 0.3 + step * 5, "bell_A4", -20)
     outro(K("order") - 0.05)
+
+
+# ======================================================================================================== 0  intro: what you'll learn
+def ep0():
+    o1, c1 = 0, K("l1") - 0.1
+    s = S(o1, c1, first=True)
+    s.label(540, 300, L("MSNR PRO  ·  START HERE", "MSNR PRO  ·  เริ่มที่นี่"), 26, GOLD, 1, 700, 0.2)
+    title_block(s, "MSNR PRO", L("WHAT YOU'LL LEARN IN 7 PARTS", "ดูจบ 7 ตอน คุณจะได้อะไร"))
+    for k in range(7):
+        x = 540 + (k - 3) * 120
+        p = s.pill(x, 820, str(k + 1), GOLD if k == 6 else WHITE, "#111", 40); s.pop(p, 0.5 + 0.18 * k, 0.35, 0.5)
+    ln = hl(s, 180, 900, 820, GREY, 3, "8 8"); s.fade(ln, 0.4, 0.4, to=0.6)
+    captions(s, [(0.1, L("7 SHORT LESSONS", "7 ตอนสั้นๆ"), WHITE)], c1)
+
+    o2, c2 = K("l1") - 0.1, K("go") - 0.1
+    s = S(o2, c2)
+    s.label(540, 300, L("MSNR PRO  ·  START HERE", "MSNR PRO  ·  เริ่มที่นี่"), 26, GOLD, 1, 700, 0.2)
+    s.label(540, 410, L("BY THE END, YOU CAN", "ดูจบแล้ว คุณจะ"), 40, WHITE, 1, 800, 0.04)
+    items = [("SPOT A STRONG A & V", "แยก STRONG / WEAK A & V", WHITE), ("CUT THE SL WITH THE 50% WICK", "ลด SL ด้วย 50% WICK", WHITE),
+             ("KNOW WHEN A BREAK IS STILL FRESH", "รู้ว่าเบรกแล้วยัง FRESH ไหม", WHITE), ("REFINE THE CHART TO ONE LEVEL", "REFINE กราฟเหลือระดับเดียว", WHITE),
+             ("READ THE STORYLINE ROAD MAP", "อ่าน STORYLINE จาก KL สู่ KL", WHITE), ("ENTER 2 TIMEFRAMES LOWER", "เข้าออเดอร์ ลง 2 TIMEFRAME", WHITE),
+             ("CONFIRM WITH A TRENDLINE", "ยืนยันด้วย TRENDLINE", GOLD)]
+    rows(s, items, [K(f"l{k}") for k in range(1, 8)], y0=520, dy=112, size=30)
+    for k in range(7):
+        ck = check(s, 975, 520 + 112 * k, 16, GREEN, 5); s.draw(ck, K(f"l{k + 1}") + 0.5, 0.3)
+
+    o3, c3 = K("go") - 0.1, G["TOTAL"]
+    s = S(o3, c3)
+    a = s.label(540, 700, L("SAVE THE SERIES", "เซฟซีรีส์นี้ไว้"), 64, WHITE, 0, 800, 0.04); s.pop(a, o3 + 0.2, 0.4, 0.6)
+    nx_ = s.label(540, 840, L(f"NEXT  ·  1/{TOT}", f"ตอนต่อไป  ·  1/{TOT}"), 30, GREY, 0, 700, 0.2); s.fade(nx_, FW("go", "start", "เริ่ม", 1.2), 0.4)
+    b = s.label(540, 960, "STRONG A & V", 80, GOLD, 0, 800, 0.04); s.pop(b, FW("go", "start", "เริ่ม", 1.2) + 0.3, 0.4, 0.6)
+    cue(o3 + 0.2, "swell_2", -22); cue(FW("go", "start", "เริ่ม", 1.2) + 0.3, "whoosh-long_1", -22)
