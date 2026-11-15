@@ -1,1 +1,22 @@
   setup 0: matched 100%, marks ok
+  setup 1: matched 98%, marks broken
+  setup 2: matched 98%, marks broken
+100 tokens, 17 marks, matched 100% of script characters; whisper heard:
+ Before  any  entry,  read  the  storyline.  Where  did  Price  come  from?  Where  is  it  now?  And  where  is  it  most  likely  heading?  The  chart  is  a  sequence  of  events,  a  push,  a  pause,  a  reaction,  then  a  continuation  or  a  reversal.  The  storyline  starts  in  three  steps.  One,  Price  taps  a  fresh  level.  Two,  it  rejects  with  a  wick  and  the  candle  closes.  Three,  one  time  frame  lower  completes  a  breakout.  On  the  daily  chart,  Price  rejected  a  fresh  key  level.  Now  we  wait  for  the  four -hour  breakout.  Where  one  storyline  ends, 
+  [hook]   0.00  Before
+  [q1]   3.27  Where
+  [q2]   4.95  Where
+  [q3]   6.24  And
+  [seq]   8.83  The
+  [s1]  11.21  a
+  [s2]  12.12  a
+  [s3]  13.05  a
+  [s4]  14.01  then
+  [rules]  16.95  The
+  [r1]  19.97  One:
+  [r2]  22.95  Two:
+  [r3]  26.29  Three:
+  [ex]  30.93  On
+  [ex2]  34.75  Now
+  [quote]  37.46  Where
+  [next]  41.40  Next:
