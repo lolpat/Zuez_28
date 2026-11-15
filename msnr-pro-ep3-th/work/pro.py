@@ -298,7 +298,7 @@ def ep5():
     up = arrow(s, nx(0.7), ny(0.5), nx(0.82), ny(0.75), GREEN, 5, 18); show_arrow(s, up, o3 + 1.6, 0.4)
     dn = arrow(s, nx(0.5), ny(0.58), nx(0.6), ny(0.36), RED, 5, 18); show_arrow(s, dn, K("road") + 1.0, 0.4)
     xm = xmark(s, nx(0.56), ny(0.42), 16, RED, 5); s.draw(xm, K("road") + 1.5, 0.3)
-    rk = s.label(nx(0.62), ny(0.3), L("COUNTER-TREND = HIGHER RISK", "สวนเทรนด์ = เสี่ยงกว่า"), 24, RED, 0, 800, 0.06, "start"); s.fade(rk, K("road") + 1.6)
+    rk = s.label(540, ny(0.24), L("COUNTER-TREND = HIGHER RISK", "สวนเทรนด์ = เสี่ยงกว่า"), 26, RED, 0, 800, 0.06); s.fade(rk, K("road") + 1.6)
     cue(K("road"), "whoosh-short_2", -24)
     captions(s, [(o3 + 0.1, L("ONLY THAT DIRECTION, TO THE NEXT LEVEL", "ทิศเดียว จนถึงระดับถัดไป"), GREEN), (K("road") - 0.1, L("ROAD BLOCKS CAUSE PULLBACKS", "ROAD BLOCK ทำให้ราคาย่อ"), GREY)], c3)
 
@@ -429,7 +429,7 @@ def ep7():
     wx = xmark(s, 940, 1150, 14, RED, 5); s.draw(wx, o4 + 1.3, 0.3)
     wt = s.label(200, 1200, L("WICK TO WICK", "WICK ถึง WICK"), 24, GREY, 0, 800, 0.06, "start"); s.fade(wt, o4 + 1.2)
     bl = s.path("M 200 968 L 900 968", GOLD, 5); s.draw(bl, FW("body", "body", "เนื้อเทียน", 1.0) + 0.3, 0.6)
-    bt = s.label(900, 948, "BODY TO BODY", 26, GOLD, 0, 800, 0.06, "end"); s.fade(bt, FW("body", "body", "เนื้อเทียน", 1.0) + 0.6)
+    bt = s.label(540, 1060, "BODY TO BODY", 30, GOLD, 0, 800, 0.08); s.fade(bt, FW("body", "body", "เนื้อเทียน", 1.0) + 0.6)
     captions(s, [(o4 + 0.1, L("LINE THROUGH THE BODIES", "ลากผ่านเนื้อเทียน"), GOLD)], c4)
 
     o5, c5 = K("sum") - 0.1, K("order") - 0.05
