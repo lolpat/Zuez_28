@@ -1,1 +1,12 @@
   setup 0: matched 100%, marks ok
+  setup 1: matched 100%, marks ok
+  setup 2: matched 100%, marks ok
+110 tokens, 7 marks, matched 100% of script characters; whisper heard:
+ Every  trade  has  two  parts,  the  confirmation  and  the  entry.  Keep  them  separate  and  every  setup  is  easy  to  journal  and  to  back  test.  Confirmation  is  proof  that  the  expected  move  has  started.  There  are  three  types.  One,  the  gap  break.  Price  breaks  through  the  gap  at  the  level  and  closes  beyond  it,  showing  the  level  was  respected.  Two,  the  market  structure  shift.  Price  breaks  the  last  swing  and  the  direction  changes.  Three,  the  trend  line  break.  A  candle  closes  beyond  the  trend  line  and  the  old  momentum  is  ov
+  [hook]   0.00  Every
+  [conf]   9.20  Confirmation
+  [gap]  14.25  One:
+  [mss]  21.66  Two:
+  [tl]  27.87  Three:
+  [rule]  34.63  But
+  [next]  40.49  Next:
