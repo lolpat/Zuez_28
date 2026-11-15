@@ -46,7 +46,7 @@ SPECS = {
                  lines=[(14, 3, 45, "SSL", "SSL", RED, "ex", True), (69, 24, 31, "INDUCEMENT", "จุดล่อ", WHITE, "ex", True)],
                  start=23, reveal=[("ex1", 29), ("ex2", 30), ("ex3", 34), ("ex4", 42)],
                  steps=[("ex1", 29, 76.5, 29, 87, "SWEEP IDM", "กวาดจุดล่อ", RED), ("ex2", 30, 75, 18, 82, "TAP THE LEVEL", "แตะระดับ", GOLD),
-                        ("ex3", None, None, 36, 62, "SHIFT", "เปลี่ยนโครงสร้าง", WHITE), ("ex4", 42, 10, 33, 5, "TARGET SSL", "เป้า SSL", RED)]),
+                        ("ex3", None, None, 38, 56, "SHIFT", "เปลี่ยนโครงสร้าง", WHITE), ("ex4", 42, 10, 33, 5, "TARGET SSL", "เป้า SSL", RED)]),
     cap3=[("ex", "EXAMPLE ON GOLD", "ตัวอย่างบนทองคำ", WHITE), ("ex1", "TAKE THE INDUCEMENT", "กวาดจุดล่อ", RED), ("ex2", "TAP THE CLASSIC A", "แตะคลาสสิก เอ", GOLD),
           ("ex3", "SHIFT DOWN", "เปลี่ยนโครงสร้างลง", WHITE), ("ex4", "RUN TO THE SSL", "วิ่งไปเก็บ SSL", RED)],
     flow=[("SWEEP", "กวาด", RED), ("KEY LEVEL", "ระดับสำคัญ", GOLD), ("REVERSAL", "กลับตัว", WHITE), ("TARGET", "เป้าหมาย", RED)], flow_tok=([0, 1, 3, 4], [0, 1, 2, 3]),
