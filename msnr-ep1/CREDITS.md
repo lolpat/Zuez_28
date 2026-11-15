@@ -5,11 +5,12 @@ English version; the Thai version is `msnr-ep1-th` (same scene code, LANG = "th"
 
 The MSNR series (episodes 0-6: the key levels; 7-11: storyline and timeframe alignment; 12-15: confirmation and entry)
 is based on the ideas in @x.droi's MSNR KEY, Storyline & Timeframe Alignment and Confirmation Entry Model guides. The scripts, voice, charts and layout are original;
-no pages were copied. This part: Classic V: a support level; price drops, sweeps the liquidity below and snaps back up in a V. The key level is the close of the last bearish candle and the open of the first bullish candle.
+no pages were copied. This part: Classic V: a support level; price drops, sweeps the liquidity below and snaps back up in a V. The level is drawn on the line chart at the bottom of the V; the stop loss goes below the wick on the candlestick chart.
 
 Market: XAUUSD (gold) only. Candle colours: up #2962ff (blue), down white; candles are connected (each opens at the
 previous close).
 Charts: synthetic example data (work/msnr.py + work/specs.py). Not real market data and not a forecast.
+Thai versions keep the trading term names (CLASSIC V, SBR, FRESH, BREAKOUT, LIQUIDITY ...) in English on screen.
 Music: none (voice and soft sound effects only).
 Voice: ElevenLabs, "Quentin - Narrator and Educator" (eleven_v4).
 Timing: work/script.txt carries [key] marks; work/align.py matches the script to a faster-whisper transcript and

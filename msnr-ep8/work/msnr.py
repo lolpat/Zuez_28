@@ -15,10 +15,21 @@ SERIES_N = 6
 
 
 def series_tag_m(s, n):
-    return s.label(540, 300, L(f"MSNR KEY LEVELS  ·  {n}/6", f"ระดับสำคัญ MSNR  ·  {n}/6"), 26, GOLD, 1, 700, 0.2)
+    return s.label(540, 300, L(f"MSNR KEY LEVELS  ·  {n}/6", f"MSNR KEY LEVELS  ·  {n}/6"), 26, GOLD, 1, 700, 0.2)
 
 
 def KW(key, n): return W(G["marks"][key] + n)
+
+
+def FWm(key, en, th, off=0.0, span=40):
+    """time of the first word at/after mark `key` containing `en` / `th`; falls back to K(key)+off"""
+    sub = (th if TH() else en).lower(); ws = G["words"]; i0 = G["marks"][key]
+    for i in range(i0, min(len(ws), i0 + span)):
+        acc = ""
+        for j in range(i, min(len(ws), i + 6)):
+            acc += ws[j]["text"].strip().lower()
+            if sub in acc: return W(i)
+    return K(key, off)
 
 
 def title_block(s, title, sub, op=1, t=None):
@@ -91,7 +102,37 @@ def episode(spec):
     series_tag_m(s, n)
     hd = s.pill(540, 470, L("HOW TO DRAW", "วิธีวาด"), WHITE, "#0b0b0b", 30); s.pop(hd, o2 + 0.2, 0.4, 0.5)
     dr = spec["draw"]
-    if dr["kind"] == "candles":
+    if dr["kind"] == "line":
+        # Classic V / A: mark the turn on the LINE chart (closes), then switch back to candles for the stop
+        ch = chart_panel(s, dr["candles"], len(dr["candles"]) + 1, top=700, bot=1170, x0=170, x1=880)
+        up = dr["side"] == "below"
+        t_line, t_mark = K("draw") + 0.2, FWm("draw", dr["word"][0], dr["word"][1], 1.6)
+        t_cnd, t_sl = K("draw2") - 0.05, FWm("draw2", dr["slword"][0], dr["slword"][1], 1.6)
+        # chart-mode switch: LINE CHART -> CANDLES
+        for k, (en, th) in enumerate((("LINE CHART", "LINE CHART"), ("CANDLES", "CANDLES"))):
+            x = 400 + 280 * k
+            s.pill(x, 590, L(en, th), "#2a2a2a", GREY, 24, 1, False)
+            on = s.pill(x, 590, L(en, th), GOLD, "#111", 24, 0)
+            s.fade(on, t_line if k == 0 else t_cnd, 0.25)
+            if k == 0: out(on, t_cnd, 0.25)
+        cg = s.raw('<g id="@ID@" style="opacity:0">' + ch.candles() + "</g>", "cg"); s.fade(cg, t_cnd, 0.45)
+        d = "M " + " L ".join(f"{ch.x(i):.1f} {ch.y(c[3]):.1f}" for i, c in enumerate(ch.c))
+        ln_ = s.path(d, WHITE, 6, style="filter:drop-shadow(0 0 10px rgba(255,255,255,0.35))"); s.draw(ln_, t_line, 1.1, "power1.inOut")
+        out(ln_, t_cnd + 0.1, 0.4, 0.22)
+        i = dr["lvl"]; p = ch.c[i][3]
+        r = ring(s, ch.x(i), ch.y(p), 18, GOLD); s.pop(r, t_mark, 0.35, 0.3); cue(t_mark, "bell_E5", -24)
+        lv = s.raw(f'<line id="@ID@" x1="{ch.x(i):.1f}" y1="{ch.y(p):.1f}" x2="{ch.x(i):.1f}" y2="{ch.y(p):.1f}" stroke="{GOLD}" stroke-width="5"/>', "lv")
+        tl(f'tl.to("#{lv}", {{attr: {{x2: 990}}, duration: 0.8, ease: "power2.out"}}, {t_mark + 0.2:.3f});')
+        lb = s.label(990, ch.y(p) + (44 if up else -16), L(*dr["label"]), 32, GOLD, 0, 800, 0.08, "end"); s.fade(lb, t_mark + 0.6)
+        # the stop: past the wick of the turning candle
+        w = ch.c[i][2] if up else ch.c[i][1]
+        sl = w - 2.5 if up else w + 2.5
+        rw = ring(s, ch.x(i), ch.y(w), 16, RED); s.pop(rw, t_sl, 0.35, 0.3)
+        sll = s.raw(f'<line id="@ID@" x1="{ch.x(i) - 40:.1f}" y1="{ch.y(sl):.1f}" x2="990" y2="{ch.y(sl):.1f}" stroke="{RED}" stroke-width="4" stroke-dasharray="12 8" style="opacity:0"/>', "sl")
+        s.fade(sll, t_sl + 0.15, 0.35)
+        slt = s.pill(930, ch.y(sl) + (34 if up else -34), "SL", RED, WHITE, 24); s.pop(slt, t_sl + 0.3, 0.35, 0.5)
+        cue(t_sl, "swell_1", -24)
+    elif dr["kind"] == "candles":
         ch = chart_panel(s, dr["candles"], len(dr["candles"]) + dr.get("pad", 1), x0=dr.get("x0", 200), x1=dr.get("x1", 900))
         s.raw('<g id="@ID@">' + ch.candles() + "</g>", "cg")
         for (i, p, key, en, th, side) in dr["marks"]:
@@ -126,6 +167,10 @@ def episode(spec):
     for i, v in ex.get("override", {}).items(): C[i] = v
     ch = Chart(C, len(C) + 3, 90, 1000, 620, 1230, 0, 100, 0.64)
     N = len(C)
+    if ex.get("sl"):
+        sp, si0, skey = ex["sl"]
+        sll = hline(s, ch, sp, si0, N + 2, RED, 3, "10 7", 0); s.fade(sll, K(skey) + 0.9, 0.4)
+        slt = s.label(ch.x(N + 2), ch.y(sp) + (30 if ex.get("level_below") else -12), "SL", 24, RED, 0, 800, 0.08, "end"); s.fade(slt, K(skey) + 1.0)
     # level, liquidity lines and the accumulation box behind the candles
     lp, li0, len_, lth = ex["level"]
     lv = hline(s, ch, lp, li0, N + 2, GOLD, 4, "14 9", 0)
@@ -158,7 +203,7 @@ def episode(spec):
         o5, c5 = K("mirror") - 0.1, K("rule") - 0.1
         s = S(o5, c5)
         series_tag_m(s, n)
-        title_block(s, L("BEARISH QM", "คิว เอ็ม ขาลง"), L("THE MIRROR IMAGE", "ภาพกลับด้าน"))
+        title_block(s, L("BEARISH QM", "BEARISH QM"), L("THE MIRROR IMAGE", "ภาพกลับด้าน"))
         diagram(s, [(u, 1 - v) for u, v in spec["draw"]["pts"]], o5 + 0.3, 1.6,
                 (1 - spec["draw"]["level"][0], spec["draw"]["level"][1], spec["draw"]["level"][2], "QM", o5 + 1.4))
     o4 = K("rule") - 0.1
@@ -175,12 +220,12 @@ def episode(spec):
     o6, c6 = K("save") - 0.1, G["TOTAL"]
     s = S(o6, c6)
     series_tag_m(s, n)
-    lv = [("CLASSIC V", "คลาสสิก วี"), ("CLASSIC A", "คลาสสิก เอ"), ("SBR", "เอส บี อาร์"), ("RBS", "อาร์ บี เอส"), ("OCL", "โอ ซี แอล"), ("QM", "คิว เอ็ม")]
+    lv = [("CLASSIC V", "CLASSIC V"), ("CLASSIC A", "CLASSIC A"), ("SBR", "SBR"), ("RBS", "RBS"), ("OCL", "OCL"), ("QM", "QM")]
     for k, (en, th) in enumerate(lv):
         x = 300 if k % 2 == 0 else 780; yy = 640 + 120 * (k // 2)
         p = s.pill(x, yy, L(en, th), GOLD if k % 2 else WHITE, "#111", 30); s.pop(p, o6 + 0.3 + 0.12 * k, 0.35, 0.5)
     sv = s.label(540, 1060, L("SAVE THIS SERIES", "เซฟซีรีส์นี้ไว้"), 56, WHITE, 0, 800, 0.05); s.pop(sv, KW("save", L(3, 1)), 0.4, 0.6)
-    hb = s.pill(540, 1180, L("HTF BIAS FIRST", "ยืนยันทิศทางบนไทม์เฟรมใหญ่ก่อน"), GOLD, "#111", 32); s.pop(hb, KW("save", L(7, 2)), 0.4, 0.6)
+    hb = s.pill(540, 1180, L("HTF BIAS FIRST", "ยืนยัน BIAS บน HTF ก่อน"), GOLD, "#111", 32); s.pop(hb, KW("save", L(7, 2)), 0.4, 0.6)
     cue(o6 + 0.3, "swell_2", -22); cue(KW("save", L(3, 1)), "bell_A4", -20)
     nn, en, th = spec["next"]
     nl = s.label(540, 1290, L(f"NEXT  ·  {en}", f"ตอนต่อไป  ·  {th}"), 30, GREY, 0, 700, 0.16); s.fade(nl, G["VOICE_END"] - 0.4 if G.get("VOICE_END") else KW("save", L(9, 2)) + 1.0)

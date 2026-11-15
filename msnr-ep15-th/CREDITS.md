@@ -10,6 +10,7 @@ no pages were copied. This part: Multi fresh: with more than one fresh level, wa
 Market: XAUUSD (gold) only. Candle colours: up #2962ff (blue), down white; candles are connected (each opens at the
 previous close).
 Charts: synthetic example data (work/story.py). Not real market data and not a forecast.
+Thai versions keep the trading term names (CLASSIC V, SBR, FRESH, BREAKOUT, LIQUIDITY ...) in English on screen.
 Music: none (voice and soft sound effects only).
 Voice: ElevenLabs, "Patinya – Calm Thai Narrator & Explainer" (eleven_v4).
 Timing: work/script.txt carries [key] marks; work/align.py matches the script to a faster-whisper transcript and
