@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="th" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-thai-600-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-thai-700-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="msnr-ep8-th" data-start="0" data-duration="30.67" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust"><circle id="d0" cx="350" cy="290" r="2.5" fill="#fff" opacity="0.06"/><circle id="d1" cx="63" cy="974" r="1.3" fill="#fff" opacity="0.12"/><circle id="d2" cx="458" cy="1588" r="1.4" fill="#fff" opacity="0.09"/><circle id="d3" cx="623" cy="762" r="3.2" fill="#fff" opacity="0.06"/><circle id="d4" cx="156" cy="226" r="1.8" fill="#fff" opacity="0.19"/><circle id="d5" cx="690" cy="715" r="2.3" fill="#fff" opacity="0.06"/><circle id="d6" cx="735" cy="821" r="1.8" fill="#fff" opacity="0.15"/><circle id="d7" cx="858" cy="1342" r="1.7" fill="#fff" opacity="0.15"/><circle id="d8" cx="788" cy="553" r="3.2" fill="#fff" opacity="0.07"/><circle id="d9" cx="164" cy="939" r="1.3" fill="#fff" opacity="0.16"/><circle id="d10" cx="946" cy="602" r="2.6" fill="#fff" opacity="0.15"/><circle id="d11" cx="907" cy="1814" r="2.1" fill="#fff" opacity="0.16"/><circle id="d12" cx="699" cy="1907" r="2.8" fill="#fff" opacity="0.10"/><circle id="d13" cx="24" cy="886" r="1.5" fill="#fff" opacity="0.07"/><circle id="d14" cx="140" cy="475" r="2.0" fill="#fff" opacity="0.20"/><circle id="d15" cx="593" cy="1696" r="2.8" fill="#fff" opacity="0.20"/><circle id="d16" cx="387" cy="1698" r="3.1" fill="#fff" opacity="0.08"/><circle id="d17" cx="252" cy="931" r="2.4" fill="#fff" opacity="0.09"/><circle id="d18" cx="399" cy="1087" r="3.1" fill="#fff" opacity="0.17"/><circle id="d19" cx="730" cy="104" r="3.0" fill="#fff" opacity="0.18"/><circle id="d20" cx="424" cy="766" r="1.4" fill="#fff" opacity="0.16"/><circle id="d21" cx="225" cy="312" r="1.9" fill="#fff" opacity="0.06"/><circle id="d22" cx="110" cy="698" r="1.3" fill="#fff" opacity="0.20"/><circle id="d23" cx="272" cy="667" r="1.9" fill="#fff" opacity="0.07"/><circle id="d24" cx="503" cy="929" r="1.4" fill="#fff" opacity="0.07"/><circle id="d25" cx="895" cy="310" r="1.2" fill="#fff" opacity="0.21"/><circle id="d26" cx="587" cy="52" r="2.3" fill="#fff" opacity="0.22"/><circle id="d27" cx="282" cy="704" r="1.5" fill="#fff" opacity="0.18"/><circle id="d28" cx="356" cy="428" r="2.8" fill="#fff" opacity="0.22"/><circle id="d29" cx="884" cy="1421" r="1.7" fill="#fff" opacity="0.14"/><circle id="d30" cx="30" cy="536" r="1.7" fill="#fff" opacity="0.17"/><circle id="d31" cx="1012" cy="1897" r="3.1" fill="#fff" opacity="0.11"/><circle id="d32" cx="212" cy="392" r="2.4" fill="#fff" opacity="0.20"/><circle id="d33" cx="705" cy="1535" r="1.4" fill="#fff" opacity="0.16"/><circle id="d34" cx="810" cy="918" r="1.6" fill="#fff" opacity="0.18"/><circle id="d35" cx="1049" cy="760" r="2.0" fill="#fff" opacity="0.21"/><circle id="d36" cx="137" cy="290" r="3.0" fill="#fff" opacity="0.19"/><circle id="d37" cx="1059" cy="1262" r="1.9" fill="#fff" opacity="0.14"/><circle id="d38" cx="1049" cy="1247" r="2.3" fill="#fff" opacity="0.21"/><circle id="d39" cx="892" cy="405" r="1.7" fill="#fff" opacity="0.10"/></g>
+<g id="sc1" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t2" x="540" y="300" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="29" letter-spacing="0em" fill="#e8c26a" style="opacity:1">MSNR สตอรี่ไลน์  ·  2/5</text><text id="t3" x="540" y="450" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="92" letter-spacing="0em" fill="#ffffff" style="opacity:1">สด และ ไม่สด</text><text id="t4" x="540" y="530" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="37" letter-spacing="0em" fill="#e8c26a" style="opacity:1">ทุกระดับมีสถานะ</text><g id="pl5" style="opacity:1"><rect x="202" y="769" width="96" height="62" rx="31.0" fill="#3ddc97" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="250" y="812" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="37" letter-spacing="0em" fill="#111">สด</text></g><g id="pl6" style="opacity:1"><rect x="470" y="769" width="141" height="62" rx="31.0" fill="#ff4d5e" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="540" y="812" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="37" letter-spacing="0em" fill="#ffffff">ไม่สด</text></g><g id="pl7" style="opacity:1"><rect x="748" y="769" width="163" height="62" rx="31.0" fill="#7d838c" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="830" y="812" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="37" letter-spacing="0em" fill="#111">จบแล้ว</text></g><text id="t8" x="540" y="1352" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0em" fill="#ffffff" style="opacity:0">สด หรือ ไม่สด?</text></g>
+<g id="sc9" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t10" x="540" y="300" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="29" letter-spacing="0em" fill="#e8c26a" style="opacity:1">MSNR สตอรี่ไลน์  ·  2/5</text><rect id="pn11" x="60" y="450" width="460" height="400" rx="20" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" style="opacity:0"/><g id="mc12" style="opacity:0"><g ><line x1="111.4" y1="588.9" x2="111.4" y2="677.8" stroke="#2962ff" stroke-width="2"/><rect x="98.1" y="593.3" width="26.6" height="80.0" fill="#2962ff"/></g><g ><line x1="154.3" y1="584.4" x2="154.3" y2="651.1" stroke="#ffffff" stroke-width="2"/><rect x="141.0" y="593.3" width="26.6" height="53.3" fill="#ffffff"/></g><g ><line x1="197.1" y1="642.2" x2="197.1" y2="673.3" stroke="#ffffff" stroke-width="2"/><rect x="183.9" y="646.7" width="26.6" height="22.2" fill="#ffffff"/></g><g ><line x1="240.0" y1="664.4" x2="240.0" y2="695.6" stroke="#ffffff" stroke-width="2"/><rect x="226.7" y="668.9" width="26.6" height="22.2" fill="#ffffff"/></g><g ><line x1="282.9" y1="682.2" x2="282.9" y2="706.7" stroke="#ffffff" stroke-width="2"/><rect x="269.6" y="691.1" width="26.6" height="8.9" fill="#ffffff"/></g><g ><line x1="325.7" y1="695.6" x2="325.7" y2="717.8" stroke="#ffffff" stroke-width="2"/><rect x="312.4" y="700.0" width="26.6" height="13.3" fill="#ffffff"/></g></g><line id="ln13" x1="101.4" y1="593.3" x2="500" y2="593.3" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><g id="pl14" style="opacity:0"><rect x="248" y="464" width="83" height="52" rx="26.0" fill="#3ddc97" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="290.0" y="499" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="26" letter-spacing="0em" fill="#111">สด</text></g><text id="t15" x="290.0" y="828" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="23" letter-spacing="0em" fill="#c9ced6" style="opacity:0">แรงเต็มที่</text><rect id="pn16" x="560" y="450" width="460" height="400" rx="20" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" style="opacity:0"/><g id="mc17" style="opacity:0"><g ><line x1="611.4" y1="588.9" x2="611.4" y2="677.8" stroke="#2962ff" stroke-width="2"/><rect x="598.1" y="593.3" width="26.6" height="80.0" fill="#2962ff"/></g><g ><line x1="654.3" y1="584.4" x2="654.3" y2="651.1" stroke="#ffffff" stroke-width="2"/><rect x="641.0" y="593.3" width="26.6" height="53.3" fill="#ffffff"/></g><g ><line x1="697.1" y1="642.2" x2="697.1" y2="673.3" stroke="#ffffff" stroke-width="2"/><rect x="683.9" y="646.7" width="26.6" height="22.2" fill="#ffffff"/></g><g ><line x1="740.0" y1="628.9" x2="740.0" y2="673.3" stroke="#2962ff" stroke-width="2"/><rect x="726.7" y="633.3" width="26.6" height="35.6" fill="#2962ff"/></g><g ><line x1="782.9" y1="590.0" x2="782.9" y2="637.8" stroke="#2962ff" stroke-width="2"/><rect x="769.6" y="628.9" width="26.6" height="4.4" fill="#2962ff"/></g><g ><line x1="825.7" y1="624.4" x2="825.7" y2="673.3" stroke="#ffffff" stroke-width="2"/><rect x="812.4" y="628.9" width="26.6" height="40.0" fill="#ffffff"/></g></g><line id="ln18" x1="601.4" y1="593.3" x2="1000" y2="593.3" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><circle id="d19" cx="782.9" cy="590.0" r="11" fill="#ff4d5e" style="opacity:0"/><g id="pl20" style="opacity:0"><rect x="733" y="464" width="114" height="52" rx="26.0" fill="#ff4d5e" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="790.0" y="499" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="26" letter-spacing="0em" fill="#ffffff">ไม่สด</text></g><text id="t21" x="790.0" y="828" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="23" letter-spacing="0em" fill="#c9ced6" style="opacity:0">ไส้แตะ: ใช้ไปหนึ่งครั้ง</text><rect id="pn22" x="60" y="900" width="460" height="400" rx="20" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" style="opacity:0"/><g id="mc23" style="opacity:0"><g ><line x1="111.4" y1="1038.9" x2="111.4" y2="1127.8" stroke="#2962ff" stroke-width="2"/><rect x="98.1" y="1043.3" width="26.6" height="80.0" fill="#2962ff"/></g><g ><line x1="154.3" y1="1034.4" x2="154.3" y2="1101.1" stroke="#ffffff" stroke-width="2"/><rect x="141.0" y="1043.3" width="26.6" height="53.3" fill="#ffffff"/></g><g ><line x1="197.1" y1="1092.2" x2="197.1" y2="1123.3" stroke="#ffffff" stroke-width="2"/><rect x="183.9" y="1096.7" width="26.6" height="22.2" fill="#ffffff"/></g><g ><line x1="240.0" y1="1078.9" x2="240.0" y2="1123.3" stroke="#2962ff" stroke-width="2"/><rect x="226.7" y="1083.3" width="26.6" height="35.6" fill="#2962ff"/></g><g ><line x1="282.9" y1="1012.2" x2="282.9" y2="1087.8" stroke="#2962ff" stroke-width="2"/><rect x="269.6" y="1016.7" width="26.6" height="66.7" fill="#2962ff"/></g><g ><line x1="325.7" y1="1003.3" x2="325.7" y2="1034.4" stroke="#2962ff" stroke-width="2"/><rect x="312.4" y="1012.2" width="26.6" height="4.4" fill="#2962ff"/></g></g><line id="ln24" x1="101.4" y1="1043.3" x2="500" y2="1043.3" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><g id="pl25" style="opacity:0"><rect x="209" y="914" width="161" height="52" rx="26.0" fill="#3ddc97" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="290.0" y="949" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="26" letter-spacing="0em" fill="#111">กลับมาสด</text></g><text id="t26" x="290.0" y="1278" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="23" letter-spacing="0em" fill="#c9ced6" style="opacity:0">เนื้อเทียนเบรก: เริ่มใหม่</text><rect id="pn27" x="560" y="900" width="460" height="400" rx="20" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" style="opacity:0"/><g id="mc28" style="opacity:0"><g ><line x1="608.8" y1="1038.9" x2="608.8" y2="1127.8" stroke="#2962ff" stroke-width="2"/><rect x="597.1" y="1043.3" width="23.2" height="80.0" fill="#2962ff"/></g><g ><line x1="646.2" y1="1034.4" x2="646.2" y2="1101.1" stroke="#ffffff" stroke-width="2"/><rect x="634.6" y="1043.3" width="23.2" height="53.3" fill="#ffffff"/></g><g ><line x1="683.8" y1="1092.2" x2="683.8" y2="1123.3" stroke="#ffffff" stroke-width="2"/><rect x="672.1" y="1096.7" width="23.2" height="22.2" fill="#ffffff"/></g><g ><line x1="721.2" y1="1039.8" x2="721.2" y2="1123.3" stroke="#2962ff" stroke-width="2"/><rect x="709.6" y="1078.9" width="23.2" height="40.0" fill="#2962ff"/></g><g ><line x1="758.8" y1="1074.4" x2="758.8" y2="1112.2" stroke="#ffffff" stroke-width="2"/><rect x="747.1" y="1078.9" width="23.2" height="22.2" fill="#ffffff"/></g><g ><line x1="796.2" y1="1040.2" x2="796.2" y2="1105.6" stroke="#2962ff" stroke-width="2"/><rect x="784.6" y="1074.4" width="23.2" height="26.7" fill="#2962ff"/></g><g ><line x1="833.8" y1="1070.0" x2="833.8" y2="1150.0" stroke="#ffffff" stroke-width="2"/><rect x="822.1" y="1074.4" width="23.2" height="66.7" fill="#ffffff"/></g></g><line id="ln29" x1="598.8" y1="1043.3" x2="1000" y2="1043.3" stroke="#e8c26a" stroke-width="3" style="opacity:0"/><circle id="d30" cx="721.2" cy="1039.8" r="11" fill="#ff4d5e" style="opacity:0"/><circle id="d31" cx="796.2" cy="1040.2" r="11" fill="#ff4d5e" style="opacity:0"/><g id="pl32" style="opacity:0"><rect x="725" y="914" width="130" height="52" rx="26.0" fill="#7d838c" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="790.0" y="949" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="26" letter-spacing="0em" fill="#111">จบแล้ว</text></g><text id="t33" x="790.0" y="1278" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="23" letter-spacing="0em" fill="#c9ced6" style="opacity:0">ใช้ไปสองครั้ง</text><text id="t34" x="540" y="1395" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#3ddc97" style="opacity:0">สด จนกว่าราคาจะมาแตะ</text><text id="t35" x="540" y="1395" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#ff4d5e" style="opacity:0">ไส้แตะ: ไม่สด</text><text id="t36" x="540" y="1395" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#3ddc97" style="opacity:0">เนื้อเทียนเบรก: สดอีกครั้ง</text><text id="t37" x="540" y="1395" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#7d838c" style="opacity:0">ใช้สองครั้ง: จบ</text></g>
+<g id="sc38" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t39" x="540" y="300" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="29" letter-spacing="0em" fill="#e8c26a" style="opacity:1">MSNR สตอรี่ไลน์  ·  2/5</text><text id="t40" x="540" y="760" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="73" letter-spacing="0em" fill="#ffffff" style="opacity:0">เช็กสถานะ</text><text id="t41" x="540" y="850" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="42" letter-spacing="0em" fill="#e8c26a" style="opacity:0">ก่อนวางแผนเทรด</text></g>
+<g id="sc42" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t43" x="540" y="760" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#7d838c" style="opacity:0">ตอนต่อไป  ·  3/5</text><text id="t44" x="540" y="900" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="79" letter-spacing="0em" fill="#e8c26a" style="opacity:0">ปฏิเสธ และ เบรก</text></g>
+      </svg>
+      <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
+      <audio id="msnr-ep8-th-audio" class="clip" src="assets/audio/mix_msnr8_th.wav" data-start="0" data-duration="30.67" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#sc1", {opacity: 1, visibility: "visible"}, 0);
+        tl.fromTo("#sc1", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 3.500, ease: "none", immediateRender: false}, 0.000);
+        tl.to("#sc1", {opacity: 0, duration: 0.25, ease: "power2.in"}, 3.250);
+        tl.set("#sc1", {opacity: 0, visibility: "hidden"}, 3.500);
+        tl.fromTo("#t8", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 0.100);
+        tl.to("#t8", {opacity: 0, duration: 0.15}, 3.320);
+        tl.set("#sc9", {visibility: "visible"}, 3.500);
+        tl.fromTo("#sc9", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 3.500);
+        tl.fromTo("#sc9", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 18.530, ease: "none", immediateRender: false}, 3.500);
+        tl.to("#sc9", {opacity: 0, duration: 0.25, ease: "power2.in"}, 21.780);
+        tl.set("#sc9", {opacity: 0, visibility: "hidden"}, 22.030);
+        tl.fromTo("#pn11", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.600);
+        tl.fromTo("#mc12", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.700);
+        tl.fromTo("#ln13", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.800);
+        tl.set("#pl14", {opacity: 0}, 3.500);
+        tl.fromTo("#pl14", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 3.900);
+        tl.fromTo("#t15", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 4.100);
+        tl.fromTo("#pn16", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 8.070);
+        tl.fromTo("#mc17", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 8.170);
+        tl.fromTo("#ln18", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 8.270);
+        tl.set("#d19", {opacity: 0}, 3.500);
+        tl.fromTo("#d19", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 8.570);
+        tl.set("#pl20", {opacity: 0}, 3.500);
+        tl.fromTo("#pl20", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 8.370);
+        tl.fromTo("#t21", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 8.570);
+        tl.fromTo("#pn22", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.720);
+        tl.fromTo("#mc23", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.820);
+        tl.fromTo("#ln24", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.920);
+        tl.set("#pl25", {opacity: 0}, 3.500);
+        tl.fromTo("#pl25", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 14.020);
+        tl.fromTo("#t26", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 14.220);
+        tl.fromTo("#pn27", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.250);
+        tl.fromTo("#mc28", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.350);
+        tl.fromTo("#ln29", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.450);
+        tl.set("#d30", {opacity: 0}, 3.500);
+        tl.fromTo("#d30", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 18.750);
+        tl.set("#d31", {opacity: 0}, 3.500);
+        tl.fromTo("#d31", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.300, ease: "back.out(1.8)", immediateRender: false}, 18.750);
+        tl.set("#pl32", {opacity: 0}, 3.500);
+        tl.fromTo("#pl32", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 18.550);
+        tl.fromTo("#t33", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 18.750);
+        tl.to("#ln29", {opacity: 0.25, duration: 0.5}, 19.850);
+        tl.fromTo("#t34", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 3.500);
+        tl.to("#t34", {opacity: 0, duration: 0.15}, 7.790);
+        tl.fromTo("#t35", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 7.970);
+        tl.to("#t35", {opacity: 0, duration: 0.15}, 13.440);
+        tl.fromTo("#t36", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.620);
+        tl.to("#t36", {opacity: 0, duration: 0.15}, 17.970);
+        tl.fromTo("#t37", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.300, ease: "power2.out", immediateRender: false}, 18.150);
+        tl.to("#t37", {opacity: 0, duration: 0.15}, 21.850);
+        tl.set("#sc38", {visibility: "visible"}, 22.030);
+        tl.fromTo("#sc38", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 22.030);
+        tl.fromTo("#sc38", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 3.870, ease: "none", immediateRender: false}, 22.030);
+        tl.to("#sc38", {opacity: 0, duration: 0.25, ease: "power2.in"}, 25.650);
+        tl.set("#sc38", {opacity: 0, visibility: "hidden"}, 25.900);
+        tl.set("#t40", {opacity: 0}, 22.030);
+        tl.fromTo("#t40", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 22.230);
+        tl.fromTo("#t41", {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.400, ease: "power2.out", immediateRender: false}, 22.630);
+        tl.set("#sc42", {visibility: "visible"}, 25.900);
+        tl.fromTo("#sc42", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 25.900);
+        tl.fromTo("#sc42", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 4.770, ease: "none", immediateRender: false}, 25.900);
+        tl.to("#sc42", {opacity: 0, duration: 0.25, ease: "power2.in"}, 30.420);
+        tl.set("#sc42", {opacity: 0, visibility: "hidden"}, 30.670);
+        tl.fromTo("#t43", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 26.000);
+        tl.set("#t44", {opacity: 0}, 25.900);
+        tl.fromTo("#t44", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 26.400);
+        tl.fromTo("#d0", {x: 0, y: 0}, {x: 5, y: -271, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d1", {x: 0, y: 0}, {x: -60, y: -180, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d2", {x: 0, y: 0}, {x: 18, y: -463, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d3", {x: 0, y: 0}, {x: 50, y: -246, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d4", {x: 0, y: 0}, {x: -45, y: -342, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d5", {x: 0, y: 0}, {x: -62, y: -218, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d6", {x: 0, y: 0}, {x: -7, y: -249, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d7", {x: 0, y: 0}, {x: 4, y: -439, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d8", {x: 0, y: 0}, {x: -11, y: -400, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d9", {x: 0, y: 0}, {x: 37, y: -339, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d10", {x: 0, y: 0}, {x: 11, y: -301, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d11", {x: 0, y: 0}, {x: -62, y: -381, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d12", {x: 0, y: 0}, {x: -16, y: -371, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d13", {x: 0, y: 0}, {x: -62, y: -404, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d14", {x: 0, y: 0}, {x: -59, y: -298, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d15", {x: 0, y: 0}, {x: -31, y: -287, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d16", {x: 0, y: 0}, {x: -45, y: -227, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d17", {x: 0, y: 0}, {x: -69, y: -288, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d18", {x: 0, y: 0}, {x: 2, y: -354, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d19", {x: 0, y: 0}, {x: 52, y: -413, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d20", {x: 0, y: 0}, {x: -61, y: -172, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d21", {x: 0, y: 0}, {x: -70, y: -200, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d22", {x: 0, y: 0}, {x: 16, y: -199, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d23", {x: 0, y: 0}, {x: 49, y: -478, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d24", {x: 0, y: 0}, {x: -22, y: -237, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d25", {x: 0, y: 0}, {x: 4, y: -198, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d26", {x: 0, y: 0}, {x: 51, y: -380, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d27", {x: 0, y: 0}, {x: 5, y: -407, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d28", {x: 0, y: 0}, {x: 49, y: -416, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d29", {x: 0, y: 0}, {x: -20, y: -160, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d30", {x: 0, y: 0}, {x: 64, y: -298, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d31", {x: 0, y: 0}, {x: -39, y: -225, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d32", {x: 0, y: 0}, {x: 48, y: -308, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d33", {x: 0, y: 0}, {x: 57, y: -408, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d34", {x: 0, y: 0}, {x: -23, y: -414, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d35", {x: 0, y: 0}, {x: 31, y: -206, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d36", {x: 0, y: 0}, {x: -50, y: -423, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d37", {x: 0, y: 0}, {x: -52, y: -155, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d38", {x: 0, y: 0}, {x: -9, y: -438, duration: 30.67, ease: "none"}, 0);
+        tl.fromTo("#d39", {x: 0, y: 0}, {x: -36, y: -344, duration: 30.67, ease: "none"}, 0);
+        window.__timelines["msnr-ep8-th"] = tl;
+      })();
+    </script>
+  </body>
+</html>
