@@ -26,7 +26,7 @@ SPECS = {
                  lines=[(86, 3, 45, "BSL", "BSL", LBLUE, "ex", False), (31, 24, 38, "LIQUIDITY", "ลิควิดิตี้", RED, "ex", False)],
                  start=23, reveal=[("ex1", 29), ("ex2", 30), ("ex3", 34), ("ex4", 42)],
                  steps=[("ex1", 29, 23.5, 29, 13, "SWEEP", "กวาด", RED), ("ex2", 30, 25, 18, 18, "TAP THE LEVEL", "แตะระดับ", GOLD),
-                        ("ex3", None, None, 36, 40, "REACTION", "ตอบสนอง", WHITE), ("ex4", 42, 90, 33, 95, "TARGET BSL", "เป้า BSL", LBLUE)]),
+                        ("ex3", None, None, 37, 47, "REACTION", "ตอบสนอง", WHITE), ("ex4", 42, 90, 33, 95, "TARGET BSL", "เป้า BSL", LBLUE)]),
     cap3=[("ex", "EXAMPLE ON GOLD", "ตัวอย่างบนทองคำ", WHITE), ("ex1", "SWEEP THE LIQUIDITY", "กวาดลิควิดิตี้", RED), ("ex2", "TAP THE CLASSIC V", "แตะคลาสสิก วี", GOLD),
           ("ex3", "REACTION", "เด้งตอบสนอง", WHITE), ("ex4", "RUN TO THE BSL", "วิ่งไปเก็บ BSL", LBLUE)],
     flow=[("KEY LEVEL", "ระดับสำคัญ", GOLD), ("REACTION", "ตอบสนอง", WHITE), ("TARGET", "เป้าหมาย", LBLUE)], flow_tok=([0, 2, 3], [0, 1, 2]),

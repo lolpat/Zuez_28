@@ -21,13 +21,15 @@ def FW(key, en, th, off=0.0, span=60):
     return K(key, off)
 
 
-def tag(s, n):
+def tag(s, n, part="STORYLINE"):
+    if part == "ENTRY":
+        return s.label(540, 300, L(f"MSNR ENTRY  ·  {n}/4", f"MSNR จุดเข้า  ·  {n}/4"), 26, GOLD, 1, 700, 0.2)
     return s.label(540, 300, L(f"MSNR STORYLINE  ·  {n}/5", f"MSNR สตอรี่ไลน์  ·  {n}/5"), 26, GOLD, 1, 700, 0.2)
 
 
-def next_card(o, c, n, en, th):
+def next_card(o, c, n, en, th, tot=5):
     s = S(o, c)
-    a = s.label(540, 760, L(f"NEXT  ·  {n}/5", f"ตอนต่อไป  ·  {n}/5"), 30, GREY, 0, 700, 0.2); s.fade(a, o + 0.1)
+    a = s.label(540, 760, L(f"NEXT  ·  {n}/{tot}", f"ตอนต่อไป  ·  {n}/{tot}"), 30, GREY, 0, 700, 0.2); s.fade(a, o + 0.1)
     b = s.label(540, 900, L(en, th), 72, GOLD, 0, 800, 0.04); s.pop(b, o + 0.5, 0.4, 0.6)
     cue(o + 0.2, "whoosh-long_1", -22)
 
@@ -358,11 +360,234 @@ def ep11():
              ("CALLING EVERY WICK A BREAKOUT", "เรียกทุกไส้ว่าเบรก", WHITE), ("IGNORING THE HIGHER TIMEFRAME", "มองข้ามไทม์เฟรมใหญ่", WHITE),
              ("DRAWING TOO MANY LEVELS", "วาดเส้นเยอะเกินไป", WHITE)], [K(f"m{k}") for k in range(1, 6)], y0=600, dy=125, mark="x", size=30)
 
-    o4, c4 = K("rule") - 0.1, K("order") - 0.05
+    o4, c4 = K("rule") - 0.1, G["TOTAL"]
     s = S(o4, c4)
     tag(s, 5)
     a = s.label(540, 760, L("FIND THE STORYLINE FIRST", "หาสตอรี่ไลน์ก่อน"), 50, WHITE, 0, 800, 0.03); s.pop(a, o4 + 0.2, 0.4, 0.6)
     b = s.label(540, 840, L("THEN THE SETUP", "แล้วค่อยหาเซ็ตอัพ"), 40, LBL, 0, 800, 0.06); s.fade(b, FW("rule", "then", "แล้ว", 1.2), 0.4, y=10)
     c_ = s.label(540, 980, L("NO STORYLINE, NO TRADE", "ไม่มีสตอรี่ไลน์ ไม่มีเทรด"), 54, GOLD, 0, 800, 0.03); s.pop(c_, FW("rule", "no", "ไม่มี", 2.4), 0.4, 0.6)
     cue(FW("rule", "no", "ไม่มี", 2.4), "bell_A4", -18)
+    nx_ = s.label(540, 1180, L("NEXT  ·  MSNR ENTRY  ·  CONFIRMATION", "ตอนต่อไป  ·  MSNR จุดเข้า  ·  การยืนยัน"), 28, GREY, 0, 700, 0.12)
+    s.fade(nx_, FW("rule", "no", "ไม่มี", 2.4) + 0.8, 0.5)
+
+
+# ================================================================================================ MSNR ENTRY 12-15
+def pos_box(s, x0, x1, y_entry, y_tp, y_sl, t):
+    """a long position: blue target box over a grey stop box"""
+    tp = rbox(s, x0, y_tp, x1, y_entry, UP, 0.28, 0.0, 0); sl = rbox(s, x0, y_entry, x1, y_sl, GREY, 0.35, 0.0, 0)
+    s.fade(tp, t, 0.4); s.fade(sl, t, 0.4)
+    return tp, sl
+
+
+def lvl(s, ch, p, i0, i1, col, text, t, w=3, dash="", above=True, size=22):
+    ln = s.raw(f'<line id="@ID@" x1="{ch.x(i0):.1f}" y1="{ch.y(p):.1f}" x2="{ch.x(i1):.1f}" y2="{ch.y(p):.1f}" stroke="{col}" stroke-width="{w}" '
+               + (f'stroke-dasharray="{dash}" ' if dash else "") + 'style="opacity:0"/>', "lv")
+    s.fade(ln, t, 0.35)
+    tx = s.label(ch.x(i1), ch.y(p) + (-12 if above else 30), text, size, col, 0, 800, 0.06, "end"); s.fade(tx, t + 0.15)
+    return ln, tx
+
+
+# ======================================================================================================== episode 12
+def ep12():
+    o1, c1 = 0, K("conf") - 0.1
+    s = S(o1, c1, first=True)
+    tag(s, 1, "ENTRY")
+    title_block(s, L("CONFIRMATION", "การยืนยัน"), L("+ ENTRY = ONE TRADE", "+ จุดเข้า = หนึ่งเทรด"))
+    a = s.pill(540, 760, L("1  ·  CONFIRMATION", "1  ·  การยืนยัน"), GOLD, "#111", 38); s.pop(a, 0.6, 0.4, 0.5)
+    b = s.pill(540, 880, L("2  ·  ENTRY", "2  ·  จุดเข้า"), WHITE, "#111", 38); s.pop(b, FW("hook", "entry", "จุดเข้า", 2.0), 0.4, 0.5)
+    c = s.label(540, 1040, L("EASY TO JOURNAL  ·  EASY TO BACKTEST", "จดบันทึกง่าย  ·  แบ็กเทสต์ง่าย"), 30, LBL, 0, 700, 0.08)
+    s.fade(c, FW("hook", "journal", "บันทึก", 4.0), 0.4, y=10)
+    captions(s, [(0.1, L("TWO PARTS, KEPT SEPARATE", "สองส่วน แยกกันชัดเจน"), WHITE)], c1)
+
+    o2, c2 = K("conf") - 0.1, K("rule") - 0.1
+    s = S(o2, c2)
+    tag(s, 1, "ENTRY")
+    s.label(540, 470, L("3 TYPES OF CONFIRMATION", "การยืนยัน 3 แบบ"), 46, WHITE, 1, 800, 0.03)
+    X0 = (30, 380, 730); Y0, PW, PH = 560, 320, 540
+    # 1 gap break (bearish, at resistance)
+    t = K("gap")
+    pn = panel(s, X0[0], Y0, PW, PH); s.fade(pn, t, 0.3)
+    G1 = [(40, 48, 38, 46), (46, 56, 44, 54), (54, 63, 52, 61), (61, 71, 59, 69), (69, 73.5, 66, 68), (68, 69, 40, 42), (42, 44, 33, 35)]
+    ch, g = mini(s, G1, X0[0], Y0 + 20, PW, PH - 90, 25, 80, 1); s.fade(g, t + 0.1, 0.3)
+    lvl(s, ch, 72, 0, 7, GOLD, L("KEY LEVEL", "ระดับสำคัญ"), t + 0.2, 3, "", True, 20)
+    lvl(s, ch, 54, 1, 7, LBLUE, L("GAP", "แก๊ป"), t + 0.9, 3, "8 6", False, 20)
+    ring_ = ring(s, ch.x(5), ch.y(42), 16, LBLUE); s.pop(ring_, t + 1.2, 0.35, 0.3)
+    # 2 market structure shift (bullish)
+    t = K("mss")
+    pn = panel(s, X0[1], Y0, PW, PH); s.fade(pn, t, 0.3)
+    M = path_candles([(0, 78), (3, 56), (5, 66), (8, 42), (10, 54), (13, 30), (16, 58), (18, 64)], seed=5, noise=1.0, wick=1.0)
+    ch, g = mini(s, M, X0[1], Y0 + 20, PW, PH - 90, 20, 85, 1); s.fade(g, t + 0.1, 0.4)
+    lvl(s, ch, 54, 10, 19, LBLUE, "MSS", t + 0.9, 3, "", True, 22)
+    lvl(s, ch, 30, 9, 19, GOLD, L("FRESH KEY", "ระดับสด"), t + 0.3, 3, "", False, 20)
+    # 3 trendline break (bullish)
+    t = K("tl")
+    pn = panel(s, X0[2], Y0, PW, PH); s.fade(pn, t, 0.3)
+    T = path_candles([(0, 80), (2, 70), (3, 75), (6, 58), (7, 62), (10, 44), (11, 49), (14, 30), (16, 50), (18, 60)], seed=6, noise=0.9, wick=1.0)
+    ch, g = mini(s, T, X0[2], Y0 + 20, PW, PH - 90, 20, 90, 1); s.fade(g, t + 0.1, 0.4)
+    tln = s.path(f"M {ch.x(0):.1f} {ch.y(86):.1f} L {ch.x(18):.1f} {ch.y(28):.1f}", LBLUE, 3); s.draw(tln, t + 0.5, 0.6)
+    rb = ring(s, ch.x(16), ch.y(48), 16, LBLUE); s.pop(rb, t + 1.2, 0.35, 0.3)
+    for k, (x0, en, th, key) in enumerate(zip(X0, ("GAP BREAK", "MSS", "TRENDLINE BREAK"), ("แก๊ปเบรก", "เปลี่ยนโครงสร้าง", "เบรกเทรนด์ไลน์"), ("gap", "mss", "tl"))):
+        lb = s.label(x0 + PW / 2, Y0 + PH - 26, L(en, th), 26 if k < 2 else 24, GOLD, 0, 800, 0.04); s.fade(lb, K(key) + 0.2)
+        cue(K(key), ["bell_G4", "bell_C5", "bell_E5"][k], -22)
+    captions(s, [(K("gap") - 0.1, L("THE LEVEL WAS RESPECTED", "ระดับได้รับการเคารพ"), WHITE), (K("mss") - 0.1, L("THE LAST SWING BREAKS", "สวิงล่าสุดถูกเบรก"), LBLUE),
+                 (K("tl") - 0.1, L("THE OLD MOMENTUM IS OVER", "แรงส่งเดิมหมดแล้ว"), LBLUE)], c2)
+
+    o3, c3 = K("rule") - 0.1, K("next") - 0.1
+    s = S(o3, c3)
+    tag(s, 1, "ENTRY")
+    a = s.label(540, 700, L("ONLY AT A", "นับเฉพาะที่"), 48, WHITE, 0, 800, 0.04); s.fade(a, o3 + 0.2, 0.4, y=10)
+    b = s.label(540, 790, L("FRESH KEY LEVEL", "ระดับสำคัญที่ยังสด"), 66, GOLD, 0, 800, 0.03); s.pop(b, o3 + 0.5, 0.4, 0.6)
+    ck = check(s, 330, 950, 26); s.draw(ck, o3 + 0.9, 0.35)
+    c_ = s.label(380, 962, L("AT THE LEVEL = SIGNAL", "ที่ระดับ = สัญญาณ"), 34, WHITE, 0, 800, 0.04, "start"); s.fade(c_, o3 + 0.9)
+    xm = xmark(s, 330, 1060, 22); s.draw(xm, FW("rule", "else", "ที่อื่น", 2.5), 0.35)
+    d = s.label(380, 1072, L("ANYWHERE ELSE = NOISE", "ที่อื่น = สัญญาณรบกวน"), 34, GREY, 0, 800, 0.04, "start"); s.fade(d, FW("rule", "else", "ที่อื่น", 2.5))
+    cue(o3 + 0.5, "bell_A4", -20)
+    next_card(K("next") - 0.1, G["TOTAL"], 2, "THE FULL EXAMPLE", "ตัวอย่างเต็ม", 4)
+
+
+# ======================================================================================================== episode 13
+def ep13():
+    o1, c1 = 0, K("d") - 0.1
+    s = S(o1, c1, first=True)
+    tag(s, 2, "ENTRY")
+    title_block(s, L("FULL EXAMPLE", "ตัวอย่างเต็ม"), L("XAUUSD  ·  X3 + X4", "XAUUSD  ·  X3 + X4"))
+    for k, tf in enumerate(("D", "4H", "1H", "15M")):
+        p = s.pill(210 + 220 * k, 800, tf, [GOLD, WHITE, WHITE, LBLUE][k], "#111", 40); s.pop(p, 0.5 + 0.25 * k, 0.35, 0.5)
+    captions(s, [(0.1, L("STORYLINE TO ENTRY", "จากสตอรี่ไลน์ สู่จุดเข้า"), WHITE)], c1)
+
+    o2, c2 = K("d") - 0.1, K("m15") - 0.1
+    s = S(o2, c2)
+    tag(s, 2, "ENTRY")
+    hp = s.pill(540, 470, "XAUUSD  ·  X3", WHITE, "#0b0b0b", 26); s.pop(hp, o2 + 0.2, 0.4, 0.5)
+    C = path_candles([(0, 40), (3, 46), (6, 28), (9, 14), (12, 22), (15, 32), (18, 46), (20, 70), (22, 78), (25, 62), (27, 67), (30, 49)], seed=11, noise=1.4, wick=1.4)
+    C[9] = (18, 19, 5, 16)
+    ch = Chart(C, 33, 80, 1000, 600, 1230, 0, 90, 0.64)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(o2, -1), (o2 + 0.2, 4), (K("d") + 1.2, 9), (K("h4") - 0.1, 9), (K("h4") + 2.0, 22), (K("h1") - 0.1, 22), (K("h1") + 1.6, 30)], o2)
+    lvl(s, ch, 10, 3, 14, WHITE, L("DAILY REJECT", "รายวันปฏิเสธ"), K("d") + 1.0, 3, "", False, 22)
+    r = ring(s, ch.x(9), ch.y(5), 18, RED); s.pop(r, K("d") + 1.2, 0.35, 0.3)
+    lvl(s, ch, 40, 2, 31, GREY, L("4H BREAKOUT", "4H เบรก"), K("h4") + 1.0, 3, "12 8", True, 22)
+    qm = s.pill(ch.x(19) - 10, ch.y(84), L("QM + OCL FRESH", "QM + OCL สด"), LBLUE, "#111", 22); s.pop(qm, K("h4") + 1.6, 0.35, 0.5)
+    lvl(s, ch, 48, 16, 31, GOLD, L("1H REFINE · FRESH", "1H ปรับระดับ · สด"), K("h1") + 0.4, 4, "", False, 22)
+    rr = ring(s, ch.x(30), ch.y(49), 22, GOLD); s.pop(rr, K("h1") + 1.8, 0.35, 0.3)
+    cue(K("h4") + 1.0, "whoosh-short_2", -22); cue(K("h1") + 0.4, "bell_C5", -22)
+    captions(s, [(K("d") - 0.1, L("DAILY: CLOSES WITH A REJECTION", "รายวัน: ปิดพร้อมการปฏิเสธ"), WHITE), (K("h4") - 0.1, L("4H: BREAKOUT · BULLISH BIAS", "4H: เบรก · มุมมองขาขึ้น"), LBLUE),
+                 (K("h1") - 0.1, L("1H: HOW DEEP CAN IT PULL BACK?", "1H: ย่อได้ลึกแค่ไหน?"), GOLD)], c2)
+
+    o3, c3 = K("m15") - 0.1, K("next") - 0.1
+    s = S(o3, c3)
+    tag(s, 2, "ENTRY")
+    hp = s.pill(540, 470, L("X4  ·  15 MIN", "X4  ·  15 นาที"), LBLUE, "#0b0b0b", 26); s.pop(hp, o3 + 0.2, 0.4, 0.5)
+    C = path_candles([(0, 80), (3, 70), (5, 75), (8, 54), (10, 60), (12, 36), (13, 32), (14, 42), (15, 38), (17, 60), (19, 63), (21, 58), (24, 78)], seed=13, noise=1.2, wick=1.2)
+    C[13] = (36, 37, 30, 33)
+    ch = Chart(C, 27, 80, 1000, 600, 1230, 15, 90, 0.64)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(o3, -1), (o3 + 0.2, 6), (o3 + 1.6, 13), (FW("m15", "gap", "แก๊ป", 3.0) - 0.2, 13), (FW("m15", "gap", "แก๊ป", 3.0) + 0.5, 14),
+                     (FW("m15", "shift", "โครงสร้าง", 4.4) - 0.2, 15), (FW("m15", "shift", "โครงสร้าง", 4.4) + 0.6, 17), (K("entry") + 0.6, 17), (K("entry") + 2.2, 24)], o3)
+    lvl(s, ch, 32, 0, 26, GOLD, L("1H REFINE · FRESH", "1H ปรับระดับ · สด"), o3 + 0.4, 4, "", False, 22)
+    tg = FW("m15", "gap", "แก๊ป", 3.0); tm = FW("m15", "shift", "โครงสร้าง", 4.4)
+    gp_ = s.pill(ch.x(14) + 70, ch.y(42) + 50, L("GAP BREAK", "แก๊ปเบรก"), LBLUE, "#111", 20); s.pop(gp_, tg + 0.4, 0.35, 0.5)
+    lvl(s, ch, 60, 10, 20, LBLUE, "MSS", tm + 0.4, 3, "", True, 22)
+    cue(tg + 0.4, "bell_C5", -22); cue(tm + 0.4, "bell_E5", -22)
+    pos_box(s, ch.x(17), ch.x(25), ch.y(58), ch.y(78), ch.y(29), K("entry"))
+    e1 = s.label(ch.x(25), ch.y(78) - 14, L("TARGET · PREVIOUS HIGH", "เป้า · ไฮก่อนหน้า"), 22, LBLUE, 0, 800, 0.06, "end"); s.fade(e1, K("entry") + 0.3)
+    e2 = s.label(ch.x(25), ch.y(29) + 32, L("STOP · BELOW THE SWING LOW", "สต็อป · ใต้สวิงโลว์"), 22, GREY, 0, 800, 0.06, "end"); s.fade(e2, K("entry") + 0.5)
+    captions(s, [(o3 + 0.1, L("AT THE FRESH LEVEL: DROP TO X4", "ถึงระดับสด: ลงไปดู X4"), GOLD), (tg - 0.1, L("GAP BREAK + MSS = CONFIRMED", "แก๊ปเบรก + MSS = ยืนยัน"), LBLUE),
+                 (K("entry") - 0.1, L("ENTER · STOP · TARGET", "เข้า · สต็อป · เป้า"), WHITE)], c3)
+    next_card(K("next") - 0.1, G["TOTAL"], 3, "SINGLE FRESH", "ระดับสดเดียว", 4)
+
+
+# ======================================================================================================== episode 14
+def ep14():
+    o1, c1 = 0, K("rule") - 0.1
+    s = S(o1, c1, first=True)
+    tag(s, 3, "ENTRY")
+    title_block(s, L("THE ENTRY", "จุดเข้า"), L("FROM WATCHING TO HOLDING", "จากคนดู สู่คนถือออเดอร์"))
+    a = s.label(540, 800, L("EXACT PRICE", "ราคาที่แน่นอน"), 54, WHITE, 0, 800, 0.04); s.pop(a, 0.8, 0.4, 0.6)
+    b = s.label(540, 890, L("+ EXACT MOMENT", "+ จังหวะที่แน่นอน"), 54, GOLD, 0, 800, 0.04); s.pop(b, 1.6, 0.4, 0.6)
+    captions(s, [(0.1, L("WHAT IS AN ENTRY?", "จุดเข้าคืออะไร?"), WHITE)], c1)
+
+    o2, c2 = K("rule") - 0.1, K("sl") - 0.1
+    s = S(o2, c2)
+    tag(s, 3, "ENTRY")
+    hp = s.pill(540, 470, "XAUUSD  ·  X3", WHITE, "#0b0b0b", 26); s.pop(hp, o2 + 0.2, 0.4, 0.5)
+    C = path_candles([(0, 24), (2, 16), (4, 34), (6, 30), (8, 50), (11, 66), (13, 58), (15, 70), (17, 60), (19, 64), (22, 26), (24, 32), (27, 72)], seed=17, noise=1.3, wick=1.3)
+    C[1] = (22, 24, 13, 15); C[3] = (31, 40, 30.6, 38); C[5] = (40, 48, 41.4, 46)
+    ch = Chart(C, 30, 80, 1000, 600, 1230, 5, 85, 0.64)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(o2, -1), (o2 + 0.3, 20), (K("single") + 0.8, 20), (K("single") + 2.0, 23), (K("single") + 3.2, 28)], o2)
+    used = [(41, "SBR · USED", "SBR · ใช้แล้ว", 5), (31, "QM · USED", "QM · ใช้แล้ว", 3)]
+    for k, (p, en, th, i) in enumerate(used):
+        ln, tx = lvl(s, ch, p, i - 1, 21, GREY, L(en, th), o2 + 0.6 + 0.2 * k, 3, "10 8", True, 22)
+        d = s.raw(f'<circle id="@ID@" cx="{ch.x(i):.1f}" cy="{ch.y(p):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "d"); s.pop(d, FW("rule", "used", "ใช้ไป", 2.0) + 0.2 * k, 0.3, 0.3)
+    lvl(s, ch, 25, 0, 29, GOLD, L("APEX · FRESH", "เอเพ็กซ์ · สด"), o2 + 1.0, 4, "", False, 22)
+    lp = s.pill(ch.x(20), ch.y(25) - 34, L("LIMIT", "ลิมิต"), GOLD, "#111", 22); s.pop(lp, K("single") + 0.3, 0.35, 0.5)
+    cue(K("single") + 0.3, "bell_C5", -22)
+    pos_box(s, ch.x(22) - 8, ch.x(29), ch.y(25), ch.y(70), ch.y(18), K("single") + 2.0)
+    nn = s.pill(540, 560, L("NONE FRESH?  NO TRADE TODAY", "ไม่มีระดับสด?  วันนี้ไม่มีเทรด"), RED, WHITE, 26); s.pop(nn, K("none") + 0.1, 0.4, 0.5)
+    cue(K("none"), "whoosh-short_1", -22)
+    captions(s, [(o2 + 0.1, L("ONLY FRESH LEVELS", "เทรดเฉพาะระดับสด"), GOLD), (K("single") - 0.1, L("ONE FRESH LEVEL: LIMIT ON IT", "ระดับสดเดียว: ตั้งลิมิตตรงนั้น"), WHITE),
+                 (K("none") - 0.1, L("NO FRESH LEVEL: RELAX", "ไม่มีระดับสด: พักได้"), RED)], c2)
+
+    o3, c3 = K("sl") - 0.1, K("next") - 0.1
+    s = S(o3, c3)
+    tag(s, 3, "ENTRY")
+    s.label(540, 470, L("WHERE IS THE STOP?", "สต็อปอยู่ไหน?"), 50, WHITE, 1, 800, 0.03)
+    rows(s, [("LIMIT: TIGHT, FIXED STOP", "ลิมิต: สต็อปแคบ คงที่", WHITE), ("X4 CONFIRM: BEYOND THE SWING", "ยืนยัน X4: เลยสวิงก่อนหน้า", LBLUE)],
+         [o3 + 0.3, FW("sl", "x4", "เอ็กซ์สี่", 2.6)], y0=640, dy=150, size=32)
+    nt = s.label(540, 1000, L("CONFIRMATION ONLY COUNTS", "การยืนยัน นับเฉพาะ"), 40, LBL, 0, 800, 0.04); s.fade(nt, K("note"), 0.4, y=10)
+    nt2 = s.label(540, 1070, L("AT THE KEY LEVEL", "ที่ระดับสำคัญ"), 54, GOLD, 0, 800, 0.03); s.pop(nt2, K("note") + 0.4, 0.4, 0.6)
+    cue(K("note") + 0.4, "bell_A4", -20)
+    next_card(K("next") - 0.1, G["TOTAL"], 4, "MULTI FRESH", "หลายระดับสด", 4)
+
+
+# ======================================================================================================== episode 15
+def ep15():
+    o1, c1 = 0, K("prio") - 0.1
+    s = S(o1, c1, first=True)
+    tag(s, 4, "ENTRY")
+    title_block(s, L("MULTI FRESH", "หลายระดับสด"), L("TWO OPTIONS", "สองทางเลือก"))
+    rows(s, [("WAIT FOR X4 CONFIRMATION", "รอยืนยันบน X4", WHITE), ("OR: LIMIT AT THE APEX", "หรือ: ลิมิตที่เอเพ็กซ์", GOLD)], [K("o1"), K("o2")], y0=760, dy=160, size=34)
+    captions(s, [(0.1, L("MORE THAN ONE FRESH LEVEL", "มีระดับสดมากกว่าหนึ่ง"), WHITE)], c1)
+
+    o2, c2 = K("prio") - 0.1, K("ex") - 0.1
+    s = S(o2, c2)
+    tag(s, 4, "ENTRY")
+    s.label(540, 480, L("PRIORITY", "ลำดับความสำคัญ"), 56, WHITE, 1, 800, 0.08)
+    flow_card(s, [("QM", "QM", GOLD), (L("APEX  ·  V / A", "เอเพ็กซ์  ·  V / A"), L("APEX  ·  V / A", "เอเพ็กซ์  ·  V / A"), WHITE),
+                  ("SBR · RBS · OCL", "SBR · RBS · OCL", LBL)], [K("p1"), K("p2"), K("p3")], y0=700, dy=190)
+    eq = s.label(540, 1210, L("FRESH ONLY  ·  THE LAST THREE ARE EQUAL", "เฉพาะที่สด  ·  สามตัวสุดท้ายเท่ากัน"), 28, GREY, 0, 700, 0.06); s.fade(eq, K("p3") + 1.0, 0.4)
+    captions(s, [(o2 + 0.1, L("CHECK WHICH LEVELS ARE STILL FRESH", "เช็กว่าระดับไหนยังสด"), WHITE)], c2)
+
+    o3, c3 = K("ex") - 0.1, K("miss") - 0.1
+    s = S(o3, c3)
+    tag(s, 4, "ENTRY")
+    hp = s.pill(540, 470, L("XAUUSD  ·  X3 + X4", "XAUUSD  ·  X3 + X4"), WHITE, "#0b0b0b", 26); s.pop(hp, o3 + 0.2, 0.4, 0.5)
+    C = path_candles([(0, 30), (2, 22), (4, 12), (6, 44), (8, 40), (10, 70), (12, 64), (14, 80), (16, 74), (18, 58), (20, 49.5), (22, 54), (23, 51), (25, 62), (28, 84)], seed=19, noise=1.2, wick=1.2)
+    C[20] = (52, 53, 49.4, 51)
+    ch = Chart(C, 31, 80, 1000, 600, 1230, 5, 92, 0.64)
+    rid = candles_clip(s, ch)
+    tm = K("mss")
+    reveal(rid, ch, [(o3, -1), (o3 + 0.3, 17), (FW("ex", "back", "กลับ", 3.0) - 0.2, 17), (FW("ex", "back", "กลับ", 3.0) + 1.0, 20), (tm - 0.1, 20), (tm + 0.8, 25), (tm + 2.4, 28)], o3)
+    lvl(s, ch, 50, 5, 30, GOLD, L("RBS · FRESH", "RBS · สด"), o3 + 0.5, 4, "", False, 22)
+    qln, qtx = lvl(s, ch, 38, 3, 30, GREY, L("QM · USED", "QM · ใช้แล้ว"), o3 + 0.7, 3, "10 8", True, 22)
+    qd = s.raw(f'<circle id="@ID@" cx="{ch.x(7):.1f}" cy="{ch.y(38):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "d"); s.pop(qd, o3 + 1.0, 0.3, 0.3)
+    xq = xmark(s, ch.x(26), ch.y(38) + 16, 14, RED, 5); s.draw(xq, FW("ex", "removed", "ตัด", 2.0), 0.3)
+    for i_ in (qln, qtx, qd): out(i_, FW("ex", "removed", "ตัด", 2.0) + 0.5, 0.5, 0.18)
+    lvl(s, ch, 12, 2, 30, GOLD, L("APEX · FRESH", "เอเพ็กซ์ · สด"), o3 + 0.9, 4, "", False, 22)
+    ms = s.raw(f'<line id="@ID@" x1="{ch.x(18):.1f}" y1="{ch.y(56):.1f}" x2="{ch.x(25):.1f}" y2="{ch.y(56):.1f}" stroke="{LBLUE}" stroke-width="3" style="opacity:0"/>', "ms")
+    s.fade(ms, tm + 0.6, 0.3)
+    mt = s.label(ch.x(25) + 8, ch.y(56) + 8, "MSS", 22, LBLUE, 0, 800, 0.08, "start"); s.fade(mt, tm + 0.7)
+    pos_box(s, ch.x(23), ch.x(30), ch.y(55), ch.y(84), ch.y(47), tm + 1.2)
+    cue(tm + 0.6, "bell_E5", -22)
+    captions(s, [(o3 + 0.1, L("QM USED: REMOVE IT", "QM ใช้แล้ว: ตัดทิ้ง"), RED), (FW("ex", "back", "กลับ", 3.0) - 0.1, L("BACK TO THE FRESH RBS", "กลับมาที่ RBS ที่ยังสด"), GOLD),
+                 (tm - 0.1, L("MSS: THAT WAS THE ENTRY", "MSS: นั่นคือจุดเข้า"), LBLUE)], c3)
+
+    o4, c4 = K("miss") - 0.1, K("order") - 0.05
+    s = S(o4, c4)
+    tag(s, 4, "ENTRY")
+    a = s.label(540, 760, L("MISSED A MOVE?", "พลาดไปหนึ่งรอบ?"), 60, WHITE, 0, 800, 0.03); s.pop(a, o4 + 0.2, 0.4, 0.6)
+    b = s.label(540, 860, L("YOUR BALANCE IS SAFE", "พอร์ตยังปลอดภัย"), 54, GOLD, 0, 800, 0.03); s.pop(b, FW("miss", "balance", "พอร์ต", 2.4), 0.4, 0.6)
+    c_ = s.label(540, 960, L("FOR THE NEXT ONE", "สำหรับเทรดถัดไป"), 36, LBL, 0, 700, 0.08); s.fade(c_, FW("miss", "balance", "พอร์ต", 2.4) + 0.5, 0.4, y=10)
+    cue(FW("miss", "balance", "พอร์ต", 2.4), "bell_A4", -20)
     outro(K("order") - 0.05)

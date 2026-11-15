@@ -1,0 +1,7 @@
+[hook] When more than one key level on X3 is fresh, you have two options.
+[o1] Wait for an X4 confirmation at any of them, [o2] or place a limit right at the apex.
+[prio] To choose a level, check which ones are still fresh, and follow the priority.
+[p1] The Quasimodo first. [p2] Then the apex, the Classic V or A. [p3] Then S.B.R., R.B.S., and O.C.L., all equal.
+[ex] On gold, the Q.M. was already used, so we removed it. Price came back to the fresh R.B.S., [mss] shifted structure, and that was the entry.
+[miss] Skip the confirmation and you may miss a move, but you keep your balance for the next one.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

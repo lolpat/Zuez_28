@@ -1,0 +1,7 @@
+[hook] Every trade has two parts: the confirmation, and the entry. Keep them separate, and every setup is easy to journal and to backtest.
+[conf] Confirmation is proof that the expected move has started. There are three types.
+[gap] One: the gap break. Price breaks through the gap at the level and closes beyond it, showing the level was respected.
+[mss] Two: the market structure shift. Price breaks the last swing, and the direction changes.
+[tl] Three: the trendline break. A candle closes beyond the trendline, and the old momentum is over.
+[rule] But a confirmation only counts at a fresh key level. Anywhere else, it's just noise.
+[next] Next: a full example, from storyline to entry.

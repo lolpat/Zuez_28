@@ -1,0 +1,7 @@
+[hook] Let's put it all together on gold, with three timeframes, and X4 for the confirmation.
+[d] Daily: the candle closes with a rejection.
+[h4] Four-hour: price breaks out with a Quasimodo and a fresh O.C.L. The bias turns bullish.
+[h1] One-hour: refine the key level, to see how deep the pullback can go.
+[m15] When price reaches the fresh level, drop to X4. On the fifteen-minute, a gap break and a market structure shift confirm it.
+[entry] Enter there, stop below the swing low, and target the previous high.
+[next] Next: the entry, when only one level is fresh.
