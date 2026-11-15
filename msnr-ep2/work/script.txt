@@ -1,0 +1,7 @@
+[hook] Classic A. A resistance level.
+[shape] Price spikes up into a sharp peak, and reverses down just as fast, drawing an A.
+[why] Sellers overwhelmed the buyers there.
+[draw] To draw it, mark the close of the last bullish candle, [draw2] and the open of the first bearish candle, then extend the line right.
+[ex] Example on gold. [ex1] Price takes the inducement above, [ex2] taps the Classic A level, [ex3] shifts down, [ex4] and runs to the sell-side liquidity.
+[rule] Sweep. Key level. Reversal. Target.
+[next] Next: support becomes resistance.

@@ -1,0 +1,7 @@
+[hook] R.B.S. Resistance becomes support.
+[shape] A resistance level breaks to the upside, then flips roles.
+[why] On the retest, the level that capped price now holds it up, and buyers defend it.
+[draw] To draw it, find resistance that rejected price more than once, [draw2] wait for a strong bullish candle to close above it, [draw3] and mark the open of that breakout candle.
+[ex] Example on gold. [ex1] Resistance breaks, [ex2] price comes back to retest the R.B.S., [ex3] accumulates on the level, [ex4] then pushes up to take the buy-side liquidity.
+[rule] Break. Retest. Accumulation. Target.
+[next] Next: the open close level.

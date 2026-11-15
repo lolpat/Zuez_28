@@ -1,0 +1,7 @@
+[hook] S.B.R. Support becomes resistance.
+[shape] A support level breaks to the downside, then flips roles.
+[why] On the retest from below, the old floor is now a ceiling, and sellers defend it.
+[draw] To draw it, find support that held more than once, [draw2] wait for a strong bearish candle to close below it, [draw3] and mark the open of that breakout candle.
+[ex] Example on gold. [ex1] Support breaks, [ex2] sell-side liquidity builds below, [ex3] price rallies back to the S.B.R., [ex4] gets rejected, and drops to take that liquidity.
+[rule] Break. Retest. Rejection. Target.
+[next] Next: resistance becomes support.

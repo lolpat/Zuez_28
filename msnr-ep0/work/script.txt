@@ -1,0 +1,7 @@
+[hook] M.S.N.R. Malaysian Support and Resistance.
+[exact] Not wide zones: exact levels, drawn from candle opens and closes.
+[react] These are the prices where the market reacts, reverses, rejects, or keeps going.
+[six] There are six key levels. [l1] Classic V. [l2] Classic A. [l3] S.B.R. [l4] R.B.S. [l5] O.C.L. [l6] And the Quasimodo.
+[align] Every entry, order block, and liquidity target only matters when it lines up with one of them.
+[htf] And one rule first: no setup is worth taking until your bias is confirmed on the higher timeframe.
+[next] Let's draw them, one by one.

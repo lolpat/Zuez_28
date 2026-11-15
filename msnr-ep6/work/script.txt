@@ -1,0 +1,9 @@
+[hook] Q.M. The Quasimodo level.
+[shape] A structural reversal. In a bullish Q.M., price makes a lower low, then breaks above the last high. That's the market structure shift.
+[why] The Q.M. level is the shoulder: the last swing low before that lower low.
+[draw] To draw it, mark that shoulder, [draw2] and extend the line to the right.
+[ex] Example on gold. [ex1] Price shifts structure, [ex2] pulls back to retest the Q.M., [ex3] reverses with momentum, [ex4] and continues higher.
+[mirror] The bearish Q.M. is the mirror image.
+[rule] Shift. Retest. Reversal. Continuation.
+[save] Six key levels. Save this series, and confirm your bias on the higher timeframe first.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

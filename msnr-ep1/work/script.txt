@@ -1,0 +1,7 @@
+[hook] Classic V. A support level.
+[shape] Price drops sharply, sweeps the liquidity below, and snaps back up just as fast, drawing a V.
+[why] That sharp rejection shows aggressive buyers at the low.
+[draw] To draw it, mark the close of the last bearish candle, [draw2] and the open of the first bullish candle after it.
+[ex] Example on gold. [ex1] Price sweeps the liquidity under a low, [ex2] taps the Classic V level, [ex3] reacts, [ex4] and runs up to the buy-side liquidity.
+[rule] Key level. Reaction. Target.
+[next] Next: the Classic A.
