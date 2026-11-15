@@ -1,4 +1,4 @@
-# MSNR series — Instagram captions (episodes 0-15)
+# MSNR series (episodes 0-15) — Instagram captions
 
 Each project's CREDITS.md has the full credits; this file only collects the two Instagram captions per video.
 
@@ -104,20 +104,20 @@ Optional credit line for either caption: "Concept: @x.droi's MSNR guide".
 
 ## MSNR-05-EN · MSNR KEY LEVELS 5/6: OCL
 
-1. XAUUSD · OCL: the candle where the big move started. Price remembers that price 🎯 MSNR part 5/6.
+1. XAUUSD · OCL: where two same-colour candles meet, price remembers 🎯 MSNR part 5/6.
    #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. XAUUSD · The open close level: mark the origin candle's open or close, then wait for the retest 📌
+2. XAUUSD · The open close level: mark the first candle's close, ignore the wicks, wait for the retest 📌
    #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
 Optional credit line for either caption: "Concept: @x.droi's MSNR guide".
 
 ## MSNR-05-TH · MSNR KEY LEVELS 5/6: OCL
 
-1. XAUUSD · OCL: แท่งที่การวิ่งใหญ่เริ่มต้น ราคาจะจำจุดนั้นได้ 🎯 MSNR ตอน 5/6
+1. XAUUSD · OCL: จุดที่แท่งสีเดียวกันสองแท่งมาเจอกัน ราคาจะจำได้ 🎯 MSNR ตอน 5/6
    #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
-2. XAUUSD · ระดับเปิด-ปิด: มาร์กราคาเปิดหรือปิดของแท่งต้นทาง แล้วรอรีเทสต์ 📌
+2. XAUUSD · ระดับเปิด-ปิด: มาร์กราคาปิดของแท่งแรก ไม่สนไส้ แล้วรอรีเทสต์ 📌
    #forex #xauusd #goldtrading #priceaction #OrderTheMarket
 
 Optional credit line for either caption: "Concept: @x.droi's MSNR guide".
