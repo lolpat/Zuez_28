@@ -161,11 +161,11 @@ def ep8():
     for k, ((x0, y0, w, h), cs, (key, en, th, col, sen, sth, dots)) in enumerate(zip(P, sets, info)):
         t = K(key)
         pn = panel(s, x0, y0, w, h); s.fade(pn, t, 0.3)
-        ch, g = mini(s, cs, x0 + 10, y0 + 60, w - 120, h - 140, 10, 100, 1); s.fade(g, t + 0.1, 0.3)
+        ch, g = mini(s, cs, x0 + 20, y0 + 70, w - 40, h - 150, 15, 100, 1); s.fade(g, t + 0.1, 0.3)
         ln = s.raw(f'<line id="@ID@" x1="{ch.x(0) - 10:.1f}" y1="{ch.y(76):.1f}" x2="{x0 + w - 20}" y2="{ch.y(76):.1f}" stroke="{GOLD}" stroke-width="3" style="opacity:0"/>', "ln")
         s.fade(ln, t + 0.2, 0.3)
         for (i, p) in dots:
-            d = s.raw(f'<circle id="@ID@" cx="{ch.x(i):.1f}" cy="{ch.y(p):.1f}" r="11" fill="{RED}" style="opacity:0"/>', "d"); s.pop(d, t + 0.5, 0.3, 0.3)
+            d = s.raw(f'<circle id="@ID@" cx="{ch.x(i):.1f}" cy="{ch.y(p):.1f}" r="11" fill="{RED}" style="opacity:0"/>', "rd"); s.pop(d, t + 0.5, 0.3, 0.3)
         pl = s.pill(x0 + w / 2, y0 + 40, L(en, th), col, "#111" if col != RED else WHITE, 24); s.pop(pl, t + 0.3, 0.35, 0.5)
         sl = s.label(x0 + w / 2, y0 + h - 22, L(sen, sth), 21, LBL, 0, 700, 0.04); s.fade(sl, t + 0.5)
         if key == "twice":
@@ -284,7 +284,7 @@ def ep10():
             c2_ = big_candle(s, x0 + 210, 60, 740, 820, 1040, 1090, 0, DOWN)
             for i in (c1_, c2_): s.fade(i, t + 0.2, 0.3)
             ln = s.raw(f'<line id="@ID@" x1="{x0 + 60}" y1="740" x2="{x0 + 300}" y2="740" stroke="{GOLD}" stroke-width="3" style="opacity:0"/>', "ln"); s.fade(ln, t + 0.4, 0.3)
-            d = s.raw(f'<circle id="@ID@" cx="{x0 + 210}" cy="740" r="12" fill="{RED}" style="opacity:0"/>', "d"); s.pop(d, t + 0.6, 0.3, 0.3)
+            d = s.raw(f'<circle id="@ID@" cx="{x0 + 210}" cy="740" r="12" fill="{RED}" style="opacity:0"/>', "rd"); s.pop(d, t + 0.6, 0.3, 0.3)
             tx = s.label(x0 + 160, 1170, L("REJECT", "ปฏิเสธ"), 28, RED, 0, 800, 0.08); s.fade(tx, t + 0.6)
         elif k == 1:
             ch, g = mini(s, path_candles([(0, 70), (3, 80), (6, 60), (8, 66), (11, 30), (13, 36), (15, 22)], seed=2, noise=2, wick=2), x0 + 10, 660, 300, 460, 10, 95, 1)
@@ -519,7 +519,7 @@ def ep14():
     used = [(41, "SBR · USED", "SBR · ใช้แล้ว", 5), (31, "QM · USED", "QM · ใช้แล้ว", 3)]
     for k, (p, en, th, i) in enumerate(used):
         ln, tx = lvl(s, ch, p, i - 1, 21, GREY, L(en, th), o2 + 0.6 + 0.2 * k, 3, "10 8", True, 22)
-        d = s.raw(f'<circle id="@ID@" cx="{ch.x(i):.1f}" cy="{ch.y(p):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "d"); s.pop(d, FW("rule", "used", "ใช้ไป", 2.0) + 0.2 * k, 0.3, 0.3)
+        d = s.raw(f'<circle id="@ID@" cx="{ch.x(i):.1f}" cy="{ch.y(p):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "rd"); s.pop(d, FW("rule", "used", "ใช้ไป", 2.0) + 0.2 * k, 0.3, 0.3)
     lvl(s, ch, 25, 0, 29, GOLD, L("APEX · FRESH", "เอเพ็กซ์ · สด"), o2 + 1.0, 4, "", False, 22)
     lp = s.pill(ch.x(20), ch.y(25) - 34, L("LIMIT", "ลิมิต"), GOLD, "#111", 22); s.pop(lp, K("single") + 0.3, 0.35, 0.5)
     cue(K("single") + 0.3, "bell_C5", -22)
@@ -571,7 +571,7 @@ def ep15():
     reveal(rid, ch, [(o3, -1), (o3 + 0.3, 17), (FW("ex", "back", "กลับ", 3.0) - 0.2, 17), (FW("ex", "back", "กลับ", 3.0) + 1.0, 20), (tm - 0.1, 20), (tm + 0.8, 25), (tm + 2.4, 28)], o3)
     lvl(s, ch, 50, 5, 30, GOLD, L("RBS · FRESH", "RBS · สด"), o3 + 0.5, 4, "", False, 22)
     qln, qtx = lvl(s, ch, 38, 3, 30, GREY, L("QM · USED", "QM · ใช้แล้ว"), o3 + 0.7, 3, "10 8", True, 22)
-    qd = s.raw(f'<circle id="@ID@" cx="{ch.x(7):.1f}" cy="{ch.y(38):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "d"); s.pop(qd, o3 + 1.0, 0.3, 0.3)
+    qd = s.raw(f'<circle id="@ID@" cx="{ch.x(7):.1f}" cy="{ch.y(38):.1f}" r="12" fill="{RED}" style="opacity:0"/>', "rd"); s.pop(qd, o3 + 1.0, 0.3, 0.3)
     xq = xmark(s, ch.x(26), ch.y(38) + 16, 14, RED, 5); s.draw(xq, FW("ex", "removed", "ตัด", 2.0), 0.3)
     for i_ in (qln, qtx, qd): out(i_, FW("ex", "removed", "ตัด", 2.0) + 0.5, 0.5, 0.18)
     lvl(s, ch, 12, 2, 30, GOLD, L("APEX · FRESH", "เอเพ็กซ์ · สด"), o3 + 0.9, 4, "", False, 22)
