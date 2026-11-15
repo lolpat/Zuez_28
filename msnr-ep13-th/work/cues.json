@@ -1,0 +1,27 @@
+[
+{
+"t": 10.45,
+"snd": "whoosh-short_2",
+"gain": -25
+},
+{
+"t": 16.38,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 27.01,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 28.46,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 35.74,
+"snd": "whoosh-long_1",
+"gain": -25
+}
+]
