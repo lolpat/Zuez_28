@@ -14,9 +14,9 @@ def FW(key, en, th, off=0.0, span=60):
     for i in range(i0, min(len(ws), i0 + span)):
         acc = ""
         for j in range(i, min(len(ws), i + 6)):     # Thai words can be split: match across a short joined window
-            acc += ws[j]["word"].strip().lower()
+            acc += ws[j]["text"].strip().lower()
             if sub in acc:
-                return W(j if sub in ws[j]["word"].lower() else i)
+                return W(j if sub in ws[j]["text"].lower() else i)
     print("FW fallback", key, sub)
     return K(key, off)
 
