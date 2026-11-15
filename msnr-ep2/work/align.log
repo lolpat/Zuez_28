@@ -1,17 +1,17 @@
   setup 0: matched 100%, marks ok
   setup 1: matched 100%, marks ok
   setup 2: matched 100%, marks ok
-80 tokens, 12 marks, matched 100% of script characters; whisper heard:
- Classic  A,  a  resistance  level.  Price  spikes  up  into  a  sharp  peak  and  reverses  down  just  as  fast,  drawing  an  A.  Sellers  overwhelmed  the  buyers  there.  To  draw  it,  mark  the  close  of  the  last  bullish  candle  and  the  open  of  the  first  bearish  candle,  then  extend  the  line  right.  Example  on  gold,  price  takes  the  inducement  above,  taps  the  classic  A  level,  shifts  down  and  runs  to  the  sell  side  liquidity.  Sweep,  key  level,  reversal,  target.  Next,  support  becomes  resistance.
+84 tokens, 12 marks, matched 100% of script characters; whisper heard:
+ Classic  A,  a  resistance  level.  Price  spikes  up  into  a  sharp  peak  and  reverses  down  just  as  fast,  drawing  an  A.  Sellers  overwhelmed  the  buyers  there.  To  draw  it,  switch  to  the  line  chart  and  mark  the  top  of  the  A.  Then  switch  back  to  candles  and  put  the  stop  loss  above  the  wick.  Example  on  gold.  Price  takes  the  inducement  above,  taps  the  classic  A  level,  shifts  down  and  runs  to  the  sell  side  liquidity.  Sweep,  key  level,  reversal,  target.  Next,  support  becomes  resistance.
   [hook]   0.00  Classic
-  [shape]   3.26  Price
-  [why]   9.30  Sellers
-  [draw]  11.67  To
-  [draw2]  14.73  and
-  [ex]  19.91  Example
-  [ex1]  21.47  Price
-  [ex2]  23.54  taps
-  [ex3]  25.30  shifts
-  [ex4]  26.02  and
-  [rule]  28.83  Sweep.
-  [next]  33.76  Next:
+  [shape]   3.30  Price
+  [why]   9.28  Sellers
+  [draw]  11.72  To
+  [draw2]  15.81  Then
+  [ex]  20.45  Example
+  [ex1]  22.01  Price
+  [ex2]  24.04  taps
+  [ex3]  25.68  shifts
+  [ex4]  26.45  and
+  [rule]  29.47  Sweep.
+  [next]  34.32  Next:
