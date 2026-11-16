@@ -102,7 +102,7 @@ def ep1():
         t = K(key)
         pn = panel(s, x0, 520, 460, 620); s.fade(pn, t, 0.3)
         lv = hl(s, x0 + 20, x0 + 440, 900, GOLD, 4, "12 8"); s.fade(lv, t + 0.1, 0.3)
-        lt = s.label(x0 + 440, 934, "CRT LOW", 22, GOLD, 0, 800, 0.08, "end"); s.fade(lt, t + 0.15)
+        lt = s.label(x0 + 30, 934, "CRT LOW", 22, GOLD, 0, 800, 0.08, "start"); s.fade(lt, t + 0.15)
         a = big_candle(s, x0 + 150, 64, 700, 720, 880, 900, 0, DOWN, False); s.fade(a, t + 0.2, 0.3)
         if ok:
             b = big_candle(s, x0 + 290, 64, 760, 870, 800, 1060, 0, UP, False)
@@ -111,9 +111,9 @@ def ep1():
             b = big_candle(s, x0 + 290, 64, 860, 870, 990, 1060, 0, DOWN, False)
             lab, col = L("CLOSES OUTSIDE", "ปิดนอกกรอบ"), RED
         s.fade(b, t + 0.6, 0.3)
-        mk = (check if ok else xmark)(s, x0 + 380, 600, 26, col, 7); s.draw(mk, t + 1.0, 0.35)
+        mk = (check if ok else xmark)(s, x0 + 410, 600, 24, col, 7); s.draw(mk, t + 1.0, 0.35)
         lb = s.label(x0 + 230, 1110, lab, 28, col, 0, 800, 0.04); s.fade(lb, t + 1.0)
-        sb = s.label(x0 + 230, 600, "SWEEP" if ok else L("NOT A SWEEP", "ไม่ใช่ SWEEP"), 34, col, 0, 800, 0.06); s.fade(sb, t + 1.1)
+        sb = s.label(x0 + 200, 612, "SWEEP" if ok else L("NOT A SWEEP", "ไม่ใช่ SWEEP"), 34, col, 0, 800, 0.06); s.fade(sb, t + 1.1)
         cue(t + 1.0, "bell_C5" if ok else "whoosh-short_1", -22)
     nn = s.pill(540, 1260, L("NEITHER SIDE TAKEN  =  NO TRADE", "ไม่มีฝั่งไหนโดนกวาด  =  ไม่มีเทรด"), RED, WHITE, 28); s.pop(nn, K("none") + 0.1, 0.4, 0.5)
     captions(s, [(K("valid") - 0.1, L("RUN THE LEVEL, CLOSE BACK INSIDE", "วิ่งเลยระดับ แล้วปิดกลับเข้ากรอบ"), GREEN),
