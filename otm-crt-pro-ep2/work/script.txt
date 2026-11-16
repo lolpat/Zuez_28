@@ -1,0 +1,6 @@
+[hook] The sweep tells you where. The shift tells you when.
+[mss] After the sweep, wait for a market structure shift: a candle body closes beyond the last lower high.
+[fvg] That move leaves a fair value gap, a three-candle imbalance.
+[ce] Your entry is its fifty percent, called consequent encroachment.
+[ex] On gold: a four-hour range, and a five-minute sweep of the low. [ex2] Then a shift up, and a limit at the middle of the gap.
+[next] Next: the stop and the targets.

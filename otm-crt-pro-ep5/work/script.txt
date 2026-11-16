@@ -1,0 +1,4 @@
+[hook] Before every C.R.T. trade, run the checklist.
+[c1] One: mark the higher-timeframe range. [c2] Two: a sweep that closes back inside. [c3] Three: a shift, and a fair value gap. [c4] Four: enter at the middle of the gap, stop beyond the wick. [c5] Five: partial at the range fifty, target the other side.
+[miss] Miss one step, and there's no trade.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

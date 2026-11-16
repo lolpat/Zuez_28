@@ -1,0 +1,8 @@
+[hook] In C.R.T., everything starts with the sweep. But not every wick is one.
+[range] One higher-timeframe candle sets the range: the C.R.T. high, and the C.R.T. low.
+[liq] Stops sit beyond both sides. Buy-side liquidity above, sell-side below.
+[valid] A sweep is valid only when a lower-timeframe candle runs past the level, then closes back inside the range.
+[out] If it closes outside, price is accepting the new level. That's not a sweep.
+[none] And if neither side is taken, there's no trade.
+[ex] On gold: a candle closed below the low, and kept falling. [ex2] The next day, a wick ran the low and closed back inside. That one you can trade.
+[next] Next: the entry.

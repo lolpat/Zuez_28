@@ -1,0 +1,6 @@
+[hook] Where does the stop go, and where do you take profit?
+[sl] The stop goes beyond the sweep wick. If price trades back past it, the sweep failed, so you're out.
+[half] Bank a partial at the range fifty percent. Price often stalls there.
+[tp] The full target is the other side of the range: the C.R.T. high for a buy, the C.R.T. low for a sell.
+[ex] On gold, the partial came at the fifty percent. [ex2] Price chopped for a while, then ran to the high. About four times the risk.
+[next] Next: the right timeframe pair.

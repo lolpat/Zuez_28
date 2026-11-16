@@ -1,0 +1,7 @@
+[hook] The right range on the wrong timeframe still loses.
+[p1] A four-hour range: enter on the five-minute, or the fifteen-minute.
+[p2] A daily range: enter on the one-hour.
+[low] Go too low, like a four-hour range on the one-minute, and every small dip looks like a sweep.
+[mid] Those are mid-range noise, not the C.R.T. low. [loss] Buy them, and you get stopped out again and again.
+[ex] On the five-minute, the same session had just one real sweep of the range low.
+[next] Next: the checklist.
