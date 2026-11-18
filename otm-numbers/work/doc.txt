@@ -1,0 +1,9 @@
+"""OTM "Know Your Numbers": a glowing-figure trading video in the OTM style, inspired by a trading lecture clip (why
+most traders keep losing: they hunt for the next winning trade and can't say whether their strategy makes money). Most
+traders hunt for a winning trade; the ones who last build a winning process. Know three numbers: win rate, average win,
+average loss. Worked example: 40% win rate, 2R average win, 1R average loss -> 40 x 2R - 60 x 1R = +20R over 100 trades
+(+0.2R per trade): you lose more often and still make money. Stop asking "will my next trade win?", ask "does my
+strategy make money over 100 trades?". One win can feel like genius; only your numbers prove your edge.
+English version (Quentin); otm-numbers-th is the Thai version from the same scene file. Original script, voice only, no
+music. Scenes key off word indices of work/words.json (anchor table EN_ANC, helper K). Writes ../index.html,
+work/cues.json and work/timing.json."""
