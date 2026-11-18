@@ -1,13 +1,145 @@
+"""OTM "Know Your Numbers": a glowing-figure trading video in the OTM style, inspired by a trading lecture clip (why
+most traders keep losing: they hunt for the next winning trade and can't say whether their strategy makes money). Most
+traders hunt for a winning trade; the ones who last build a winning process. Know three numbers: win rate, average win,
+average loss. Worked example: 40% win rate, 2R average win, 1R average loss -> 40 x 2R - 60 x 1R = +20R over 100 trades
+(+0.2R per trade): you lose more often and still make money. Stop asking "will my next trade win?", ask "does my
+strategy make money over 100 trades?". One win can feel like genius; only your numbers prove your edge.
+English version (Quentin); otm-numbers-th is the Thai version from the same scene file. Original script, voice only, no
+music. Scenes key off word indices of work/words.json (anchor table EN_ANC, helper K). Writes ../index.html,
+work/cues.json and work/timing.json."""
+import json, math, os, random
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LEAD = 0.3
+GOLD, RED, WHITE, GREY, LBL = "#e8c26a", "#ff4d5e", "#ffffff", "#7d838c", "#c9ced6"
+GY = 1240                                   # ground line
+words = json.load(open(f"{ROOT}/work/words.json"))
+def W(i): return round(words[i]["start"] + LEAD, 3)
+def WE(i): return round(words[i]["end"] + LEAD, 3)
+END_T = round(words[-1]["end"] + LEAD + 0.6, 2)
+TOTAL = round(END_T + 1.0, 2)          # no end card: the outro holds, then fades out
+rnd = random.Random(7)
+
+T, CUES = [], []
+def tl(s): T.append(s)
+def cue(t, snd, gain): CUES.append(dict(t=round(t, 3), snd=snd, gain=gain))
+
+
+class S:
+    """Builds one scene's SVG and its tweens."""
+    n = 0
+    scenes = []
+
+    def __init__(self, o, c, ground=True, first=False, restore=True, hide=True):
+        S.n += 1
+        self.id, self.o, self.c, self.items = f"sc{S.n}", o, c, []
+        S.scenes.append(self)
+        if first:
+            tl(f'tl.set("#{self.id}", {{opacity: 1, visibility: "visible"}}, 0);')
+        else:
+            tl(f'tl.set("#{self.id}", {{visibility: "visible"}}, {o:.3f});')
+            tl(f'tl.fromTo("#{self.id}", {{opacity: 0}}, {{opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}}, {o:.3f});')
+        tl(f'tl.fromTo("#{self.id}", {{scale: 1}}, {{scale: 1.035, transformOrigin: "50% 60%", duration: {c - o:.3f}, ease: "none", immediateRender: false}}, {o:.3f});')
+        tl(f'tl.to("#{self.id}", {{opacity: 0, duration: 0.25, ease: "power2.in"}}, {c - 0.25:.3f});')
+        tl(f'tl.set("#{self.id}", {{opacity: 0, visibility: "hidden"}}, {c:.3f});')
+        if not ground and hide:
+            tl(f'tl.to("#ground", {{opacity: 0, duration: 0.3}}, {o - 0.15:.3f});')
+        if not ground and restore:
+            tl(f'tl.to("#ground", {{opacity: 1, duration: 0.3}}, {c - 0.15:.3f});')
+
+    def uid(self, p):
+        S.n += 1
+        return f"{p}{S.n}"
+
+    def add(self, s, p="e"):
+        i = self.uid(p)
+        self.items.append(s.replace("@ID@", i))
+        return i
+
+    # ---- primitives ----
+    def fig(self, x, s=1.0, col=WHITE, op=1.0, glow=True, gy=GY, dashed=False):
+        f = (f'fill="none" stroke="{col}" stroke-width="5" stroke-dasharray="14 10"' if dashed else f'fill="{col}"')
+        g = "filter:drop-shadow(0 0 16px rgba(255,255,255,0.55));" if glow and not dashed else ""
+        return self.add(f'<g transform="translate({x},{gy}) scale({s})"><g id="@ID@" style="opacity:{op};{g}">'
+                        f'<circle cx="0" cy="-158" r="31" {f}/><path d="M -48 0 L -48 -66 Q -48 -116 0 -116 Q 48 -116 48 -66 L 48 0 Z" {f}/></g></g>', "f")
+
+    def spot(self, x, op=1.0, col="255,255,255", top=36, bot=150, gy=GY, y0=380):
+        gid = self.uid("gr")
+        return self.add(f'<g id="@ID@" style="opacity:{op}"><defs><linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1">'
+                        f'<stop offset="0" stop-color="rgb({col})" stop-opacity="0.26"/><stop offset="1" stop-color="rgb({col})" stop-opacity="0.04"/></linearGradient></defs>'
+                        f'<path d="M {x - top} {y0} L {x + top} {y0} L {x + bot} {gy} L {x - bot} {gy} Z" fill="url(#{gid})"/>'
+                        f'<ellipse cx="{x}" cy="{gy}" rx="{bot + 10}" ry="26" fill="none" stroke="rgb({col})" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g>', "sp")
+
+    def label(self, x, y, text, size=28, col=LBL, op=0, weight=700, sp=0.18, anchor="middle"):
+        return self.add(f'<text id="@ID@" x="{x}" y="{y}" text-anchor="{anchor}" font-family="Montserrat" font-weight="{weight}" font-size="{size}" '
+                        f'letter-spacing="{sp}em" fill="{col}" style="opacity:{op}">{text}</text>', "t")
+
+    def pill(self, x, y, text, fill=WHITE, tcol="#0b0b0b", size=28, op=0):
+        w = len(text) * size * 0.74 + 52; h = size + 28
+        return self.add(f'<g id="@ID@" style="opacity:{op}"><rect x="{x - w / 2:.0f}" y="{y - h / 2:.0f}" width="{w:.0f}" height="{h}" rx="{h / 2}" fill="{fill}" '
+                        f'style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.35))"/><text x="{x}" y="{y + size * 0.36:.0f}" text-anchor="middle" '
+                        f'font-family="Montserrat" font-weight="800" font-size="{size}" letter-spacing="0.06em" fill="{tcol}">{text}</text></g>', "pl")
+
+    def path(self, d, col=WHITE, w=4, fill="none", drawn=False, extra="", style=""):
+        st = ("" if drawn else "stroke-dasharray:1 1.2;stroke-dashoffset:1.1;") + style
+        dash = ('' if drawn else 'pathLength="1" ') + (f'style="{st}"' if st else "")
+        return self.add(f'<path id="@ID@" d="{d}" fill="{fill}" stroke="{col}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" {dash} {extra}/>', "p")
+
+    def raw(self, s, p="r"):
+        return self.add(s, p)
+
+    # ---- motion ----
+    def draw(self, i, t, d=0.6, ease="power2.inOut"):
+        tl(f'tl.fromTo("#{i}", {{strokeDashoffset: 1.1}}, {{strokeDashoffset: 0, duration: {d:.3f}, ease: "{ease}", immediateRender: false}}, {t:.3f});')
+
+    def fade(self, i, t, d=0.35, to=1, frm=0, y=0):
+        a = f", y: {y}" if y else ""; b = ", y: 0" if y else ""
+        tl(f'tl.fromTo("#{i}", {{opacity: {frm}{a}}}, {{opacity: {to}{b}, duration: {d:.3f}, ease: "power2.out", immediateRender: false}}, {t:.3f});')
+
+    def pop(self, i, t, d=0.4, frm=0.4, origin="50% 100%"):
+        if t > self.o + 0.05:                                   # hidden until its pop, even if drawn visible
+            tl(f'tl.set("#{i}", {{opacity: 0}}, {self.o:.3f});')
+        tl(f'tl.fromTo("#{i}", {{opacity: 0, scale: {frm}, transformOrigin: "{origin}"}}, {{opacity: 1, scale: 1, duration: {d:.3f}, ease: "back.out(1.8)", immediateRender: false}}, {t:.3f});')
+
+    def walk(self, i, t, dx, d):
+        tl(f'tl.to("#{i}", {{x: "+={dx}", duration: {d:.3f}, ease: "power1.inOut"}}, {t:.3f});')
+        steps = max(1, int(d / 0.18))
+        tl(f'tl.to("#{i}", {{y: -7, duration: {d / (2 * steps):.3f}, yoyo: true, repeat: {2 * steps - 1}, ease: "sine.inOut"}}, {t:.3f});')
+
+
+def rrect(x, y, w, h, r):
+    return (f"M {x + r} {y} H {x + w - r} Q {x + w} {y} {x + w} {y + r} V {y + h - r} Q {x + w} {y + h} {x + w - r} {y + h} "
+            f"H {x + r} Q {x} {y + h} {x} {y + h - r} V {y + r} Q {x} {y} {x + r} {y} Z")
+
+def mini_curve(x, y, w=110, h=50, up=True):
+    pts = [(0, 0.85), (0.2, 0.6), (0.35, 0.72), (0.55, 0.4), (0.7, 0.5), (1.0, 0.05)] if up else [(0, 0.1), (0.3, 0.3), (0.45, 0.2), (0.7, 0.7), (1, 0.95)]
+    return "M " + " L ".join(f"{x + px * w:.0f} {y + py * h:.0f}" for px, py in pts)
+
+# ================================================================================================= scenes
+import re as _re
+def _n(x): return _re.sub(r"[^a-z0-9']", "", x.lower())
+def F(word, k=1):
+    c = 0
+    for i, w in enumerate(words):
+        if _n(w["text"]) == word:
+            c += 1
+            if c == k: return i
+    raise KeyError((word, k))
+def A(word, k=1): return W(F(word, k))
+
+LANG = "en"
 # ---- shared scenes for "Know Your Numbers" (English: otm-numbers, Thai: otm-numbers-th); LANG is set just above this line
 def ix(i):
     return W(i)
 
 TH_ = LANG == "th"
 # EN word indices are filled from work/words.json (EN_ANC below); TH token indices come from work/script.txt
-EN_ANC = {}
+EN_ANC = dict(hunting=0, process=8, ask=17, hundred=23, cant=27, guesses=37, three=45, winrate=48, avgwin=51, avgloss=54, say=57,
+              v40=60, v2R=69, v1R=74, math=75, minus=78, plus20=83, loseoften=89, stillmoney=93, stop=97, start=105, over100=112,
+              genius=116, crown=125, prove=126, order=133, dont=136, follow=142)
 TH_ANC = dict(hunting=0, process=2, ask=4, hundred=5, cant=6, guesses=8, three=10, winrate=11, avgwin=12, avgloss=13, say=14,
-              twoR=15, oneR=16, math=17, minus=18, plus20=19, loseoften=21, stillmoney=22, stop=23, start=25, over100=28,
-              genius=29, prove=31, order=33, dont=36, follow=37)
+              v40=(14, 0.9), v2R=(15, 0.9), v1R=(16, 0.55), math=(17, 0.5), minus=18, plus20=19, loseoften=21, stillmoney=22, stop=23, start=25, over100=28,
+              genius=29, crown=(30, 1.1), prove=31, order=33, dont=36, follow=37)
 
 def K(key):
     a = (TH_ANC if TH_ else EN_ANC)[key]
@@ -111,24 +243,24 @@ toplab(s, X("g_s"), X("g_b"), K("guesses"), K("say") - 0.1, GOLD, LBL, 60)
 toplab(s, X("ex_s"), X("ex_b"), K("say"), K("math") - 0.1, WHITE, LBL, 52)
 bd = s.raw(f'<path id="@ID@" d="{rrect(150, 650, 780, 360, 24)}" fill="#0f1319" stroke="{GOLD}" stroke-opacity="0.6" stroke-width="3" style="opacity:0"/>', "bd")
 s.pop(bd, K("three") - 0.1, 0.4, 0.7, "50% 50%")
-VALS = [("wr", "winrate", "40%", "say", 1.0), ("aw", "avgwin", "2R", "twoR", 0.7), ("al", "avgloss", "1R", "oneR", 0.7)]
-for j, (key, k_in, val, k_val, dt) in enumerate(VALS):
+VALS = [("wr", "winrate", "40%", "v40"), ("aw", "avgwin", "2R", "v2R"), ("al", "avgloss", "1R", "v1R")]
+for j, (key, k_in, val, k_val) in enumerate(VALS):
     y = 750 + j * 105
     l = tx(s, 200, y, X(key), 36, WHITE, 0, 800, "start", sp=0.06); s.fade(l, K(k_in) - 0.1, 0.3)
     dsh = s.raw(f'<line id="@ID@" x1="640" y1="{y - 12}" x2="880" y2="{y - 12}" stroke="#6b7079" stroke-width="4" stroke-dasharray="10 10" style="opacity:0"/>', "dl")
     s.fade(dsh, K(k_in) - 0.1, 0.3)
     v = num(s, 880, y + 6, val, 64, [GOLD, GOLD, RED][j], 0, "end")
-    hide(dsh, K(k_val) + dt - 0.1, 0.15)
-    tl(f'tl.fromTo("#{v}", {{opacity: 0, scale: 1.4, transformOrigin: "100% 50%"}}, {{opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", immediateRender: false}}, {K(k_val) + dt:.3f});')
-    cue(K(k_in) - 0.1, "tick_" + str(j + 1), -22); cue(K(k_val) + dt, "pop_" + str(j + 1), -18)
+    hide(dsh, K(k_val) - 0.1, 0.15)
+    tl(f'tl.fromTo("#{v}", {{opacity: 0, scale: 1.4, transformOrigin: "100% 50%"}}, {{opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", immediateRender: false}}, {K(k_val):.3f});')
+    cue(K(k_in) - 0.1, "tick_" + str(j + 1), -22); cue(K(k_val), "pop_" + str(j + 1), -18)
 rr = random.Random(11)
 order = [1] * 40 + [0] * 60; rr.shuffle(order)
 dots = "".join(f'<circle cx="{285 + (k % 20) * 27}" cy="{1080 + (k // 20) * 30}" r="10" fill="{GOLD if w else RED}" fill-opacity="{0.95 if w else 0.7}"/>'
                for k, w in enumerate(order))
 dg = s.raw(f'<g id="@ID@" style="opacity:0">{dots}</g>', "dg")
-s.fade(dg, K("say") + 1.2, 0.5)
-lw = tx(s, 300, 1260, X("wins"), 30, GOLD, 0, 800, "start", sp=0.08); s.fade(lw, K("say") + 1.4, 0.3)
-ll = tx(s, 780, 1260, X("losses"), 30, RED, 0, 800, "end", sp=0.08); s.fade(ll, K("say") + 1.4, 0.3)
+s.fade(dg, K("v40") + 0.4, 0.5)
+lw = tx(s, 300, 1260, X("wins"), 30, GOLD, 0, 800, "start", sp=0.08); s.fade(lw, K("v40") + 0.6, 0.3)
+ll = tx(s, 780, 1260, X("losses"), 30, RED, 0, 800, "end", sp=0.08); s.fade(ll, K("v40") + 0.6, 0.3)
 
 # 4  "Forty times two... minus sixty times one. That's plus twenty R over a hundred trades. You lose more often... and still make money."
 s = S(K("math") - 0.1, K("stop") - 0.1, ground=False, hide=False, restore=False)
@@ -160,8 +292,8 @@ q1 = tx(s, 540, 772, X("q1"), 40, WHITE, 0, 800, sp=0.03); s.fade(q1, K("stop") 
 k1 = s.path("M 190 755 H 890", RED, 6); s.draw(k1, K("start") - 0.4, 0.35); cue(K("start") - 0.4, "tock_1", -18)
 c2 = s.raw(f'<g id="@ID@" style="opacity:0;filter:drop-shadow(0 0 18px rgba(232,194,106,0.45))"><path d="{rrect(150, 900, 780, 220, 26)}" fill="#14110a" stroke="{GOLD}" stroke-width="4"/></g>', "c2")
 s.pop(c2, K("start") + 0.1, 0.45, 0.7, "50% 50%")
-q2 = tx(s, 540, 1000, X("q2a"), 40, GOLD, 0, 800, sp=0.03); s.fade(q2, K("start") + 0.2, 0.3)
-q3 = tx(s, 540, 1070, X("q2b"), 40, GOLD, 0, 800, sp=0.03); s.fade(q3, K("over100") - 0.2, 0.3)
+q2 = tx(s, 540, 1000, X("q2a"), 36, GOLD, 0, 800, sp=0.03); s.fade(q2, K("start") + 0.2, 0.3)
+q3 = tx(s, 540, 1070, X("q2b"), 36, GOLD, 0, 800, sp=0.03); s.fade(q3, K("over100") - 0.2, 0.3)
 cue(K("start") + 0.1, "bell_E5", -20)
 
 # 6  "One winning trade can make you feel like a genius. Only your numbers can prove your edge."
@@ -171,7 +303,7 @@ toplab(s, X("pr_s"), X("pr_b"), K("prove"), K("order") + 0.35, GOLD, LBL, 54)
 f6 = s.fig(260, 1.0, WHITE); s.pop(f6, K("genius"), 0.4)
 crown = s.raw(f'<path id="@ID@" d="M 222 1050 L 230 1010 L 248 1032 L 260 1000 L 272 1032 L 290 1010 L 298 1050 Z" fill="{GOLD}" '
               f'style="opacity:0;filter:drop-shadow(0 0 10px rgba(232,194,106,0.9))"/>', "cr")
-s.pop(crown, K("genius") + 0.6, 0.4, 0.3, "50% 50%"); cue(K("genius") + 0.6, "bell_A4", -20)
+s.pop(crown, K("crown"), 0.4, 0.3, "50% 50%"); cue(K("crown"), "bell_A4", -20)
 tl(f'tl.to("#{crown}", {{y: 60, rotation: 40, opacity: 0, transformOrigin: "50% 50%", duration: 0.6, ease: "power2.in"}}, {K("prove") - 0.1:.3f});')
 cue(K("prove") - 0.1, "whoosh-short_2", -22)
 cd6 = s.raw(f'<g id="@ID@" style="opacity:0;filter:drop-shadow(0 0 18px rgba(232,194,106,0.4))"><path d="{rrect(410, 720, 480, 470, 24)}" fill="#14110a" stroke="{GOLD}" stroke-width="3"/></g>', "c6")
@@ -185,7 +317,7 @@ s.fade(ln6, K("prove") + 0.5, 0.3)
 el = tx(s, 440, 1090, X("edge"), 32, GOLD, 0, 800, "start", sp=0.08); s.fade(el, K("prove") + 0.7, 0.3)
 ev = num(s, 860, 1094, "+0.2R", 52, GOLD, 0, "end")
 tl(f'tl.fromTo("#{ev}", {{opacity: 0, scale: 1.4, transformOrigin: "100% 50%"}}, {{opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)", immediateRender: false}}, {K("prove") + 0.8:.3f});')
-pt = tx(s, 860, 1150, X("pertrade"), 26, LBL, 0, 700, "end", sp=0.1); s.fade(pt, K("prove") + 0.9, 0.3)
+pt = tx(s, 860, 1150, X("pertrade"), 28, LBL, 0, 700, "end", sp=0.1); s.fade(pt, K("prove") + 0.9, 0.3)
 cue(K("prove") + 0.8, "bell_G5", -18)
 
 # 7  outro (handles, no end card; brand lines stay in English)
@@ -207,3 +339,57 @@ disc = s.label(540, 1650, "EDUCATIONAL ONLY · NOT FINANCIAL ADVICE", 28, GREY, 
 s.fade(soc, K("dont") + 0.6, 0.5, y=12)
 s.fade(disc, K("dont") + 0.9, 0.5)
 TIMELINE = ""
+
+
+# ------------------------------------------------------------------ end card, dust, ground, emblem
+tl(f'tl.to("#mark", {{opacity: 0, duration: 0.3}}, {A("order") - 0.2:.3f});')
+dust = ""
+for k in range(40):
+    x, y, r, op = rnd.uniform(0, 1080), rnd.uniform(0, 1920), rnd.uniform(1.2, 3.2), rnd.uniform(0.05, 0.22)
+    dust += f'<circle id="d{k}" cx="{x:.0f}" cy="{y:.0f}" r="{r:.1f}" fill="#fff" opacity="{op:.2f}"/>'
+    tl(f'tl.fromTo("#d{k}", {{x: 0, y: 0}}, {{x: {rnd.uniform(-70, 70):.0f}, y: {-rnd.uniform(150, 480):.0f}, duration: {TOTAL}, ease: "none"}}, 0);')
+
+scenes_svg = "\n".join(f'<g id="{x.id}" style="opacity:0;visibility:hidden" data-layout-allow-overlap>' + "".join(x.items) + "</g>" for x in S.scenes)
+CSS = FONTS + """
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+"""
+html = f"""<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>{CSS}</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-numbers" data-start="0" data-duration="{TOTAL}" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust">{dust}</g>
+        <line id="ground" x1="0" y1="{GY}" x2="1080" y2="{GY}" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="12 12"/>
+{scenes_svg}
+{TIMELINE}
+      </svg>
+      <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
+      <audio id="otm-numbers-audio" class="clip" src="assets/audio/mix_numbers.wav" data-start="0" data-duration="{TOTAL}" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {{}};
+      (function () {{
+        const tl = gsap.timeline({{ paused: true }});
+{chr(10).join("        " + t for t in T)}
+        window.__timelines["otm-numbers"] = tl;
+      }})();
+    </script>
+  </body>
+</html>
+"""
+open(f"{ROOT}/index.html", "w").write(html)
+json.dump(sorted(CUES, key=lambda c: c["t"]), open(f"{ROOT}/work/cues.json", "w"), indent=0)
+json.dump(dict(total=TOTAL, lead=LEAD, end_t=END_T), open(f"{ROOT}/work/timing.json", "w"))
+print("total", TOTAL, "end", END_T, "scenes", len(S.scenes), "tl lines", len(T), "cues", len(CUES))

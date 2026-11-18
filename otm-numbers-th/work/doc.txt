@@ -1,6 +1,0 @@
-"""OTM "Know Your Numbers" (Thai version): the Thai-language edition of otm-numbers, built from the same scene file
-with LANG = "th". Thai narration (ElevenLabs "Patinya", calm Thai narrator), Thai on-screen text in Kanit (OFL,
-assets/fonts); numbers and maths stay in Montserrat; the outro keeps the brand lines in English. Know your win rate,
-average win and average loss: 40% x 2R vs 60% x 1R = +20R over 100 trades. Original script, voice only, no music.
-Scenes key off token indices of work/words.json (the script's tokens aligned to the voice; anchor table TH_ANC).
-Writes ../index.html, work/cues.json and work/timing.json."""

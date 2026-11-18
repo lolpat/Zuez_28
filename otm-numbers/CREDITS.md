@@ -1,6 +1,6 @@
 # Credits
 
-"Know Your Numbers": a trading video in the OTM glowing-figure style (Instagram Reels only). It was inspired by a
+"Know Your Numbers": a trading video in the OTM glowing-figure style (about 54 s, Instagram Reels only). It was inspired by a
 trading lecture clip (why most traders keep losing: they can't say whether their strategy even makes money). The
 script is original. The speaker in that clip is not shown, and the video doesn't quote the lecture.
 
@@ -23,7 +23,8 @@ The Thai version (`otm-numbers-th`) is built from the same scene file with LANG 
 
 Music: none (voice and soft sound effects only).
 
-Voice: ElevenLabs, "Quentin" (eleven_v4), the same calm, even read as the other OTM videos. Word timings come from
+Voice: ElevenLabs, "Quentin" (eleven_v4), the same calm, even read as the other OTM videos. Take 1 is used (both takes
+followed the script; take 1 is the more even read). Word timings come from
 faster-whisper (small.en). Scenes key off word indices of work/words.json (anchor table EN_ANC in work/gen.py).
 
 Sound effects: the earshot launch kit (code-made, shipped with earshot), at a low level (work/cues.json).

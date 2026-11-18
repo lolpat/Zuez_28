@@ -1,6 +1,6 @@
 # Credits
 
-"Know Your Numbers" (Thai version): the Thai-language edition of `otm-numbers` (Instagram Reels only). It's built from
+"Know Your Numbers" (Thai version): the Thai-language edition of `otm-numbers` (about 61 s, Instagram Reels only). It's built from
 the same scene file with LANG = "th", so the story, visuals and timing beats match the English version. See
 `otm-numbers/CREDITS.md` for the beats and the inspiration.
 
@@ -17,7 +17,7 @@ The example numbers are an illustration of expectancy, not a promise or a recomm
 Music: none (voice and soft sound effects only).
 
 Voice: ElevenLabs, "Patinya – Calm Thai Narrator & Explainer" (eleven_v4), the same Thai voice as the other Thai OTM
-videos.
+videos. Take 1 is used (its key words, such as กลยุทธ์ and กดติดตาม, come through more clearly).
 
 Timing: the script's tokens (work/script.txt) are aligned to the voice with faster-whisper (small, Thai) and a
 character-level difflib match. Scenes key off token indices of work/words.json (anchor table TH_ANC).

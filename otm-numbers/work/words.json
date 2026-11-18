@@ -1,0 +1,727 @@
+[
+{
+"text": "Most",
+"start": 0.0,
+"end": 0.38
+},
+{
+"text": "traders",
+"start": 0.38,
+"end": 0.66
+},
+{
+"text": "are",
+"start": 0.66,
+"end": 0.96
+},
+{
+"text": "hunting",
+"start": 0.96,
+"end": 1.18
+},
+{
+"text": "for",
+"start": 1.18,
+"end": 1.5
+},
+{
+"text": "a",
+"start": 1.5,
+"end": 1.68
+},
+{
+"text": "winning",
+"start": 1.68,
+"end": 1.86
+},
+{
+"text": "trade.",
+"start": 1.86,
+"end": 2.36
+},
+{
+"text": "The",
+"start": 3.0,
+"end": 3.14
+},
+{
+"text": "ones",
+"start": 3.14,
+"end": 3.28
+},
+{
+"text": "who",
+"start": 3.28,
+"end": 3.48
+},
+{
+"text": "last",
+"start": 3.48,
+"end": 3.84
+},
+{
+"text": "are",
+"start": 3.84,
+"end": 4.36
+},
+{
+"text": "building",
+"start": 4.36,
+"end": 4.62
+},
+{
+"text": "a",
+"start": 4.62,
+"end": 4.82
+},
+{
+"text": "winning",
+"start": 4.82,
+"end": 5.06
+},
+{
+"text": "process.",
+"start": 5.06,
+"end": 5.66
+},
+{
+"text": "Ask",
+"start": 6.46,
+"end": 6.6
+},
+{
+"text": "a",
+"start": 6.6,
+"end": 6.8
+},
+{
+"text": "struggling",
+"start": 6.8,
+"end": 7.14
+},
+{
+"text": "trader",
+"start": 7.14,
+"end": 7.46
+},
+{
+"text": "about",
+"start": 7.46,
+"end": 7.76
+},
+{
+"text": "their",
+"start": 7.76,
+"end": 7.94
+},
+{
+"text": "last",
+"start": 7.94,
+"end": 8.24
+},
+{
+"text": "hundred",
+"start": 8.24,
+"end": 8.46
+},
+{
+"text": "trades",
+"start": 8.46,
+"end": 8.94
+},
+{
+"text": "and",
+"start": 8.94,
+"end": 9.46
+},
+{
+"text": "they",
+"start": 9.46,
+"end": 9.62
+},
+{
+"text": "can't",
+"start": 9.62,
+"end": 9.88
+},
+{
+"text": "tell",
+"start": 9.88,
+"end": 10.04
+},
+{
+"text": "you",
+"start": 10.04,
+"end": 10.2
+},
+{
+"text": "if",
+"start": 10.2,
+"end": 10.32
+},
+{
+"text": "their",
+"start": 10.32,
+"end": 10.46
+},
+{
+"text": "strategy",
+"start": 10.46,
+"end": 10.86
+},
+{
+"text": "even",
+"start": 10.86,
+"end": 11.18
+},
+{
+"text": "makes",
+"start": 11.18,
+"end": 11.5
+},
+{
+"text": "money.",
+"start": 11.5,
+"end": 11.8
+},
+{
+"text": "You",
+"start": 12.3,
+"end": 12.5
+},
+{
+"text": "can't",
+"start": 12.5,
+"end": 12.9
+},
+{
+"text": "run",
+"start": 12.9,
+"end": 13.0
+},
+{
+"text": "a",
+"start": 13.0,
+"end": 13.16
+},
+{
+"text": "business",
+"start": 13.16,
+"end": 13.38
+},
+{
+"text": "on",
+"start": 13.38,
+"end": 13.68
+},
+{
+"text": "guesses.",
+"start": 13.68,
+"end": 14.04
+},
+{
+"text": "So",
+"start": 14.7,
+"end": 14.94
+},
+{
+"text": "know",
+"start": 14.94,
+"end": 15.18
+},
+{
+"text": "three",
+"start": 15.18,
+"end": 15.6
+},
+{
+"text": "numbers.",
+"start": 15.6,
+"end": 16.06
+},
+{
+"text": "Your",
+"start": 16.6,
+"end": 16.76
+},
+{
+"text": "win",
+"start": 16.76,
+"end": 16.96
+},
+{
+"text": "rate,",
+"start": 16.96,
+"end": 17.2
+},
+{
+"text": "your",
+"start": 17.64,
+"end": 17.78
+},
+{
+"text": "average",
+"start": 17.78,
+"end": 18.18
+},
+{
+"text": "win,",
+"start": 18.18,
+"end": 18.5
+},
+{
+"text": "your",
+"start": 18.86,
+"end": 19.06
+},
+{
+"text": "average",
+"start": 19.06,
+"end": 19.42
+},
+{
+"text": "loss.",
+"start": 19.42,
+"end": 19.78
+},
+{
+"text": "Say",
+"start": 20.52,
+"end": 20.76
+},
+{
+"text": "you",
+"start": 20.76,
+"end": 20.94
+},
+{
+"text": "win",
+"start": 20.94,
+"end": 21.14
+},
+{
+"text": "40",
+"start": 21.14,
+"end": 21.52
+},
+{
+"text": "%",
+"start": 21.52,
+"end": 21.78
+},
+{
+"text": "of",
+"start": 21.78,
+"end": 21.94
+},
+{
+"text": "the",
+"start": 21.94,
+"end": 22.06
+},
+{
+"text": "time.",
+"start": 22.06,
+"end": 22.34
+},
+{
+"text": "Your",
+"start": 22.76,
+"end": 22.9
+},
+{
+"text": "average",
+"start": 22.9,
+"end": 23.24
+},
+{
+"text": "win",
+"start": 23.24,
+"end": 23.52
+},
+{
+"text": "is",
+"start": 23.52,
+"end": 23.74
+},
+{
+"text": "2r.",
+"start": 23.74,
+"end": 24.4
+},
+{
+"text": "Your",
+"start": 24.4,
+"end": 24.94
+},
+{
+"text": "average",
+"start": 24.94,
+"end": 25.24
+},
+{
+"text": "loss",
+"start": 25.24,
+"end": 25.58
+},
+{
+"text": "is",
+"start": 25.58,
+"end": 25.92
+},
+{
+"text": "1r.",
+"start": 25.92,
+"end": 26.46
+},
+{
+"text": "40",
+"start": 27.0,
+"end": 27.26
+},
+{
+"text": "times",
+"start": 27.26,
+"end": 27.5
+},
+{
+"text": "2",
+"start": 27.5,
+"end": 27.96
+},
+{
+"text": "minus",
+"start": 27.96,
+"end": 28.36
+},
+{
+"text": "60",
+"start": 28.36,
+"end": 28.92
+},
+{
+"text": "times",
+"start": 28.92,
+"end": 29.24
+},
+{
+"text": "1.",
+"start": 29.24,
+"end": 29.64
+},
+{
+"text": "That's",
+"start": 29.98,
+"end": 30.4
+},
+{
+"text": "plus",
+"start": 30.4,
+"end": 30.62
+},
+{
+"text": "20r",
+"start": 30.62,
+"end": 31.32
+},
+{
+"text": "over",
+"start": 31.32,
+"end": 31.64
+},
+{
+"text": "a",
+"start": 31.64,
+"end": 31.78
+},
+{
+"text": "hundred",
+"start": 31.78,
+"end": 32.06
+},
+{
+"text": "trades.",
+"start": 32.06,
+"end": 32.44
+},
+{
+"text": "You",
+"start": 32.88,
+"end": 33.16
+},
+{
+"text": "lose",
+"start": 33.16,
+"end": 33.44
+},
+{
+"text": "more",
+"start": 33.44,
+"end": 33.72
+},
+{
+"text": "often",
+"start": 33.72,
+"end": 34.1
+},
+{
+"text": "and",
+"start": 34.1,
+"end": 34.54
+},
+{
+"text": "still",
+"start": 34.54,
+"end": 34.88
+},
+{
+"text": "make",
+"start": 34.88,
+"end": 35.14
+},
+{
+"text": "money.",
+"start": 35.14,
+"end": 35.44
+},
+{
+"text": "So",
+"start": 35.88,
+"end": 36.1
+},
+{
+"text": "stop",
+"start": 36.1,
+"end": 36.4
+},
+{
+"text": "asking,",
+"start": 36.4,
+"end": 36.86
+},
+{
+"text": "will",
+"start": 37.1,
+"end": 37.18
+},
+{
+"text": "my",
+"start": 37.18,
+"end": 37.34
+},
+{
+"text": "next",
+"start": 37.34,
+"end": 37.62
+},
+{
+"text": "trade",
+"start": 37.62,
+"end": 37.9
+},
+{
+"text": "win?",
+"start": 37.9,
+"end": 38.2
+},
+{
+"text": "Start",
+"start": 38.88,
+"end": 39.02
+},
+{
+"text": "asking,",
+"start": 39.02,
+"end": 39.46
+},
+{
+"text": "does",
+"start": 39.68,
+"end": 39.88
+},
+{
+"text": "my",
+"start": 39.88,
+"end": 40.1
+},
+{
+"text": "strategy",
+"start": 40.1,
+"end": 40.46
+},
+{
+"text": "make",
+"start": 40.46,
+"end": 40.84
+},
+{
+"text": "money",
+"start": 40.84,
+"end": 41.18
+},
+{
+"text": "over",
+"start": 41.18,
+"end": 41.5
+},
+{
+"text": "a",
+"start": 41.5,
+"end": 41.64
+},
+{
+"text": "hundred",
+"start": 41.64,
+"end": 41.94
+},
+{
+"text": "trades?",
+"start": 41.94,
+"end": 42.36
+},
+{
+"text": "One",
+"start": 43.0,
+"end": 43.28
+},
+{
+"text": "winning",
+"start": 43.28,
+"end": 43.54
+},
+{
+"text": "trade",
+"start": 43.54,
+"end": 43.86
+},
+{
+"text": "can",
+"start": 43.86,
+"end": 44.08
+},
+{
+"text": "make",
+"start": 44.08,
+"end": 44.26
+},
+{
+"text": "you",
+"start": 44.26,
+"end": 44.42
+},
+{
+"text": "feel",
+"start": 44.42,
+"end": 44.7
+},
+{
+"text": "like",
+"start": 44.7,
+"end": 44.88
+},
+{
+"text": "a",
+"start": 44.88,
+"end": 45.0
+},
+{
+"text": "genius.",
+"start": 45.0,
+"end": 45.42
+},
+{
+"text": "Only",
+"start": 46.06,
+"end": 46.24
+},
+{
+"text": "your",
+"start": 46.24,
+"end": 46.46
+},
+{
+"text": "numbers",
+"start": 46.46,
+"end": 46.84
+},
+{
+"text": "can",
+"start": 46.84,
+"end": 47.18
+},
+{
+"text": "prove",
+"start": 47.18,
+"end": 47.44
+},
+{
+"text": "your",
+"start": 47.44,
+"end": 47.64
+},
+{
+"text": "edge.",
+"start": 47.64,
+"end": 47.98
+},
+{
+"text": "Order",
+"start": 48.64,
+"end": 48.78
+},
+{
+"text": "the",
+"start": 48.78,
+"end": 48.98
+},
+{
+"text": "market.",
+"start": 48.98,
+"end": 49.28
+},
+{
+"text": "Don't",
+"start": 49.84,
+"end": 49.98
+},
+{
+"text": "let",
+"start": 49.98,
+"end": 50.14
+},
+{
+"text": "the",
+"start": 50.14,
+"end": 50.28
+},
+{
+"text": "market",
+"start": 50.28,
+"end": 50.6
+},
+{
+"text": "order",
+"start": 50.6,
+"end": 50.88
+},
+{
+"text": "you.",
+"start": 50.88,
+"end": 51.28
+},
+{
+"text": "Follow",
+"start": 51.28,
+"end": 52.12
+},
+{
+"text": "for",
+"start": 52.12,
+"end": 52.34
+},
+{
+"text": "more.",
+"start": 52.34,
+"end": 52.54
+}
+]
