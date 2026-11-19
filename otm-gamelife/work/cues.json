@@ -1,0 +1,187 @@
+[
+{
+"t": 2.98,
+"snd": "bell_C5",
+"gain": -18
+},
+{
+"t": 4.37,
+"snd": "whoosh-short_3",
+"gain": -22
+},
+{
+"t": 6.36,
+"snd": "tock_1",
+"gain": -20
+},
+{
+"t": 13.5,
+"snd": "bell_E5",
+"gain": -18
+},
+{
+"t": 14.84,
+"snd": "pop_1",
+"gain": -20
+},
+{
+"t": 16.04,
+"snd": "pop_2",
+"gain": -20
+},
+{
+"t": 17.28,
+"snd": "pop_3",
+"gain": -20
+},
+{
+"t": 19.54,
+"snd": "bell_G5",
+"gain": -18
+},
+{
+"t": 23.34,
+"snd": "land-light_1",
+"gain": -18
+},
+{
+"t": 24.32,
+"snd": "land-light_1",
+"gain": -18
+},
+{
+"t": 24.66,
+"snd": "land-light_1",
+"gain": -18
+},
+{
+"t": 27.64,
+"snd": "pop_1",
+"gain": -20
+},
+{
+"t": 27.89,
+"snd": "pop_2",
+"gain": -20
+},
+{
+"t": 28.14,
+"snd": "pop_3",
+"gain": -20
+},
+{
+"t": 30.86,
+"snd": "bell_C5",
+"gain": -18
+},
+{
+"t": 33.64,
+"snd": "tick-crisp_1",
+"gain": -22
+},
+{
+"t": 35.05,
+"snd": "whoosh-short_2",
+"gain": -20
+},
+{
+"t": 35.3,
+"snd": "bell_E5",
+"gain": -20
+},
+{
+"t": 37.26,
+"snd": "tick_1",
+"gain": -24
+},
+{
+"t": 37.81,
+"snd": "tick_2",
+"gain": -24
+},
+{
+"t": 38.36,
+"snd": "tick_3",
+"gain": -24
+},
+{
+"t": 38.91,
+"snd": "land_1",
+"gain": -14
+},
+{
+"t": 39.41,
+"snd": "bell_G5",
+"gain": -20
+},
+{
+"t": 41.38,
+"snd": "tick-crisp_1",
+"gain": -24
+},
+{
+"t": 41.48,
+"snd": "land-light_1",
+"gain": -24
+},
+{
+"t": 41.73,
+"snd": "land-light_1",
+"gain": -24
+},
+{
+"t": 41.98,
+"snd": "tick-crisp_2",
+"gain": -24
+},
+{
+"t": 41.98,
+"snd": "land-light_1",
+"gain": -24
+},
+{
+"t": 42.58,
+"snd": "tick-crisp_3",
+"gain": -24
+},
+{
+"t": 43.18,
+"snd": "tick-crisp_1",
+"gain": -24
+},
+{
+"t": 43.86,
+"snd": "swell_2",
+"gain": -22
+},
+{
+"t": 47.84,
+"snd": "tock_1",
+"gain": -18
+},
+{
+"t": 48.34,
+"snd": "bell_E5",
+"gain": -20
+},
+{
+"t": 51.22,
+"snd": "pop_1",
+"gain": -18
+},
+{
+"t": 52.18,
+"snd": "bell_C5",
+"gain": -18
+},
+{
+"t": 54.11,
+"snd": "bell_A4",
+"gain": -16
+},
+{
+"t": 56.96,
+"snd": "click-confirm_1",
+"gain": -16
+}
+]

@@ -1,0 +1,572 @@
+[
+{
+"text": "Most",
+"start": 0.0,
+"end": 0.4
+},
+{
+"text": "traders",
+"start": 0.4,
+"end": 0.76
+},
+{
+"text": "study",
+"start": 0.76,
+"end": 1.18
+},
+{
+"text": "the",
+"start": 1.18,
+"end": 1.38
+},
+{
+"text": "book.",
+"start": 1.38,
+"end": 1.68
+},
+{
+"text": "Indicators.",
+"start": 2.38,
+"end": 2.8
+},
+{
+"text": "Patterns.",
+"start": 3.54,
+"end": 3.72
+},
+{
+"text": "The",
+"start": 4.42,
+"end": 4.52
+},
+{
+"text": "perfect",
+"start": 4.52,
+"end": 4.9
+},
+{
+"text": "entry.",
+"start": 4.9,
+"end": 5.38
+},
+{
+"text": "The",
+"start": 6.14,
+"end": 6.24
+},
+{
+"text": "ones",
+"start": 6.24,
+"end": 6.44
+},
+{
+"text": "who",
+"start": 6.44,
+"end": 6.64
+},
+{
+"text": "last",
+"start": 6.64,
+"end": 7.12
+},
+{
+"text": "study",
+"start": 7.12,
+"end": 7.66
+},
+{
+"text": "the",
+"start": 7.66,
+"end": 7.92
+},
+{
+"text": "game.",
+"start": 7.92,
+"end": 8.22
+},
+{
+"text": "They",
+"start": 8.84,
+"end": 9.0
+},
+{
+"text": "know",
+"start": 9.0,
+"end": 9.16
+},
+{
+"text": "when",
+"start": 9.16,
+"end": 9.34
+},
+{
+"text": "the",
+"start": 9.34,
+"end": 9.46
+},
+{
+"text": "market",
+"start": 9.46,
+"end": 9.66
+},
+{
+"text": "is",
+"start": 9.66,
+"end": 9.88
+},
+{
+"text": "quiet",
+"start": 9.88,
+"end": 10.28
+},
+{
+"text": "and",
+"start": 10.28,
+"end": 10.86
+},
+{
+"text": "when",
+"start": 10.86,
+"end": 11.02
+},
+{
+"text": "it",
+"start": 11.02,
+"end": 11.14
+},
+{
+"text": "wakes",
+"start": 11.14,
+"end": 11.32
+},
+{
+"text": "up.",
+"start": 11.32,
+"end": 11.64
+},
+{
+"text": "They",
+"start": 12.1,
+"end": 12.28
+},
+{
+"text": "know",
+"start": 12.28,
+"end": 12.42
+},
+{
+"text": "where",
+"start": 12.42,
+"end": 12.56
+},
+{
+"text": "the",
+"start": 12.56,
+"end": 12.72
+},
+{
+"text": "stop",
+"start": 12.72,
+"end": 13.02
+},
+{
+"text": "losses",
+"start": 13.02,
+"end": 13.28
+},
+{
+"text": "are",
+"start": 13.28,
+"end": 13.52
+},
+{
+"text": "sitting,",
+"start": 13.52,
+"end": 13.86
+},
+{
+"text": "because",
+"start": 14.06,
+"end": 14.42
+},
+{
+"text": "that's",
+"start": 14.42,
+"end": 14.88
+},
+{
+"text": "where",
+"start": 14.88,
+"end": 15.04
+},
+{
+"text": "price",
+"start": 15.04,
+"end": 15.28
+},
+{
+"text": "likes",
+"start": 15.28,
+"end": 15.54
+},
+{
+"text": "to",
+"start": 15.54,
+"end": 15.76
+},
+{
+"text": "go.",
+"start": 15.76,
+"end": 15.98
+},
+{
+"text": "They",
+"start": 16.44,
+"end": 16.68
+},
+{
+"text": "know",
+"start": 16.68,
+"end": 16.86
+},
+{
+"text": "which",
+"start": 16.86,
+"end": 17.06
+},
+{
+"text": "news",
+"start": 17.06,
+"end": 17.38
+},
+{
+"text": "can",
+"start": 17.38,
+"end": 17.6
+},
+{
+"text": "move",
+"start": 17.6,
+"end": 17.8
+},
+{
+"text": "price",
+"start": 17.8,
+"end": 18.1
+},
+{
+"text": "in",
+"start": 18.1,
+"end": 18.36
+},
+{
+"text": "seconds,",
+"start": 18.36,
+"end": 18.84
+},
+{
+"text": "and",
+"start": 19.2,
+"end": 19.48
+},
+{
+"text": "they're",
+"start": 19.48,
+"end": 19.6
+},
+{
+"text": "not",
+"start": 19.6,
+"end": 19.84
+},
+{
+"text": "in",
+"start": 19.84,
+"end": 19.96
+},
+{
+"text": "a",
+"start": 19.96,
+"end": 20.08
+},
+{
+"text": "trade",
+"start": 20.08,
+"end": 20.34
+},
+{
+"text": "when",
+"start": 20.34,
+"end": 20.56
+},
+{
+"text": "it",
+"start": 20.56,
+"end": 20.68
+},
+{
+"text": "hits.",
+"start": 20.68,
+"end": 20.96
+},
+{
+"text": "Everyone",
+"start": 21.7,
+"end": 22.08
+},
+{
+"text": "else",
+"start": 22.08,
+"end": 22.34
+},
+{
+"text": "works",
+"start": 22.34,
+"end": 22.66
+},
+{
+"text": "hard.",
+"start": 22.66,
+"end": 23.1
+},
+{
+"text": "Hours",
+"start": 23.96,
+"end": 23.96
+},
+{
+"text": "of",
+"start": 23.96,
+"end": 24.16
+},
+{
+"text": "charts.",
+"start": 24.16,
+"end": 24.48
+},
+{
+"text": "A",
+"start": 24.88,
+"end": 24.98
+},
+{
+"text": "new",
+"start": 24.98,
+"end": 25.14
+},
+{
+"text": "course",
+"start": 25.14,
+"end": 25.46
+},
+{
+"text": "every",
+"start": 25.46,
+"end": 25.76
+},
+{
+"text": "month.",
+"start": 25.76,
+"end": 26.12
+},
+{
+"text": "But",
+"start": 26.12,
+"end": 26.74
+},
+{
+"text": "the",
+"start": 26.74,
+"end": 26.88
+},
+{
+"text": "market",
+"start": 26.88,
+"end": 27.1
+},
+{
+"text": "doesn't",
+"start": 27.1,
+"end": 27.48
+},
+{
+"text": "hand",
+"start": 27.48,
+"end": 27.7
+},
+{
+"text": "you",
+"start": 27.7,
+"end": 27.88
+},
+{
+"text": "a",
+"start": 27.88,
+"end": 27.98
+},
+{
+"text": "syllabus,",
+"start": 27.98,
+"end": 28.44
+},
+{
+"text": "and",
+"start": 28.86,
+"end": 28.98
+},
+{
+"text": "nobody",
+"start": 28.98,
+"end": 29.28
+},
+{
+"text": "grades",
+"start": 29.28,
+"end": 29.6
+},
+{
+"text": "your",
+"start": 29.6,
+"end": 29.78
+},
+{
+"text": "effort.",
+"start": 29.78,
+"end": 30.14
+},
+{
+"text": "So",
+"start": 30.62,
+"end": 30.76
+},
+{
+"text": "stop",
+"start": 30.76,
+"end": 31.02
+},
+{
+"text": "asking",
+"start": 31.02,
+"end": 31.42
+},
+{
+"text": "how",
+"start": 31.42,
+"end": 31.68
+},
+{
+"text": "hard",
+"start": 31.68,
+"end": 32.02
+},
+{
+"text": "you",
+"start": 32.02,
+"end": 32.2
+},
+{
+"text": "should",
+"start": 32.2,
+"end": 32.32
+},
+{
+"text": "work.",
+"start": 32.32,
+"end": 32.6
+},
+{
+"text": "Start",
+"start": 33.18,
+"end": 33.32
+},
+{
+"text": "asking",
+"start": 33.32,
+"end": 33.66
+},
+{
+"text": "how",
+"start": 33.66,
+"end": 33.9
+},
+{
+"text": "the",
+"start": 33.9,
+"end": 34.06
+},
+{
+"text": "game",
+"start": 34.06,
+"end": 34.38
+},
+{
+"text": "actually",
+"start": 34.38,
+"end": 34.86
+},
+{
+"text": "works.",
+"start": 34.86,
+"end": 35.34
+},
+{
+"text": "Order",
+"start": 36.0,
+"end": 36.12
+},
+{
+"text": "the",
+"start": 36.12,
+"end": 36.34
+},
+{
+"text": "market.",
+"start": 36.34,
+"end": 36.66
+},
+{
+"text": "Don't",
+"start": 37.22,
+"end": 37.36
+},
+{
+"text": "let",
+"start": 37.36,
+"end": 37.48
+},
+{
+"text": "the",
+"start": 37.48,
+"end": 37.62
+},
+{
+"text": "market",
+"start": 37.62,
+"end": 37.94
+},
+{
+"text": "order",
+"start": 37.94,
+"end": 38.22
+},
+{
+"text": "you.",
+"start": 38.22,
+"end": 38.6
+},
+{
+"text": "Follow",
+"start": 39.18,
+"end": 39.44
+},
+{
+"text": "for",
+"start": 39.44,
+"end": 39.68
+},
+{
+"text": "more.",
+"start": 39.68,
+"end": 39.88
+}
+]
