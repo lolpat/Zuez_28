@@ -27,9 +27,9 @@ window.OTM_CONFIG = {
   SIGNAL_URL: "https://t.me/+Zyobh3qn3pI1ZmFk",
 
   // Network total on the home page (from the owner: everyone under the OTM IB at all three brokers).
-  // members = everyone in the network, ibs = how many of them are IBs. Update by hand when they change;
+  // clients + ibs = the total shown (489 members incl. 12 IBs). Update by hand when they change;
   // remove NETWORK to hide the card.
-  NETWORK: { members: 489, ibs: 12, date: "2026-11-19" },
+  NETWORK: { clients: 477, ibs: 12, date: "2026-11-19" },
 
   // Telegram member counts on the home page. The bot reads them from Telegram every hour (needs the
   // TG_BOT_TOKEN secret, see README). VIP_CHAT / FREE_CHAT are the chats' ids from public.tg_chats; leave
