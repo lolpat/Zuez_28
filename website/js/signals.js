@@ -160,6 +160,7 @@
           <section class="card sig-card"><h4>📈 ${t("sig.byMonth")}</h4>
             ${root.OTMCharts ? root.OTMCharts.bars(bars.map((g) => ({ label: months(g.m).replace(/\s*\d{4}$/, ""), value: g.pips, sub: String(g.m.slice(0, 4)) })), { fmt: (x) => sgn(x) + " pips", short: (x) => (Math.abs(x) >= 1000 ? sgn(x / 1000, 1) + "k" : sgn(x)), label: t("sig.byMonth"), w: 420, h: 230 }) : ""}</section>
         </div>` : `<p class="sig-soon">${t("sig.soon")}</p>`}
+        ${r.real && (r.unresolved || r.cancelled) ? `<p class="sig-note">${t("sig.unres", { n: r.unresolved || 0, c: r.cancelled || 0 })}</p>` : ""}
         <p class="sig-note">${t("sig.note")}</p>`;
       wire();
     };
