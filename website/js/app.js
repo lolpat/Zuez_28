@@ -13,6 +13,7 @@
   };
 
   const ICON = {
+    signals: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14"/></svg>',
     dashboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="8" rx="2"/><rect x="13.5" y="3.5" width="7" height="5" rx="2"/><rect x="13.5" y="11.5" width="7" height="9" rx="2"/><rect x="3.5" y="14.5" width="7" height="6" rx="2"/></svg>',
     journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H6z"/><path d="M6 3.5v17M9.5 8h5.5M9.5 11.5h5.5"/><path d="m10 17 2-2.5 2 1.5 2.5-3"/></svg>',
     leaderboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20h7M9.5 20l.5-3.5h4l.5 3.5"/></svg>',
@@ -60,19 +61,41 @@
   }
 
   // ------------------------------------------------------------ shell
+  // [id, label key, menu group]
   const routes = () => {
-    const r = [["dashboard", "app.dashboard"], ["journal", "app.journal"], ["leaderboard", "app.leaderboard"], ["wins", "app.wins"], ["tools", "app.tools"]];
-    if (isIB()) r.push(["network", "app.network"]);
-    r.push(["profile", "app.profile"]);
+    const r = [["dashboard", "app.dashboard", ""], ["signals", "app.signals", "sig"],
+      ["journal", "app.journal", "tools"], ["leaderboard", "app.leaderboard", "tools"], ["wins", "app.wins", "tools"], ["tools", "app.tools", "tools"]];
+    if (isIB()) r.push(["network", "app.network", "tools"]);
+    r.push(["profile", "app.profile", "acc"]);
     return r;
   };
+  // the member's setup checklist (dashboard card and the progress bar under their name)
+  function setupSteps() {
+    const m = state.me;
+    const steps = [
+      ["dash.step.ok", approved(), "#profile", "dash.step.ok.d"],
+      ["dash.step.tg", !!m.telegram, "#profile", "dash.step.tg.d"],
+      ["dash.step.acc", state.accounts.length > 0, "#profile", "dash.step.acc.d"],
+      ["dash.step.import", state.trades.length > 0, "#journal", "dash.step.import.d"],
+      ["dash.step.note", state.trades.some((x) => x.note || x.feeling || x.lesson), "#journal", "dash.step.note.d"]
+    ];
+    if (isIB()) steps.push(["dash.step.share", (state.downline || []).length > 0, "#network", "dash.step.share.d"]);
+    return steps;
+  }
   function renderShell() {
     const m = state.me;
     const roleBadge = { member: "", ib: "badge--gold", owner: "badge--gold" }[m.role];
-    $("#me").innerHTML = `<span class="avatar">${esc(initials(m.full_name))}</span>
-      <div><b>${esc(m.full_name || m.email)}</b><span class="badge ${roleBadge}">${t("app.role." + m.role)}</span></div>`;
+    const steps = setupSteps(), done = steps.filter((s) => s[1]).length;
+    $("#me").innerHTML = `<a class="me__av" href="#profile" title="${esc(m.full_name || m.email)}"><span class="avatar">${esc(initials(m.full_name))}</span></a>
+      <div class="me__txt"><b>${esc(m.full_name || m.email)}</b><span class="me__meta"><span class="badge ${roleBadge}">${t("app.role." + m.role)}</span><small>${t("app.setup", { n: done, m: steps.length })}</small></span>
+      <span class="me__bar" aria-hidden="true"><i style="width:${(done / steps.length) * 100}%"></i></span></div>`;
     const cur = currentRoute();
-    $("#nav").innerHTML = routes().map(([id, key]) => `<a href="#${id}" ${id === cur ? 'aria-current="page"' : ""}>${ICON[id]}<span>${t(key)}</span></a>`).join("");
+    let grp = null;
+    $("#nav").innerHTML = routes().map(([id, key, g]) => {
+      const head = g && g !== grp ? `<p class="nav__grp">${t("app.grp." + g)}</p>` : "";
+      grp = g;
+      return `${head}<a href="#${id}" title="${esc(t(key))}" ${id === cur ? 'aria-current="page"' : ""}>${ICON[id]}<span>${t(key)}</span>${id === "signals" ? '<em class="nav__live">LIVE</em>' : ""}</a>`;
+    }).join("");
     $("#demo-badge").hidden = state.store.live;
     const r = routes().find(([id]) => id === cur);
     $("#page-title").textContent = r ? t(r[1]) : "";
@@ -95,7 +118,7 @@
     renderShell();
     const v = $("#view");
     const r = currentRoute();
-    ({ dashboard, journal, leaderboard, wins, tools, network, profile })[r](v);
+    ({ dashboard, signals, journal, leaderboard, wins, tools, network, profile })[r](v);
     v.focus({ preventScroll: true });
   }
 
@@ -236,24 +259,75 @@
       ${weekend ? `<p class="muted" style="font-size:.86rem;margin:12px 0 0">${t("dash.weekend")}</p>` : ""}`;
   }
 
+  // dashboard: welcome, market hours + latest signal result, signal rooms, setup checklist, home-screen tip
+  const ROOM_ICON = { swing: "🥇", scalp: "⚡", rr: "🎯", hype: "₿" };
+  const pipsTxt = (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + fmt.num(Math.abs(Math.round(v)), 0) + " pips";
+  const shortDate = (iso) => fmt.date(iso + "T12:00:00", { day: "numeric", month: "short" });
+  function homeTip() {
+    let off = false; try { off = localStorage.getItem("otm_home_tip") === "off"; } catch { /* blocked */ }
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+    if (off || standalone) return "";
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const steps = ios ? ["dash.home.ios1", "dash.home.ios2", "dash.home.ios3"] : ["dash.home.and1", "dash.home.and2", "dash.home.and3"];
+    return `<section class="card dhome" id="home-tip">
+      <div class="dcard-h"><span class="dic dic--pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
+        <div><h3>${t("dash.home.t")}</h3><p class="card__sub">${t("dash.home.d")}</p></div>
+        <button class="btn btn--quiet btn--sm dhome__x" type="button" data-home-off>${t("dash.home.later")}</button></div>
+      <ol class="dhome__steps">${steps.map((k) => `<li>${t(k)}</li>`).join("")}</ol>
+    </section>`;
+  }
+  function roomsHtml(list) {
+    if (!list || !list.length) return "";
+    const stat = (r) => r.kind === "days" ? t("dash.room.days", { p: pipsTxt(r.net), g: r.green, d: r.days })
+      : r.id === "rr" && r.rr ? t("dash.room.r", { r: (r.rr.total >= 0 ? "+" : "−") + fmt.num(Math.abs(r.rr.total), 1) })
+      : t("dash.room.wr", { w: fmt.num(r.wr, 0), p: pipsTxt(r.total) });
+    return `<div class="dsec"><h2>${t("dash.rooms")}</h2><a href="#signals">${t("dash.rooms.all")} →</a></div>
+      <div class="drooms">${list.map((r) => `<a class="droom" href="#signals" data-room="${r.id}">
+        <span class="droom__ic" aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
+        <span class="droom__txt"><b>${esc(r.name)}</b><small class="${r.kind === "days" ? (r.net >= 0 ? "up" : "down") : r.total >= 0 ? "up" : "down"}">${stat(r)}</small></span>
+        <i class="droom__go" aria-hidden="true">→</i></a>`).join("")}</div>`;
+  }
+  function latestHtml(list) {
+    const pick = (list || []).filter((r) => r.last).sort((a, b) => b.last.date.localeCompare(a.last.date) || (a.kind === "days") - (b.kind === "days"))[0];
+    const head = `<div class="dcard-h"><span class="dic">${ICON.signals}</span><h3>${t("dash.latest")}</h3>${pick ? `<span class="badge badge--gold dcard-h__end">${shortDate(pick.last.date)}</span>` : ""}</div>`;
+    if (!pick) return head + `<p class="muted" style="margin-top:14px">${t("sig.soon")}</p>`;
+    const L = pick.last;
+    const what = pick.kind === "days" ? t("dash.latest.day") : `${esc(L.symbol)} ${esc(String(L.side).toUpperCase())}`;
+    const sub = pick.kind === "days" ? t("dash.latest.dayd") : L.r != null ? t("dash.latest.rr", { r: fmt.num(L.r, 1) }) : "";
+    return `${head}
+      <p class="dlast__room">${ROOM_ICON[pick.id] || ""} ${esc(pick.name.toUpperCase())} · ${what}</p>
+      <b class="dlast__pips ${L.pips >= 0 ? "up" : "down"}">${pipsTxt(L.pips)}</b>
+      ${sub ? `<p class="card__sub">${sub}</p>` : ""}
+      <ul class="dlast__list">${(list || []).filter((r) => r.last).map((r) => `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
+        <span>${esc(r.name)}<small>${shortDate(r.last.date)}</small></span><b class="${r.last.pips >= 0 ? "up" : "down"}">${pipsTxt(r.last.pips)}</b></li>`).join("")}</ul>
+      <a class="btn btn--gold btn--sm dlast__go" href="#signals" data-room="${pick.id}">${t("dash.latest.all")} →</a>`;
+  }
   function dashboard(v) {
     const m = state.me;
     const month = S.filterTrades(state.trades, { period: "month" });
     const st = S.compute(month);
     const all = S.compute(state.trades);
-    const steps = [
-      ["dash.step.tg", !!m.telegram, "#profile"],
-      ["dash.step.acc", state.accounts.length > 0, "#profile"],
-      ["dash.step.import", state.trades.length > 0, "#journal"],
-      ["dash.step.note", state.trades.some((x) => x.note || x.feeling || x.lesson), "#journal"]
-    ];
-    if (isIB()) steps.push(["dash.step.share", (state.downline || []).length > 0, "#network"]);
+    const steps = setupSteps();
     const done = steps.filter((s) => s[1]).length;
+    const next = steps.find((s) => !s[1]);
 
     v.innerHTML = `
-      <div class="view-head"><div><p class="muted">${t("dash.welcome")}</p><h2>${esc(m.full_name || m.email)}</h2></div></div>
+      <div class="dhello"><p class="muted">${t("dash.welcome")},</p><h2>${esc(m.full_name || m.email)} <span aria-hidden="true">👋</span></h2></div>
       ${statusCard()}
-      <section class="card market" id="hours">${hoursHtml()}</section>
+      <div class="grid grid--2 drow">
+        <section class="card market market--compact" id="hours">${hoursHtml()}</section>
+        <section class="card dlast" id="latest">${latestHtml(state.sigOverview)}</section>
+      </div>
+      <div id="rooms-strip">${roomsHtml(state.sigOverview)}</div>
+      <section class="card dmc">
+        <div class="dcard-h"><span class="dic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 4.5-2 6 1.5 0 4.5-.5 6-2M14 4c3-1 6-1 6-1s0 3-1 6c-1.5 4.5-6 8-9 9l-4-4c1-3 4.5-7.5 9-9z"/><circle cx="15" cy="9" r="1.6"/></svg></span>
+          <div><h3>${t("dash.start")}</h3><p class="card__sub">${t("dash.start.sub")}</p></div>
+          <div class="dmc__score"><b>${done}/${steps.length}</b><small>${t("dash.steps")}</small></div></div>
+        <div class="dmc__bar" aria-hidden="true"><i style="width:${(done / steps.length) * 100}%"></i></div>
+        <ul class="dmc__list">${steps.map(([k, ok, href, d]) => `<li class="${ok ? "done" : ""}"><i class="tick"></i><span>${ok ? `<b>${t(k)}</b>` : `<a href="${href}"><b>${t(k)}</b></a>`}<small>${t(d)}</small></span></li>`).join("")}</ul>
+        ${next ? `<a class="btn btn--gold btn--sm" style="margin-top:16px" href="${next[2]}">${t(next[0])} →</a>` : ""}
+      </section>
+      ${homeTip()}
       <div class="grid grid--21">
         <section class="card kpi--hero">
           <h3>${t("dash.month")} <a class="btn btn--ghost btn--sm" href="#journal">${t("dash.toJournal")}</a></h3>
@@ -264,13 +338,6 @@
             </div></div>` : `<p class="muted" style="margin-top:12px">${t("dash.noData")}</p>`}
         </section>
         <section class="card">
-          <h3>${t("dash.start")} <span class="badge">${t("dash.done", { n: done, m: steps.length })}</span></h3>
-          <div class="progress"><i style="width:${(done / steps.length) * 100}%"></i></div>
-          <ul class="checklist">${steps.map(([k, ok, href]) => `<li class="${ok ? "done" : ""}"><i class="tick"></i><span>${ok ? t(k) : `<a href="${href}">${t(k)}</a>`}</span></li>`).join("")}</ul>
-        </section>
-      </div>
-      <div class="grid">
-        <section class="card">
           <h3>${t("dash.upline")}</h3>
           ${state.upline ? `<div class="net-row__who" style="margin-top:14px"><span class="avatar">${esc(initials(state.upline.full_name))}</span><div><b>${esc(state.upline.full_name)}</b><small>${esc(state.upline.telegram || "")}</small></div></div>
             ${state.upline.telegram ? `<a class="btn btn--ghost btn--sm" style="margin-top:14px" target="_blank" rel="noopener" href="https://t.me/${esc(state.upline.telegram.replace(/^@/, ""))}">Telegram</a>` : ""}`
@@ -278,7 +345,28 @@
         </section>
       </div>
       ${riskNote()}`;
+    v.querySelectorAll("[data-room]").forEach((a) => a.addEventListener("click", () => { state.sigRoom = a.dataset.room; }));
+    const off = v.querySelector("[data-home-off]");
+    if (off) off.addEventListener("click", () => { try { localStorage.setItem("otm_home_tip", "off"); } catch { /* blocked */ } v.querySelector("#home-tip").remove(); });
+    // signal rooms: computed once per visit (history + live bot results)
+    if (!state.sigOverview && window.OTMSignals) {
+      window.OTMSignals.overview().then((list) => {
+        state.sigOverview = list;
+        if (currentRoute() !== "dashboard") return;
+        const L = $("#latest"), R = $("#rooms-strip");
+        if (L) L.innerHTML = latestHtml(list);
+        if (R) R.innerHTML = roomsHtml(list);
+        v.querySelectorAll("[data-room]").forEach((a) => a.addEventListener("click", () => { state.sigRoom = a.dataset.room; }));
+      }).catch(() => {});
+    }
     state.timer = setInterval(() => { const h = $("#hours"); if (h) h.innerHTML = hoursHtml(); }, 30000);
+  }
+
+  // ------------------------------------------------------------ signal results (same view as the home page)
+  function signals(v) {
+    v.innerHTML = `<div class="view-head"><div><p class="muted">${t("sig.kicker")}</p><h2>${t("sig.title")}</h2></div></div>
+      <div class="sig" data-signals></div>${riskNote()}`;
+    if (window.OTMSignals) window.OTMSignals.render(v.querySelector("[data-signals]"), { room: state.sigRoom });
   }
 
   // ------------------------------------------------------------ journal

@@ -127,7 +127,7 @@
     const D = root.OTM_SIGNALS || { rooms: [] };
     const hasData = (r) => (r.trades && r.trades.length) || (r.days && r.days.length);
     const rooms = D.rooms.map((r, k) => hasData(r) ? { ...r, real: true } : { ...r, real: false, trades: live ? [] : sample(r, k) });
-    let cur = 0;
+    let cur = Math.max(0, rooms.findIndex((r) => r.id === opts.room));
     const months = (m) => new Date(m + "-15T12:00:00").toLocaleDateString(root.OTMI18n.lang === "th" ? "th-TH" : "en-GB", { month: "long", year: "numeric" });
     const draw = () => {
       const r = rooms[cur], isSample = !r.real && !live;
@@ -252,5 +252,23 @@
     return changed;
   }
 
-  root.OTMSignals = { render, compute, mergeLive };
+  // Short summary per room for the member dashboard: headline numbers and the most recent closed result.
+  // Rooms without real data are left out; live bot results are merged in when the site is connected.
+  async function overview() {
+    const D = root.OTM_SIGNALS || { rooms: [] };
+    const rooms = D.rooms.filter((r) => (r.trades && r.trades.length) || (r.days && r.days.length)).map((r) => ({ ...r, real: true }));
+    if (live) { try { mergeLive(rooms, await fetchLive()); } catch (e) { /* history only */ } }
+    return rooms.map((r) => {
+      const base = { id: r.id, name: r.name, medal: r.medal, hype: !!r.hype, flash: !!r.flash };
+      if (r.days && r.days.length) {
+        const s = computeDays(r, D.deduct ?? 0.15), d = r.days.reduce((a, x) => (x[0] > a[0] ? x : a));
+        return { ...base, kind: "days", net: s.net, green: s.green, days: s.days, last: { date: d[0], pips: d[1] - d[2] } };
+      }
+      const s = compute(r, D.deduct ?? 0.15), x = r.trades.reduce((a, y) => (y[0] >= a[0] ? y : a));
+      return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr,
+        last: { date: x[0], symbol: x[1], side: x[2], pips: x[3], r: x[4] > 0 ? x[3] / x[4] : null } };
+    });
+  }
+
+  root.OTMSignals = { render, compute, mergeLive, overview, badge };
 })(window);
