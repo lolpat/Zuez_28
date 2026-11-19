@@ -1,0 +1,45 @@
+// node supabase/functions/tg-signals/parse.test.mjs  — checks the reader against the rooms' real message formats.
+import assert from "node:assert/strict";
+import { parseSignal, parseResult, applyResult, outcome } from "./parse.js";
+
+const sig = (t, room = "rr") => parseSignal(t, room);
+const res = (t) => parseResult(t);
+
+// signals
+assert.deepEqual(sig("🥇 SWING ELITE\n\n#XAUUSD BUY\nENTRY: 3978//3968\n\n🎯 TP1: @ 3982\nTP6: @ 4900\n\n🛑 SL: @ 3958", "swing"),
+  { symbol: "XAUUSD", side: "buy", entry: 3978, entry2: 3968, sl: 3958, risk: 200 });
+assert.equal(sig("XAUUSD BUY 4261/4251\n\nTP1. @ 4265\nTP6. @ 4800\n\nSL     @ 4241", "swing").risk, 200);
+assert.equal(sig("⚡ OTM SCALPING PRO\n\n🟢 BUY NOW\n\n📍 ENTRY ZONE: 4053–4056\n🛑 STOP LOSS: 4052\n\n🎯 TAKE PROFIT: 4063", "scalp").risk, 40);
+assert.equal(sig("📊 XAUUSD SHORT\n⏰ Timeframe: 30M\n\n🔻 SHORT/SELL ENTRY: 4097\n🛑 STOP LOSS: 4102\n\nSL: 500 points / 50 pips").side, "sell");
+assert.equal(sig("📊 XAUUSD SHORT\n🔻 SHORT/SELL ENTRY: 4097\n🛑 STOP LOSS: 4102\nSL: 500 points / 50 pips").risk, 50);
+assert.equal(sig("🪎 XAUUSD\n\n🔹 BUY ENTRY: 4048.13\n🛑 STOP LOSS: 4044.54").risk, 35.9);
+assert.equal(sig("SELL NOW 5160-62 SL 5164 TP 5155 TP 5152", "scalp").entry2, 5162);
+assert.equal(sig("BUY GOLD | 4564-63 ▪️SL: 4561.5 ▫️TP: 4580", "scalp").risk, 25);
+assert.equal(sig("💰 BTCUSD 💰SHORT🔽\n🔽SHORT/SELL ENTRY: 84740\n🛑 STOP LOSS: 85600\nSL: 860 points").symbol, "BTCUSD");
+assert.equal(sig("1. BUY EURUSD NOW 1.18700 SL 1.18525 TP 1.19150", "scalp"), null);          // not a room instrument
+assert.equal(sig("✨ OTM 🥇 SWING ELITE WEEKLY SUMMARY\n#MONDAY\n💰 Won: +650 PIPS\n❌ SL: -0 PIPS", "swing"), null);
+assert.equal(sig("GOLD BUY RUNNING 320+Pips Profit", "swing"), null);
+
+// results
+assert.deepEqual(res("#XAUUSD\nTARGET3 HIT 120+PIPS PROFIT DONE"), { kind: "tp", pips: 120 });
+assert.deepEqual(res("𝗚𝗢𝗟𝗗 BUY 𝗥𝗨𝗡𝗡𝗜𝗡𝗚 320+𝗣𝗶𝗽𝘀 𝗣𝗿𝗼𝗳𝗶𝘁"), { kind: "run", pips: 320 });
+assert.deepEqual(res("TP 1 ✔️ +80pips"), { kind: "tp", pips: 80 });
+assert.deepEqual(res("+50 pips"), { kind: "run", pips: 50 });
+assert.deepEqual(res("hit sl -40pips"), { kind: "sl", pips: 40 });
+assert.deepEqual(res("The stop loss was hit: -30 pips."), { kind: "sl", pips: 30 });
+assert.deepEqual(res("✅ +600 POINTS TP1 — Confidently hit with OTM 💸"), { kind: "tp", pips: 60 });
+assert.equal(res("Break-even hit.").kind, "be");
+assert.equal(res("Buy +30pips but I will count this as BE").kind, "be");
+assert.equal(res("Cancel").kind, "cancel");
+assert.equal(res("SL hasn’t been hit yet."), null);
+assert.equal(res("Set Breakeven now at lower part"), null);
+
+// folding a trade
+let t = {};
+for (const m of ["+28pips", "ไม่TP ผมนับ SLนะ", "SL hit -30pips"]) t = applyResult(t, res(m));
+assert.deepEqual(outcome(t, 40), { status: "loss", pips: -30 });               // floating profit, then SL: a loss
+t = {};
+for (const m of ["TARGET1 HIT 40+PIPS PROFIT DONE", "GOLD BUY RUNNING 110+Pips Profit", "BE HIT"]) t = applyResult(t, res(m));
+assert.deepEqual(outcome(t, 200), { status: "win", pips: 110 });                // TP reached first, then BE: a win
+assert.deepEqual(outcome(applyResult({}, res("Cancel")), 50), { status: "cancel", pips: null });
+console.log("parse.js: all checks passed");

@@ -187,6 +187,7 @@ shows "Problem" in Profile until they reconnect.
 - `js/app.js`: the portal; `js/site.js`: landing, login and sign-up
 - `js/worldmap.js`: world outline for the market-hours map (Natural Earth, public domain)
 - `../supabase/functions/mt-sync/`: automatic MT4/MT5 history; `../supabase/sync-schedule.sql`: its schedule
+- `../supabase/functions/tg-signals/`: the Telegram bot webhook for live signal results (`parse.js` reads the messages); `../supabase/signals.sql`: its tables and public views
 - `assets/img/`: logo mark (from `brand/logo/`), app icon, share image
 
 ## Signal results (home page)
@@ -195,6 +196,37 @@ shows "Problem" in Profile until they reconnect.
   (trades, win rate, TP/SL, profit factor, total pips, best day, streaks, "if you had followed" at
   0.01 / 0.1 / 0.5 / 1 lot after a 15% deduction, monthly table, pips by month) is computed from
   each room's trade log in `js/signals-data.js`: one line per signal, `["2026-11-03", "XAUUSD",
-  "buy", 145]` (pips, minus for a stop loss). Include the losing signals too.
+  "buy", 145, 40]` (pips, minus for a stop loss; the last number is the risk in pips from entry to
+  SL, which gives the RR card). Swing Elite is kept per day from its daily results instead.
+- The history was read from the rooms' Telegram exports with `supabase/functions/tg-signals/parse.js`:
+  a trade counts the furthest profit posted under it, a posted stop loss when no profit was posted,
+  and break-even as 0. Signals with no result posted and cancelled signals are not counted, and each
+  room says how many under its table.
 - With empty logs the demo shows clearly labelled sample numbers; the live site shows
   "results coming soon" instead. Sample numbers never appear on the live site.
+
+## Live signal results (Telegram bot)
+
+Once set up, the signal results update by themselves: every signal and every reply under it in the
+VIP group's topics is read by a bot, and the website adds the closed trades after the history in
+`js/signals-data.js`.
+
+1. Supabase SQL editor: run `supabase/signals.sql`. It creates `signal_rooms` (topic -> room;
+   the VIP group's topics 2571, 2572, 3 and 360 are filled in), `tg_messages`, `signal_trades`,
+   and two public views. The views show closed trades only and a count of open ones: no entries,
+   no stop losses, and VIP trades only after they close.
+2. Telegram @BotFather: `/newbot`, keep the token private, `/setprivacy` -> Disable. Add the bot to
+   the VIP group as an admin with every permission switched off.
+3. Supabase -> Edge Functions -> Secrets: `TG_WEBHOOK_SECRET` = any long random string.
+4. Edge Functions -> Deploy a new function named `tg-signals` with `index.ts` and `parse.js` from
+   `supabase/functions/tg-signals/`. Turn "Verify JWT" off for this function (Telegram can't send one;
+   the secret header protects it instead).
+5. Open this in a browser once (your token and secret in place):
+   `https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<project>.supabase.co/functions/v1/tg-signals&secret_token=<TG_WEBHOOK_SECRET>&allowed_updates=["message","edited_message","channel_post","edited_channel_post"]`
+6. Put the Supabase URL and anon key in `js/config.js`.
+
+Rooms read from another chat (for example Scalping Pro straight from its source channel instead of
+the VIP copy): add the bot to that channel as an admin and add a row to `signal_rooms` with the
+channel's chat id and thread_id 0, then delete the VIP topic's row so trades aren't counted twice.
+The bot can't read messages from before it joined; export the chat again at go-live to fill the
+gap. Test the reader with `node supabase/functions/tg-signals/parse.test.mjs`.

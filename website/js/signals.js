@@ -216,7 +216,41 @@
     };
     draw();
     document.addEventListener("otm:lang", draw);
+    // live results from the Telegram bot (closed trades only), added after the last day already in signals-data.js
+    if (live) fetchLive().then((rows) => { if (mergeLive(rooms, rows)) draw(); }).catch(() => {});
   }
 
-  root.OTMSignals = { render, compute };
+  async function fetchLive() {
+    const res = await fetch(`${cfg.SUPABASE_URL}/rest/v1/signal_results?select=room,opened_at,symbol,side,status,pips,risk&order=opened_at.asc&limit=20000`,
+      { headers: { apikey: cfg.SUPABASE_ANON_KEY, Authorization: `Bearer ${cfg.SUPABASE_ANON_KEY}` } });
+    if (!res.ok) throw new Error("signal_results " + res.status);
+    return res.json();
+  }
+
+  // Appends the bot's closed trades that are newer than each room's static history. Returns true if anything changed.
+  function mergeLive(rooms, rows) {
+    let changed = false;
+    for (const r of rooms) {
+      const mine = (rows || []).filter((x) => x.room === r.id && x.pips != null);
+      const last = [...(r.days || []), ...(r.real ? r.trades || [] : [])].reduce((m, x) => (x[0] > m ? x[0] : m), "");
+      const fresh = mine.filter((x) => x.opened_at.slice(0, 10) > last);
+      if (!fresh.length) continue;
+      if (r.days && r.days.length) {
+        const by = new Map();
+        for (const x of fresh) {
+          const d = x.opened_at.slice(0, 10), g = by.get(d) || [d, 0, 0, 0, 0];
+          if (x.pips > 0) g[1] += x.pips; else if (x.pips < 0) { g[2] += -x.pips; g[3]++; }
+          g[4]++; by.set(d, g);
+        }
+        r.days = [...r.days, ...by.values()];
+      } else {
+        r.trades = [...(r.real ? r.trades : []), ...fresh.map((x) => [x.opened_at.slice(0, 10), x.symbol, x.side, Math.round(x.pips), x.risk])];
+        r.real = true;
+      }
+      changed = true;
+    }
+    return changed;
+  }
+
+  root.OTMSignals = { render, compute, mergeLive };
 })(window);
