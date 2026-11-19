@@ -1,0 +1,110 @@
+<!doctype html>
+<!-- Design mockup for the live Telegram signal tracker. Copy into website/ and open over HTTP; not part of the site. Sample data. -->
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { padding: 40px 0; }
+.lv-head { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin: 26px 0 16px; }
+.lv-dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--profit); box-shadow: 0 0 10px var(--profit); }
+.lv-dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--profit); opacity: 0; animation: lvPing 2s ease-out infinite; }
+@keyframes lvPing { 0% { transform: scale(.4); opacity: .8; } 100% { transform: scale(1.4); opacity: 0; } }
+.lv-head b { font: 600 1.25rem var(--font-head); }
+.lv-head small { color: var(--muted); font-size: .84rem; }
+.lv-head .tg { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--muted); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); }
+.lv { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.lv-card { padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: var(--metal-red); box-shadow: var(--metal-edge); min-width: 0; }
+.lv-card__h { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.lv-card__h h3 { margin: 0; font-size: 1.05rem; }
+.lv-tag { font-size: .68rem; font-weight: 700; letter-spacing: .08em; padding: 3px 9px; border-radius: 999px; }
+.lv-tag.free { color: #0b1500; background: var(--profit); }
+.lv-tag.vip { color: #1a1209; background: var(--metal-gold); }
+.lv-card__h .ago { margin-left: auto; font-size: .78rem; color: var(--muted); }
+/* the open signal */
+.sg { border-radius: 16px; background: var(--bg-2); border: 1px solid rgba(var(--accent-rgb), .3); padding: 18px; }
+.sg-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 12px; }
+.sg-top b { font: 600 1.5rem var(--font-head); }
+.sg-side { font-weight: 700; padding: 2px 10px; border-radius: 8px; font-size: .9rem; }
+.sg-side.buy { color: #0b1500; background: var(--profit); }
+.sg-side.sell { color: #fff; background: #d6304f; }
+.sg-top .st { margin-left: auto; font-size: .8rem; font-weight: 600; color: var(--profit); display: inline-flex; align-items: center; gap: 6px; }
+.sg-top .st::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--profit); }
+.sg-entry { margin: 6px 0 14px; color: var(--muted); font-size: .88rem; }
+.sg-entry span { color: var(--text); font-weight: 600; font-feature-settings: "tnum" 1; }
+.lad { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.lad li { display: grid; grid-template-columns: 26px 54px 1fr auto; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .04); font-size: .9rem; font-feature-settings: "tnum" 1; }
+.lad i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: .72rem; border: 1px solid var(--line); color: var(--muted); }
+.lad .k { color: var(--muted); font-weight: 600; font-size: .8rem; }
+.lad .r { color: var(--muted); font-size: .8rem; }
+.lad li.hit { border-color: rgba(124, 252, 0, .35); background: rgba(124, 252, 0, .07); }
+.lad li.hit i { background: var(--profit); border-color: transparent; color: #0b1500; font-weight: 800; }
+.lad li.hit .r { color: var(--profit); font-weight: 600; }
+.lad li.next { border-color: rgba(var(--accent-rgb), .45); }
+.lad li.next i { border-color: var(--accent); color: var(--accent); }
+.lad li.sl .k, .lad li.sl .r { color: #ff6b81; }
+.sg-feed { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px dashed var(--line); display: grid; gap: 8px; font-size: .82rem; color: var(--muted); }
+.sg-feed li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; }
+.sg-feed time { font-feature-settings: "tnum" 1; color: var(--text); opacity: .7; }
+.sg-feed b { color: var(--profit); font-weight: 600; }
+.lv-today { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.lv-today div { text-align: center; padding: 10px 6px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); }
+.lv-today b { display: block; font: 600 1.2rem var(--font-head); font-feature-settings: "tnum" 1; }
+.lv-today small { font-size: .72rem; color: var(--muted); }
+/* VIP: closed trades only */
+.lock { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; margin-bottom: 14px; border: 1px dashed rgba(var(--accent-rgb), .5); background: rgba(var(--accent-rgb), .06); font-size: .86rem; }
+.lock svg { flex: none; color: var(--accent); }
+.lock b { color: var(--accent-hi); }
+.cl { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cl li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 12px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); }
+.cl .m { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255, 255, 255, .04); font-size: 1.05rem; }
+.cl .m.hype { font: 800 .55rem var(--font-head); color: #fff; background: linear-gradient(135deg, #ff4fd8, #e52150 60%, #ff9a3d); }
+.cl .t b { display: block; font-size: .9rem; }
+.cl .t small { color: var(--muted); font-size: .76rem; }
+.cl .p { text-align: right; font-weight: 700; font-feature-settings: "tnum" 1; }
+.cl .p small { display: block; font-weight: 400; font-size: .72rem; color: var(--muted); }
+.cl .p.up { color: var(--profit); } .cl .p.down { color: #ff6b81; }
+.lv-note { margin: 14px 0 0; font-size: .76rem; color: var(--muted); }
+@media (max-width: 860px) { .lv { grid-template-columns: minmax(0, 1fr); } .lv-head .tg { margin-left: 0; } .lv-card { padding: 16px; } .lad li { grid-template-columns: 24px 46px 1fr auto; gap: 8px; } }
+</style></head>
+<body><div class="wrap">
+<p class="kicker wide-caps">ผลงานสัญญาณ</p>
+<h2 style="font-size:clamp(1.7rem,4vw,2.6rem);margin:0">ผลงานจริงของห้องสัญญาณแต่ละห้อง</h2>
+
+<div class="lv-head"><span class="lv-dot" aria-hidden="true"></span><b>สัญญาณสด</b><small>ดึงจากห้อง Telegram อัตโนมัติ · อัปเดตล่าสุด 12 วินาทีที่แล้ว</small>
+  <span class="tg"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg>ข้อมูลตัวอย่าง</span></div>
+
+<div class="lv">
+  <section class="lv-card">
+    <div class="lv-card__h"><span class="lv-tag free">FREE</span><h3>ห้อง Signal ฟรี</h3><span class="ago">เปิดเมื่อ 14:05</span></div>
+    <div class="sg">
+      <div class="sg-top"><b>XAUUSD</b><span class="sg-side buy">BUY</span><span class="st">กำลังเปิดอยู่</span></div>
+      <p class="sg-entry">เข้าช่วง <span>4518 – 4512</span></p>
+      <ol class="lad">
+        <li class="hit"><i>✓</i><span class="k">TP1</span><span>4528</span><span class="r">ชนแล้ว +100</span></li>
+        <li class="next"><i>2</i><span class="k">TP2</span><span>4538</span><span class="r">ยังรอ</span></li>
+        <li><i>3</i><span class="k">TP3</span><span>4550</span><span class="r">ยังรอ</span></li>
+        <li class="sl"><i>×</i><span class="k">SL</span><span>4505</span><span class="r">เลื่อนกันทุนแล้ว</span></li>
+      </ol>
+      <ul class="sg-feed">
+        <li><time>14:32</time><span>ชน TP1 <b>+100 pips</b> · เลื่อน SL มาที่จุดเข้า</span></li>
+        <li><time>14:05</time><span>เปิดสัญญาณ BUY XAUUSD 4518 – 4512</span></li>
+      </ul>
+    </div>
+    <div class="lv-today"><div><b class="up">+340</b><small>pips วันนี้</small></div><div><b>4</b><small>สัญญาณวันนี้</small></div><div><b>3 / 1</b><small>ชน TP / ชน SL</small></div></div>
+  </section>
+
+  <section class="lv-card">
+    <div class="lv-card__h"><span class="lv-tag vip">VIP</span><h3>ไม้ที่ปิดแล้วล่าสุด</h3><span class="ago">4 ห้อง</span></div>
+    <div class="lock"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <span>ตอนนี้ห้อง VIP มี <b>3 ไม้กำลังเปิดอยู่</b> จะขึ้นที่นี่ทันทีที่ปิดไม้</span></div>
+    <ul class="cl">
+      <li><span class="m">🥇</span><span class="t"><b>Swing Elite · XAUUSD SELL</b><small>ปิด 13:48 · ชน TP3</small></span><span class="p up">+420<small>pips</small></span></li>
+      <li><span class="m">🥈</span><span class="t"><b>Scalping Pro · XAUUSD BUY</b><small>ปิด 12:20 · ชน TP2</small></span><span class="p up">+65<small>pips</small></span></li>
+      <li><span class="m hype">HYPE</span><span class="t"><b>HYPE · NAS100 BUY</b><small>ปิด 11:02 · ชน TP1</small></span><span class="p up">+180<small>points</small></span></li>
+      <li><span class="m">🥉</span><span class="t"><b>RR High Reward · XAUUSD SELL</b><small>ปิด 09:41 · ชน SL</small></span><span class="p down">−150<small>pips</small></span></li>
+      <li><span class="m">🥈</span><span class="t"><b>Scalping Pro · XAUUSD SELL</b><small>ปิด 08:15 · ชน TP3</small></span><span class="p up">+90<small>pips</small></span></li>
+    </ul>
+    <p class="lv-note">ไม้ VIP แสดงหลังปิดไม้แล้วเท่านั้น สมาชิก VIP ได้สัญญาณสดในห้อง Telegram ก่อนเสมอ</p>
+  </section>
+</div>
+</div></body></html>
