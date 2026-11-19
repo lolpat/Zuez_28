@@ -77,6 +77,7 @@
       "members.vip": "เทรดเดอร์ {n} คนอยู่ในห้อง VIP ของเรา",
       "net.label": "สมาชิกทั้งหมดในเครือข่าย",
       "net.sub": "ลูกค้า {c} คน · IB {i} คน",
+      "net.subIb": "มี IB ในทีม {i} คน",
       "members.free": "{n} คนอยู่ในห้องนี้แล้ว",
       "hero.sample": "ตัวอย่างหน้าจอ ตัวเลขสมมติ",
 
@@ -717,6 +718,7 @@
       "members.vip": "{n} traders in our VIP room",
       "net.label": "Total members in our network",
       "net.sub": "{c} clients · {i} IBs",
+      "net.subIb": "including {i} IBs in the team",
       "members.free": "{n} people already in this room",
       "hero.sample": "Sample screen, made-up numbers",
 

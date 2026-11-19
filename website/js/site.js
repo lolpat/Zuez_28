@@ -26,9 +26,13 @@
   // Network total card (numbers from config, set by the owner); counts up once when it scrolls into view.
   function network() {
     const box = $("[data-network]"), n = cfg.NETWORK;
-    if (!box || !n || !(n.clients + n.ibs > 0)) return;
-    const fmt = (v) => Number(v).toLocaleString("en-US"), total = n.clients + n.ibs, num = $("[data-net-total]", box);
-    const sub = () => { $("[data-net-sub]", box).textContent = t("net.sub", { c: fmt(n.clients), i: fmt(n.ibs) }); };
+    const total = n ? (n.members ?? (n.clients || 0) + (n.ibs || 0)) : 0;
+    if (!box || !(total > 0)) return;
+    const fmt = (v) => Number(v).toLocaleString("en-US"), num = $("[data-net-total]", box);
+    const sub = () => {
+      $("[data-net-sub]", box).textContent = n.clients ? t("net.sub", { c: fmt(n.clients), i: fmt(n.ibs || 0) })
+        : n.ibs ? t("net.subIb", { i: fmt(n.ibs) }) : "";
+    };
     box.hidden = false; sub(); document.addEventListener("otm:lang", sub);
     num.textContent = fmt(total);
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;

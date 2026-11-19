@@ -180,6 +180,14 @@ html[lang="th"] .netcard__lbl { letter-spacing: .02em; font-size: .82rem; }
 
 /* hero art: the logo mark inside the gold crescent orbit */
 .orbit { position: relative; width: min(100%, 460px); aspect-ratio: 1; margin: 0 auto; }
+/* Home page: the logo orbit is a fixed backdrop behind the whole page, so it stays in view while scrolling. */
+.hero__copy { position: relative; z-index: 1; }
+.hero .cosmos { position: fixed; z-index: 0; inset: 0; margin: auto; width: min(94vw, 640px); height: min(94vw, 640px);
+  opacity: .2; pointer-events: none; }
+@media (min-width: 960px) {
+  .hero__grid { grid-template-columns: minmax(0, 640px); }
+  .hero .cosmos { inset: 0 3vw 0 auto; width: min(44vw, 720px); height: min(44vw, 720px); opacity: .42; }
+}
 .orbit__mark { position: absolute; inset: 21%; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .45)); animation: floaty 7s ease-in-out infinite; animation-delay: -1s; }
 @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { .orbit__mark { animation: none; } }
