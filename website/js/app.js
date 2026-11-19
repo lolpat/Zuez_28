@@ -1483,6 +1483,8 @@
 
   // ------------------------------------------------------------ boot
   document.addEventListener("DOMContentLoaded", async () => {
+    if (window.__deskHost) return;   // the portal runs in the scaled inner frame (see app.html)
+    if (/[?&]desk=1/.test(location.search)) document.querySelectorAll("[data-top]").forEach((x) => { x.target = "_parent"; });
     I.apply();
     $$("[data-telegram]").forEach((a) => { a.href = cfg.TELEGRAM_URL; a.target = "_blank"; a.rel = "noopener"; });
     $$("[data-lang-toggle]").forEach((b) => b.addEventListener("click", () => I.setLang(I.lang === "th" ? "en" : "th")));
@@ -1505,7 +1507,7 @@
       $("#view").innerHTML = `<p class="alert alert--err">${esc(t("app.error", { msg: err.message }))}</p>`;
       return;
     }
-    $("#signout").addEventListener("click", async () => { await state.store.signOut(); location.href = "index.html"; });
+    $("#signout").addEventListener("click", async () => { await state.store.signOut(); (/[?&]desk=1/.test(location.search) ? window.parent : window).location.href = "index.html"; });
     window.addEventListener("hashchange", () => { state.shown = 25; render(); window.scrollTo(0, 0); });
     render();
   });

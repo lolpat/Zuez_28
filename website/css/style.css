@@ -1349,3 +1349,8 @@ html[lang="th"] .nav__grp { letter-spacing: .04em; font-size: .72rem; }
 .dlast__list small { color: var(--muted); margin-left: 6px; }
 .dlast__list b { font-weight: 600; }
 .dlast__list b.up { color: var(--profit); } .dlast__list b.down { color: var(--loss); }
+
+/* phone preview inside a frame: the portal runs in a 1100px inner frame, scaled to fit (see app.html) */
+html.desk-host, html.desk-host body { overflow: hidden; height: 100%; }
+html.desk-host body > *:not(#desk-frame) { display: none !important; }
+#desk-frame { position: fixed; top: 0; left: 0; width: 1100px; border: 0; transform-origin: 0 0; background: var(--bg); }

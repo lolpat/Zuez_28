@@ -5,7 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <script>
     // Phones get the full desktop layout (side menu always open), scaled to fit the screen, like a desktop site.
-    if (Math.min(screen.width, screen.height) < 768) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=1100, viewport-fit=cover");
+    (function () {
+      if (Math.min(screen.width, screen.height) >= 768) return;
+      var framed = window.self !== window.top, inner = /[?&]desk=1/.test(location.search);
+      if (!framed || inner) { document.querySelector('meta[name="viewport"]').setAttribute("content", "width=1100, viewport-fit=cover"); return; }
+      // Inside a frame (e.g. a preview) the viewport tag is ignored, so the portal runs in an inner frame
+      // that is 1100px wide and scaled down to the screen.
+      window.__deskHost = true;
+      document.documentElement.className += " desk-host";
+      document.addEventListener("DOMContentLoaded", function () {
+        var f = document.createElement("iframe");
+        f.id = "desk-frame"; f.title = "Order The Market";
+        f.src = location.pathname + "?desk=1" + location.hash;
+        document.body.appendChild(f);
+        var fit = function () { var s = window.innerWidth / 1100; f.style.transform = "scale(" + s + ")"; f.style.height = (window.innerHeight / s) + "px"; };
+        fit(); window.addEventListener("resize", fit);
+      });
+    })();
   </script>
   <title>พอร์ทัลสมาชิก | Order The Market</title>
   <meta name="description" content="พอร์ทัลสมาชิกและ Trading Journal ของ Order The Market">
@@ -21,7 +37,7 @@
 <body>
   <div class="app">
     <aside class="sidebar" id="sidebar" aria-label="menu">
-      <a class="logo" href="index.html"><img src="assets/img/mark.svg" alt="" width="40" height="40"><span class="logo__word">Order The Market<small data-i18n="brand.slogan">Your success is our mission</small></span></a>
+      <a class="logo" href="index.html" data-top><img src="assets/img/mark.svg" alt="" width="40" height="40"><span class="logo__word">Order The Market<small data-i18n="brand.slogan">Your success is our mission</small></span></a>
       <div class="me" id="me"></div>
       <nav class="nav" id="nav"></nav>
       <div class="sidebar__foot nav">
