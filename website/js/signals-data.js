@@ -6,7 +6,7 @@
 // While a room's list is empty, the demo preview shows clearly labelled sample numbers and the live
 // site shows "results coming soon".
 window.OTM_SIGNALS = {
-  updated: "2026-11-06",  // date of the last weekly summary included
+  updated: "2026-11-18",  // date of the last daily result included
   deduct: 0.15,           // spread / commission taken off the "if you had followed" money figures
   rooms: [
     // Swing Elite is recorded from the room's weekly summaries, one line per trading day:
@@ -182,7 +182,16 @@ window.OTM_SIGNALS = {
         ["2026-11-03", 1390, 0, 0, null],
         ["2026-11-04", 1350, 0, 0, null],
         ["2026-11-05", 1100, 0, 0, null],
-        ["2026-11-06", 720, 0, 0, null]
+        ["2026-11-06", 720, 0, 0, null],
+        // from the daily results and the weekly summary posted in the VIP group's Swing Elite topic
+        ["2026-11-09", 650, 0, 0, null],
+        ["2026-11-10", 1690, 200, 1, null],
+        ["2026-11-11", 920, 0, 0, null],
+        ["2026-11-12", 1700, 0, 0, null],
+        ["2026-11-13", 1120, 0, 0, null],
+        ["2026-11-16", 1560, 0, 0, null],
+        ["2026-11-17", 1290, 0, 0, null],
+        ["2026-11-18", 1980, 0, 0, null]
       ] },
     { id: "scalp", name: "Scalping Pro", medal: 2, flash: true, source: "Gold (XAUUSD)", pipValue: { XAUUSD: 10 }, trades: [] },
     { id: "rr", name: "RR High Reward", medal: 3, source: "Gold (XAUUSD)", pipValue: { XAUUSD: 10 }, trades: [] },
