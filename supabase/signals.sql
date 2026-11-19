@@ -17,9 +17,22 @@ create table if not exists public.signal_rooms (
 );
 -- The VIP group's topics, as found in its export (a topic's id is the id of the message that created it):
 --   2571 SWING-ATM -> 🥇 SWING ELITE · 2572 Scalping -> ⚡️Scalping PRO · 3 XAUUSD SIGNALS -> RR High Reward · 360 BTCUSD / NAS100
+-- Scalping PRO is read from its source channel (@WA:SMT), not the VIP copy in topic 2572.
 insert into public.signal_rooms (chat_id, thread_id, room) values
-  (null, 2571, 'swing'), (null, 2572, 'scalp'), (null, 3, 'rr'), (null, 360, 'hype')
+  (null, 2571, 'swing'), (null, 3, 'rr'), (null, 360, 'hype')
 on conflict do nothing;
+delete from public.signal_rooms where chat_id is null and thread_id = 2572;
+-- The source channels are added by their chat id once the bot has seen them (see public.tg_chats):
+--   insert into public.signal_rooms (chat_id, thread_id, room) values (<@WA:SMT id>, 0, 'scalp'), (<Pomilon id>, 0, 'rr');
+
+-- Every chat the bot is in, with its id, so the source channels can be mapped above.
+create table if not exists public.tg_chats (
+  chat_id bigint primary key,
+  title text,
+  type text,
+  last_thread bigint,
+  last_seen timestamptz not null default now()
+);
 
 -- Every message the bot sees in a mapped topic (kept so replies can be traced back to their signal).
 create table if not exists public.tg_messages (
@@ -56,6 +69,7 @@ create index if not exists signal_trades_room on public.signal_trades (room, ope
 alter table public.signal_rooms enable row level security;
 alter table public.tg_messages enable row level security;
 alter table public.signal_trades enable row level security;
+alter table public.tg_chats enable row level security;
 
 -- Public: closed trades only, without entry or stop-loss prices.
 create or replace view public.signal_results as

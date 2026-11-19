@@ -19,7 +19,7 @@ const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SE
 const ok = () => new Response("ok");
 
 type Msg = {
-  message_id: number; date: number; edit_date?: number; chat: { id: number; title?: string };
+  message_id: number; date: number; edit_date?: number; chat: { id: number; title?: string; type?: string };
   message_thread_id?: number; is_topic_message?: boolean; reply_to_message?: { message_id: number };
   text?: string; caption?: string; from?: { first_name?: string; username?: string }; sender_chat?: { title?: string };
 };
@@ -79,6 +79,8 @@ Deno.serve(async (req) => {
 
   try {
     const chatId = msg.chat.id, threadId = msg.is_topic_message ? msg.message_thread_id ?? 0 : 0;
+    // remember every chat the bot is in (its id is what public.signal_rooms maps to a room)
+    await db.from("tg_chats").upsert({ chat_id: chatId, title: msg.chat.title ?? null, type: msg.chat.type ?? null, last_thread: threadId, last_seen: new Date().toISOString() });
     const room = await roomFor(chatId, threadId);
     if (!room) return ok();                                   // not a signal room: ignore
     const text = msg.text ?? msg.caption ?? "";
