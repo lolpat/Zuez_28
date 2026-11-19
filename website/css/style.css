@@ -1220,3 +1220,7 @@ button.jc-d:hover { transform: translateY(-2px); }
 }
 /* the contact band now sits between the brokers and the FAQ */
 #contact { margin-bottom: clamp(64px, 9vw, 110px); }
+
+/* trade-by-trade rooms get a fourth card (RR) next to pips, streaks and lots */
+@media (min-width: 900px) { .sig-row3.sig-row4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1180px) { .sig-row3.sig-row4 { grid-template-columns: repeat(4, 1fr); } }

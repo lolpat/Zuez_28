@@ -54,14 +54,20 @@
     // months
     const byMonth = new Map();
     for (const x of tr) {
-      const m = x[0].slice(0, 7), g = byMonth.get(m) || { m, n: 0, w: 0, l: 0, pips: 0 };
+      const m = x[0].slice(0, 7), g = byMonth.get(m) || { m, n: 0, w: 0, l: 0, pips: 0, r: 0, rn: 0 };
       g.n++; g.pips += x[3]; if (x[3] > 0) g.w++; else if (x[3] < 0) g.l++;
+      if (x[4] > 0) { g.r += x[3] / x[4]; g.rn++; }
       byMonth.set(m, g);
     }
     // money if you had followed every signal at a fixed lot, after the spread/commission deduction
     const pv = room.pipValue || {};
     const dollars1 = tr.reduce((s, x) => s + x[3] * (pv[x[1]] ?? 10), 0) * (1 - deduct);
+    // reward to risk: R = pips / risk (risk = entry to SL); only trades whose signal had a usable entry and SL
+    const R = tr.filter((x) => x[4] > 0).map((x) => x[3] / x[4]), RW = R.filter((v) => v > 0);
+    const rr = R.length ? { n: R.length, total: R.reduce((a, v) => a + v, 0), avg: R.reduce((a, v) => a + v, 0) / R.length,
+      win: RW.length ? RW.reduce((a, v) => a + v, 0) / RW.length : 0, best: Math.max(...R) } : null;
     return {
+      rr,
       n: tr.length, w: wins.length, l: losses.length, wr: tr.length ? (wins.length / tr.length) * 100 : 0,
       pf: gl ? gw / gl : (gw ? Infinity : 0), total, best, worst, avgW: avg(winRuns), avgL: avg(lossRuns),
       bestDay, months: [...byMonth.values()].sort((a, b) => b.m.localeCompare(a.m)),
@@ -144,9 +150,12 @@
           <div><b>${s.l}</b><span>${t("sig.k.sl")}</span></div>
           <div><b class="gold">${s.pf === Infinity ? "∞" : num(s.pf, 2)}</b><span>${t("sig.k.pf")}</span></div>
         </div>
-        <div class="sig-row3">
+        <div class="sig-row3${s.rr ? " sig-row4" : ""}">
           <section class="card sig-card"><h4>🔥 ${t("sig.pips")}</h4><b class="sig-big ${s.total >= 0 ? "up" : "down"}">${sgn(s.total)}</b>
             ${s.bestDay ? `<small>↗ ${t("sig.bestDay", { p: sgn(s.bestDay[1]), d: s.bestDay[0] })}</small>` : ""}</section>
+          ${s.rr ? `<section class="card sig-card"><h4>⚖️ ${t("sig.rr")}</h4><b class="sig-big ${s.rr.total >= 0 ? "up" : "down"}">${sgn(s.rr.total, 1)}R</b>
+            <ul class="sig-lots"><li><span>${t("sig.rr.avg")}</span><b>${sgn(s.rr.avg, 2)}R</b></li><li><span>${t("sig.rr.win")}</span><b class="gold">1:${num(s.rr.win, 1)}</b></li><li><span>${t("sig.rr.best")}</span><b class="gold">1:${num(s.rr.best, 1)}</b></li></ul>
+            <small>${t("sig.rr.d", { n: s.rr.n })}</small></section>` : ""}
           <section class="card sig-card"><h4>⚡ ${t("sig.streaks")}</h4>
             <div class="sig-2x2"><div><small>${t("sig.winStreak")}</small><b class="gold">${s.best}</b></div><div><small>${t("sig.lossStreak")}</small><b>${s.worst}</b></div>
             <div><small>${t("sig.avgWin")}</small><b>${num(s.avgW, 1)}</b></div><div><small>${t("sig.avgLoss")}</small><b>${num(s.avgL, 1)}</b></div></div></section>
@@ -155,8 +164,8 @@
         </div>
         <div class="sig-row2">
           <section class="card sig-card"><h4>📊 ${t("sig.monthly")}</h4>
-            <div class="table-wrap"><table class="table sig-mtab"><thead><tr><th>${t("sig.col.month")}</th><th class="r">${t("sig.col.trades")}</th><th class="r">Win%</th><th class="r">TP</th><th class="r">SL</th><th class="r">Pips</th></tr></thead>
-            <tbody>${s.months.map((g) => `<tr><td>${months(g.m)}</td><td class="r">${g.n}</td><td class="r gold">${num((g.w / g.n) * 100, 0)}%</td><td class="r">${g.w}</td><td class="r">${g.l}</td><td class="r ${g.pips >= 0 ? "up" : "down"}">${sgn(g.pips)}</td></tr>`).join("")}</tbody></table></div></section>
+            <div class="table-wrap"><table class="table sig-mtab"><thead><tr><th>${t("sig.col.month")}</th><th class="r">${t("sig.col.trades")}</th><th class="r">Win%</th><th class="r">TP</th><th class="r">SL</th>${s.rr ? `<th class="r">R</th>` : ""}<th class="r">Pips</th></tr></thead>
+            <tbody>${s.months.map((g) => `<tr><td>${months(g.m)}</td><td class="r">${g.n}</td><td class="r gold">${num((g.w / g.n) * 100, 0)}%</td><td class="r">${g.w}</td><td class="r">${g.l}</td>${s.rr ? `<td class="r">${g.rn ? sgn(g.r, 1) : "–"}</td>` : ""}<td class="r ${g.pips >= 0 ? "up" : "down"}">${sgn(g.pips)}</td></tr>`).join("")}</tbody></table></div></section>
           <section class="card sig-card"><h4>📈 ${t("sig.byMonth")}</h4>
             ${root.OTMCharts ? root.OTMCharts.bars(bars.map((g) => ({ label: months(g.m).replace(/\s*\d{4}$/, ""), value: g.pips, sub: String(g.m.slice(0, 4)) })), { fmt: (x) => sgn(x) + " pips", short: (x) => (Math.abs(x) >= 1000 ? sgn(x / 1000, 1) + "k" : sgn(x)), label: t("sig.byMonth"), w: 420, h: 230 }) : ""}</section>
         </div>` : `<p class="sig-soon">${t("sig.soon")}</p>`}
