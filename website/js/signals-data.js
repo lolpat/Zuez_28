@@ -194,8 +194,9 @@ window.OTM_SIGNALS = {
         ["2026-11-17", 1290, 0, 0, null],
         ["2026-11-18", 1980, 0, 0, null]
       ] },
-    // Scalping Pro is worked out trade by trade from the @WA:SMT channel export (12 Jan – 19 Nov 2026); the other rooms
-    // below from the VIP group's Telegram export: a trade counts the
+    // Scalping Pro is worked out trade by trade from the @WA:SMT channel export (12 Jan – 19 Nov 2026), RR High Reward
+    // from the VIP group's RR topic plus the PML VIP SIG POMILON channel (from 15 Nov; reposts counted once), and
+    // BTCUSD / NAS100 from the VIP group's export: a trade counts the
     // furthest result posted under its signal (TP / running pips), a posted stop loss, or break-even.
     // unresolved = signals with no result posted (not counted); cancelled = signals called off (not counted).
     // BTCUSD / NAS100 are kept in the rooms' own "pips" (10 points = 1 pip), so 1 lot = $10 per pip. Every number comes from
@@ -424,7 +425,7 @@ window.OTM_SIGNALS = {
         ["2026-03-02","XAUUSD","buy",110,40],
         ["2026-03-02","XAUUSD","sell",-16,16],
         ["2026-03-02","XAUUSD","sell",-10,30],
-        ["2026-03-02","XAUUSD","sell",244,null],
+        ["2026-03-02","XAUUSD","sell",360,null],
         ["2026-03-02","XAUUSD","buy",94,39],
         ["2026-03-02","XAUUSD","buy",-18,17.2],
         ["2026-03-03","XAUUSD","buy",50,30],
@@ -807,7 +808,7 @@ window.OTM_SIGNALS = {
         ["2026-06-01","XAUUSD","buy",-30,50],
         ["2026-06-01","XAUUSD","buy",120,60],
         ["2026-06-02","XAUUSD","sell",-60,60],
-        ["2026-06-02","XAUUSD","sell",65,60],
+        ["2026-06-02","XAUUSD","sell",-60,60],
         ["2026-06-02","XAUUSD","sell",-60,60],
         ["2026-06-02","XAUUSD","sell",260,60],
         ["2026-06-02","XAUUSD","buy",79,60],
@@ -945,7 +946,7 @@ window.OTM_SIGNALS = {
         ["2026-08-13","XAUUSD","buy",125,30],
         ["2026-08-14","XAUUSD","sell",53,50],
         ["2026-08-14","XAUUSD","buy",653,60],
-        ["2026-08-17","XAUUSD","sell",0,50],
+        ["2026-08-17","XAUUSD","sell",-50,50],
         ["2026-08-17","XAUUSD","buy",-40,40],
         ["2026-08-17","XAUUSD","buy",-10,10],
         ["2026-08-18","XAUUSD","buy",-40,40],
@@ -1178,7 +1179,7 @@ window.OTM_SIGNALS = {
         ["2026-11-19","XAUUSD","buy",53,50],
         ["2026-11-19","XAUUSD","buy",167,110]
       ] },
-    { id: "rr", name: "RR High Reward", medal: 3, source: "Gold (XAUUSD)", pipValue: { XAUUSD: 10 }, unresolved: 99, cancelled: 10,
+    { id: "rr", name: "RR High Reward", medal: 3, source: "Gold (XAUUSD)", pipValue: { XAUUSD: 10 }, unresolved: 101, cancelled: 11,
       trades: [
         ["2026-05-21","XAUUSD","buy",260,130],
         ["2026-05-21","XAUUSD","buy",170,100],
@@ -1236,12 +1237,24 @@ window.OTM_SIGNALS = {
         ["2026-11-13","XAUUSD","sell",-38,38.4],
         ["2026-11-13","XAUUSD","buy",118,27.6],
         ["2026-11-13","XAUUSD","buy",70,34.4],
+        ["2026-11-16","XAUUSD","sell",-34,34.4],
+        ["2026-11-16","XAUUSD","sell",530,35.8],
         ["2026-11-16","XAUUSD","buy",100,37.5],
+        ["2026-11-16","XAUUSD","sell",-33,32.8],
+        ["2026-11-17","XAUUSD","sell",100,37.8],
         ["2026-11-17","XAUUSD","buy",-34,34.1],
         ["2026-11-17","XAUUSD","sell",323,28.5],
+        ["2026-11-17","XAUUSD","sell",300,29.5],
+        ["2026-11-17","XAUUSD","sell",-31,31.1],
+        ["2026-11-17","XAUUSD","sell",407,34.6],
+        ["2026-11-18","XAUUSD","sell",-36,36],
+        ["2026-11-18","XAUUSD","sell",-35,35.5],
+        ["2026-11-18","XAUUSD","sell",270,36.8],
         ["2026-11-18","XAUUSD","sell",-35,35.2],
         ["2026-11-18","XAUUSD","sell",340,36.7],
-        ["2026-11-19","XAUUSD","sell",80,33.2]
+        ["2026-11-19","XAUUSD","sell",80,33.2],
+        ["2026-11-19","XAUUSD","sell",195,34],
+        ["2026-11-19","XAUUSD","sell",70,35.5]
       ] },
     { id: "hype", name: "BTCUSD / NAS100", hype: true, source: "BTCUSD, NAS100", pipValue: { BTCUSD: 10, NAS100: 10 }, unresolved: 4, cancelled: 1,
       trades: [

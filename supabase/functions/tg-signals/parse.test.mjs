@@ -42,4 +42,11 @@ t = {};
 for (const m of ["TARGET1 HIT 40+PIPS PROFIT DONE", "GOLD BUY RUNNING 110+Pips Profit", "BE HIT"]) t = applyResult(t, res(m));
 assert.deepEqual(outcome(t, 200), { status: "win", pips: 110 });                // TP reached first, then BE: a win
 assert.deepEqual(outcome(applyResult({}, res("Cancel")), 50), { status: "cancel", pips: null });
+// Pomilon PML Lab format
+assert.equal(sig("[ 17-11-2026 ] 📉SELL XAUUSD | Now SL: 3877.42 [ 345 POINTs ] TP 3868.80").risk, 34.5);
+assert.deepEqual(res("✅+1,380 POINTs TP1/2 แบ่งค้าบ"), { kind: "tp", pips: 138 });
+assert.equal(res("แหก❌").kind, "sl");
+assert.equal(res("ไม้นี้ไม่เอานะครับยกเลย").kind, "cancel");
+assert.deepEqual(outcome(applyResult({}, res("เก็บ Full Tp 3812")), 35.8, 3865.04), { status: "win", pips: 530 });
+assert.deepEqual(res("✅+2700 แล้วTP1/2/3"), { kind: "tp", pips: 270 });
 console.log("parse.js: all checks passed");

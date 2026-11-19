@@ -64,7 +64,8 @@ export function parseSignal(text, room) {
 
   // risk in pips: an explicit "SL: 500 points / 50 pips" wins, else the far end of the entry zone to SL
   let risk = null;
-  const ex = t.match(/SL:\s*(\d[\d,]*)\s*(?:[–-]\s*\d[\d,]*\s*)?(points|pts|pips)/i);
+  const ex = t.match(/SL:\s*(\d[\d,]*)\s*(?:[–-]\s*\d[\d,]*\s*)?(points|pts|pips)/i) ||
+    t.match(/SL:\s*\d[\d,]*(?:\.\d+)?\s*\[\s*(\d[\d,]*)\s*(points|pts|pips)/i);
   if (ex) risk = num(ex[1]) / (/^p(oints|ts)$/i.test(ex[2]) || /pts|points/i.test(ex[2]) ? 10 : 1);
   else if (e1 != null && sl != null) risk = Math.max(Math.abs(e1 - sl), e2 != null ? Math.abs(e2 - sl) : 0) * pipsPerUnit(sym);
   if (risk != null && (risk <= 0 || risk > maxRisk(sym))) risk = null;
@@ -86,16 +87,19 @@ function amounts(t) {
 export function parseResult(text) {
   const t = norm(text), low = t.toLowerCase();
   if (!t.trim()) return null;
-  if (/\bcancel/.test(low)) return { kind: "cancel" };
+  if (/\bcancel|ยกเลิก|ยกเลย|ไม่เอานะ|^\s*ยกครับ/.test(low)) return { kind: "cancel" };
+  const full = t.match(/full\s*tp\s*@?\s*(\d{4}(?:\.\d+)?)/i);
+  if (full) return { kind: "tpprice", price: num(full[1]) };
   const tgt = t.match(/TARGET\s*(\d)\.?\s*HIT\s*(\d+)/i);
   if (tgt) return { kind: "tp", pips: num(tgt[2]) };
   const am = amounts(t);
   const notSl = /set|move|update|tight|keep|hasn|has not|not been|yet|ยังไม่/.test(low);
-  if (!notSl && /(hit\s*sl|sl\s*hit|stop[- ]?loss (was )?hit|^\s*sl\s*$|^\s*sl\b.*\d+\s*(pips|pts|points)|sl\s*❌|^\s*❌|\bsl\s*-\s*\d)/m.test(low)) {
+  if (!notSl && /(hit\s*sl|sl\s*hit|stop[- ]?loss (was )?hit|^\s*sl\s*$|^\s*sl\b.*\d+\s*(pips|pts|points)|sl\s*❌|^\s*❌|\bsl\s*-\s*\d|แหก\s*❌|โดน\s*sl)/m.test(low)) {
     const neg = am.map(Math.abs);
     return { kind: "sl", pips: neg.length ? Math.max(...neg) : null };
   }
   if (/\b(be|break-?even)\b.*\b(hit|count)|count\w*\b.{0,20}\bbe\b|hit\s+be|run\s+and\s+be\b|กินหน้าทุน/.test(low)) return { kind: "be" };
+  if (!am.length) { const bare = t.match(/[✅👑]\s*\+\s*(\d[\d,]{2,})/); if (bare) am.push(num(bare[1]) / 10); }
   const pos = am.filter((v) => v > 0);
   if (!pos.length) return null;
   if (/running/i.test(t)) return { kind: "run", pips: Math.max(...pos) };
@@ -111,13 +115,15 @@ export function applyResult(trade, r) {
   else if (r.kind === "tp") t.tp = Math.max(t.tp, r.pips || 0);
   else if (r.kind === "run") t.run = Math.max(t.run, r.pips || 0);
   else if (r.kind === "be") t.be = true;
+  else if (r.kind === "tpprice") t.tpPrice = r.price;
   else if (r.kind === "sl") t.loss = r.pips != null ? r.pips : t.loss ?? -1;
   return t;
 }
 
-// -> { status: "win" | "loss" | "be" | "cancel" | "open", pips }
-export function outcome(t, risk) {
-  if (t.tp) return { status: "win", pips: Math.max(t.tp, t.run) };
+// -> { status: "win" | "loss" | "be" | "cancel" | "open", pips }   (entry/symbol turn a "Full TP 3812" into pips)
+export function outcome(t, risk, entry = null, symbol = "XAUUSD") {
+  const byPrice = t.tpPrice && entry ? Math.round(Math.abs(t.tpPrice - entry) * pipsPerUnit(symbol)) : 0;
+  if (t.tp || byPrice) return { status: "win", pips: Math.max(t.tp || 0, t.run || 0, byPrice) };
   if (t.loss != null) return { status: "loss", pips: -(t.loss >= 0 ? t.loss : risk ?? 0) };
   if (t.run) return { status: "win", pips: t.run };
   if (t.be) return { status: "be", pips: 0 };

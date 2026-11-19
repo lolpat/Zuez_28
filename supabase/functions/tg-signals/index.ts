@@ -64,7 +64,7 @@ async function recompute(trade: Record<string, any>) {
   };
   let st = {};
   for (const m of rows) if (belongs(m.message_id)) st = applyResult(st, parseResult(m.text ?? ""));
-  const o = outcome(st, trade.risk);
+  const o = outcome(st, trade.risk, trade.entry, trade.symbol);
   await db.from("signal_trades").update({ status: o.status, pips: o.pips, updated_at: new Date().toISOString() })
     .eq("chat_id", trade.chat_id).eq("message_id", trade.message_id);
 }
@@ -92,6 +92,13 @@ Deno.serve(async (req) => {
 
     const sig = parseSignal(text, room);
     if (sig) {
+      // the same signal reposted in another chat (e.g. the source channel and the VIP copy) counts once
+      const near = (a: number | null, b: number | null) => a != null && b != null && Math.abs(a - b) <= 0.6;
+      const from = new Date(msg.date * 1000 - 2 * 3600e3).toISOString(), to = new Date(msg.date * 1000 + 2 * 3600e3).toISOString();
+      const { data: twins } = await db.from("signal_trades").select("chat_id, entry, sl")
+        .eq("room", sig.symbol === "XAUUSD" ? room : "hype").eq("side", sig.side)
+        .gte("opened_at", from).lte("opened_at", to);
+      if ((twins ?? []).some((x) => x.chat_id !== chatId && (near(x.sl, sig.sl) || near(x.entry, sig.entry)))) return ok();
       const trade = {
         chat_id: chatId, message_id: msg.message_id, opened_at: sentAt,
         room: sig.symbol === "XAUUSD" ? room : "hype", symbol: sig.symbol, side: sig.side,
