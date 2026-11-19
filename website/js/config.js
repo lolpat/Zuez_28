@@ -4,8 +4,8 @@
 // from Supabase > Project Settings > API here. The anon key is safe to publish; the database
 // rules in schema.sql decide who can see what.
 window.OTM_CONFIG = {
-  SUPABASE_URL: "",
-  SUPABASE_ANON_KEY: "",
+  SUPABASE_URL: "https://jfapovqefkcluwmnjxmx.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXBvdnFlZmtjbHV3bW5qeG14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMDE4MjksImV4cCI6MjExMDY3NzgyOX0.BW6th9eQhyoq1teIKtGHqIfUfGHct2bw2JoALT5Fr8k",
 
   // Member wins: profit screenshots shown on the home page (two moving rows) and on the Client Profit
   // page. Files go in assets/img/wins/; js/wins-data.js lists them ({ src, thumb } or a clip
