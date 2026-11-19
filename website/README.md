@@ -225,10 +225,11 @@ VIP group's topics is read by a bot, and the website adds the closed trades afte
    `https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<project>.supabase.co/functions/v1/tg-signals&secret_token=<TG_WEBHOOK_SECRET>&allowed_updates=["message","edited_message","channel_post","edited_channel_post"]`
 6. Put the Supabase URL and anon key in `js/config.js`.
 
-Rooms read from another chat (Scalping Pro from @WA:SMT, RR High Reward also from the PML VIP SIG POMILON
-channel). A signal reposted in a second chat within 2 hours (same room, side and SL or entry) counts once.
-For a source channel: add the bot to that channel as an admin and add a row to `signal_rooms` with the
-channel's chat id and thread_id 0. For Scalping Pro also delete the VIP topic's row (every post there
-is a translated copy); keep the RR topic, since it has its own signals too and reposts are counted once.
+Every room is read from the VIP group (chat id -1003941112920). The source channels are forwarded into
+its topics (Scalping Pro from @WA:SMT into topic 2572, RR High Reward also from the PML VIP SIG POMILON
+channel into topic 3), so the bot only needs to be in the VIP group. `public.tg_chats` lists every chat the
+bot has seen, with its id. If a source channel is ever read directly instead: add the bot to it as an
+admin and add a row to `signal_rooms` with its chat id and thread_id 0; a signal reposted in a second chat
+within 2 hours (same room, side and SL or entry) counts once.
 The bot can't read messages from before it joined; export the chat again at go-live to fill the
 gap. Test the reader with `node supabase/functions/tg-signals/parse.test.mjs`.
