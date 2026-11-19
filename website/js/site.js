@@ -23,6 +23,26 @@
     }
   }
 
+  // Network total card (numbers from config, set by the owner); counts up once when it scrolls into view.
+  function network() {
+    const box = $("[data-network]"), n = cfg.NETWORK;
+    if (!box || !n || !(n.clients + n.ibs > 0)) return;
+    const fmt = (v) => Number(v).toLocaleString("en-US"), total = n.clients + n.ibs, num = $("[data-net-total]", box);
+    const sub = () => { $("[data-net-sub]", box).textContent = t("net.sub", { c: fmt(n.clients), i: fmt(n.ibs) }); };
+    box.hidden = false; sub(); document.addEventListener("otm:lang", sub);
+    num.textContent = fmt(total);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const run = () => {
+      const t0 = performance.now(), D = 1400;
+      const step = (now) => { const p = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - p, 3); num.textContent = fmt(Math.round(total * e)); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); run(); } });
+      io.observe(box);
+    } else run();
+  }
+
   // Telegram member counts: the real count read by the bot (public.group_members), else the dated fallback.
   function members() {
     const c = cfg.COMMUNITY; if (!c) return;
@@ -111,6 +131,7 @@
   }
   function landing() {
     brokerPanel();
+    network();
     members();
     if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
     if (window.OTMSignals) window.OTMSignals.render($("[data-signals]"));

@@ -26,6 +26,10 @@ window.OTM_CONFIG = {
   // Free signal room (public Telegram group) and Instagram, shown in the contact section and footer.
   SIGNAL_URL: "https://t.me/+Zyobh3qn3pI1ZmFk",
 
+  // Network total on the home page (from the owner: everyone under the OTM IB at all three brokers).
+  // Update the numbers by hand when they change; remove NETWORK to hide the card.
+  NETWORK: { clients: 29659, ibs: 5174, date: "2026-11-19" },
+
   // Telegram member counts on the home page. The bot reads them from Telegram every hour (needs the
   // TG_BOT_TOKEN secret, see README). VIP_CHAT / FREE_CHAT are the chats' ids from public.tg_chats; leave
   // FREE_CHAT null until the bot is in the free room. FALLBACK is shown until the live count loads (and in

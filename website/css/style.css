@@ -153,6 +153,23 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
 .hero .lead { margin-top: 20px; font-size: 1.08rem; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .hero__note { margin-top: 14px; font-size: .88rem; color: var(--muted); }
+.netcard { margin-top: 18px; max-width: 440px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 18px 20px; border-radius: 18px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .10), rgba(var(--crimson-rgb), .22) 70%), var(--surface);
+  border: 1px solid rgba(var(--accent-rgb), .28); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+.netcard[hidden] { display: none; }
+.netcard::after { content: ""; position: absolute; right: -40px; top: -60px; width: 180px; height: 180px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), .16), transparent 70%); animation: netGlow 7s ease-in-out -3s infinite alternate; }
+@keyframes netGlow { from { transform: translate(0, 0); opacity: .7; } to { transform: translate(-18px, 14px); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .netcard::after { animation: none; } }
+.netcard__txt { min-width: 0; position: relative; z-index: 1; }
+.netcard__lbl { margin: 0; font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.netcard__num { display: block; margin-top: 4px; font-family: var(--font-head); font-weight: 500; font-size: clamp(2rem, 6vw, 2.6rem); line-height: 1.1;
+  font-variant-numeric: tabular-nums; background: linear-gradient(180deg, var(--accent-hi), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[lang="th"] .netcard__lbl { letter-spacing: .02em; font-size: .82rem; }
+.netcard__sub { margin: 6px 0 0; font-size: .9rem; color: var(--muted); }
+.netcard__ic { flex: none; position: relative; z-index: 1; width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
+  color: var(--accent-hi); background: rgba(var(--accent-rgb), .12); border: 1px solid rgba(var(--accent-rgb), .25); }
 .hero__members { margin-top: 12px; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 12px; border-radius: 999px;
   font-size: .86rem; font-weight: 600; color: var(--text); background: rgba(124,252,0,.07); border: 1px solid rgba(124,252,0,.22); }
 .hero__members[hidden] { display: none; }

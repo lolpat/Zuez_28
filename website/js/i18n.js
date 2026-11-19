@@ -75,6 +75,8 @@
       "hero.cta2": "เข้าสู่ระบบ",
       "hero.note": "ฟรีสำหรับสมาชิกใต้ IB ของเรา",
       "members.vip": "เทรดเดอร์ {n} คนอยู่ในห้อง VIP ของเรา",
+      "net.label": "สมาชิกทั้งหมดในเครือข่าย",
+      "net.sub": "ลูกค้า {c} คน · IB {i} คน",
       "members.free": "{n} คนอยู่ในห้องนี้แล้ว",
       "hero.sample": "ตัวอย่างหน้าจอ ตัวเลขสมมติ",
 
@@ -713,6 +715,8 @@
       "hero.cta2": "Log in",
       "hero.note": "Free for traders under our IB",
       "members.vip": "{n} traders in our VIP room",
+      "net.label": "Total members in our network",
+      "net.sub": "{c} clients · {i} IBs",
       "members.free": "{n} people already in this room",
       "hero.sample": "Sample screen, made-up numbers",
 
