@@ -23,6 +23,24 @@
     }
   }
 
+  // Telegram member counts: the real count read by the bot (public.group_members), else the dated fallback.
+  function members() {
+    const c = cfg.COMMUNITY; if (!c) return;
+    const n = { vip: c.FALLBACK?.vip ?? null, free: c.FALLBACK?.free ?? null };
+    const draw = () => $$("[data-members]").forEach((el) => {
+      const v = n[el.dataset.members];
+      el.hidden = !(v > 0);
+      if (v > 0) $("[data-members-text]", el).textContent = t("members." + el.dataset.members, { n: Number(v).toLocaleString("en-US") });
+    });
+    draw(); document.addEventListener("otm:lang", draw);
+    if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
+    fetch(`${cfg.SUPABASE_URL}/rest/v1/group_members?select=chat_id,members`, { headers: { apikey: cfg.SUPABASE_ANON_KEY, Authorization: `Bearer ${cfg.SUPABASE_ANON_KEY}` } })
+      .then((r) => (r.ok ? r.json() : [])).then((rows) => {
+        for (const r of rows) { if (r.chat_id === c.VIP_CHAT) n.vip = r.members; if (c.FREE_CHAT && r.chat_id === c.FREE_CHAT) n.free = r.members; }
+        draw();
+      }).catch(() => {});
+  }
+
   // ------------------------------------------------------------ landing
   const usd = (n) => "$" + Number(n).toLocaleString("en-US");
   function bonusBox(x) {
@@ -93,6 +111,7 @@
   }
   function landing() {
     brokerPanel();
+    members();
     if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));
     if (window.OTMSignals) window.OTMSignals.render($("[data-signals]"));
     // sample journal card: a made-up month and equity line (labelled as samples on the card)

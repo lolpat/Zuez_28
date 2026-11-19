@@ -9,12 +9,14 @@
 //
 // Secrets (Supabase dashboard -> Edge Functions -> Secrets):
 //   TG_WEBHOOK_SECRET   any long random string; Telegram sends it back in X-Telegram-Bot-Api-Secret-Token
+//   TG_BOT_TOKEN        optional: the bot's token, used only to read how many members each chat has
+//                       (shown on the home page). Without it everything else still works.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
-// The bot token itself is not needed here: Telegram pushes the messages to this function.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { parseSignal, parseResult, applyResult, outcome } from "./parse.js";
 
 const SECRET = Deno.env.get("TG_WEBHOOK_SECRET") ?? "";
+const BOT = Deno.env.get("TG_BOT_TOKEN") ?? "";
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
 const ok = () => new Response("ok");
 
@@ -28,6 +30,24 @@ async function roomFor(chatId: number, threadId: number): Promise<string | null>
   const { data } = await db.from("signal_rooms").select("chat_id, room").eq("thread_id", threadId);
   const rows = data ?? [];
   return (rows.find((r) => r.chat_id === chatId) ?? rows.find((r) => r.chat_id === null))?.room ?? null;
+}
+
+// At most once an hour: ask Telegram how many members every chat the bot is in has (public.group_members).
+async function refreshMembers() {
+  if (!BOT) return;
+  const { data } = await db.from("tg_chats").select("chat_id, members_at");
+  const rows = data ?? [];
+  const hour = Date.now() - 3600e3;
+  if (rows.length && rows.every((r) => r.members_at && new Date(r.members_at).getTime() > hour)) return;
+  for (const r of rows) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT}/getChatMemberCount?chat_id=${r.chat_id}`);
+      const j = await res.json();
+      if (j.ok && typeof j.result === "number") {
+        await db.from("tg_chats").update({ members: j.result, members_at: new Date().toISOString() }).eq("chat_id", r.chat_id);
+      }
+    } catch (_) { /* try again next hour */ }
+  }
 }
 
 // Walk reply_to up the chain until it reaches a signal.
@@ -81,6 +101,7 @@ Deno.serve(async (req) => {
     const chatId = msg.chat.id, threadId = msg.is_topic_message ? msg.message_thread_id ?? 0 : 0;
     // remember every chat the bot is in (its id is what public.signal_rooms maps to a room)
     await db.from("tg_chats").upsert({ chat_id: chatId, title: msg.chat.title ?? null, type: msg.chat.type ?? null, last_thread: threadId, last_seen: new Date().toISOString() });
+    await refreshMembers();
     const room = await roomFor(chatId, threadId);
     if (!room) return ok();                                   // not a signal room: ignore
     const text = msg.text ?? msg.caption ?? "";

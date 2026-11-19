@@ -74,6 +74,8 @@
       "hero.cta": "สมัครสมาชิก",
       "hero.cta2": "เข้าสู่ระบบ",
       "hero.note": "ฟรีสำหรับสมาชิกใต้ IB ของเรา",
+      "members.vip": "เทรดเดอร์ {n} คนอยู่ในห้อง VIP ของเรา",
+      "members.free": "{n} คนอยู่ในห้องนี้แล้ว",
       "hero.sample": "ตัวอย่างหน้าจอ ตัวเลขสมมติ",
 
       "how.kicker": "วิธีเข้าร่วม",
@@ -710,6 +712,8 @@
       "hero.cta": "Join Order The Market",
       "hero.cta2": "Log in",
       "hero.note": "Free for traders under our IB",
+      "members.vip": "{n} traders in our VIP room",
+      "members.free": "{n} people already in this room",
       "hero.sample": "Sample screen, made-up numbers",
 
       "how.kicker": "How to join",

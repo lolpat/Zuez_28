@@ -25,6 +25,12 @@ window.OTM_CONFIG = {
   TELEGRAM_HANDLE: "@zuez_28",
   // Free signal room (public Telegram group) and Instagram, shown in the contact section and footer.
   SIGNAL_URL: "https://t.me/+Zyobh3qn3pI1ZmFk",
+
+  // Telegram member counts on the home page. The bot reads them from Telegram every hour (needs the
+  // TG_BOT_TOKEN secret, see README). VIP_CHAT / FREE_CHAT are the chats' ids from public.tg_chats; leave
+  // FREE_CHAT null until the bot is in the free room. FALLBACK is shown until the live count loads (and in
+  // previews): the real count read by the bot on the date given.
+  COMMUNITY: { VIP_CHAT: -1003941112920, FREE_CHAT: null, FALLBACK: { vip: 337, free: null, date: "2026-11-19" } },
   INSTAGRAM_URL: "https://www.instagram.com/fxzuez_28/",
   INSTAGRAM_HANDLE: "@fxzuez_28",
 

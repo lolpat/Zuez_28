@@ -153,6 +153,12 @@ textarea.input { min-height: 90px; resize: vertical; line-height: 1.6; }
 .hero .lead { margin-top: 20px; font-size: 1.08rem; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .hero__note { margin-top: 14px; font-size: .88rem; color: var(--muted); }
+.hero__members { margin-top: 12px; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 12px; border-radius: 999px;
+  font-size: .86rem; font-weight: 600; color: var(--text); background: rgba(124,252,0,.07); border: 1px solid rgba(124,252,0,.22); }
+.hero__members[hidden] { display: none; }
+.hero__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--profit); box-shadow: 0 0 0 0 rgba(124,252,0,.55); animation: memberPulse 2.4s ease-out infinite; }
+@keyframes memberPulse { 0% { box-shadow: 0 0 0 0 rgba(124,252,0,.55); } 70%, 100% { box-shadow: 0 0 0 8px rgba(124,252,0,0); } }
+@media (prefers-reduced-motion: reduce) { .hero__dot { animation: none; } }
 .hero__slogan { margin-top: 40px; font-size: .74rem; color: var(--gold-deep); }
 
 /* hero art: the logo mark inside the gold crescent orbit */
@@ -1091,6 +1097,8 @@ button.jc-d:hover { transform: translateY(-2px); }
 .contact__card:hover .contact__go i { transform: translateX(4px); }
 .contact__card--signal { border-color: rgba(var(--accent-rgb), .5); background: radial-gradient(120% 90% at 100% 0%, rgba(220, 184, 74, .18), transparent 60%), var(--metal-red); }
 .contact__card--signal .contact__ic { color: #1a1209; background: var(--metal-gold); border-color: rgba(120, 82, 10, .5); }
+.contact__count { font-size: .82rem; font-weight: 600; color: var(--profit); }
+.contact__count[hidden] { display: none; }
 .contact__badge { position: absolute; top: 14px; right: 14px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; padding: 3px 10px; border-radius: 999px; color: #0a1f0a; background: var(--profit); }
 .band .contact__note { margin: 18px auto 0; font-size: .78rem; max-width: 70ch; }
 .footer-social { display: flex; gap: 8px; margin-top: 18px; }

@@ -30,8 +30,11 @@ create table if not exists public.tg_chats (
   title text,
   type text,
   last_thread bigint,
-  last_seen timestamptz not null default now()
+  last_seen timestamptz not null default now(),
+  members int,                          -- member count from Telegram, refreshed hourly (needs TG_BOT_TOKEN)
+  members_at timestamptz
 );
+alter table public.tg_chats add column if not exists members int, add column if not exists members_at timestamptz;
 
 -- Every message the bot sees in a mapped topic (kept so replies can be traced back to their signal).
 create table if not exists public.tg_messages (
@@ -80,4 +83,8 @@ create or replace view public.signal_results as
 create or replace view public.signal_open_counts as
   select room, count(*)::int as open from public.signal_trades where status = 'open' group by room;
 
-grant select on public.signal_results, public.signal_open_counts to anon, authenticated;
+-- Public: how many members each Telegram chat has (shown on the home page). No titles, no names.
+create or replace view public.group_members as
+  select chat_id, members, members_at from public.tg_chats where members is not null;
+
+grant select on public.signal_results, public.signal_open_counts, public.group_members to anon, authenticated;
