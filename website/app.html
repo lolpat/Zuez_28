@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script>
+    // Phones get the full desktop layout (side menu always open), scaled to fit the screen, like a desktop site.
+    if (Math.min(screen.width, screen.height) < 768) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=1100, viewport-fit=cover");
+  </script>
   <title>พอร์ทัลสมาชิก | Order The Market</title>
   <meta name="description" content="พอร์ทัลสมาชิกและ Trading Journal ของ Order The Market">
   <meta name="theme-color" content="#0b0a0b">
