@@ -111,14 +111,15 @@ withdrawals, net deposits, new accounts, rebate, lots, volume, monthly charts, r
 table (sortable, CSV export) and a sub-IB table. Members whose broker client ID appears in a report are
 confirmed automatically.
 
-- Supported now: Vantage `ib_report` (fund report + opened accounts), `rebate_report` by day and by client,
-  `Sub_IB_Report` by IB (its period is read from the file name) and by day.
+- Supported now: PU Prime's IB portal format: `ib_report` (fund report + opened accounts), `rebate_report` by
+  day and by client, `Sub_IB_Report` by IB (its period is read from the file name) and by day. The files
+  don't name the broker, so the IB picks it above the drop box (remembered in the browser).
 - Each table is replaced day by day: a newer file's days replace the stored rows for those days, so repeated
-  files and overlapping date ranges never double count. Vantage exports at different times can differ by a
+  files and overlapping date ranges never double count. Exports made at different times can differ by a
   cent on some days; the newest upload wins.
 - Rebate totals come from the "by day" report. The "by client" report's dates run one day behind it (broker
   server time), so it supplies the per-client and per-instrument figures only.
-- Vantage lets you download 90 days at a time. After the first full year, upload the last month's files
+- The IB portal allows 90 days per download. After the first full year, upload the last month's files
   once a month.
 - The files hold clients' names and money: they are read in the browser and only the figures are stored,
   visible to the IB who uploaded them and the owner.

@@ -1384,3 +1384,6 @@ html.desk-host body > *:not(#desk-frame) { display: none !important; }
 .ibr-st--ok { color: var(--profit); background: rgba(124, 252, 0, .08); border: 1px solid rgba(124, 252, 0, .25); }
 .ibr-st--new { color: var(--accent-hi); background: rgba(var(--accent-rgb), .1); border: 1px solid rgba(var(--accent-rgb), .35); }
 .ibr-st--no { color: #ff9b8f; background: rgba(255, 107, 94, .08); border: 1px solid rgba(255, 107, 94, .3); }
+.ibr-side { display: grid; gap: 10px; min-width: 0; }
+.ibr-broker { align-items: center; flex-wrap: wrap; border-radius: 14px; }
+.ibr-broker__lbl { font-size: .78rem; color: var(--muted); padding: 0 8px 0 10px; }

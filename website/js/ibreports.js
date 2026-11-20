@@ -3,8 +3,9 @@
 // IB, and shown as totals, monthly charts, a client table and a sub-IB table. Members whose broker
 // client ID appears in a report are confirmed automatically.
 //
-// Supported now: Vantage (ib_report = fund report + opened accounts, rebate_report by day or by client,
-// Sub_IB_Report by IB or by day). Each table is replaced day by day: a newer file's days replace the
+// Supported now: the report format of PU Prime's IB portal (ib_report = fund report + opened accounts,
+// rebate_report by day or by client, Sub_IB_Report by IB or by day). The files don't say which broker they
+// come from, so the IB picks the broker above the drop box (remembered in this browser). Each table is replaced day by day: a newer file's days replace the
 // stored rows for those days, so re-uploading or overlapping ranges never double count.
 (function (root) {
   const I = root.OTMI18n, C = root.OTMCharts, cfg = root.OTM_CONFIG;
@@ -30,8 +31,8 @@
   const instr = (s) => String(s || "").replace(/[._-](s|std|ecn|pro|m|raw)$/i, "").toUpperCase();
 
   // one workbook -> { kind, batch } or null when the file isn't a supported report
-  function parseWorkbook(sheets, fileName) {
-    const B = "vantage", out = empty(), names = Object.keys(sheets);
+  function parseWorkbook(sheets, fileName, broker = "puprime") {
+    const B = broker, out = empty(), names = Object.keys(sheets);
     const first = (sh) => (sheets[sh] || [])[0] || [];
     // ib_report: fund report + opened accounts
     if (sheets["fund report"] || sheets["opened accounts"]) {
@@ -109,11 +110,11 @@
     return D;
   }
 
-  async function readFiles(files) {
+  async function readFiles(files, broker) {
     const report = { ok: [], skipped: [] }; let batch = empty();
     for (const f of files) {
       try {
-        const res = parseWorkbook(await root.OTMXlsx.read(f), f.name);
+        const res = parseWorkbook(await root.OTMXlsx.read(f), f.name, broker);
         if (!res || res.kind === "subibNoDate") { report.skipped.push(f.name); continue; }
         batch = apply(batch, res.batch); report.ok.push({ name: f.name, kind: res.kind });
       } catch (e) { report.skipped.push(f.name); }
@@ -162,6 +163,7 @@
   // ---------------------------------------------------------------- page section
   function render(el, ctx) {
     let data = null, sortBy = "rebate", showAll = false, note = "";
+    let broker = "puprime"; try { broker = localStorage.getItem("otm_ib_broker") || broker; } catch (e) { /* blocked */ }
     const mLabel = (m) => new Date(m + "-15T12:00:00").toLocaleDateString(I.lang === "th" ? "th-TH" : "en-GB", { month: "short" });
     const bars = (rows, key, fmtv) => C && rows.length ? C.bars(rows.map((g) => ({ label: mLabel(g.m), value: g[key], sub: "" })),
       { fmt: fmtv, short: (x) => (Math.abs(x) >= 1000 ? (x < 0 ? "−" : "") + num(Math.abs(x) / 1000, 1) + "k" : num(x)), label: "", w: 420, h: 210 }) : `<p class="muted">${t("ibr.none")}</p>`;
@@ -178,10 +180,12 @@
         <section class="card ibr-imp">
           <div><h3>${t("ibr.title")}</h3><p class="card__sub">${t("ibr.lead")}</p>
             ${S && S.from ? `<p class="ibr-range">${t("ibr.range", { a: S.from, b: S.to })}</p>` : ""}</div>
+          <div class="ibr-side">
+          <div class="seg ibr-broker" role="group" aria-label="${esc(t("ibr.broker"))}"><span class="ibr-broker__lbl">${t("ibr.broker")}</span>${cfg.BROKERS.map((b) => `<button type="button" data-broker="${b.id}" aria-pressed="${b.id === broker}">${esc(b.name)}</button>`).join("")}</div>
           <label class="ibr-drop" tabindex="0">
             <input type="file" accept=".xlsx" multiple hidden>
-            <b>⤓ ${t("ibr.drop")}</b><small>${t("ibr.drop.d")}</small>
-          </label>
+            <b>⤓ ${t("ibr.drop")}</b><small>${t("ibr.drop.d", { b: esc((cfg.BROKERS.find((x) => x.id === broker) || {}).name || broker) })}</small>
+          </label></div>
           ${note ? `<div class="ibr-note">${note}</div>` : ""}
         </section>
         ${has ? `
@@ -229,6 +233,7 @@
       ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("is-over"); }));
       ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("is-over"); }));
       drop.addEventListener("drop", (e) => upload([...e.dataTransfer.files].filter((f) => /\.xlsx$/i.test(f.name))));
+      el.querySelectorAll("[data-broker]").forEach((b) => b.addEventListener("click", () => { broker = b.dataset.broker; try { localStorage.setItem("otm_ib_broker", broker); } catch (e) { /* blocked */ } draw(); }));
       const s = el.querySelector("[data-sort]"); if (s) s.addEventListener("change", () => { sortBy = s.value; draw(); });
       const a = el.querySelector("[data-all]"); if (a) a.addEventListener("click", () => { showAll = !showAll; draw(); });
       const c = el.querySelector("[data-csv]"); if (c) c.addEventListener("click", csv);
@@ -238,7 +243,7 @@
       if (!files.length) return;
       note = t("ibr.reading", { n: files.length }); draw();
       try {
-        const { batch, report } = await readFiles(files);
+        const { batch, report } = await readFiles(files, broker);
         if (!report.ok.length) { note = `<b class="down">${t("ibr.bad")}</b> ${esc(report.skipped.join(", "))}`; draw(); return; }
         data = await ctx.store.ibSave(batch);
         const done = await autoConfirm();
