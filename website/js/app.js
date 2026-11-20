@@ -288,8 +288,12 @@
         <i class="droom__go" aria-hidden="true">→</i></a>`).join("")}</div>`;
   }
   function latestHtml(list) {
-    const pick = (list || []).filter((r) => r.last).sort((a, b) => b.last.date.localeCompare(a.last.date) || (a.kind === "days") - (b.kind === "days"))[0];
-    const head = `<div class="dcard-h"><span class="dic">${ICON.signals}</span><h3>${t("dash.latest")}</h3>${pick ? `<span class="badge badge--gold dcard-h__end">${shortDate(pick.last.date)}</span>` : ""}</div>`;
+    // newest closed signal across rooms: by day, then by the time the bot recorded it
+    const when = (L) => L.date + "|" + (L.at || "");
+    const pick = (list || []).filter((r) => r.last).sort((a, b) => when(b.last).localeCompare(when(a.last)) || (a.kind === "days") - (b.kind === "days"))[0];
+    const hhmm = (iso) => { try { return new Date(iso).toLocaleTimeString(I.lang === "th" ? "th-TH" : "en-GB", { hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; } };
+    const stamp = pick ? shortDate(pick.last.date) + (pick.last.at ? " · " + hhmm(pick.last.at) : "") : "";
+    const head = `<div class="dcard-h"><span class="dic">${ICON.signals}</span><h3>${t("dash.latest")}</h3>${pick ? `<span class="badge badge--gold dcard-h__end">${stamp}</span>` : ""}</div>`;
     if (!pick) return head + `<p class="muted" style="margin-top:14px">${t("sig.soon")}</p>`;
     const L = pick.last;
     const what = pick.kind === "days" ? t("dash.latest.day") : `${esc(L.symbol)} ${esc(String(L.side).toUpperCase())}`;
@@ -298,8 +302,9 @@
       <p class="dlast__room">${ROOM_ICON[pick.id] || ""} ${esc(pick.name.toUpperCase())} · ${what}</p>
       <b class="dlast__pips ${L.pips >= 0 ? "up" : "down"}">${pipsTxt(L.pips)}</b>
       ${sub ? `<p class="card__sub">${sub}</p>` : ""}
-      <ul class="dlast__list">${(list || []).filter((r) => r.last).map((r) => `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
-        <span>${esc(r.name)}<small>${shortDate(r.last.date)}</small></span><b class="${r.last.pips >= 0 ? "up" : "down"}">${pipsTxt(r.last.pips)}</b></li>`).join("")}</ul>
+      <p class="dlast__cap">${t("dash.latest.daycap")}</p>
+      <ul class="dlast__list">${(list || []).filter((r) => r.day).map((r) => `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
+        <span>${esc(r.name)}<small>${shortDate(r.day.date)}${r.day.n ? " · " + t("dash.latest.n", { n: r.day.n }) : ""}</small></span><b class="${r.day.pips >= 0 ? "up" : "down"}">${pipsTxt(r.day.pips)}</b></li>`).join("")}</ul>
       <a class="btn btn--gold btn--sm dlast__go" href="#signals" data-room="${pick.id}">${t("dash.latest.all")} →</a>`;
   }
   function dashboard(v) {

@@ -238,13 +238,13 @@
       if (r.days && r.days.length) {
         const by = new Map();
         for (const x of fresh) {
-          const d = x.opened_at.slice(0, 10), g = by.get(d) || [d, 0, 0, 0, 0];
+          const d = x.opened_at.slice(0, 10), g = by.get(d) || [d, 0, 0, 0, 0, ""];
           if (x.pips > 0) g[1] += x.pips; else if (x.pips < 0) { g[2] += -x.pips; g[3]++; }
-          g[4]++; by.set(d, g);
+          g[4]++; if (x.opened_at > g[5]) g[5] = x.opened_at; by.set(d, g);
         }
         r.days = [...r.days, ...by.values()];
       } else {
-        r.trades = [...(r.real ? r.trades : []), ...fresh.map((x) => [x.opened_at.slice(0, 10), x.symbol, x.side, Math.round(x.pips), x.risk])];
+        r.trades = [...(r.real ? r.trades : []), ...fresh.map((x) => [x.opened_at.slice(0, 10), x.symbol, x.side, Math.round(x.pips), x.risk, x.opened_at])];
         r.real = true;
       }
       changed = true;
@@ -262,11 +262,17 @@
       const base = { id: r.id, name: r.name, medal: r.medal, hype: !!r.hype, flash: !!r.flash };
       if (r.days && r.days.length) {
         const s = computeDays(r, D.deduct ?? 0.15), d = r.days.reduce((a, x) => (x[0] > a[0] ? x : a));
-        return { ...base, kind: "days", net: s.net, green: s.green, days: s.days, last: { date: d[0], pips: d[1] - d[2] } };
+        const day = { date: d[0], pips: d[1] - d[2], n: d[4] ?? null, at: d[5] || "" };
+        return { ...base, kind: "days", net: s.net, green: s.green, days: s.days, day,
+          last: { date: d[0], pips: d[1] - d[2], at: d[5] || "" } };
       }
-      const s = compute(r, D.deduct ?? 0.15), x = r.trades.reduce((a, y) => (y[0] >= a[0] ? y : a));
-      return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr,
-        last: { date: x[0], symbol: x[1], side: x[2], pips: x[3], r: x[4] > 0 ? x[3] / x[4] : null } };
+      // the latest closed trade (by time when the bot recorded it), and the total of its day
+      const key = (y) => y[0] + "|" + (y[5] || "");
+      const s = compute(r, D.deduct ?? 0.15), x = r.trades.reduce((a, y) => (key(y) >= key(a) ? y : a));
+      const same = r.trades.filter((y) => y[0] === x[0]);
+      const day = { date: x[0], pips: same.reduce((t, y) => t + y[3], 0), n: same.length, at: x[5] || "" };
+      return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr, day,
+        last: { date: x[0], symbol: x[1], side: x[2], pips: x[3], r: x[4] > 0 ? x[3] / x[4] : null, at: x[5] || "" } };
     });
   }
 

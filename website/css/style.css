@@ -1400,3 +1400,6 @@ th.ibr-pcol { color: var(--accent-hi); }
 .acc-figs b { color: var(--text); font-weight: 600; } .acc-figs b.up { color: var(--profit); } .acc-figs b.down { color: var(--loss); }
 .lb-ver--dot { padding: 0; width: 18px; height: 18px; display: inline-grid; place-items: center; flex: none; font-size: .7rem; }
 .lb-hidden { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-size: .9rem; margin-top: 14px; }
+.dlast__cap { margin: 18px 0 -6px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.dlast__list li > span:nth-child(2) small { display: block; margin: 2px 0 0; font-size: .76rem; overflow: hidden; text-overflow: ellipsis; }
+.dlast__cap + .dlast__list { margin-top: 14px; }
