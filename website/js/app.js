@@ -772,7 +772,7 @@
         <div class="lb-title"><span class="lb-title__icon">${ICON.leaderboard}</span>
           <div><h2>${t("app.leaderboard")}</h2><p class="muted">${t("lb.sub")}${L.period !== "all" ? ` · <span id="lb-reset" class="lb-reset">${lbReset(L.period)}</span>` : ""}</p></div></div>
         <div class="lb-controls">
-          ${seg("type", [["live", "lb.live"], ["demo", "lb.demo"], ["auto", "lb.auto"]])}
+          ${seg("type", [["live", "lb.live"], ["demo", "lb.demo"]])}
           ${seg("period", [["day", "lb.day"], ["week", "lb.week"], ["month", "lb.month"], ["all", "lb.all"]])}
         </div>
       </div>
@@ -781,8 +781,6 @@
     $$("[data-lb]", v).forEach((b) => b.addEventListener("click", () => { L[b.dataset.lb] = b.dataset.v; state.lbMore = false; render(); }));
     if (L.period !== "all") state.timer = setInterval(() => { const el = $("#lb-reset"); if (el) el.textContent = lbReset(L.period); }, 1000);
 
-    // simulated Autotrade tab: its own page, never mixed with the real rankings
-    if (L.type === "auto") { if (window.OTMAutotrade) window.OTMAutotrade.render($("#lb-body", v), { period: L.period, start: S.lbPeriod(L.period).start }); return; }
     let rows;
     try { rows = await state.store.leaderboard(L.period, L.type); }
     catch (err) { $("#lb-body", v).innerHTML = `<p class="alert alert--err">${esc(err.message)}</p>`; return; }
