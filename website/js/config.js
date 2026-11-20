@@ -45,12 +45,14 @@ window.OTM_CONFIG = {
   // bonus: deposit bonus shown on the card. first / next = percent on the first and later deposits,
   // firstMax = largest first-deposit bonus in USD, cap = total bonus limit in USD. Leave a field out
   // to hide it, or remove `bonus` to hide the box. Brokers change these by campaign: keep them current.
+  // Current campaigns (owner's screenshots of the broker apps, 20 Nov 2026): Vantage 150% first + 25% later, up to
+  // USD 50K; PU Prime 100% first up to $1,000 + 20% later up to $9,000; VT Markets 100% first + 50% later.
   BROKERS: [
     { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28", logo: "assets/img/brokers/vantage.png",
-      bonus: { first: 150, firstMax: 1500, next: 50, cap: 3000 }, servers: [] },
+      bonus: { first: 150, next: 25, cap: 50000 }, servers: [] },
     { id: "puprime", name: "PU Prime", url: "https://puvip.co/la-partners/OTM2028", code: "OTM2028", logo: "assets/img/brokers/puprime.jpg",
       bonus: { first: 100, firstMax: 1000, next: 20, cap: 10000 }, servers: [] },
     { id: "vtmarkets", name: "VT Markets", url: "https://vtm.pro/la5-com/global/OTM2028", code: "OTM2028", logo: "assets/img/brokers/vtmarkets.svg",
-      bonus: { first: 100, next: 20, cap: 10000 }, servers: [] }
+      bonus: { first: 100, next: 50 }, servers: [] }
   ]
 };
