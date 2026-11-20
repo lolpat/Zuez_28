@@ -9,7 +9,7 @@
   const state = {
     store: null, me: null, accounts: [], trades: [], upline: null, downline: null, links: [], teamLinks: [],
     f: { account: "all", broker: "all", period: "month", side: "all", outcome: "all", symbol: "all" },
-    eq: "cum", cal: null, shown: 25, timer: null, netQuery: "", lb: { period: "week", type: "live" }
+    eq: "cum", cal: null, shown: 25, timer: null, netQuery: "", lb: { period: "week", type: "live", verified: true }
   };
 
   const ICON = {
@@ -458,7 +458,13 @@
         const last = on.map((a) => a.last_sync_at).filter(Boolean).sort().pop();
         const bad = on.find((a) => a.sync_status === "error");
         return on.length
-          ? `<div class="sync-bar ${bad ? "is-err" : ""}"><span class="sync-bar__dot" aria-hidden="true"></span><div><b>${t("sync.banner.on")}</b><small>${bad ? esc(syncErrText(bad.sync_error)) : last ? t("sync.last", { t: fmt.dateTime(last) }) : t("sync.connecting")}</small></div><button class="btn btn--ghost btn--sm" type="button" id="sync-now">${t("sync.now")}</button></div>`
+          ? `<div class="sync-bar ${bad ? "is-err" : ""}"><span class="sync-bar__dot" aria-hidden="true"></span><div><b>${t("sync.banner.on")}</b><small>${bad ? esc(syncErrText(bad.sync_error)) : last ? t("sync.last", { t: fmt.dateTime(last) }) : t("sync.connecting")}</small>${(() => {
+            // balance and equity of the connected accounts, as the broker reported them
+            const withInfo = on.filter((a) => a.info_at && a.balance != null);
+            if (!withInfo.length) return "";
+            const bal = withInfo.reduce((x, a) => x + +a.balance, 0), eq = withInfo.reduce((x, a) => x + +a.equity, 0);
+            return `<span class="acc-figs"><span>${t("acc.balance")} <b>${money(bal, false)}</b></span><span>${t("acc.equity")} <b>${money(eq, false)}</b></span><span>${t("acc.float")} <b class="${cls(eq - bal)}">${money(eq - bal)}</b></span></span>`;
+          })()}</div><button class="btn btn--ghost btn--sm" type="button" id="sync-now">${t("sync.now")}</button></div>`
           : `<div class="sync-bar is-off"><span class="sync-bar__dot" aria-hidden="true"></span><div><b>${t("sync.title")}</b><small>${t("sync.banner.off")}</small></div><button class="btn btn--gold btn--sm" type="button" id="sync-connect">${t("sync.connect")}</button></div>`;
       })() : ""}
       <div class="filters">
@@ -774,15 +780,17 @@
         <div class="lb-controls">
           ${seg("type", [["live", "lb.live"], ["demo", "lb.demo"]])}
           ${seg("period", [["day", "lb.day"], ["week", "lb.week"], ["month", "lb.month"], ["all", "lb.all"]])}
+          <label class="lb-verify"><input type="checkbox" id="lb-verified" ${L.verified ? "checked" : ""}><span>✓ ${t("lb.verifiedOnly")}</span></label>
         </div>
       </div>
       <div id="lb-body"><div class="loading"><img src="assets/img/mark.svg" alt="" width="56" height="56"></div></div>
       ${riskNote()}`;
     $$("[data-lb]", v).forEach((b) => b.addEventListener("click", () => { L[b.dataset.lb] = b.dataset.v; state.lbMore = false; render(); }));
+    const vb = $("#lb-verified", v); if (vb) vb.addEventListener("change", () => { L.verified = vb.checked; state.lbMore = false; render(); });
     if (L.period !== "all") state.timer = setInterval(() => { const el = $("#lb-reset"); if (el) el.textContent = lbReset(L.period); }, 1000);
 
     let rows;
-    try { rows = await state.store.leaderboard(L.period, L.type); }
+    try { rows = await state.store.leaderboard(L.period, L.type, L.verified); }
     catch (err) { $("#lb-body", v).innerHTML = `<p class="alert alert--err">${esc(err.message)}</p>`; return; }
     if (currentRoute() !== "leaderboard" || !$("#lb-body", v)) return;
 
@@ -798,13 +806,14 @@
     const top = rows.filter((r) => r.rank <= 20), mineOutside = rows.find((r) => r.is_me && r.rank > 20);
     const shown = top.slice(0, state.lbMore ? 20 : 10);
     const inProfit = rows.length ? rows[0].in_profit || top.length : 0;
+    const vBadge = `<span class="lb-ver" title="${esc(t("lb.verified.title"))}">✓ MT5</span>`;
     const avatar = (r, size = "") => `<span class="lb-av ${size}">${esc(initials(r.display_name))}</span>`;
     const podium = rows.length ? [rows[1], rows[0], rows[2]].map((r, i) => {
       if (!r) return `<div class="pod pod--empty"></div>`;
       const place = [2, 1, 3][i], P = lbParts(r);
       return `<div class="pod pod--${place} ${r.is_me ? "is-me" : ""}">
           <div class="pod__banner">${bannerSvg(place)}</div>
-          <b class="pod__name">${esc(r.display_name)}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
+          <b class="pod__name">${esc(r.display_name)}${r.verified ? ` ${vBadge}` : ""}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
           <span class="pod__line"><span class="pod__net">${money(r.net)}</span><i aria-hidden="true"></i><span>${fmt.num(P.wr, 0)}% WR</span>${r.return_pct != null ? `<i aria-hidden="true"></i><span>${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%</span>` : ""}</span>
         </div>`;
     }).join("") : "";
@@ -835,7 +844,7 @@
           </div>
           ${[...shown, ...(mineOutside ? [null, mineOutside] : [])].map((r) => { if (!r) return `<div class="lb-gap" role="row"><span role="cell">${t("lb.yourPlace")}</span></div>`; const P = lbParts(r); return `<div class="lb-tr ${r.rank <= 3 ? "lb-tr--" + r.rank : ""} ${r.is_me ? "is-me" : ""}" role="row">
             <span role="cell" class="c-rank">${r.rank <= 3 ? rowMedal(r.rank) : `<span class="lb-num">${String(r.rank).padStart(2, "0")}</span>`}</span>
-            <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
+            <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}${r.verified ? ` ${vBadge}` : ""}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
             <span role="cell" class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></span>
             <span role="cell" class="c-num c-trades">${r.trades}</span>
             <span role="cell" class="c-num c-net">${money(r.net)}</span>
@@ -884,8 +893,11 @@
   }
   function syncLine(a) {
     if (a.sync_status === "error") return `<small class="sync-err">${esc(syncErrText(a.sync_error))}</small>`;
-    if (a.last_sync_at) return `<small class="muted">${t("sync.last", { t: fmt.dateTime(a.last_sync_at) })}</small>`;
-    return "";
+    // balance, equity and live/demo as the broker reported them on the last sync
+    const info = a.info_at && a.balance != null ? `<span class="acc-figs"><span>${t("acc.balance")} <b>${money(+a.balance, false)}</b></span><span>${t("acc.equity")} <b>${money(+a.equity, false)}</b></span>
+      <span>${t("acc.float")} <b class="${cls(+a.equity - +a.balance)}">${money(+a.equity - +a.balance)}</b></span>${a.broker_mode ? `<span class="badge ${a.broker_mode === "real" ? "badge--ok" : ""}">${t("acc.mode." + a.broker_mode)}</span>` : ""}</span>` : "";
+    if (a.last_sync_at) return `${info}<small class="muted">${t("sync.last", { t: fmt.dateTime(a.last_sync_at) })}${a.consent_at ? " · " + t("acc.consent", { t: fmt.date(a.consent_at) }) : ""}</small>`;
+    return info;
   }
   async function runSyncNow(ids, btn) {
     if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = t("sync.running"); }

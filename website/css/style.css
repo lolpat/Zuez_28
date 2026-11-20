@@ -1391,3 +1391,10 @@ html.desk-host body > *:not(#desk-frame) { display: none !important; }
 .ibr-pcol { background: rgba(var(--accent-rgb), .05); }
 th.ibr-pcol { color: var(--accent-hi); }
 .ibr-src { display: inline-block; margin-right: 6px; font-size: .64rem; padding: 1px 6px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); vertical-align: 1px; }
+
+/* verified MT5 results */
+.lb-verify { display: inline-flex; align-items: center; gap: 8px; font-size: .84rem; color: var(--muted); cursor: pointer; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); }
+.lb-verify input { accent-color: var(--profit); }
+.lb-ver { display: inline-block; font-size: .64rem; font-weight: 600; padding: 1px 7px; border-radius: 99px; color: var(--profit); background: rgba(124, 252, 0, .1); border: 1px solid rgba(124, 252, 0, .35); vertical-align: 2px; white-space: nowrap; }
+.acc-figs { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: .84rem; color: var(--muted); margin: 2px 0 4px; }
+.acc-figs b { color: var(--text); font-weight: 600; } .acc-figs b.up { color: var(--profit); } .acc-figs b.down { color: var(--loss); }

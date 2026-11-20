@@ -182,12 +182,12 @@
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
     async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
-    async leaderboard(period, type = "live") {
+    async leaderboard(period, type = "live", verified = false) {
       const { start } = root.OTMStats.lbPeriod(period);
       const typeOf = new Map(db.accounts.map((a) => [a.id, a.account_type || "live"]));
       const n = (t) => (+t.profit || 0) + (+t.commission || 0) + (+t.swap || 0);
       const rows = db.users.filter((u) => u.status === "approved" && u.leaderboard_opt_in).map((u) => {
-        const tr = db.trades.filter((t) => t.user_id === u.id && typeOf.get(t.account_id) === type && (!start || new Date(t.close_time) >= start))
+        const tr = db.trades.filter((t) => t.user_id === u.id && typeOf.get(t.account_id) === type && (!start || new Date(t.close_time) >= start) && (!verified || t.source === "sync"))
           .sort((a, b) => new Date(b.close_time) - new Date(a.close_time));
         if (!tr.length) return null;
         const v = tr.map(n), wins = v.filter((x) => x > 0), losses = v.filter((x) => x < 0);
@@ -196,7 +196,7 @@
         const net = v.reduce((a, b) => a + b, 0);
         return { display_name: (u.leaderboard_name || "").trim() || u.full_name.split(" ")[0], trades: tr.length, wins: wins.length, losses: losses.length,
           net, gross_win: wins.reduce((a, b) => a + b, 0), gross_loss: -losses.reduce((a, b) => a + b, 0), streak,
-          return_pct: bal > 0 ? (net / bal) * 100 : null, is_me: u.id === db.session };
+          return_pct: bal > 0 ? (net / bal) * 100 : null, is_me: u.id === db.session, verified: tr.every((t) => t.source === "sync") };
       }).filter(Boolean);
       const ranked = rows.filter((r) => r.net > 0).sort((a, b) => b.net - a.net || a.trades - b.trades);
       return ranked.map((r, i) => ({ ...r, rank: i + 1, field_size: rows.length, in_profit: ranked.length })).filter((r) => r.rank <= 20 || r.is_me);
@@ -235,8 +235,9 @@
       const fresh = makeTrades(db.session, id, 45, 0.56, 75, Math.random).filter((r) => !have.has(r.ticket))
         .map((r) => ({ ...r, source: "sync", note: "", feeling: "", execution: null, tags: [], lesson: "" }));
       db.trades.push(...fresh);
-      Object.assign(a, { server, metaapi_id: "demo", sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString() });
+      Object.assign(a, { server, metaapi_id: "demo", sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString(), consent_at: new Date().toISOString() });
       if (!+a.start_balance) a.start_balance = 1000;
+      demoInfo(a);
       saveDemo(); return { status: "ok", added: fresh.length };
     },
     async syncNow(id) {
@@ -247,11 +248,12 @@
         .map((r) => ({ ...r, source: "sync", note: "", feeling: "", execution: null, tags: [], lesson: "" }));
       db.trades.push(...fresh);
       Object.assign(a, { sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString() });
+      demoInfo(a);
       saveDemo(); return { status: "ok", added: fresh.length };
     },
     async syncDisconnect(id) {
       const a = db.accounts.find((x) => x.id === id && x.user_id === db.session);
-      if (a) Object.assign(a, { metaapi_id: null, sync_status: "off", sync_error: "" });
+      if (a) Object.assign(a, { metaapi_id: null, sync_status: "off", sync_error: "", consent_at: null });
       saveDemo(); return { status: "off" };
     },
     async listTrades() { return db.trades.filter((t) => t.user_id === db.session); },
@@ -318,6 +320,14 @@
     async resetDemo() { localStorage.removeItem(KEY); loadDemo(); }
   };
 
+  // demo stand-in for what the sync reads from the broker: balance = start + closed P/L, equity = balance plus open trades
+  function demoInfo(a) {
+    const closed = db.trades.filter((t) => t.account_id === a.id).reduce((s, t) => s + (+t.profit || 0) + (+t.commission || 0) + (+t.swap || 0), 0);
+    const bal = Math.round(((+a.start_balance || 0) + closed) * 100) / 100;
+    Object.assign(a, { balance: bal, equity: Math.round((bal + (Math.random() - 0.5) * 40) * 100) / 100, margin: 0,
+      broker_mode: /demo/i.test(a.server || "") ? "demo" : "real", info_at: new Date().toISOString() });
+  }
+
   // ------------------------------------------------------------ Supabase backend
   let profileCache = null;
   const must = ({ data, error }) => { if (error) throw new Error(error.message); return data; };
@@ -364,7 +374,8 @@
       return data;
     },
     async setAccountType(id, type) { must(await sb.rpc("set_account_type", { p_account: id, p_type: type })); },
-    async deleteAccount(id) { must(await sb.from("broker_accounts").delete().eq("id", id).eq("user_id", profileCache.id)); },
+    // through a function: an account's MT5 trades can only be removed together with the account
+    async deleteAccount(id) { must(await sb.rpc("delete_account", { acc: id })); },
     async listTrades() {
       const all = []; let from = 0;
       for (;;) {
@@ -383,11 +394,11 @@
       return { added: fresh.length, skipped: rows.length - fresh.length };
     },
     // automatic history through the mt-sync Edge Function (supabase/functions/mt-sync)
-    async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password }); },
+    async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password, consent: true }); },
     async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
     async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
-    async leaderboard(period, type = "live") {
-      return (must(await sb.rpc("leaderboard", { p_period: period, p_type: type })) || []).map((r) => ({
+    async leaderboard(period, type = "live", verified = false) {
+      return (must(await sb.rpc("leaderboard", { p_period: period, p_type: type, p_verified: !!verified })) || []).map((r) => ({
         ...r, net: +r.net, gross_win: +r.gross_win, gross_loss: +r.gross_loss, return_pct: r.return_pct == null ? null : +r.return_pct }));
     },
     async myUpline() { const r = must(await sb.rpc("my_upline")); return r && r[0] ? r[0] : null; },

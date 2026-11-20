@@ -5,7 +5,7 @@
 // After that, closed trades are copied into public.trades on every sync.
 //
 // Actions (POST JSON):
-//   { action: "connect", account_id, server, password }   member, signed in
+//   { action: "connect", account_id, server, password, consent: true }   member, signed in
 //   { action: "sync", account_id }                          member, signed in
 //   { action: "disconnect", account_id }                    member, signed in
 //   { action: "sync_all" }                                  the schedule, with header x-cron-secret
@@ -141,6 +141,25 @@ async function dealsToTrades(deals: Deal[], region: string, metaId: string) {
   return rows;
 }
 
+// ------------------------------------------------------------------ balance, equity and the broker's live/demo flag
+// MetaApi account information: { balance, equity, margin, currency, type: ACCOUNT_TRADE_MODE_DEMO | _CONTEST | _REAL, ... }
+async function readInfo(region: string, metaId: string) {
+  const { res, body } = await metaapi(`${clientApi(region)}/users/current/accounts/${metaId}/account-information`);
+  return res.ok ? body : null;
+}
+export function infoPatch(info: any, acc: any) {
+  if (!info) return {};
+  const mode = /DEMO/i.test(info.type ?? "") ? "demo" : /CONTEST/i.test(info.type ?? "") ? "contest" : /REAL/i.test(info.type ?? "") ? "real" : null;
+  const patch: Record<string, unknown> = {
+    balance: round(+info.balance), equity: round(+info.equity), margin: round(+info.margin || 0),
+    broker_mode: mode, info_at: new Date().toISOString(),
+  };
+  // the broker's own flag decides live / demo, unless the site owner has corrected this account
+  if (mode && !acc.type_locked) patch.account_type = mode === "real" ? "live" : "demo";
+  if (info.currency) patch.currency = String(info.currency).slice(0, 8);
+  return patch;
+}
+
 // ------------------------------------------------------------------ sync one account
 async function syncAccount(db: SupabaseClient, acc: any) {
   const setAcc = (f: Record<string, unknown>) => db.from("broker_accounts").update(f).eq("id", acc.id);
@@ -176,7 +195,8 @@ async function syncAccount(db: SupabaseClient, acc: any) {
       }
       added = fresh.length;
     }
-    const patch: Record<string, unknown> = { sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString() };
+    const patch: Record<string, unknown> = { sync_status: "ok", sync_error: "", last_sync_at: new Date().toISOString(),
+      ...infoPatch(await readInfo(region, acc.metaapi_id), acc) };
     // first full read: deposits minus withdrawals become the starting balance, if the member left it at 0
     if (firstRun && !(+acc.start_balance)) {
       const net = deals.filter((d) => d.type === "DEAL_TYPE_BALANCE").reduce((s, d) => s + (d.profit || 0), 0);
@@ -226,13 +246,16 @@ Deno.serve(async (req) => {
     if (input.action === "connect") {
       const server = String(input.server ?? "").trim(), password = String(input.password ?? "");
       if (!server || !password) return json({ error: "missing" }, 400);
+      // the account owner must agree to read-only access; the time of that agreement is kept
+      if (input.consent !== true) return json({ error: "consent" }, 400);
       if (acc.metaapi_id) await metaapi(`${PROVISIONING}/users/current/accounts/${acc.metaapi_id}`, { method: "DELETE" });
       const metaId = await createMetaApiAccount(acc, server, password);
       await metaapi(`${PROVISIONING}/users/current/accounts/${metaId}/deploy`, { method: "POST" });
       // a server named like "...-Demo" is a demo account; it goes on the demo leaderboard
       // ...unless the site owner has corrected this account's type (brokers sometimes mislabel)
       const account_type = acc.type_locked ? acc.account_type : /demo/i.test(server) ? "demo" : (acc.account_type ?? "live");
-      await db.from("broker_accounts").update({ server, account_type, metaapi_id: metaId, sync_status: "connecting", sync_error: "", last_sync_at: null }).eq("id", acc.id);
+      await db.from("broker_accounts").update({ server, account_type, metaapi_id: metaId, sync_status: "connecting", sync_error: "", last_sync_at: null,
+        consent_at: new Date().toISOString() }).eq("id", acc.id);
       // give the terminal a moment to log in, then try a first read
       // (kept short: the whole call must finish inside Supabase's function time limit)
       for (let i = 0; i < 4; i++) {
@@ -249,7 +272,7 @@ Deno.serve(async (req) => {
     }
     if (input.action === "disconnect") {
       if (acc.metaapi_id) await metaapi(`${PROVISIONING}/users/current/accounts/${acc.metaapi_id}`, { method: "DELETE" });
-      await db.from("broker_accounts").update({ metaapi_id: null, sync_status: "off", sync_error: "" }).eq("id", acc.id);
+      await db.from("broker_accounts").update({ metaapi_id: null, sync_status: "off", sync_error: "", consent_at: null }).eq("id", acc.id);
       return json({ status: "off" });
     }
     return json({ error: "bad-request" }, 400);

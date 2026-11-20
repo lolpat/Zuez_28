@@ -197,6 +197,21 @@ What members see if something is wrong: a wrong password or server name, an acco
 closed, or the broker asking for a password change each get their own plain message, and the account
 shows "Problem" in Profile until they reconnect.
 
+## Live Trading Leaderboard (verified MT5 results)
+
+- Members connect an MT4/MT5 account with its investor (read-only) password and tick the consent box; the
+  mt-sync function refuses a connection without it and records when it was given (`consent_at`).
+- Every sync (on connect, "Sync now", and every 30 minutes from `sync-schedule.sql`) reads the closed deals and
+  the account information: balance, equity, margin, currency and the broker's own live / demo flag, which sets
+  the account's Live / Demo type (unless the owner has corrected it).
+- Trades read from MT5 are stored with `source = 'sync'`. A database trigger (`../supabase/live-leaderboard.sql`)
+  stops members from inserting such trades, changing their figures (only journal notes can change) or
+  deleting them; an account's MT5 history goes only when the whole account is deleted.
+- The leaderboard has "MT5-verified results only" (on by default): only synced trades count, and each trader
+  whose whole period comes from MT5 gets a "✓ MT5" badge. Live and Demo accounts are ranked separately.
+- Tests: the database rules were run in PGlite (14 checks) and the sync function against a fake MetaApi
+  (12 checks); see the session notes. A first real connection should still be made with a small or demo account.
+
 ## Files
 
 - `css/style.css`: all styles (brand colours at the top)
