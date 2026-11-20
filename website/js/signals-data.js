@@ -1175,9 +1175,7 @@ window.OTM_SIGNALS = {
         ["2026-11-18","XAUUSD","buy",384,50],
         ["2026-11-18","XAUUSD","buy",-20,20],
         ["2026-11-18","XAUUSD","sell",-40,40],
-        ["2026-11-18","XAUUSD","sell",706,40],
-        ["2026-11-19","XAUUSD","buy",53,50],
-        ["2026-11-19","XAUUSD","buy",167,110]
+        ["2026-11-18","XAUUSD","sell",706,40]
       ] },
     { id: "rr", name: "RR High Reward", medal: 3, source: "Gold (XAUUSD)", pipValue: { XAUUSD: 10 }, unresolved: 101, cancelled: 11,
       trades: [
@@ -1251,10 +1249,7 @@ window.OTM_SIGNALS = {
         ["2026-11-18","XAUUSD","sell",-35,35.5],
         ["2026-11-18","XAUUSD","sell",270,36.8],
         ["2026-11-18","XAUUSD","sell",-35,35.2],
-        ["2026-11-18","XAUUSD","sell",340,36.7],
-        ["2026-11-19","XAUUSD","sell",80,33.2],
-        ["2026-11-19","XAUUSD","sell",195,34],
-        ["2026-11-19","XAUUSD","sell",70,35.5]
+        ["2026-11-18","XAUUSD","sell",340,36.7]
       ] },
     { id: "hype", name: "BTCUSD / NAS100", hype: true, source: "BTCUSD, NAS100", pipValue: { BTCUSD: 10, NAS100: 10 }, unresolved: 4, cancelled: 1,
       trades: [
