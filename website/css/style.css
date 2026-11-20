@@ -1387,3 +1387,7 @@ html.desk-host body > *:not(#desk-frame) { display: none !important; }
 .ibr-side { display: grid; gap: 10px; min-width: 0; }
 .ibr-broker { align-items: center; flex-wrap: wrap; border-radius: 14px; }
 .ibr-broker__lbl { font-size: .78rem; color: var(--muted); padding: 0 8px 0 10px; }
+.ibr-kpis small { display: block; font-size: .72rem; color: var(--muted); }
+.ibr-pcol { background: rgba(var(--accent-rgb), .05); }
+th.ibr-pcol { color: var(--accent-hi); }
+.ibr-src { display: inline-block; margin-right: 6px; font-size: .64rem; padding: 1px 6px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); vertical-align: 1px; }

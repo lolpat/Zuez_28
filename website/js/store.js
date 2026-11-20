@@ -282,7 +282,8 @@
           ...u, depth: depthOf(u),
           brokers: [...new Set(accs.map((a) => a.broker))].join(","), accounts: accs.map((a) => a.account_number).join(","),
           trade_count: tr.length, net_profit: nets.reduce((a, b) => a + b, 0),
-          win_rate: tr.length ? (nets.filter((v) => v > 0).length / tr.length) * 100 : null
+          win_rate: tr.length ? (nets.filter((v) => v > 0).length / tr.length) * 100 : null,
+          synced: accs.some((a) => a.sync_status && a.sync_status !== "off")
         };
       }).sort((a, b) => a.depth - b.depth || new Date(a.created_at) - new Date(b.created_at));
     },

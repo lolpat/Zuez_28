@@ -124,7 +124,7 @@
 
   // ---------------------------------------------------------------- numbers
   const month = (d) => d.slice(0, 7);
-  function summary(D, links) {
+  function summary(D, links, people) {
     const fund = D.fund || [], rc = D.rclient || [], rd = D.rdaily || [];
     const dep = fund.reduce((s, r) => s + r.deposits, 0), wd = fund.reduce((s, r) => s + r.withdraw, 0);
     // totals come from the "by day" report; with only the "by client" files, from those instead
@@ -141,7 +141,14 @@
     (D.accounts || []).forEach((r) => { const x = c(r.broker, r.user_id); x.accounts.add(r.account); if (r.name) x.name = r.name; });
     rc.forEach((r) => { const x = c(r.broker, r.user_id); x.lots += r.lots; x.rebate += r.rebate; if (r.name && !x.name) x.name = r.name; });
     const byLink = new Map((links || []).map((l) => [l.broker + "|" + String(l.client_id).trim(), l]));
-    const clients = [...cl.values()].map((x) => ({ ...x, accounts: x.accounts.size, net: x.dep - x.wd, link: byLink.get(x.broker + "|" + x.user_id) || null }));
+    // profit: from the member's own trade history in the portal (MT5 auto-sync or Journal imports)
+    const clients = [...cl.values()].map((x) => {
+      const link = byLink.get(x.broker + "|" + x.user_id) || null, u = link && people ? people.get(link.user_id) : null;
+      const known = !!(u && +u.trade_count > 0);
+      return { ...x, accounts: x.accounts.size, net: x.dep - x.wd, link, member: u || null,
+        profit: known ? +u.net_profit : null, psrc: known ? (u.synced ? "MT5" : "Journal") : "" };
+    });
+    const knownP = clients.filter((c) => c.profit != null);
     const ins = new Map(); (D.rinstr || []).forEach((r) => { const g = ins.get(r.instrument) || { instrument: r.instrument, lots: 0, rebate: 0 }; g.lots += r.lots; g.rebate += r.rebate; ins.set(r.instrument, g); });
     const sub = new Map(); (D.subib || []).forEach((r) => {
       const g = sub.get(r.broker + "|" + r.aff_id) || { aff_id: r.aff_id, name: r.name, country: r.country, join_date: r.join_date, registration: 0, opened: 0, ftd: 0, gross_dep: 0, net_dep: 0, lots: 0 };
@@ -151,6 +158,7 @@
     return {
       dep, wd, net: dep - wd, rebate, notional, lots, opened: (D.accounts || []).length,
       active: new Set(fund.map((r) => r.broker + "|" + r.user_id)).size,
+      profitTotal: knownP.reduce((s, c) => s + c.profit, 0), profitKnown: knownP.length, profitUp: knownP.filter((c) => c.profit > 0).length,
       rebateMonth: src.filter((r) => month(r.day) === nowM).reduce((s, r) => s + r.rebate, 0),
       months: [...months.values()].sort((a, b) => a.m.localeCompare(b.m)),
       clients, instruments: [...ins.values()].sort((a, b) => b.rebate - a.rebate),
@@ -172,8 +180,8 @@
       : c.link.status === "rejected" ? `<span class="ibr-st ibr-st--no">${t("ibr.st.rej")}</span>` : `<span class="ibr-st ibr-st--new">${t("ibr.st.pend")}</span>`;
 
     const draw = () => {
-      const S = data ? summary(data, ctx.links()) : null, has = S && (S.clients.length || S.rebate || S.subibs.length);
-      const list = has ? S.clients.slice().sort((a, b) => (b[sortBy] || 0) - (a[sortBy] || 0)) : [];
+      const S = data ? summary(data, ctx.links(), ctx.people()) : null, has = S && (S.clients.length || S.rebate || S.subibs.length);
+      const list = has ? S.clients.slice().sort((a, b) => (b[sortBy] ?? -Infinity) - (a[sortBy] ?? -Infinity)) : [];
       const shown = showAll ? list : list.slice(0, 25);
       const memberName = (c) => { const u = c.link && ctx.people().get(c.link.user_id); return u ? u.full_name : ""; };
       el.innerHTML = `
@@ -198,6 +206,8 @@
           <div class="card"><span>${t("ibr.k.lots")}</span><b>${num(S.lots, 2)}</b></div>
           <div class="card"><span>${t("ibr.k.volume")}</span><b>$${num(S.notional / 1e6, 1)}M</b></div>
           <div class="card"><span>${t("ibr.k.month")}</span><b class="gold">${usd(S.rebateMonth, 2)}</b></div>
+          <div class="card"><span>${t("ibr.k.profit")}</span><b class="${S.profitTotal >= 0 ? "up" : "down"}">${S.profitKnown ? (S.profitTotal >= 0 ? "+" : "") + usd(S.profitTotal) : "–"}</b><small>${t("ibr.k.profit.d", { n: S.profitKnown })}</small></div>
+          <div class="card"><span>${t("ibr.k.winners")}</span><b>${S.profitKnown ? `${S.profitUp} <small class="muted">/ ${S.profitKnown}</small>` : "–"}</b><small>${S.profitKnown ? t("ibr.k.winners.d", { p: num((S.profitUp / S.profitKnown) * 100) }) : t("ibr.k.profit.none")}</small></div>
         </div>
         <div class="ibr-charts">
           <section class="card"><h3>${t("ibr.c.net")}</h3>${bars(S.months, "net", (x) => usd(x))}</section>
@@ -208,13 +218,15 @@
           <span class="ibr-ins__bar"><i style="width:${(x.rebate / Math.max(1, S.instruments[0].rebate)) * 100}%"></i></span><span>${usd(x.rebate, 2)} · ${num(x.lots, 2)} lot</span></li>`).join("")}</ul></section>` : ""}
         <section class="card">
           <h3>${t("ibr.clients", { n: list.length })}
-            <span class="ibr-tools"><select class="input" data-sort>${["rebate", "lots", "net", "dep"].map((k) => `<option value="${k}" ${k === sortBy ? "selected" : ""}>${t("ibr.sort." + k)}</option>`).join("")}</select>
+            <span class="ibr-tools"><select class="input" data-sort>${["rebate", "profit", "lots", "net", "dep"].map((k) => `<option value="${k}" ${k === sortBy ? "selected" : ""}>${t("ibr.sort." + k)}</option>`).join("")}</select>
             <button class="btn btn--ghost btn--sm" type="button" data-csv>${t("ibr.csv")}</button></span></h3>
           <div class="table-wrap"><table class="table ibr-table"><thead><tr><th>${t("ibr.col.client")}</th><th>User ID</th><th class="r">${t("ibr.col.acc")}</th><th class="r">${t("ibr.col.dep")}</th>
-            <th class="r">${t("ibr.col.wd")}</th><th class="r">${t("ibr.col.net")}</th><th class="r">Lot</th><th class="r">${t("ibr.col.rebate")}</th><th>${t("ibr.col.st")}</th></tr></thead>
+            <th class="r">${t("ibr.col.wd")}</th><th class="r">${t("ibr.col.net")}</th><th class="r">Lot</th><th class="r">${t("ibr.col.rebate")}</th><th class="r ibr-pcol">${t("ibr.col.profit")}</th><th>${t("ibr.col.st")}</th></tr></thead>
             <tbody>${shown.map((c) => `<tr><td>${esc(c.name || memberName(c) || "–")}${memberName(c) && c.name && memberName(c) !== c.name ? `<small class="muted"> · ${esc(memberName(c))}</small>` : ""}</td><td>${esc(c.user_id)}</td>
               <td class="r">${c.accounts}</td><td class="r">${usd(c.dep)}</td><td class="r ${c.wd ? "down" : ""}">${c.wd ? usd(-c.wd) : "$0"}</td>
-              <td class="r ${c.net >= 0 ? "up" : "down"}">${usd(c.net)}</td><td class="r">${num(c.lots, 2)}</td><td class="r gold">${usd(c.rebate, 2)}</td><td>${status(c)}</td></tr>`).join("")}</tbody></table></div>
+              <td class="r ${c.net >= 0 ? "up" : "down"}">${usd(c.net)}</td><td class="r">${num(c.lots, 2)}</td><td class="r gold">${usd(c.rebate, 2)}</td>
+              <td class="r ibr-pcol">${c.profit == null ? `<span class="muted">–</span>` : `<span class="ibr-src">${c.psrc}</span><b class="${c.profit >= 0 ? "up" : "down"}">${c.profit >= 0 ? "+" : ""}${usd(c.profit)}</b>`}</td><td>${status(c)}</td></tr>`).join("")}</tbody></table></div>
+          <p class="card__sub" style="margin-top:12px">${t("ibr.profit.note")}</p>
           ${list.length > 25 ? `<button class="btn btn--quiet btn--sm" type="button" data-all style="margin-top:12px">${t(showAll ? "ibr.less" : "ibr.all", { n: list.length })}</button>` : ""}
         </section>
         ${S.subibs.length ? `<section class="card"><h3>${t("ibr.sub", { n: S.subibs.length })}</h3>
@@ -265,9 +277,9 @@
     }
 
     function csv() {
-      const S = summary(data, ctx.links());
-      const rows = [["client", "user_id", "accounts", "deposits", "withdrawals", "net", "lots", "rebate", "portal_status"]].concat(
-        S.clients.map((c) => [c.name, c.user_id, c.accounts, c.dep.toFixed(2), c.wd.toFixed(2), c.net.toFixed(2), c.lots.toFixed(2), c.rebate.toFixed(2), c.link ? c.link.status : "not_in_portal"]));
+      const S = summary(data, ctx.links(), ctx.people());
+      const rows = [["client", "user_id", "accounts", "deposits", "withdrawals", "net", "lots", "rebate", "profit", "profit_source", "portal_status"]].concat(
+        S.clients.map((c) => [c.name, c.user_id, c.accounts, c.dep.toFixed(2), c.wd.toFixed(2), c.net.toFixed(2), c.lots.toFixed(2), c.rebate.toFixed(2), c.profit == null ? "" : c.profit.toFixed(2), c.psrc, c.link ? c.link.status : "not_in_portal"]));
       const blob = new Blob(["﻿" + rows.map((r) => r.map((x) => `"${String(x ?? "").replace(/"/g, '""')}"`).join(",")).join("\n")], { type: "text/csv" });
       const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "ib-clients.csv"; a.click();
     }
