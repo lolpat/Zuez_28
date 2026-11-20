@@ -844,7 +844,7 @@
           </div>
           ${[...shown, ...(mineOutside ? [null, mineOutside] : [])].map((r) => { if (!r) return `<div class="lb-gap" role="row"><span role="cell">${t("lb.yourPlace")}</span></div>`; const P = lbParts(r); return `<div class="lb-tr ${r.rank <= 3 ? "lb-tr--" + r.rank : ""} ${r.is_me ? "is-me" : ""}" role="row">
             <span role="cell" class="c-rank">${r.rank <= 3 ? rowMedal(r.rank) : `<span class="lb-num">${String(r.rank).padStart(2, "0")}</span>`}</span>
-            <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}${r.verified ? ` ${vBadge}` : ""}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
+            <span role="cell" class="c-who">${avatar(r)}<span class="c-who__txt"><b>${esc(r.display_name)}</b><small class="lb-sub">${fmt.num(P.wr, 0)}% WR · ${r.trades} ${t("dash.trades")}</small></span>${r.verified ? `<span class="lb-ver lb-ver--dot" title="${esc(t("lb.verified.title"))}" aria-label="MT5">✓</span>` : ""}${r.is_me ? `<span class="lb-you">${t("lb.you")}</span>` : ""}</span>
             <span role="cell" class="c-tier"><span class="tier tier--${P.tier}">${t("lb.tier." + P.tier)}</span></span>
             <span role="cell" class="c-num c-trades">${r.trades}</span>
             <span role="cell" class="c-num c-net">${money(r.net)}</span>

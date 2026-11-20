@@ -1398,3 +1398,4 @@ th.ibr-pcol { color: var(--accent-hi); }
 .lb-ver { display: inline-block; font-size: .64rem; font-weight: 600; padding: 1px 7px; border-radius: 99px; color: var(--profit); background: rgba(124, 252, 0, .1); border: 1px solid rgba(124, 252, 0, .35); vertical-align: 2px; white-space: nowrap; }
 .acc-figs { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: .84rem; color: var(--muted); margin: 2px 0 4px; }
 .acc-figs b { color: var(--text); font-weight: 600; } .acc-figs b.up { color: var(--profit); } .acc-figs b.down { color: var(--loss); }
+.lb-ver--dot { padding: 0; width: 18px; height: 18px; display: inline-grid; place-items: center; flex: none; font-size: .7rem; }
