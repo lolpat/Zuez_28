@@ -1399,3 +1399,4 @@ th.ibr-pcol { color: var(--accent-hi); }
 .acc-figs { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: .84rem; color: var(--muted); margin: 2px 0 4px; }
 .acc-figs b { color: var(--text); font-weight: 600; } .acc-figs b.up { color: var(--profit); } .acc-figs b.down { color: var(--loss); }
 .lb-ver--dot { padding: 0; width: 18px; height: 18px; display: inline-grid; place-items: center; flex: none; font-size: .7rem; }
+.lb-hidden { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-size: .9rem; margin-top: 14px; }

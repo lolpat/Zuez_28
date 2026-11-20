@@ -800,7 +800,7 @@
     const mine = S.compute(state.trades.filter((x) => types.get(x.account_id) === L.type && (!start || new Date(x.close_time) >= start)));
     const meRow = rows.find((r) => r.is_me);
     const field = rows.length ? rows[0].field_size : 0;
-    const joined = !!m.leaderboard_opt_in;
+    const joined = m.leaderboard_opt_in !== false;   // ranked unless they chose to hide
     const myName = (m.leaderboard_name || "").trim() || String(m.full_name || "").split(" ")[0];
 
     const top = rows.filter((r) => r.rank <= 20), mineOutside = rows.find((r) => r.is_me && r.rank > 20);
@@ -819,16 +819,10 @@
     }).join("") : "";
 
     $("#lb-body", v).innerHTML = `
-      ${!joined ? `<section class="card lb-join">
-          <div><h3>${t("lb.join.t")}</h3><p class="card__sub">${t("lb.join.d")}</p></div>
-          <form id="lb-join" class="lb-join__form"><label class="sr-only" for="lb-name">${t("lb.name")}</label>
-            <input class="input" id="lb-name" name="name" maxlength="30" value="${esc(myName)}" placeholder="${esc(t("lb.name"))}">
-            <button class="btn btn--gold" type="submit">${t("lb.join")}</button></form>
-        </section>` : ""}
       <div class="kpis kpis--4">
         <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("lb.myRank")}</span>
           <span class="kpi__val">${meRow ? "#" + meRow.rank : t("lb.unranked")}</span>
-          <span class="kpi__sub">${meRow ? t("lb.of", { n: field }) : !joined ? t("lb.notJoined") : t("lb.needProfit")}${field ? ` · ${t("lb.profitable", { n: inProfit, f: field })}` : ""}</span></div>
+          <span class="kpi__sub">${meRow ? t("lb.of", { n: field }) : !joined ? t("lb.hiddenShort") : t("lb.needProfit")}${field ? ` · ${t("lb.profitable", { n: inProfit, f: field })}` : ""}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.total")}</span><span class="kpi__val ${cls(mine.total)}">${money(mine.total)}</span><span class="kpi__sub">${t("j.total.sub", { n: mine.count })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.wr")}</span><span class="kpi__val">${mine.count ? fmt.num(mine.winRate, 1) + "%" : "–"}</span><span class="kpi__sub">${t("j.wr.sub", { w: mine.wins, l: mine.losses })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("j.pf")}</span><span class="kpi__val">${mine.count ? pf(mine.profitFactor) : "–"}</span><span class="kpi__sub">${t("j.pf.sub")}</span></div>
@@ -861,16 +855,17 @@
       ${joined ? `<section class="card lb-me">
           <form id="lb-rename" class="lb-join__form"><label class="field" style="flex:1;min-width:180px"><span>${t("lb.name")}</span><input class="input" name="name" maxlength="30" value="${esc(myName)}"></label>
             <button class="btn btn--ghost" type="submit">${t("app.save")}</button>
-            <button class="btn btn--quiet" type="button" id="lb-leave">${t("lb.leave")}</button></form>
-        </section>` : ""}`;
+            <button class="btn btn--quiet" type="button" id="lb-leave">${t("lb.hide")}</button></form>
+          <p class="card__sub" style="margin-top:10px">${t("lb.auto.note")}</p>
+        </section>` : `<p class="lb-hidden">${t("lb.hidden")} <button class="btn btn--quiet btn--sm" type="button" id="lb-show">${t("lb.show")}</button></p>`}`;
 
     const mb = $("#lb-more", v);
     if (mb) mb.addEventListener("click", () => { state.lbMore = !state.lbMore; render(); });
     const saveLb = async (f, msg) => {
       try { state.me = await state.store.updateProfile(f); toast(msg); render(); } catch (err) { fail(err); }
     };
-    const jf = $("#lb-join", v);
-    if (jf) jf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_opt_in: true, leaderboard_name: jf.name.value.trim().slice(0, 30) }, t("lb.joined")); });
+    const sh = $("#lb-show", v);
+    if (sh) sh.addEventListener("click", () => saveLb({ leaderboard_opt_in: true }, t("lb.shown")));
     const rf = $("#lb-rename", v);
     if (rf) rf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_name: rf.name.value.trim().slice(0, 30) }, t("app.saved")); });
     const lv = $("#lb-leave", v);
@@ -921,6 +916,7 @@
         <p class="alert alert--gold" style="margin:0">${t("sync.master.warn")}</p>
         <label class="check"><input type="checkbox" name="agree"><span>${t("sync.agree")}</span></label>
         <p class="muted" style="font-size:.82rem;margin:0">${state.store.live ? t("sync.privacy") : t("sync.demoHint")}</p>
+        <p class="muted" style="font-size:.82rem;margin:0">${t("sync.lbnote")}</p>
         <div id="sync-msg"></div>
         <div class="modal__foot"><button type="button" class="btn btn--quiet" data-close>${t("app.cancel")}</button><button class="btn btn--gold" type="submit">${t("sync.submit")}</button></div>
       </form>`, (box) => {

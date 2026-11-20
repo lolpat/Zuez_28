@@ -259,9 +259,10 @@ grant insert (user_id, broker, account_number, server, platform, currency, start
 grant update (server, platform, currency, start_balance) on public.broker_accounts to authenticated;
 
 -- ---------------------------------------------------------------- leaderboard
--- Members choose to be ranked (leaderboard_opt_in) and the name shown (leaderboard_name).
+-- Members in profit are ranked automatically (leaderboard_opt_in, default on); they can hide their name and choose it (leaderboard_name).
 -- Accounts are live or demo; the leaderboard ranks each kind separately.
-alter table public.profiles add column if not exists leaderboard_opt_in boolean not null default false;
+alter table public.profiles add column if not exists leaderboard_opt_in boolean not null default true;
+alter table public.profiles alter column leaderboard_opt_in set default true;
 alter table public.profiles add column if not exists leaderboard_name text not null default '';
 alter table public.profiles drop constraint if exists profiles_leaderboard_name_len;
 alter table public.profiles add constraint profiles_leaderboard_name_len check (char_length(leaderboard_name) <= 30);

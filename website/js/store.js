@@ -186,7 +186,7 @@
       const { start } = root.OTMStats.lbPeriod(period);
       const typeOf = new Map(db.accounts.map((a) => [a.id, a.account_type || "live"]));
       const n = (t) => (+t.profit || 0) + (+t.commission || 0) + (+t.swap || 0);
-      const rows = db.users.filter((u) => u.status === "approved" && u.leaderboard_opt_in).map((u) => {
+      const rows = db.users.filter((u) => u.status === "approved" && u.leaderboard_opt_in !== false).map((u) => {
         const tr = db.trades.filter((t) => t.user_id === u.id && typeOf.get(t.account_id) === type && (!start || new Date(t.close_time) >= start) && (!verified || t.source === "sync"))
           .sort((a, b) => new Date(b.close_time) - new Date(a.close_time));
         if (!tr.length) return null;

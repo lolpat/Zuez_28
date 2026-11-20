@@ -71,6 +71,10 @@ drop trigger if exists guard_synced_trades on public.trades;
 create trigger guard_synced_trades before insert or update or delete on public.trades
   for each row execute function public.guard_synced_trades();
 
+-- ---------------------------------------------------------------- everyone in profit is ranked unless they hide their name
+alter table public.profiles alter column leaderboard_opt_in set default true;
+update public.profiles set leaderboard_opt_in = true where not leaderboard_opt_in and coalesce(leaderboard_name, '') = '';
+
 -- ---------------------------------------------------------------- 3. leaderboard with verified results
 drop function if exists public.leaderboard(text, text);
 drop function if exists public.leaderboard(text, text, boolean);
