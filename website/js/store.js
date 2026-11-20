@@ -307,6 +307,13 @@
       if (!canManage(l.user_id)) throw new Error("not-allowed");
       Object.assign(l, { status, verified_at: status === "verified" ? new Date().toISOString() : null }); saveDemo();
     },
+    // broker IB reports, kept per IB in this browser (see js/ibreports.js)
+    async ibLoad() { try { return JSON.parse(localStorage.getItem("otm_ib_" + db.session)) || root.OTMIB.empty(); } catch (e) { return root.OTMIB.empty(); } },
+    async ibSave(batch) {
+      const d = root.OTMIB.apply(await this.ibLoad(), batch);
+      try { localStorage.setItem("otm_ib_" + db.session, JSON.stringify(d)); } catch (e) { throw new Error("storage-full"); }
+      return d;
+    },
     async resetDemo() { localStorage.removeItem(KEY); loadDemo(); }
   };
 
@@ -398,8 +405,51 @@
     },
     async removeLink(id) { must(await sb.from("broker_links").delete().eq("id", id).eq("user_id", profileCache.id)); },
     async listTeamLinks() { return must(await sb.from("broker_links").select("*").neq("user_id", profileCache.id).order("created_at", { ascending: false })); },
-    async setLinkStatus(id, status) { must(await sb.rpc("set_broker_link", { p_link: id, p_status: status })); }
+    async setLinkStatus(id, status) { must(await sb.rpc("set_broker_link", { p_link: id, p_status: status })); },
+
+    // broker IB reports (supabase/ib-reports.sql): each IB's own uploads, replaced day by day
+    async ibLoad() {
+      const out = root.OTMIB.empty();
+      for (const k of root.OTMIB.TABLES) {
+        for (let from = 0; ; from += 1000) {
+          const rows = must(await sb.from("ib_" + k).select("*").eq("ib_id", profileCache.id).range(from, from + 999));
+          out[k].push(...rows.map(({ ib_id, ...r }) => numify(r)));
+          if (rows.length < 1000) break;
+        }
+      }
+      return out;
+    },
+    async ibSave(batch) {
+      const me = profileCache.id, chunk = async (table, rows, upsert) => {
+        for (let i = 0; i < rows.length; i += 500) {
+          const part = rows.slice(i, i + 500).map((r) => ({ ...r, ib_id: me }));
+          must(await (upsert ? sb.from(table).upsert(part, { onConflict: upsert }) : sb.from(table).insert(part)));
+        }
+      };
+      for (const k of root.OTMIB.DAY_TABLES) {
+        const rows = batch[k] || []; if (!rows.length) continue;
+        const byBroker = new Map(); rows.forEach((r) => { if (!byBroker.has(r.broker)) byBroker.set(r.broker, new Set()); byBroker.get(r.broker).add(r.day); });
+        for (const [b, days] of byBroker) {
+          const list = [...days];
+          for (let i = 0; i < list.length; i += 200) must(await sb.from("ib_" + k).delete().eq("ib_id", me).eq("broker", b).in("day", list.slice(i, i + 200)));
+        }
+        await chunk("ib_" + k, rows);
+      }
+      if ((batch.accounts || []).length) await chunk("ib_accounts", batch.accounts, "ib_id,broker,account");
+      if ((batch.subib || []).length) {
+        const P = batch.subib[0];
+        const periods = must(await sb.from("ib_subib").select("period_from, period_to").eq("ib_id", me).eq("broker", P.broker));
+        const inside = periods.some((r) => r.period_from <= P.period_from && r.period_to >= P.period_to && !(r.period_from === P.period_from && r.period_to === P.period_to));
+        if (!inside) {
+          must(await sb.from("ib_subib").delete().eq("ib_id", me).eq("broker", P.broker).gte("period_from", P.period_from).lte("period_to", P.period_to));
+          await chunk("ib_subib", batch.subib);
+        }
+      }
+      return this.ibLoad();
+    }
   };
+  // numeric columns come back from the database as strings
+  const numify = (r) => { const o = {}; for (const [k, v] of Object.entries(r)) o[k] = typeof v === "string" && /^-?\d+(\.\d+)?$/.test(v) && !/(^|_)(id|account|day|date|from|to|on)$/.test(k) ? +v : v; return o; };
 
   async function syncFn(body) {
     const { data, error } = await sb.functions.invoke("mt-sync", { body });

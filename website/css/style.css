@@ -1354,3 +1354,33 @@ html[lang="th"] .nav__grp { letter-spacing: .04em; font-size: .72rem; }
 html.desk-host, html.desk-host body { overflow: hidden; height: 100%; }
 html.desk-host body > *:not(#desk-frame) { display: none !important; }
 #desk-frame { position: fixed; top: 0; left: 0; width: 1100px; border: 0; transform-origin: 0 0; background: var(--bg); }
+
+/* broker IB reports (IB Network page) */
+.ibr-imp { display: grid; gap: 16px; align-items: center; border-color: rgba(var(--accent-rgb), .35); background: linear-gradient(135deg, rgba(var(--crimson-rgb), .45), var(--surface) 70%); }
+@media (min-width: 900px) { .ibr-imp { grid-template-columns: 1.2fr 1fr; } .ibr-note { grid-column: 1 / -1; } }
+.ibr-imp h3 { display: block; }
+.ibr-range { margin: 10px 0 0; font-size: .82rem; color: var(--accent-hi); }
+.ibr-drop { display: grid; gap: 4px; place-items: center; text-align: center; padding: 20px 16px; border-radius: 14px; border: 1.5px dashed rgba(var(--accent-rgb), .5); background: rgba(0, 0, 0, .25); cursor: pointer; transition: border-color .2s, background .2s; }
+.ibr-drop:hover, .ibr-drop:focus-visible, .ibr-drop.is-over { border-color: var(--accent); background: rgba(var(--accent-rgb), .08); outline: none; }
+.ibr-drop b { color: var(--accent-hi); }
+.ibr-drop small { color: var(--muted); font-size: .8rem; }
+.ibr-note { padding: 12px 14px; border-radius: 12px; background: rgba(124, 252, 0, .06); border: 1px solid rgba(124, 252, 0, .22); font-size: .9rem; }
+.ibr-kpis { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .ibr-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ibr-kpis .card { padding: 14px 16px; }
+.ibr-kpis span { display: block; font-size: .78rem; color: var(--muted); }
+.ibr-kpis b { font-family: var(--font-head); font-weight: 500; font-size: clamp(1.2rem, 2.6vw, 1.5rem); }
+.ibr-kpis .up, .ibr-table .up { color: var(--profit); } .ibr-kpis .down, .ibr-table .down { color: var(--loss); } .ibr-kpis .gold, .ibr-table .gold { color: var(--accent-hi); }
+.ibr-charts { display: grid; gap: 14px; }
+@media (min-width: 1100px) { .ibr-charts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ibr-ins { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.ibr-ins li { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: 12px; align-items: center; font-size: .88rem; }
+.ibr-ins__bar { height: 8px; border-radius: 6px; background: var(--bg-2); overflow: hidden; }
+.ibr-ins__bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hi)); border-radius: inherit; }
+.ibr-tools { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ibr-tools .input { width: auto; min-height: 36px; padding: .3em .7em; font-size: .86rem; }
+.ibr-table td, .ibr-table th { white-space: nowrap; }
+.ibr-st { font-size: .74rem; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+.ibr-st--ok { color: var(--profit); background: rgba(124, 252, 0, .08); border: 1px solid rgba(124, 252, 0, .25); }
+.ibr-st--new { color: var(--accent-hi); background: rgba(var(--accent-rgb), .1); border: 1px solid rgba(var(--accent-rgb), .35); }
+.ibr-st--no { color: #ff9b8f; background: rgba(255, 107, 94, .08); border: 1px solid rgba(255, 107, 94, .3); }

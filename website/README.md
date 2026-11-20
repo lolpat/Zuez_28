@@ -102,6 +102,27 @@ The landing page FAQ tells members their IB line can see a summary of their resu
 - **Automatic history** pulls trades in by itself; see the next section. Import still works as a
   fallback, and trades that were imported before are not duplicated by a sync.
 
+## Broker IB reports (IB Network page)
+
+IBs and the owner drop the report files from the broker's IB portal into "Reports from the broker" on the
+IB Network page: many files at once, in any order. The page reads them in the browser (`js/xlsx-lite.js`,
+`js/ibreports.js`) and stores the rows for that IB (`../supabase/ib-reports.sql`, run once). Shown: deposits,
+withdrawals, net deposits, new accounts, rebate, lots, volume, monthly charts, rebate by instrument, a client
+table (sortable, CSV export) and a sub-IB table. Members whose broker client ID appears in a report are
+confirmed automatically.
+
+- Supported now: Vantage `ib_report` (fund report + opened accounts), `rebate_report` by day and by client,
+  `Sub_IB_Report` by IB (its period is read from the file name) and by day.
+- Each table is replaced day by day: a newer file's days replace the stored rows for those days, so repeated
+  files and overlapping date ranges never double count. Vantage exports at different times can differ by a
+  cent on some days; the newest upload wins.
+- Rebate totals come from the "by day" report. The "by client" report's dates run one day behind it (broker
+  server time), so it supplies the per-client and per-instrument figures only.
+- Vantage lets you download 90 days at a time. After the first full year, upload the last month's files
+  once a month.
+- The files hold clients' names and money: they are read in the browser and only the figures are stored,
+  visible to the IB who uploaded them and the owner.
+
 ## Member wins (home page) and Client Profit (portal)
 
 - Profit screenshots members send in move across the home page in two rows (top to the left, bottom

@@ -1331,6 +1331,7 @@
 
     v.innerHTML = `
       <div class="view-head"><h2>${t("app.network")}</h2></div>
+      <div class="stack" id="ib-reports"></div>
       <div class="grid grid--2">
         <section class="card">
           <h3>${t("net.upline")}</h3>
@@ -1389,6 +1390,11 @@
       b.disabled = true;
       try { await state.store.setMemberRole(b.dataset.id, b.dataset.role); await reload(["downline"]); render(); } catch (err) { b.disabled = false; fail(err); }
     }));
+    // reports from the broker's IB portal (js/ibreports.js)
+    if (window.OTMIB) window.OTMIB.render($("#ib-reports", v), {
+      store: state.store, links: () => state.teamLinks || [], people: () => new Map((state.downline || []).map((u) => [u.id, u])),
+      onConfirm: () => reload(["downline"])
+    });
   }
 
   // ------------------------------------------------------------ profile
