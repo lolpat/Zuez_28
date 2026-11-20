@@ -1403,3 +1403,8 @@ th.ibr-pcol { color: var(--accent-hi); }
 .dlast__cap { margin: 18px 0 -6px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .dlast__list li > span:nth-child(2) small { display: block; margin: 2px 0 0; font-size: .76rem; overflow: hidden; text-overflow: ellipsis; }
 .dlast__cap + .dlast__list { margin-top: 14px; }
+.dlast__per { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; }
+.dlast__per .dlast__cap { margin: 0; }
+.seg--sm button { padding: 5px 11px; font-size: .78rem; }
+.dlast__list li.dlast__span { display: block; border-bottom: 0; padding: 8px 0 0; text-align: right; }
+.dlast__list li.dlast__span small { margin: 0; }

@@ -287,6 +287,21 @@
         <span class="droom__txt"><b>${esc(r.name)}</b><small class="${r.kind === "days" ? (r.net >= 0 ? "up" : "down") : r.total >= 0 ? "up" : "down"}">${stat(r)}</small></span>
         <i class="droom__go" aria-hidden="true">→</i></a>`).join("")}</div>`;
   }
+  function periodRows(list, per) {
+    const now = new Date(), today = now.toISOString().slice(0, 10);
+    const mon = new Date(now); mon.setUTCDate(mon.getUTCDate() - ((mon.getUTCDay() + 6) % 7));
+    const from = per === "week" ? mon.toISOString().slice(0, 10) : per === "month" ? today.slice(0, 8) + "01" : today;
+    const span = per === "day" ? shortDate(today) : `${shortDate(from)} – ${shortDate(today)}`;
+    return (list || []).filter((r) => r.byDay).map((r) => {
+      const rows = r.byDay.filter((x) => x.date >= from && x.date <= today);
+      const pips = rows.reduce((a, x) => a + x.pips, 0);
+      const n = rows.every((x) => x.n != null) ? rows.reduce((a, x) => a + x.n, 0) : null;
+      const sl = rows.reduce((a, x) => a + (x.losses || 0), 0);
+      const sub = !rows.length ? t("dash.per.none") : [n != null ? t("dash.latest.n", { n }) : "", sl ? t("dash.per.sl", { n: sl }) : ""].filter(Boolean).join(" · ");
+      return `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
+        <span>${esc(r.name)}<small>${sub}</small></span>${rows.length ? `<b class="${pips >= 0 ? "up" : "down"}">${pipsTxt(pips)}</b>` : `<b class="muted">–</b>`}</li>`;
+    }).join("") + `<li class="dlast__span"><small>${span}</small></li>`;
+  }
   function latestHtml(list) {
     // newest closed signal across rooms: by day, then by the time the bot recorded it
     const when = (L) => L.date + "|" + (L.at || "");
@@ -302,9 +317,11 @@
       <p class="dlast__room">${ROOM_ICON[pick.id] || ""} ${esc(pick.name.toUpperCase())} · ${what}</p>
       <b class="dlast__pips ${L.pips >= 0 ? "up" : "down"}">${pipsTxt(L.pips)}</b>
       ${sub ? `<p class="card__sub">${sub}</p>` : ""}
-      <p class="dlast__cap">${t("dash.latest.daycap")}</p>
-      <ul class="dlast__list">${(list || []).filter((r) => r.day).map((r) => `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
-        <span>${esc(r.name)}<small>${shortDate(r.day.date)}${r.day.n ? " · " + t("dash.latest.n", { n: r.day.n }) : ""}</small></span><b class="${r.day.pips >= 0 ? "up" : "down"}">${pipsTxt(r.day.pips)}</b></li>`).join("")}</ul>
+      <div class="dlast__per">
+        <p class="dlast__cap">${t("dash.per.cap")}</p>
+        <div class="seg seg--sm" role="group">${["day", "week", "month"].map((k) => `<button type="button" data-dper="${k}" aria-pressed="${(state.dashPer || "day") === k}">${t("dash.per." + k)}</button>`).join("")}</div>
+      </div>
+      <ul class="dlast__list" id="dlast-list">${periodRows(list, state.dashPer || "day")}</ul>
       <a class="btn btn--gold btn--sm dlast__go" href="#signals" data-room="${pick.id}">${t("dash.latest.all")} →</a>`;
   }
   function dashboard(v) {
@@ -351,6 +368,13 @@
       </div>
       ${riskNote()}`;
     v.querySelectorAll("[data-room]").forEach((a) => a.addEventListener("click", () => { state.sigRoom = a.dataset.room; }));
+    if (!v.dataset.dper) v.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-dper]"); if (!b || !state.sigOverview) return;
+      state.dashPer = b.dataset.dper;
+      b.parentElement.querySelectorAll("[data-dper]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      const ul = $("#dlast-list"); if (ul) ul.innerHTML = periodRows(state.sigOverview, state.dashPer);
+    });
+    v.dataset.dper = "1";
     const off = v.querySelector("[data-home-off]");
     if (off) off.addEventListener("click", () => { try { localStorage.setItem("otm_home_tip", "off"); } catch { /* blocked */ } v.querySelector("#home-tip").remove(); });
     // signal rooms: computed once per visit (history + live bot results)

@@ -263,7 +263,8 @@
       if (r.days && r.days.length) {
         const s = computeDays(r, D.deduct ?? 0.15), d = r.days.reduce((a, x) => (x[0] > a[0] ? x : a));
         const day = { date: d[0], pips: d[1] - d[2], n: d[4] ?? null, at: d[5] || "" };
-        return { ...base, kind: "days", net: s.net, green: s.green, days: s.days, day,
+        const byDay = r.days.map((x) => ({ date: x[0], pips: x[1] - x[2], n: x[4] ?? null, wins: null, losses: x[3] }));
+        return { ...base, kind: "days", net: s.net, green: s.green, days: s.days, day, byDay,
           last: { date: d[0], pips: d[1] - d[2], at: d[5] || "" } };
       }
       // the latest closed trade (by time when the bot recorded it), and the total of its day
@@ -271,7 +272,8 @@
       const s = compute(r, D.deduct ?? 0.15), x = r.trades.reduce((a, y) => (key(y) >= key(a) ? y : a));
       const same = r.trades.filter((y) => y[0] === x[0]);
       const day = { date: x[0], pips: same.reduce((t, y) => t + y[3], 0), n: same.length, at: x[5] || "" };
-      return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr, day,
+      const byDay = r.trades.map((y) => ({ date: y[0], pips: y[3], n: 1, wins: y[3] > 0 ? 1 : 0, losses: y[3] < 0 ? 1 : 0 }));
+      return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr, day, byDay,
         last: { date: x[0], symbol: x[1], side: x[2], pips: x[3], r: x[4] > 0 ? x[3] / x[4] : null, at: x[5] || "" } };
     });
   }
