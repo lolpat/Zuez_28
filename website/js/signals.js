@@ -270,5 +270,13 @@
     });
   }
 
-  root.OTMSignals = { render, compute, mergeLive, overview, badge };
+  // Every room with real data, live bot results merged in (for the Autotrade simulation).
+  async function rooms() {
+    const D = root.OTM_SIGNALS || { rooms: [] };
+    const list = D.rooms.filter((r) => (r.trades && r.trades.length) || (r.days && r.days.length)).map((r) => ({ ...r, real: true }));
+    if (live) { try { mergeLive(list, await fetchLive()); } catch (e) { /* history only */ } }
+    return list;
+  }
+
+  root.OTMSignals = { render, compute, mergeLive, overview, badge, rooms };
 })(window);

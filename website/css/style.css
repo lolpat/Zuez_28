@@ -1391,3 +1391,22 @@ html.desk-host body > *:not(#desk-frame) { display: none !important; }
 .ibr-pcol { background: rgba(var(--accent-rgb), .05); }
 th.ibr-pcol { color: var(--accent-hi); }
 .ibr-src { display: inline-block; margin-right: 6px; font-size: .64rem; padding: 1px 6px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); vertical-align: 1px; }
+
+/* leaderboard: Autotrade (simulated) tab */
+.at-banner { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 16px; margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(124, 196, 255, .10), rgba(124, 196, 255, .02)); border: 1px solid rgba(124, 196, 255, .35); }
+.at-banner b { color: #7cc4ff; } .at-banner p { margin: 4px 0 0; color: #cfd8e3; font-size: .88rem; }
+.at-kpis { display: grid; gap: 12px; margin-bottom: 14px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .at-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.at-kpis .card { padding: 14px 16px; } .at-kpis span { display: block; font-size: .78rem; color: var(--muted); }
+.at-kpis b { font-family: var(--font-head); font-weight: 500; font-size: 1.3rem; } .at-rooms { font-size: .95rem !important; }
+.at-sim { font-size: .68rem; padding: 2px 8px; border-radius: 99px; color: #7cc4ff; background: rgba(124, 196, 255, .1); border: 1px solid rgba(124, 196, 255, .35); margin-left: 6px; vertical-align: 2px; }
+.at-rk { width: 32px; height: 32px; border-radius: 50%; display: inline-grid; place-items: center; font-family: var(--font-head); background: var(--surface-2); }
+.at-rk--1 { background: linear-gradient(135deg, #f6e4a6, #c89f3a); color: #2a1a08; } .at-rk--2 { background: linear-gradient(135deg, #eef0f4, #9aa0aa); color: #222; } .at-rk--3 { background: linear-gradient(135deg, #f0b38a, #9a5a30); color: #2a1408; }
+.at-list .up, .at-scn .up { color: var(--profit); } .at-list .down, .at-scn .down { color: var(--loss); }
+.at-empty { color: var(--muted); }
+.at-scn { margin-top: 14px; } .at-scn h3 { display: block; }
+.at-scn__grid { display: grid; gap: 10px; margin-top: 14px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.at-scn__grid div { padding: 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.at-scn__grid span { display: block; font-size: .8rem; color: var(--muted); } .at-scn__grid b { font-family: var(--font-head); font-weight: 500; font-size: 1.25rem; }
+.at-scn__grid small { display: block; font-size: .68rem; color: #7cc4ff; }
