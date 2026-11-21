@@ -190,6 +190,12 @@
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
     async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
+    // live chart stream (one row; the owner sets it)
+    async liveStream() { return { url: "", title: "", is_live: false, ...(db.live || {}) }; },
+    async setLiveStream(f) {
+      if (me().role !== "owner") throw new Error("forbidden");
+      db.live = { ...(db.live || {}), ...f, updated_at: new Date().toISOString() }; saveDemo(); return db.live;
+    },
     // the levels panel next to the chart (demo: made-up levels, labelled as a sample on the page)
     async chartSetup() {
       const last = 3480, r = (x) => +(Math.round(x * 2) / 2).toFixed(1);
@@ -411,6 +417,16 @@
     async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password, consent: true }); },
     async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
     async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
+    async liveStream() {
+      const { data, error } = await sb.from("site_live").select("url,title,is_live,updated_at").eq("id", 1).maybeSingle();
+      if (error) return null;   // table not created yet
+      return data;
+    },
+    async setLiveStream(f) {
+      const pick = {}; ["url", "title", "is_live"].forEach((k) => { if (k in f) pick[k] = f[k]; });
+      pick.updated_at = new Date().toISOString();
+      return must(await sb.from("site_live").update(pick).eq("id", 1).select().single());
+    },
     async chartSetup() {
       const { data, error } = await sb.from("chart_setups").select("*").is("closed_at", null).order("created_at", { ascending: false }).limit(1);
       if (error) return null;   // table not created yet

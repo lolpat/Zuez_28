@@ -1286,6 +1286,7 @@
   // with the current setup's levels in a panel next to it (the widget can't draw our own lines)
   function indicator(v) {
     v.innerHTML = `<div class="view-head"><div><p class="muted">${t("ind.kicker")}</p><h2>${t("gc.title")}</h2><p class="muted">${t("gc.lead")}</p></div></div>
+      <section class="card lv" id="lv"><p class="muted">${t("gc.loading")}</p></section>
       <div class="gc-grid">
         <section class="card gc">
           <div class="gc__wrap"><div class="tradingview-widget-container gc__tv" id="gc-tv"><div class="tradingview-widget-container__widget"></div></div>
@@ -1311,6 +1312,8 @@
     const seen = new MutationObserver(() => { if (box.querySelector("iframe")) { msg.hidden = true; seen.disconnect(); } });
     seen.observe(box, { childList: true, subtree: true });
 
+    liveSection(v);
+
     // the setup's levels
     const lv = $("#gc-levels", v), P = (x) => (x == null || !Number.isFinite(+x) ? null : fmt.num(+x, 2));
     state.store.chartSetup().catch(() => null).then((s) => {
@@ -1328,6 +1331,42 @@
         </ul>
         <p class="gc-lv__meta">${t("gc.from", { src })} · ${fmt.date(s.created_at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
         <p class="gc-lv__tip">${t("gc.tip")}</p>`;
+    });
+  }
+  // the owner's live TradingView screen (YouTube Live, unlisted), shown to approved members
+  const ytId = (u) => { const m = /(?:youtu\.be\/|[?&]v=|\/live\/|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/.exec(String(u || "")); return m ? m[1] : null; };
+  function liveSection(v) {
+    const box = $("#lv", v); if (!box) return;
+    const owner = state.me && state.me.role === "owner";
+    state.store.liveStream().catch(() => null).then((L) => {
+      if (currentRoute() !== "indicator") return;
+      L = L || { url: "", title: "", is_live: false };
+      const id = ytId(L.url), on = !!(L.is_live && id);
+      const player = on ? `<div class="lv__frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="${esc(L.title || t("lv.title"))}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+          <p class="lv__sub">${t("lv.muted")} · <a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">${t("lv.openYt")}</a></p>` : "";
+      const form = owner ? `<form class="lv__form" id="lv-form">
+          <label class="field"><span>${t("lv.url")}</span><input class="input" name="url" inputmode="url" placeholder="https://youtube.com/live/..." value="${esc(L.url || "")}"></label>
+          <label class="field"><span>${t("lv.name")}</span><input class="input" name="title" maxlength="80" value="${esc(L.title || "")}" placeholder="${esc(t("lv.namePh"))}"></label>
+          <div class="lv__btns"><button class="btn btn--gold btn--sm" type="submit" name="go" value="on">${t(on ? "lv.save" : "lv.start")}</button>
+            ${L.is_live ? `<button class="btn btn--ghost btn--sm" type="button" id="lv-stop">${t("lv.stop")}</button>` : ""}</div>
+          <p class="lv__err" id="lv-err" hidden></p>
+          <p class="lv__help">${t("lv.help")}</p>
+        </form>` : "";
+      box.innerHTML = `<div class="lv__head"><h3>${on ? `<span class="lv__dot" aria-hidden="true"></span>${t("lv.live")}` : t("lv.title")}</h3>
+          ${on && L.title ? `<span class="lv__name">${esc(L.title)}</span>` : ""}</div>
+        ${on ? player : `<p class="muted">${t("lv.off")}</p>`}
+        ${form}`;
+      const f = $("#lv-form", v);
+      if (f) f.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const url = f.url.value.trim(), err = $("#lv-err", v);
+        if (!ytId(url)) { err.textContent = t("lv.bad"); err.hidden = false; return; }
+        try { await state.store.setLiveStream({ url, title: f.title.value.trim().slice(0, 80), is_live: true }); toast(t("lv.started")); liveSection(v); } catch (x) { fail(x); }
+      });
+      const stop = $("#lv-stop", v);
+      if (stop) stop.addEventListener("click", async () => {
+        try { await state.store.setLiveStream({ is_live: false }); toast(t("lv.stopped")); liveSection(v); } catch (x) { fail(x); }
+      });
     });
   }
   function tools(v) {
