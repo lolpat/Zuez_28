@@ -82,6 +82,13 @@
       <p class="bonus__cap">${x.cap ? `<span data-i18n="bonus.cap"></span> ${usd(x.cap)}` : `<span data-i18n="bonus.noCap"></span>`}</p>
     </div>`;
   }
+  // partner indicators (affiliate cards)
+  function indicators() {
+    const sec = $("#indicators-sec"), box = $("#indicators");
+    if (!sec || !box || !window.OTMIndicators || !window.OTMIndicators.has()) return;
+    const draw = () => { box.innerHTML = window.OTMIndicators.cards(t); };
+    sec.hidden = false; draw(); document.addEventListener("otm:lang", draw);
+  }
   // broker panel: pick a broker at the top, see its bonus, code, link and what a deposit turns into
   function brokerPanel() {
     const box = $("#brokers");
@@ -135,6 +142,7 @@
   }
   function landing() {
     brokerPanel();
+    indicators();
     network();
     members();
     if (window.OTMWins) window.OTMWins.marquee($("[data-wins]"));

@@ -18,6 +18,7 @@
     journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H6z"/><path d="M6 3.5v17M9.5 8h5.5M9.5 11.5h5.5"/><path d="m10 17 2-2.5 2 1.5 2.5-3"/></svg>',
     leaderboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20h7M9.5 20l.5-3.5h4l.5 3.5"/></svg>',
     wins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="11" height="14" rx="2"/><path d="M17.5 7.5l3 1-3.5 10.5-2.5-.8"/><path d="M6.5 15l2.5-3 2 2 2-3"/></svg>',
+    indicator: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><rect x="5.6" y="9" width="2.8" height="5" rx=".6"/><rect x="10.6" y="10" width="2.8" height="5" rx=".6"/><rect x="15.6" y="6" width="2.8" height="6" rx=".6"/><path d="M7 9V6M7 14v2M12 10V8M12 15v1M17 6V4M17 12v2"/></svg>',
     tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="3" width="15" height="18" rx="3"/><path d="M8 7h8M8 11h1.5M11.3 11h1.5M14.6 11H16M8 14.5h1.5M11.3 14.5h1.5M14.6 14.5H16M8 18h8"/></svg>',
     network: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="12" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v9M12 12H5v4.5M12 12h7v4.5"/></svg>',
     profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.3-5.2 7.5-5.2s6.1 1.6 7.5 5.2"/></svg>'
@@ -65,6 +66,7 @@
   const routes = () => {
     const r = [["dashboard", "app.dashboard", ""], ["signals", "app.signals", "sig"],
       ["journal", "app.journal", "tools"], ["leaderboard", "app.leaderboard", "tools"], ["wins", "app.wins", "tools"], ["tools", "app.tools", "tools"]];
+    if (window.OTMIndicators && window.OTMIndicators.has()) r.splice(r.length - 1, 0, ["indicator", "app.indicator", "tools"]);
     if (isIB()) r.push(["network", "app.network", "tools"]);
     r.push(["profile", "app.profile", "acc"]);
     return r;
@@ -118,7 +120,7 @@
     renderShell();
     const v = $("#view");
     const r = currentRoute();
-    ({ dashboard, signals, journal, leaderboard, wins, tools, network, profile })[r](v);
+    ({ dashboard, signals, journal, leaderboard, wins, tools, network, profile, indicator })[r](v);
     v.focus({ preventScroll: true });
   }
 
@@ -1280,6 +1282,10 @@
 
   // ------------------------------------------------------------ tools
   const PIP = { EURUSD: 10, GBPUSD: 10, AUDUSD: 10, NZDUSD: 10, USDJPY: 6.4, XAUUSD: 10, NAS100: 1, US30: 1 };
+  function indicator(v) {
+    v.innerHTML = `<div class="view-head"><div><p class="muted">${t("ind.kicker")}</p><h2>${t("ind.title")}</h2><p class="muted">${t("ind.lead")}</p></div></div>
+      <div class="ind-grid">${window.OTMIndicators.cards(t)}</div>`;
+  }
   function tools(v) {
     v.innerHTML = `
       <div class="grid grid--2">

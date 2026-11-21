@@ -47,6 +47,12 @@ window.OTM_CONFIG = {
   // to hide it, or remove `bonus` to hide the box. Brokers change these by campaign: keep them current.
   // Current campaigns (owner's screenshots of the broker apps, 20 Nov 2026): Vantage 150% first + 25% later, up to
   // USD 50K; PU Prime 100% first up to $1,000 + 20% later up to $9,000; VT Markets 100% first + 50% later.
+  // Partner indicators shown on the home page and the portal's Indicator page. They belong to their developers;
+  // OTM only links to them. url = your affiliate link from Whop (empty: the button shows "link coming soon").
+  INDICATORS: [
+    { id: "c2c", name: "Candle2Cash Indicator", by: "Candle2Cash", platforms: "TradingView · MT5", url: "" }
+  ],
+
   BROKERS: [
     { id: "vantage", name: "Vantage", url: "https://vigco.co/la-com-inv/ZUEZ28", code: "ZUEZ28", logo: "assets/img/brokers/vantage.png",
       bonus: { first: 150, next: 25, cap: 50000 }, servers: [] },
