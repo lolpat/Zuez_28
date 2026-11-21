@@ -2,17 +2,19 @@
 --
 --   price_candles  gold (XAU/USD) candles, filled by the gold-candles function from Twelve Data. The page reads them
 --                  through that function only, so members never see the API key.
---   price_fetches  when each timeframe was last fetched (the function refreshes at most every few minutes, which keeps
---                  Twelve Data's free plan, 800 requests a day, comfortably enough).
+--   price_fetches  when each timeframe was last fetched (the function refreshes each one at most every 4-60 minutes,
+--                  which keeps Twelve Data's free plan, 800 requests a day, enough).
 --   chart_setups   the levels drawn on the chart (entry zone, SL, TP1-3, runner). Filled by the indicator feed once
 --                  Candle2Cash's signals are connected; until then the owner can add one by hand (example at the end).
 
 create table if not exists public.price_candles (
-  tf text not null check (tf in ('1min', '15min', '1h')),
+  tf text not null,
   t  timestamptz not null,
   o numeric(12, 3) not null, h numeric(12, 3) not null, l numeric(12, 3) not null, c numeric(12, 3) not null,
   primary key (tf, t)
 );
+alter table public.price_candles drop constraint if exists price_candles_tf_check;
+alter table public.price_candles add constraint price_candles_tf_check check (tf in ('1min', '5min', '15min', '1h', '1day'));
 create table if not exists public.price_fetches (
   tf text primary key,
   fetched_at timestamptz not null

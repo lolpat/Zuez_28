@@ -1,11 +1,12 @@
 // gold-candles: gold (XAU/USD) candles for the portal's chart, from Twelve Data, cached in public.price_candles.
 //
-// POST { tf: "3m" | "15m" | "1h" }  from an approved member, signed in (Verify JWT on)
+// POST { tf: "1m" | "3m" | "5m" | "15m" | "30m" | "1h" | "4h" | "1d" }  from an approved member, signed in (Verify JWT on)
 //   -> { tf, candles: [{ t (unix seconds, UTC), o, h, l, c }], fetched_at }
 //
-// Each base timeframe is fetched from Twelve Data at most once per REFRESH window, whoever asks, so the free plan
-// (800 requests a day, 8 a minute) is enough: 1min every 4 min + 15min every 5 min + 1h every 15 min stays under 750
-// a day even if someone has the chart open all day. 3m candles are built from 1min ones.
+// Five base timeframes are stored; each is fetched from Twelve Data at most once per refresh window, whoever asks, so
+// the free plan (800 requests a day, 8 a minute) is enough even if every timeframe is open all day:
+// 1min every 4 min (360) + 5min every 10 min (144) + 15min every 15 min (96) + 1h every 30 min (48) + 1day hourly (24) = 672.
+// 3m is built from 1min, 30m from 15min and 4h from 1h candles. 1m and 3m can therefore be up to about 4 minutes behind.
 //
 // Secret: TWELVEDATA_KEY   free API key from https://twelvedata.com (Sign up > API keys)
 // SUPABASE_URL, SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
@@ -23,12 +24,23 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
 // page timeframe -> [base timeframe stored, how many base candles to fetch, refresh seconds, base candles per page candle, page candles to return]
-const TF: Record<string, { base: string; size: number; refresh: number; group: number; keep: number }> = {
-  "3m":  { base: "1min",  size: 900, refresh: 240, group: 3, keep: 300 },
-  "15m": { base: "15min", size: 400, refresh: 300, group: 1, keep: 400 },
-  "1h":  { base: "1h",    size: 400, refresh: 900, group: 1, keep: 400 },
+const BASE: Record<string, { size: number; refresh: number; sec: number; keepDays: number }> = {
+  "1min":  { size: 900, refresh: 240,  sec: 60,    keepDays: 14 },
+  "5min":  { size: 600, refresh: 600,  sec: 300,   keepDays: 40 },
+  "15min": { size: 800, refresh: 900,  sec: 900,   keepDays: 120 },
+  "1h":    { size: 800, refresh: 1800, sec: 3600,  keepDays: 400 },
+  "1day":  { size: 500, refresh: 3600, sec: 86400, keepDays: 2000 },
 };
-const SECONDS: Record<string, number> = { "1min": 60, "15min": 900, "1h": 3600 };
+const TF: Record<string, { base: string; group: number; keep: number }> = {
+  "1m":  { base: "1min",  group: 1, keep: 400 },
+  "3m":  { base: "1min",  group: 3, keep: 300 },
+  "5m":  { base: "5min",  group: 1, keep: 400 },
+  "15m": { base: "15min", group: 1, keep: 400 },
+  "30m": { base: "15min", group: 2, keep: 400 },
+  "1h":  { base: "1h",    group: 1, keep: 400 },
+  "4h":  { base: "1h",    group: 4, keep: 200 },
+  "1d":  { base: "1day",  group: 1, keep: 400 },
+};
 
 async function refresh(db: SupabaseClient, base: string, size: number) {
   const q = new URLSearchParams({ symbol: "XAU/USD", interval: base, outputsize: String(size), timezone: "UTC", order: "asc", apikey: KEY });
@@ -44,9 +56,8 @@ async function refresh(db: SupabaseClient, base: string, size: number) {
     if (error) throw new Error("store");
   }
   await db.from("price_fetches").upsert({ tf: base, fetched_at: new Date().toISOString() });
-  // keep the table small: about two weeks of 1min candles, a few months of the others
-  const keepDays = base === "1min" ? 14 : 120;
-  await db.from("price_candles").delete().eq("tf", base).lt("t", new Date(Date.now() - keepDays * 864e5).toISOString());
+  // keep the table small: two weeks of 1min candles, longer for the bigger timeframes
+  await db.from("price_candles").delete().eq("tf", base).lt("t", new Date(Date.now() - BASE[base].keepDays * 864e5).toISOString());
 }
 
 // 1min -> 3m (or any group of n base candles), aligned to the clock
@@ -83,15 +94,15 @@ Deno.serve(async (req) => {
   const { data: last } = await db.from("price_fetches").select("fetched_at").eq("tf", spec.base).maybeSingle();
   const age = last ? (Date.now() - new Date(last.fetched_at).getTime()) / 1000 : Infinity;
   let warning: string | undefined;
-  if (age > spec.refresh) {
-    try { await refresh(db, spec.base, spec.size); } catch (e) { warning = (e as Error).message; }   // serve what we have
+  if (age > BASE[spec.base].refresh) {
+    try { await refresh(db, spec.base, BASE[spec.base].size); } catch (e) { warning = (e as Error).message; }   // serve what we have
   }
 
   const { data: rows, error } = await db.from("price_candles").select("t,o,h,l,c").eq("tf", spec.base)
     .order("t", { ascending: false }).limit(spec.keep * spec.group);
   if (error) return json({ error: "store" }, 500);
   const base = (rows ?? []).reverse().map((r: any) => ({ t: Math.floor(new Date(r.t).getTime() / 1000), o: +r.o, h: +r.h, l: +r.l, c: +r.c }));
-  const candles = group(base, spec.group, SECONDS[spec.base]).slice(-spec.keep);
+  const candles = group(base, spec.group, BASE[spec.base].sec).slice(-spec.keep);
   const { data: f } = await db.from("price_fetches").select("fetched_at").eq("tf", spec.base).maybeSingle();
   if (!candles.length) return json({ error: warning ?? "no-data" }, 503);
   return json({ tf, candles, fetched_at: f?.fetched_at ?? null, ...(warning ? { warning } : {}) });

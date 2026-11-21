@@ -1296,7 +1296,7 @@
       <section class="card gc">
         <div class="gc__bar">
           <div class="gc__sym"><b>XAUUSD</b><span>${t("gc.gold")}</span></div>
-          <div class="seg seg--sm" role="group" aria-label="${esc(t("gc.tf"))}">${["3m", "15m", "1h"].map((k) => `<button type="button" data-gtf="${k}" aria-pressed="${k === tf}">${k === "1h" ? "1H" : k}</button>`).join("")}</div>
+          <div class="seg seg--sm" role="group" aria-label="${esc(t("gc.tf"))}">${["1m", "3m", "5m", "15m", "30m", "1h", "4h", "1d"].map((k) => `<button type="button" data-gtf="${k}" aria-pressed="${k === tf}">${/[hd]$/.test(k) ? k.toUpperCase() : k}</button>`).join("")}</div>
           <span class="gc__upd" id="gc-upd"></span>
         </div>
         <p class="gc__legend" id="gc-legend"></p>
@@ -1340,7 +1340,7 @@
             layout: { background: { type: "solid", color: "transparent" }, textColor: col("--muted", "#a39a96"), fontFamily: "IBM Plex Sans Thai, system-ui, sans-serif" },
             grid: { vertLines: { color: "rgba(255,255,255,.04)" }, horzLines: { color: "rgba(255,255,255,.04)" } },
             rightPriceScale: { borderColor: "rgba(255,255,255,.08)" },
-            timeScale: { borderColor: "rgba(255,255,255,.08)", timeVisible: true, secondsVisible: false, rightOffset: 8 },
+            timeScale: { borderColor: "rgba(255,255,255,.08)", timeVisible: want !== "1d", secondsVisible: false, rightOffset: 8 },
             crosshair: { mode: 0 },
             watermark: { visible: true, text: "ORDER THE MARKET", fontSize: 30, color: "rgba(220,184,74,.06)" },
           });
@@ -1354,6 +1354,7 @@
             else if (state.gLast) legend(state.gLast[1], state.gLast[0]);
           });
         }
+        chart.applyOptions({ timeScale: { timeVisible: want !== "1d" } });
         const rows = data.candles || [];
         series.setData(rows.map((x) => ({ time: x.t + tz, open: x.o, high: x.h, low: x.l, close: x.c })));
         if (first) chart.timeScale().scrollToRealTime();

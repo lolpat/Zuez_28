@@ -192,15 +192,18 @@
     async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
     // gold chart (demo: a made-up random walk, clearly labelled as sample data on the page)
     async goldCandles(tf) {
-      const sec = { "3m": 180, "15m": 900, "1h": 3600 }[tf] || 900, n = 300, now = Math.floor(Date.now() / 1000 / sec) * sec;
+      const sec = { "1m": 60, "3m": 180, "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "4h": 14400, "1d": 86400 }[tf] || 900, n = 300, now = Math.floor(Date.now() / 1000 / sec) * sec;
       let seed = sec, p = 3520;
       const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-      const vol = { 180: 1.6, 900: 3.8, 3600: 7.5 }[sec] || 3.8, out = [];
+      const vol = { 60: .9, 180: 1.6, 300: 2.1, 900: 3.8, 1800: 5.2, 3600: 7.5, 14400: 15, 86400: 34 }[sec] || 3.8, out = [];
       for (let k = n - 1; k >= 0; k--) {
         const o = p, drift = Math.sin((n - k) / 23) * vol * .35, c = +(o + (rnd() - .5) * vol * 2 + drift).toFixed(2);
         const h = +(Math.max(o, c) + rnd() * vol * .8).toFixed(2), l = +(Math.min(o, c) - rnd() * vol * .8).toFixed(2);
         out.push({ t: now - k * sec, o: +o.toFixed(2), h, l, c }); p = c;
       }
+      // every timeframe ends at the same price, so the sample setup fits whichever one is open
+      const shift = 3480 - out[out.length - 1].c;
+      out.forEach((x) => { x.o = +(x.o + shift).toFixed(2); x.h = +(x.h + shift).toFixed(2); x.l = +(x.l + shift).toFixed(2); x.c = +(x.c + shift).toFixed(2); });
       return { tf, candles: out, fetched_at: new Date().toISOString(), sample: true };
     },
     async chartSetup() {
