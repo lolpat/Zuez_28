@@ -190,6 +190,24 @@
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
     async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
+    // gold chart (demo: a made-up random walk, clearly labelled as sample data on the page)
+    async goldCandles(tf) {
+      const sec = { "3m": 180, "15m": 900, "1h": 3600 }[tf] || 900, n = 300, now = Math.floor(Date.now() / 1000 / sec) * sec;
+      let seed = sec, p = 3520;
+      const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+      const vol = { 180: 1.6, 900: 3.8, 3600: 7.5 }[sec] || 3.8, out = [];
+      for (let k = n - 1; k >= 0; k--) {
+        const o = p, drift = Math.sin((n - k) / 23) * vol * .35, c = +(o + (rnd() - .5) * vol * 2 + drift).toFixed(2);
+        const h = +(Math.max(o, c) + rnd() * vol * .8).toFixed(2), l = +(Math.min(o, c) - rnd() * vol * .8).toFixed(2);
+        out.push({ t: now - k * sec, o: +o.toFixed(2), h, l, c }); p = c;
+      }
+      return { tf, candles: out, fetched_at: new Date().toISOString(), sample: true };
+    },
+    async chartSetup() {
+      const c = (await this.goldCandles("15m")).candles, last = c[c.length - 1].c, r = (x) => +(Math.round(x * 2) / 2).toFixed(1);
+      return { sample: true, source: "sample", tf: "15m", side: "buy", entry_lo: r(last - 3), entry_hi: r(last - 1), sl: r(last - 15),
+        tp1: r(last + 9), tp2: r(last + 20), tp3: r(last + 31), runner: r(last + 55), created_at: new Date(Date.now() - 50 * 60e3).toISOString() };
+    },
     async leaderboard(period, type = "live", verified = false) {
       const { start } = root.OTMStats.lbPeriod(period);
       const typeOf = new Map(db.accounts.map((a) => [a.id, a.account_type || "live"]));
@@ -405,6 +423,20 @@
     async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password, consent: true }); },
     async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
     async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
+    async goldCandles(tf) {
+      const { data, error } = await sb.functions.invoke("gold-candles", { body: { tf } });
+      if (error) {
+        let code = "not-configured";
+        try { const j = await error.context.json(); code = j.error || code; } catch (_) { /* function not deployed or offline */ }
+        throw new Error(code);
+      }
+      return data;
+    },
+    async chartSetup() {
+      const { data, error } = await sb.from("chart_setups").select("*").is("closed_at", null).order("created_at", { ascending: false }).limit(1);
+      if (error) return null;   // table not created yet
+      return data && data[0] ? numify(data[0]) : null;
+    },
     async leaderboard(period, type = "live", verified = false) {
       return (must(await sb.rpc("leaderboard", { p_period: period, p_type: type, p_verified: !!verified })) || []).map((r) => ({
         ...r, net: +r.net, gross_win: +r.gross_win, gross_loss: +r.gross_loss, return_pct: r.return_pct == null ? null : +r.return_pct }));

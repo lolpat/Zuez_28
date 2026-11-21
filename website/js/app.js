@@ -1282,9 +1282,99 @@
 
   // ------------------------------------------------------------ tools
   const PIP = { EURUSD: 10, GBPUSD: 10, AUDUSD: 10, NZDUSD: 10, USDJPY: 6.4, XAUUSD: 10, NAS100: 1, US30: 1 };
+  // gold chart (TradingView Lightweight Charts, loaded only on this page) with the current setup's levels
+  let chartLib = null;
+  const loadChartLib = () => chartLib || (chartLib = new Promise((ok, no) => {
+    if (window.LightweightCharts) return ok(window.LightweightCharts);
+    const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"; s.async = true;
+    s.onload = () => ok(window.LightweightCharts); s.onerror = () => { chartLib = null; no(new Error("chart-lib")); };
+    document.head.appendChild(s);
+  }));
   function indicator(v) {
-    v.innerHTML = `<div class="view-head"><div><p class="muted">${t("ind.kicker")}</p><h2>${t("ind.title")}</h2><p class="muted">${t("ind.lead")}</p></div></div>
+    const tf = state.gTf || "15m";
+    v.innerHTML = `<div class="view-head"><div><p class="muted">${t("ind.kicker")}</p><h2>${t("gc.title")}</h2><p class="muted">${t("gc.lead")}</p></div></div>
+      <section class="card gc">
+        <div class="gc__bar">
+          <div class="gc__sym"><b>XAUUSD</b><span>${t("gc.gold")}</span></div>
+          <div class="seg seg--sm" role="group" aria-label="${esc(t("gc.tf"))}">${["3m", "15m", "1h"].map((k) => `<button type="button" data-gtf="${k}" aria-pressed="${k === tf}">${k === "1h" ? "1H" : k}</button>`).join("")}</div>
+          <span class="gc__upd" id="gc-upd"></span>
+        </div>
+        <p class="gc__legend" id="gc-legend"></p>
+        <div class="gc__wrap"><div class="gc__chart" id="gc-chart"></div><p class="gc__msg" id="gc-msg">${t("gc.loading")}</p></div>
+        <div class="gc__foot"><p id="gc-setup" class="gc__setup"></p>
+          <p class="gc__attr">${t("gc.attr")} <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView</a></p></div>
+      </section>
       <div class="ind-grid">${window.OTMIndicators.cards(t)}</div>`;
+    let chart = null, series = null, lines = [];
+    const tz = -new Date().getTimezoneOffset() * 60;   // show the viewer's own clock
+    const fmtP = (x) => fmt.num(x, 2);
+    const msg = (txt) => { const m = $("#gc-msg", v); if (m) { m.textContent = txt || ""; m.hidden = !txt; } };
+    const legend = (c, prev) => {
+      const el = $("#gc-legend", v); if (!el || !c) return;
+      const ch = prev ? c.c - prev.c : 0, pct = prev ? ch / prev.c * 100 : 0;
+      el.innerHTML = `<span>O <b>${fmtP(c.o)}</b></span><span>H <b>${fmtP(c.h)}</b></span><span>L <b>${fmtP(c.l)}</b></span><span>C <b>${fmtP(c.c)}</b></span><span class="${ch >= 0 ? "up" : "down"}">${ch >= 0 ? "+" : ""}${fmtP(ch)} (${ch >= 0 ? "+" : ""}${fmt.num(pct, 2)}%)</span>`;
+    };
+    const drawSetup = (s) => {
+      lines.forEach((l) => series.removePriceLine(l)); lines = [];
+      const el = $("#gc-setup", v);
+      if (!s) { if (el) el.innerHTML = t("gc.noSetup"); return; }
+      const css = getComputedStyle(document.documentElement), col = (n, f) => (css.getPropertyValue(n) || "").trim() || f;
+      const gold = col("--accent", "#dcb84a"), hi = col("--accent-hi", "#f0d68c"), loss = col("--loss", "#ff6b5e"), txt = col("--muted", "#a39a96");
+      const L = (price, title, color, style = 0, width = 1) => { if (price == null || !Number.isFinite(+price)) return; lines.push(series.createPriceLine({ price: +price, title, color, lineStyle: style, lineWidth: width, axisLabelVisible: true })); };
+      L(s.sl, "SL", loss, 0, 1);
+      if (s.entry_lo != null && s.entry_hi != null && +s.entry_lo !== +s.entry_hi) { L(s.entry_hi, `ENTRY ${String(s.side).toUpperCase()}`, txt, 2, 1); L(s.entry_lo, "", txt, 2, 1); }
+      else L(s.entry_lo ?? s.entry_hi, `ENTRY ${String(s.side).toUpperCase()}`, txt, 2, 1);
+      L(s.tp1, "TP1", gold, 0, 1); L(s.tp2, "TP2", gold, 0, 1); L(s.tp3, "TP3", gold, 0, 1); L(s.runner, "RUNNER", hi, 1, 2);
+      if (el) el.innerHTML = `${s.sample ? `<span class="badge badge--warn">${t("gc.sampleSetup")}</span> ` : ""}${t("gc.setup", { side: String(s.side).toUpperCase(), tf: s.tf || "", src: s.source === "candle2cash" ? "Candle2Cash" : s.source === "sample" ? t("gc.sampleSrc") : esc(s.source || "") })} · ${fmt.date(s.created_at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}`;
+    };
+    const load = async (first) => {
+      const want = state.gTf || "15m";
+      try {
+        const [LW, data] = await Promise.all([loadChartLib(), state.store.goldCandles(want)]);
+        if (currentRoute() !== "indicator" || (state.gTf || "15m") !== want) return;
+        const box = $("#gc-chart", v); if (!box) return;
+        if (!chart) {
+          const css = getComputedStyle(document.documentElement), col = (n, f) => (css.getPropertyValue(n) || "").trim() || f;
+          chart = LW.createChart(box, {
+            autoSize: true,
+            layout: { background: { type: "solid", color: "transparent" }, textColor: col("--muted", "#a39a96"), fontFamily: "IBM Plex Sans Thai, system-ui, sans-serif" },
+            grid: { vertLines: { color: "rgba(255,255,255,.04)" }, horzLines: { color: "rgba(255,255,255,.04)" } },
+            rightPriceScale: { borderColor: "rgba(255,255,255,.08)" },
+            timeScale: { borderColor: "rgba(255,255,255,.08)", timeVisible: true, secondsVisible: false, rightOffset: 8 },
+            crosshair: { mode: 0 },
+            watermark: { visible: true, text: "ORDER THE MARKET", fontSize: 30, color: "rgba(220,184,74,.06)" },
+          });
+          series = chart.addCandlestickSeries({
+            upColor: col("--accent", "#dcb84a"), borderUpColor: col("--accent", "#dcb84a"), wickUpColor: col("--accent", "#dcb84a"),
+            downColor: col("--accent-2", "#e52150"), borderDownColor: col("--accent-2", "#e52150"), wickDownColor: col("--accent-2", "#e52150"),
+          });
+          chart.subscribeCrosshairMove((p) => {
+            const d = p && p.seriesData && p.seriesData.get(series);
+            if (d) { const all = series.data(), i = all.findIndex((x) => x.time === d.time); legend({ o: d.open, h: d.high, l: d.low, c: d.close }, i > 0 ? { c: all[i - 1].close } : null); }
+            else if (state.gLast) legend(state.gLast[1], state.gLast[0]);
+          });
+        }
+        const rows = data.candles || [];
+        series.setData(rows.map((x) => ({ time: x.t + tz, open: x.o, high: x.h, low: x.l, close: x.c })));
+        if (first) chart.timeScale().scrollToRealTime();
+        state.gLast = [rows[rows.length - 2], rows[rows.length - 1]];
+        legend(state.gLast[1], state.gLast[0]);
+        const upd = $("#gc-upd", v);
+        if (upd) upd.innerHTML = `${data.sample ? `<span class="badge badge--warn">${t("gc.sample")}</span> ` : ""}${t("gc.updated", { t: fmt.date(data.fetched_at || new Date().toISOString(), { hour: "2-digit", minute: "2-digit" }) })}`;
+        msg("");
+        if (first) drawSetup(await state.store.chartSetup().catch(() => null));
+      } catch (err) {
+        const code = err && err.message;
+        msg(code === "not-configured" ? t("gc.notReady") : code === "chart-lib" ? t("gc.libFail") : t("gc.fail"));
+      }
+    };
+    v.querySelectorAll("[data-gtf]").forEach((b) => b.addEventListener("click", () => {
+      state.gTf = b.dataset.gtf;
+      v.querySelectorAll("[data-gtf]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      msg(t("gc.loading")); load(true);
+    }));
+    load(true);
+    state.timer = setInterval(() => load(false), 60000);   // the server refreshes prices every few minutes
   }
   function tools(v) {
     v.innerHTML = `
