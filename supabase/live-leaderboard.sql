@@ -6,7 +6,7 @@
 --   2. Trades read from MT5 (source = 'sync') can't be faked or edited by members: they can't insert them, can only
 --      change their journal notes on them, and can't delete them.
 --   3. leaderboard(period, type, verified): with verified = true only MT5-synced trades count, and each row says
---      whether its result is fully verified.
+--      whether its result is fully verified, and carries the member's chosen country (its flag is shown).
 
 -- ---------------------------------------------------------------- 1. account figures from the broker
 alter table public.broker_accounts add column if not exists balance     numeric(16, 2);
@@ -75,6 +75,12 @@ create trigger guard_synced_trades before insert or update or delete on public.t
 alter table public.profiles alter column leaderboard_opt_in set default true;
 update public.profiles set leaderboard_opt_in = true where not leaderboard_opt_in and coalesce(leaderboard_name, '') = '';
 
+-- ---------------------------------------------------------------- the country a member chooses for their flag (two letters, e.g. TH)
+alter table public.profiles add column if not exists country text;
+alter table public.profiles drop constraint if exists profiles_country_code;
+alter table public.profiles add constraint profiles_country_code check (country is null or country ~ '^[A-Z]{2}$');
+grant update (country) on public.profiles to authenticated;
+
 -- ---------------------------------------------------------------- 3. leaderboard with verified results
 drop function if exists public.leaderboard(text, text);
 drop function if exists public.leaderboard(text, text, boolean);
@@ -82,7 +88,7 @@ create function public.leaderboard(p_period text, p_type text default 'live', p_
 returns table (
   rank int, display_name text, trades int, wins int, losses int, net numeric,
   gross_win numeric, gross_loss numeric, streak int, return_pct numeric, is_me boolean,
-  field_size int, in_profit int, verified boolean
+  field_size int, in_profit int, verified boolean, country text
 )
 language sql stable security definer set search_path = public as $$
   with b as (
@@ -122,7 +128,7 @@ language sql stable security definer set search_path = public as $$
            round(agg.gross_loss, 2) as gross_loss, stk.streak::int as streak,
            case when coalesce(bal.start_balance, 0) > 0 then round(agg.net / bal.start_balance * 100, 2) end as return_pct,
            agg.user_id = auth.uid() as is_me, agg.field_size::int as field_size,
-           (count(*) over ())::int as in_profit, agg.verified
+           (count(*) over ())::int as in_profit, agg.verified, p.country
       from agg
       join profiles p on p.id = agg.user_id
       join stk on stk.user_id = agg.user_id

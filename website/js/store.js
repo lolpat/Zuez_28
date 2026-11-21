@@ -102,6 +102,12 @@
     if (!db || !db.users) { db = seed(); saveDemo(); }
     if (!db.lb) addLeaderboardDemo();
     if (db.lb < 2) addMoreDemoMembers();
+    if (!db.flags) {   // sample members' countries for the leaderboard flags ("me" picks their own)
+      const C = { ib1: "TH", ib2: "TH", m2: "TH", m3: "TH", m4: "TH", m5: "LA", ib3: "MY", m6: "TH" };
+      const S = ["TH", "TH", "TH", "LA", "TH", "MY", "TH", "NO", "TH", "SG", "TH", "KH"];
+      db.users.forEach((u) => { if ("country" in u) return; const k = /^s(\d+)$/.exec(u.id); if (C[u.id]) u.country = C[u.id]; else if (k) u.country = S[(+k[1] - 1) % 12]; });
+      db.flags = 1; saveDemo();
+    }
     if (!db.links) {
       const L = (id, user_id, broker, client_id, status, days) => ({ id, user_id, broker, client_id, status, created_at: new Date(Date.now() - days * 864e5).toISOString(), verified_at: status === "verified" ? new Date(Date.now() - (days - 1) * 864e5).toISOString() : null });
       db.links = [
@@ -120,9 +126,11 @@
     const uplines = ["ib1", "ib2", "ib3"];
     names.forEach((nm, k) => {
       const id = "s" + (k + 1);
-      if (db.users.some((u) => u.id === id)) return;
+      const ex = db.users.find((u) => u.id === id);
+      if (ex) { if (!("country" in ex)) ex.country = ["TH", "TH", "TH", "LA", "TH", "MY", "TH", "NO", "TH", "SG", "TH", "KH"][k % 12]; return; }
       db.users.push({ id, full_name: nm, email: `sample${k + 1}@demo`, role: "member", status: "approved", upline_id: uplines[k % 3], telegram: "", referral_code: "SMPL" + String(k + 1).padStart(4, "0"),
-        language: "th", created_at: new Date(Date.now() - (20 + k) * 864e5).toISOString(), leaderboard_opt_in: true, leaderboard_name: nm.split(" ")[0] });
+        language: "th", created_at: new Date(Date.now() - (20 + k) * 864e5).toISOString(), leaderboard_opt_in: true, leaderboard_name: nm.split(" ")[0],
+        country: ["TH", "TH", "TH", "LA", "TH", "MY", "TH", "NO", "TH", "SG", "TH", "KH"][k % 12] });
       const acc = { id: "a-" + id, user_id: id, broker: ["vantage", "puprime", "vtmarkets"][k % 3], account_number: String(60010000 + k), server: "", platform: "MT5", currency: "USD", start_balance: 500 + (k % 5) * 500, account_type: "live", created_at: new Date().toISOString() };
       db.accounts.push(acc);
       db.trades.push(...makeTrades(id, acc.id, 12 + (k % 7) * 4, 0.5 + (k % 5) * 0.04, 25, Math.random).map((t) => ({ ...t, note: "", feeling: "", execution: null, tags: [], lesson: "" })));
@@ -181,7 +189,7 @@
     },
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
-    async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
+    async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
     async leaderboard(period, type = "live", verified = false) {
       const { start } = root.OTMStats.lbPeriod(period);
       const typeOf = new Map(db.accounts.map((a) => [a.id, a.account_type || "live"]));
@@ -194,7 +202,7 @@
         let streak = 0; for (const x of v) { if (x > 0) streak++; else break; }
         const bal = db.accounts.filter((a) => a.user_id === u.id && (a.account_type || "live") === type).reduce((s, a) => s + (+a.start_balance || 0), 0);
         const net = v.reduce((a, b) => a + b, 0);
-        return { display_name: (u.leaderboard_name || "").trim() || u.full_name.split(" ")[0], trades: tr.length, wins: wins.length, losses: losses.length,
+        return { display_name: (u.leaderboard_name || "").trim() || u.full_name.split(" ")[0], country: u.country || null, trades: tr.length, wins: wins.length, losses: losses.length,
           net, gross_win: wins.reduce((a, b) => a + b, 0), gross_loss: -losses.reduce((a, b) => a + b, 0), streak,
           return_pct: bal > 0 ? (net / bal) * 100 : null, is_me: u.id === db.session, verified: tr.every((t) => t.source === "sync") };
       }).filter(Boolean);
@@ -358,7 +366,7 @@
       if (error) throw new Error(error.message); return true;
     },
     async updateProfile(f) {
-      const pick = {}; ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name"].forEach((k) => { if (k in f) pick[k] = f[k]; });
+      const pick = {}; ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) pick[k] = f[k]; });
       must(await sb.from("profiles").update(pick).eq("id", profileCache.id));
       Object.assign(profileCache, pick); return profileCache;
     },

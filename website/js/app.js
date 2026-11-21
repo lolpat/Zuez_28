@@ -836,13 +836,14 @@
     const shown = top.slice(0, state.lbMore ? 20 : 10);
     const inProfit = rows.length ? rows[0].in_profit || top.length : 0;
     const vBadge = `<span class="lb-ver" title="${esc(t("lb.verified.title"))}">✓ MT5</span>`;
-    const avatar = (r, size = "") => `<span class="lb-av ${size}">${esc(initials(r.display_name))}</span>`;
+    const F = window.OTMFlags;
+    const avatar = (r, size = "") => F && F.ok(r.country) ? `<span class="lb-av lb-av--flag ${size}">${esc(initials(r.display_name))}${F.img(r.country, I.lang, "lb-flag")}</span>` : `<span class="lb-av ${size}">${esc(initials(r.display_name))}</span>`;
     const podium = rows.length ? [rows[1], rows[0], rows[2]].map((r, i) => {
       if (!r) return `<div class="pod pod--empty"></div>`;
       const place = [2, 1, 3][i], P = lbParts(r);
       return `<div class="pod pod--${place} ${r.is_me ? "is-me" : ""}">
           <div class="pod__banner">${bannerSvg(place)}</div>
-          <b class="pod__name">${esc(r.display_name)}${r.verified ? ` ${vBadge}` : ""}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
+          <b class="pod__name">${F && F.ok(r.country) ? F.img(r.country, I.lang, "pod__flag") + " " : ""}${esc(r.display_name)}${r.verified ? ` ${vBadge}` : ""}${r.is_me ? ` <span class="lb-you">${t("lb.you")}</span>` : ""}</b>
           <span class="pod__line"><span class="pod__net">${money(r.net)}</span><i aria-hidden="true"></i><span>${fmt.num(P.wr, 0)}% WR</span>${r.return_pct != null ? `<i aria-hidden="true"></i><span>${r.return_pct >= 0 ? "+" : ""}${fmt.num(r.return_pct, 1)}%</span>` : ""}</span>
         </div>`;
     }).join("") : "";
@@ -883,6 +884,7 @@
       <p class="muted lb-foot">${t("lb.foot")}</p>
       ${joined ? `<section class="card lb-me">
           <form id="lb-rename" class="lb-join__form"><label class="field" style="flex:1;min-width:180px"><span>${t("lb.name")}</span><input class="input" name="name" maxlength="30" value="${esc(myName)}"></label>
+            ${F ? `<label class="field lb-country" style="flex:1;min-width:180px"><span>${t("lb.country")}</span><select class="input" name="country">${F.options(m.country || "", I.lang, t("lb.country.none"))}</select></label>` : ""}
             <button class="btn btn--ghost" type="submit">${t("app.save")}</button>
             <button class="btn btn--quiet" type="button" id="lb-leave">${t("lb.hide")}</button></form>
           <p class="card__sub" style="margin-top:10px">${t("lb.auto.note")}</p>
@@ -896,7 +898,7 @@
     const sh = $("#lb-show", v);
     if (sh) sh.addEventListener("click", () => saveLb({ leaderboard_opt_in: true }, t("lb.shown")));
     const rf = $("#lb-rename", v);
-    if (rf) rf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_name: rf.name.value.trim().slice(0, 30) }, t("app.saved")); });
+    if (rf) rf.addEventListener("submit", (e) => { e.preventDefault(); saveLb({ leaderboard_name: rf.name.value.trim().slice(0, 30), ...(rf.country ? { country: rf.country.value || null } : {}) }, t("app.saved")); });
     const lv = $("#lb-leave", v);
     if (lv) lv.addEventListener("click", () => {
       if (!lv.dataset.armed) { lv.dataset.armed = "1"; lv.textContent = t("lb.leaveConfirm"); return; }
@@ -1447,6 +1449,7 @@
             <label class="field"><span>${t("auth.name")}</span><input class="input" name="full_name" value="${esc(m.full_name || "")}" autocomplete="name"></label>
             <label class="field"><span>${t("auth.email")}</span><input class="input" value="${esc(m.email || "")}" disabled></label>
             <label class="field"><span>${t("auth.telegram")}</span><input class="input" name="telegram" value="${esc(m.telegram || "")}" placeholder="@"><small>${t("auth.telegram.hint")}</small></label>
+            ${window.OTMFlags ? `<label class="field"><span>${t("lb.country")}</span><select class="input" name="country">${window.OTMFlags.options(m.country || "", I.lang, t("lb.country.none"))}</select><small>${t("prof.country.hint")}</small></label>` : ""}
             <label class="field"><span>${t("prof.lang")}</span><select class="input" name="language"><option value="th" ${I.lang === "th" ? "selected" : ""}>ไทย</option><option value="en" ${I.lang === "en" ? "selected" : ""}>English</option></select></label>
             <button class="btn btn--gold" type="submit" style="justify-self:start">${t("app.save")}</button>
           </form>
@@ -1488,7 +1491,7 @@
       e.preventDefault();
       let tg = e.target.telegram.value.trim(); if (tg && !tg.startsWith("@")) tg = "@" + tg;
       try {
-        state.me = await state.store.updateProfile({ full_name: e.target.full_name.value.trim(), telegram: tg, language: e.target.language.value });
+        state.me = await state.store.updateProfile({ full_name: e.target.full_name.value.trim(), telegram: tg, language: e.target.language.value, ...(e.target.country ? { country: e.target.country.value || null } : {}) });
         if (e.target.language.value !== I.lang) I.setLang(e.target.language.value); else render();
         toast(t("app.saved"));
       } catch (err) { fail(err); }

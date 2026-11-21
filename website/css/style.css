@@ -1408,3 +1408,6 @@ th.ibr-pcol { color: var(--accent-hi); }
 .seg--sm button { padding: 5px 11px; font-size: .78rem; }
 .dlast__list li.dlast__span { display: block; border-bottom: 0; padding: 8px 0 0; text-align: right; }
 .dlast__list li.dlast__span small { margin: 0; }
+.lb-av--flag { position: relative; overflow: hidden; }
+.lb-av--flag .lb-flag { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.pod__flag { width: 26px; height: 19px; border-radius: 3px; vertical-align: -2px; object-fit: cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, .15); }
