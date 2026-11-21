@@ -49,6 +49,10 @@ window.OTM_CONFIG = {
   // USD 50K; PU Prime 100% first up to $1,000 + 20% later up to $9,000; VT Markets 100% first + 50% later.
   // Partner indicators shown on the home page and the portal's Indicator page. They belong to their developers;
   // OTM only links to them. url = your affiliate link from Whop (empty: the button shows "link coming soon").
+  // The gold chart on the Indicator page (TradingView widget). studies: indicators drawn on it, e.g. a public or
+  // protected TradingView script as "PUB;<script id>" (the developer gives the id). Invite-only scripts can't be shown.
+  CHART: { symbol: "OANDA:XAUUSD", interval: "15", studies: [] },
+
   INDICATORS: [
     { id: "c2c", name: "Candle2Cash Indicator", by: "Candle2Cash", platforms: "TradingView · MT5", url: "" }
   ],

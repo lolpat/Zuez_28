@@ -1300,8 +1300,10 @@
     let tz = "Etc/UTC"; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch (e) { /* keep UTC */ }
     const sc = document.createElement("script");
     sc.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"; sc.async = true;
+    const CH = cfg.CHART || {};
     sc.textContent = JSON.stringify({
-      autosize: true, symbol: "OANDA:XAUUSD", interval: "15", timezone: tz, theme: "dark", style: "1",
+      autosize: true, symbol: CH.symbol || "OANDA:XAUUSD", interval: CH.interval || "15", timezone: tz,
+      ...(Array.isArray(CH.studies) && CH.studies.length ? { studies: CH.studies } : {}), theme: "dark", style: "1",
       locale: I.lang === "th" ? "th_TH" : "en", backgroundColor: "rgba(11, 10, 11, 1)", gridColor: "rgba(255, 255, 255, 0.04)",
       allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true, calendar: false, save_image: false,
       support_host: "https://www.tradingview.com",
