@@ -1,26 +1,7 @@
--- Gold chart on the portal's Indicator page. Run once in the SQL editor (safe to run again).
---
---   price_candles  gold (XAU/USD) candles, filled by the gold-candles function from Twelve Data. The page reads them
---                  through that function only, so members never see the API key.
---   price_fetches  when each timeframe was last fetched (the function refreshes each one at most every 4-60 minutes,
---                  which keeps Twelve Data's free plan, 800 requests a day, enough).
---   chart_setups   the levels drawn on the chart (entry zone, SL, TP1-3, runner). Filled by the indicator feed once
---                  Candle2Cash's signals are connected; until then the owner can add one by hand (example at the end).
-
-create table if not exists public.price_candles (
-  tf text not null,
-  t  timestamptz not null,
-  o numeric(12, 3) not null, h numeric(12, 3) not null, l numeric(12, 3) not null, c numeric(12, 3) not null,
-  primary key (tf, t)
-);
-alter table public.price_candles drop constraint if exists price_candles_tf_check;
-alter table public.price_candles add constraint price_candles_tf_check check (tf in ('1min', '5min', '15min', '1h', '1day'));
-create table if not exists public.price_fetches (
-  tf text primary key,
-  fetched_at timestamptz not null
-);
-alter table public.price_candles enable row level security;   -- no policies: only the function (service role) reads and writes
-alter table public.price_fetches enable row level security;
+-- Setup levels for the portal's Indicator page. Run once in the SQL editor (safe to run again).
+-- The chart itself is TradingView's widget (live prices from TradingView); this table holds the levels shown next to it
+-- (entry zone, SL, TP1-3, runner). It is filled by the indicator feed once Candle2Cash's signals are connected; until
+-- then the owner can add one by hand (example at the end). Only approved members can read it.
 
 create table if not exists public.chart_setups (
   id bigint generated always as identity primary key,

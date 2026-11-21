@@ -190,24 +190,9 @@
     async signOut() { db.session = null; saveDemo(); },
     async resetPassword() { return true; },
     async updateProfile(f) { const m = me(); ["full_name", "telegram", "language", "leaderboard_opt_in", "leaderboard_name", "country"].forEach((k) => { if (k in f) m[k] = f[k]; }); saveDemo(); return m; },
-    // gold chart (demo: a made-up random walk, clearly labelled as sample data on the page)
-    async goldCandles(tf) {
-      const sec = { "1m": 60, "3m": 180, "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "4h": 14400, "1d": 86400 }[tf] || 900, n = 300, now = Math.floor(Date.now() / 1000 / sec) * sec;
-      let seed = sec, p = 3520;
-      const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-      const vol = { 60: .9, 180: 1.6, 300: 2.1, 900: 3.8, 1800: 5.2, 3600: 7.5, 14400: 15, 86400: 34 }[sec] || 3.8, out = [];
-      for (let k = n - 1; k >= 0; k--) {
-        const o = p, drift = Math.sin((n - k) / 23) * vol * .35, c = +(o + (rnd() - .5) * vol * 2 + drift).toFixed(2);
-        const h = +(Math.max(o, c) + rnd() * vol * .8).toFixed(2), l = +(Math.min(o, c) - rnd() * vol * .8).toFixed(2);
-        out.push({ t: now - k * sec, o: +o.toFixed(2), h, l, c }); p = c;
-      }
-      // every timeframe ends at the same price, so the sample setup fits whichever one is open
-      const shift = 3480 - out[out.length - 1].c;
-      out.forEach((x) => { x.o = +(x.o + shift).toFixed(2); x.h = +(x.h + shift).toFixed(2); x.l = +(x.l + shift).toFixed(2); x.c = +(x.c + shift).toFixed(2); });
-      return { tf, candles: out, fetched_at: new Date().toISOString(), sample: true };
-    },
+    // the levels panel next to the chart (demo: made-up levels, labelled as a sample on the page)
     async chartSetup() {
-      const c = (await this.goldCandles("15m")).candles, last = c[c.length - 1].c, r = (x) => +(Math.round(x * 2) / 2).toFixed(1);
+      const last = 3480, r = (x) => +(Math.round(x * 2) / 2).toFixed(1);
       return { sample: true, source: "sample", tf: "15m", side: "buy", entry_lo: r(last - 3), entry_hi: r(last - 1), sl: r(last - 15),
         tp1: r(last + 9), tp2: r(last + 20), tp3: r(last + 31), runner: r(last + 55), created_at: new Date(Date.now() - 50 * 60e3).toISOString() };
     },
@@ -426,15 +411,6 @@
     async syncConnect(id, server, password) { return syncFn({ action: "connect", account_id: id, server, password, consent: true }); },
     async syncNow(id) { return syncFn({ action: "sync", account_id: id }); },
     async syncDisconnect(id) { return syncFn({ action: "disconnect", account_id: id }); },
-    async goldCandles(tf) {
-      const { data, error } = await sb.functions.invoke("gold-candles", { body: { tf } });
-      if (error) {
-        let code = "not-configured";
-        try { const j = await error.context.json(); code = j.error || code; } catch (_) { /* function not deployed or offline */ }
-        throw new Error(code);
-      }
-      return data;
-    },
     async chartSetup() {
       const { data, error } = await sb.from("chart_setups").select("*").is("closed_at", null).order("created_at", { ascending: false }).limit(1);
       if (error) return null;   // table not created yet

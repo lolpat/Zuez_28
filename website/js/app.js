@@ -1282,100 +1282,53 @@
 
   // ------------------------------------------------------------ tools
   const PIP = { EURUSD: 10, GBPUSD: 10, AUDUSD: 10, NZDUSD: 10, USDJPY: 6.4, XAUUSD: 10, NAS100: 1, US30: 1 };
-  // gold chart (TradingView Lightweight Charts, loaded only on this page) with the current setup's levels
-  let chartLib = null;
-  const loadChartLib = () => chartLib || (chartLib = new Promise((ok, no) => {
-    if (window.LightweightCharts) return ok(window.LightweightCharts);
-    const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"; s.async = true;
-    s.onload = () => ok(window.LightweightCharts); s.onerror = () => { chartLib = null; no(new Error("chart-lib")); };
-    document.head.appendChild(s);
-  }));
+  // gold chart: TradingView's free Advanced Chart widget (live prices and every timeframe come from TradingView),
+  // with the current setup's levels in a panel next to it (the widget can't draw our own lines)
   function indicator(v) {
-    const tf = state.gTf || "15m";
     v.innerHTML = `<div class="view-head"><div><p class="muted">${t("ind.kicker")}</p><h2>${t("gc.title")}</h2><p class="muted">${t("gc.lead")}</p></div></div>
-      <section class="card gc">
-        <div class="gc__bar">
-          <div class="gc__sym"><b>XAUUSD</b><span>${t("gc.gold")}</span></div>
-          <div class="seg seg--sm" role="group" aria-label="${esc(t("gc.tf"))}">${["1m", "3m", "5m", "15m", "30m", "1h", "4h", "1d"].map((k) => `<button type="button" data-gtf="${k}" aria-pressed="${k === tf}">${/[hd]$/.test(k) ? k.toUpperCase() : k}</button>`).join("")}</div>
-          <span class="gc__upd" id="gc-upd"></span>
-        </div>
-        <p class="gc__legend" id="gc-legend"></p>
-        <div class="gc__wrap"><div class="gc__chart" id="gc-chart"></div><p class="gc__msg" id="gc-msg">${t("gc.loading")}</p></div>
-        <div class="gc__foot"><p id="gc-setup" class="gc__setup"></p>
-          <p class="gc__attr">${t("gc.attr")} <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView</a></p></div>
-      </section>
+      <div class="gc-grid">
+        <section class="card gc">
+          <div class="gc__wrap"><div class="tradingview-widget-container gc__tv" id="gc-tv"><div class="tradingview-widget-container__widget"></div></div>
+            <p class="gc__msg" id="gc-msg">${t("gc.loading")}</p></div>
+          <p class="gc__attr"><a href="https://www.tradingview.com/symbols/XAUUSD/?exchange=OANDA" rel="noopener nofollow" target="_blank">${t("gc.attr")}</a></p>
+        </section>
+        <section class="card gc-lv" id="gc-levels"><p class="muted">${t("gc.loading")}</p></section>
+      </div>
       <div class="ind-grid">${window.OTMIndicators.cards(t)}</div>`;
-    let chart = null, series = null, lines = [];
-    const tz = -new Date().getTimezoneOffset() * 60;   // show the viewer's own clock
-    const fmtP = (x) => fmt.num(x, 2);
-    const msg = (txt) => { const m = $("#gc-msg", v); if (m) { m.textContent = txt || ""; m.hidden = !txt; } };
-    const legend = (c, prev) => {
-      const el = $("#gc-legend", v); if (!el || !c) return;
-      const ch = prev ? c.c - prev.c : 0, pct = prev ? ch / prev.c * 100 : 0;
-      el.innerHTML = `<span>O <b>${fmtP(c.o)}</b></span><span>H <b>${fmtP(c.h)}</b></span><span>L <b>${fmtP(c.l)}</b></span><span>C <b>${fmtP(c.c)}</b></span><span class="${ch >= 0 ? "up" : "down"}">${ch >= 0 ? "+" : ""}${fmtP(ch)} (${ch >= 0 ? "+" : ""}${fmt.num(pct, 2)}%)</span>`;
-    };
-    const drawSetup = (s) => {
-      lines.forEach((l) => series.removePriceLine(l)); lines = [];
-      const el = $("#gc-setup", v);
-      if (!s) { if (el) el.innerHTML = t("gc.noSetup"); return; }
-      const css = getComputedStyle(document.documentElement), col = (n, f) => (css.getPropertyValue(n) || "").trim() || f;
-      const gold = col("--accent", "#dcb84a"), hi = col("--accent-hi", "#f0d68c"), loss = col("--loss", "#ff6b5e"), txt = col("--muted", "#a39a96");
-      const L = (price, title, color, style = 0, width = 1) => { if (price == null || !Number.isFinite(+price)) return; lines.push(series.createPriceLine({ price: +price, title, color, lineStyle: style, lineWidth: width, axisLabelVisible: true })); };
-      L(s.sl, "SL", loss, 0, 1);
-      if (s.entry_lo != null && s.entry_hi != null && +s.entry_lo !== +s.entry_hi) { L(s.entry_hi, `ENTRY ${String(s.side).toUpperCase()}`, txt, 2, 1); L(s.entry_lo, "", txt, 2, 1); }
-      else L(s.entry_lo ?? s.entry_hi, `ENTRY ${String(s.side).toUpperCase()}`, txt, 2, 1);
-      L(s.tp1, "TP1", gold, 0, 1); L(s.tp2, "TP2", gold, 0, 1); L(s.tp3, "TP3", gold, 0, 1); L(s.runner, "RUNNER", hi, 1, 2);
-      if (el) el.innerHTML = `${s.sample ? `<span class="badge badge--warn">${t("gc.sampleSetup")}</span> ` : ""}${t("gc.setup", { side: String(s.side).toUpperCase(), tf: s.tf || "", src: s.source === "candle2cash" ? "Candle2Cash" : s.source === "sample" ? t("gc.sampleSrc") : esc(s.source || "") })} · ${fmt.date(s.created_at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}`;
-    };
-    const load = async (first) => {
-      const want = state.gTf || "15m";
-      try {
-        const [LW, data] = await Promise.all([loadChartLib(), state.store.goldCandles(want)]);
-        if (currentRoute() !== "indicator" || (state.gTf || "15m") !== want) return;
-        const box = $("#gc-chart", v); if (!box) return;
-        if (!chart) {
-          const css = getComputedStyle(document.documentElement), col = (n, f) => (css.getPropertyValue(n) || "").trim() || f;
-          chart = LW.createChart(box, {
-            autoSize: true,
-            layout: { background: { type: "solid", color: "transparent" }, textColor: col("--muted", "#a39a96"), fontFamily: "IBM Plex Sans Thai, system-ui, sans-serif" },
-            grid: { vertLines: { color: "rgba(255,255,255,.04)" }, horzLines: { color: "rgba(255,255,255,.04)" } },
-            rightPriceScale: { borderColor: "rgba(255,255,255,.08)" },
-            timeScale: { borderColor: "rgba(255,255,255,.08)", timeVisible: want !== "1d", secondsVisible: false, rightOffset: 8 },
-            crosshair: { mode: 0 },
-            watermark: { visible: true, text: "ORDER THE MARKET", fontSize: 30, color: "rgba(220,184,74,.06)" },
-          });
-          series = chart.addCandlestickSeries({
-            upColor: col("--accent", "#dcb84a"), borderUpColor: col("--accent", "#dcb84a"), wickUpColor: col("--accent", "#dcb84a"),
-            downColor: col("--accent-2", "#e52150"), borderDownColor: col("--accent-2", "#e52150"), wickDownColor: col("--accent-2", "#e52150"),
-          });
-          chart.subscribeCrosshairMove((p) => {
-            const d = p && p.seriesData && p.seriesData.get(series);
-            if (d) { const all = series.data(), i = all.findIndex((x) => x.time === d.time); legend({ o: d.open, h: d.high, l: d.low, c: d.close }, i > 0 ? { c: all[i - 1].close } : null); }
-            else if (state.gLast) legend(state.gLast[1], state.gLast[0]);
-          });
-        }
-        chart.applyOptions({ timeScale: { timeVisible: want !== "1d" } });
-        const rows = data.candles || [];
-        series.setData(rows.map((x) => ({ time: x.t + tz, open: x.o, high: x.h, low: x.l, close: x.c })));
-        if (first) chart.timeScale().scrollToRealTime();
-        state.gLast = [rows[rows.length - 2], rows[rows.length - 1]];
-        legend(state.gLast[1], state.gLast[0]);
-        const upd = $("#gc-upd", v);
-        if (upd) upd.innerHTML = `${data.sample ? `<span class="badge badge--warn">${t("gc.sample")}</span> ` : ""}${t("gc.updated", { t: fmt.date(data.fetched_at || new Date().toISOString(), { hour: "2-digit", minute: "2-digit" }) })}`;
-        msg("");
-        if (first) drawSetup(await state.store.chartSetup().catch(() => null));
-      } catch (err) {
-        const code = err && err.message;
-        msg(code === "not-configured" ? t("gc.notReady") : code === "chart-lib" ? t("gc.libFail") : t("gc.fail"));
-      }
-    };
-    v.querySelectorAll("[data-gtf]").forEach((b) => b.addEventListener("click", () => {
-      state.gTf = b.dataset.gtf;
-      v.querySelectorAll("[data-gtf]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-      msg(t("gc.loading")); load(true);
-    }));
-    load(true);
-    state.timer = setInterval(() => load(false), 60000);   // the server refreshes prices every few minutes
+    const box = $("#gc-tv", v), msg = $("#gc-msg", v);
+    let tz = "Etc/UTC"; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch (e) { /* keep UTC */ }
+    const sc = document.createElement("script");
+    sc.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"; sc.async = true;
+    sc.textContent = JSON.stringify({
+      autosize: true, symbol: "OANDA:XAUUSD", interval: "15", timezone: tz, theme: "dark", style: "1",
+      locale: I.lang === "th" ? "th_TH" : "en", backgroundColor: "rgba(11, 10, 11, 1)", gridColor: "rgba(255, 255, 255, 0.04)",
+      allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true, calendar: false, save_image: false,
+      support_host: "https://www.tradingview.com",
+    });
+    sc.onerror = () => { if (msg) { msg.textContent = t("gc.tvFail"); msg.hidden = false; } };
+    box.appendChild(sc);
+    // the widget adds its own frame; hide the loading note once it's there
+    const seen = new MutationObserver(() => { if (box.querySelector("iframe")) { msg.hidden = true; seen.disconnect(); } });
+    seen.observe(box, { childList: true, subtree: true });
+
+    // the setup's levels
+    const lv = $("#gc-levels", v), P = (x) => (x == null || !Number.isFinite(+x) ? null : fmt.num(+x, 2));
+    state.store.chartSetup().catch(() => null).then((s) => {
+      if (!lv || currentRoute() !== "indicator") return;
+      if (!s) { lv.innerHTML = `<h3>${t("gc.levels")}</h3><p class="muted" style="margin-top:10px">${t("gc.noSetup")}</p>`; return; }
+      const side = String(s.side).toLowerCase() === "sell" ? "sell" : "buy";
+      const row = (k, val, cls = "") => val == null ? "" : `<li class="${cls}"><span>${k}</span><b>${val}</b></li>`;
+      const entry = s.entry_lo != null && s.entry_hi != null && +s.entry_lo !== +s.entry_hi ? `${P(Math.min(s.entry_lo, s.entry_hi))} – ${P(Math.max(s.entry_lo, s.entry_hi))}` : P(s.entry_lo ?? s.entry_hi);
+      const src = s.source === "candle2cash" ? "Candle2Cash" : s.source === "sample" ? t("gc.sampleSrc") : esc(s.source || "");
+      lv.innerHTML = `<div class="gc-lv__head"><h3>${t("gc.levels")}</h3>${s.sample ? `<span class="badge badge--warn">${t("gc.sampleSetup")}</span>` : ""}</div>
+        <p class="gc-lv__side gc-lv__side--${side}">XAUUSD · ${side.toUpperCase()}${s.tf ? ` <small>${esc(s.tf)}</small>` : ""}</p>
+        <ul class="gc-lv__list">
+          ${row(t("gc.entry"), entry, "is-entry")}${row("SL", P(s.sl), "is-sl")}
+          ${row("TP1", P(s.tp1), "is-tp")}${row("TP2", P(s.tp2), "is-tp")}${row("TP3", P(s.tp3), "is-tp")}${row("Runner", P(s.runner), "is-run")}
+        </ul>
+        <p class="gc-lv__meta">${t("gc.from", { src })} · ${fmt.date(s.created_at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
+        <p class="gc-lv__tip">${t("gc.tip")}</p>`;
+    });
   }
   function tools(v) {
     v.innerHTML = `
