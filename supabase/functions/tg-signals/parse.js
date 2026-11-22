@@ -72,6 +72,23 @@ export function parseSignal(text, room) {
   return { symbol: sym, side, entry: e1, entry2: e2, sl, risk: risk == null ? null : Math.round(risk * 10) / 10 };
 }
 
+// Take-profit prices in a signal, in the order posted: "TP1: @ 3982", "TP1. @ 4265", "TP 5155", "▫️TP: 4580",
+// "🎯 TAKE PROFIT: 4063". Only prices on the profit side of the entry count (a TP typed the wrong way is left out).
+export function parseTargets(text, sig) {
+  if (!sig) return [];
+  const t = norm(text), out = [];
+  const re = /(?:\bTP\s*(?:\d{1,2}(?!\d))?|TAKE\s*PROFIT\s*(?:\d{1,2}(?!\d))?|TARGET\s*(?:\d{1,2}(?!\d))?)\s*[.:@=]*\s*@?\s*(\d[\d,]*(?:\.\d+)?)/gi;
+  const plausible = (v) => (sig.symbol === "XAUUSD" ? v > 1500 && v < 9000 : v > 1000);
+  const ref = sig.entry ?? sig.entry2;
+  for (const m of t.matchAll(re)) {
+    const v = num(m[1]);
+    if (!plausible(v)) continue;
+    if (ref != null && (sig.side === "buy" ? v <= ref : v >= ref)) continue;
+    if (!out.includes(v)) out.push(v);
+  }
+  return out.slice(0, 10);
+}
+
 const AMOUNT = /([+-]?)\s*([\d,]+)\s*\+?\s*(pips|pip|points|point|pts)\b/gi;
 function amounts(t) {
   const out = [];

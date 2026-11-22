@@ -197,6 +197,42 @@
       db.live = { ...(db.live || {}), ...f, updated_at: new Date().toISOString() }; saveDemo(); return db.live;
     },
     // the levels panel next to the chart (demo: made-up levels, labelled as a sample on the page)
+    // per-signal charts (demo: a few sample signals with made-up candles, labelled as samples on the page)
+    async signalPositions(room) {
+      const P = (id, side, entry, entry2, sl, tps, pips, risk, opened, mins) => ({ id, room, symbol: "XAUUSD", side, entry, entry2, sl, tps, risk, pips, status: pips > 0 ? "win" : pips < 0 ? "loss" : "be",
+        opened_at: opened, closed_at: new Date(Date.parse(opened) + mins * 60e3).toISOString(), sample: true });
+      const list = {
+        swing: [P("d:1", "sell", 3590, 3600, 3610, [3486, 3582, 3578, 3574, 3570, 3000], 700, 200, "2026-11-20T08:32:22Z", 446),
+                P("d:2", "sell", 3612, 3620, 3632, [3608, 3604, 3600, 3596], 160, 200, "2026-11-20T05:55:00Z", 95),
+                P("d:3", "buy", 3540, 3532, 3520, [3544, 3548, 3552, 3556, 3560], 370, 200, "2026-11-19T03:39:00Z", 240)],
+        scalp: [P("d:4", "buy", 3533, 3534, 3528, [3538], 162, 50, "2026-11-20T01:24:00Z", 70),
+                P("d:5", "buy", 3541, 3542, 3537, [3546], -40, 40, "2026-11-20T04:33:00Z", 35)],
+        rr: [P("d:6", "sell", 3560, null, 3563.76, [3556, 3552, 3548, 3545], 150, 37.6, "2026-11-20T15:56:13Z", 130),
+             P("d:7", "sell", 3575, null, 3578.4, [3570, 3565, 3555], 237, 34.7, "2026-11-19T15:20:00Z", 180)],
+      }[room] || [];
+      return list;
+    },
+    async signalCandles(id) {
+      const p = Object.values({ swing: 1, scalp: 1, rr: 1 }).length && (await Promise.all(["swing", "scalp", "rr"].map((r) => this.signalPositions(r)))).flat().find((x) => x.id === id);
+      if (!p) throw new Error("not-found");
+      const o = Date.parse(p.opened_at) / 1000, c = Date.parse(p.closed_at) / 1000, dur = Math.max(c - o, 900);
+      const step = dur <= 8 * 3600 ? 300 : dur <= 3 * 86400 ? 900 : 3600, pad = Math.max(dur * .35, step * 24);
+      const t0 = Math.floor((o - pad) / step) * step, t9 = Math.ceil((c + pad * .6) / step) * step;
+      const ppu = 10, exit = p.side === "sell" ? p.entry - p.pips / ppu : p.entry + p.pips / ppu;
+      const approach = p.side === "sell" ? p.entry - 18 : p.entry + 18;
+      let seed = Math.round(o) % 9973; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+      const at = (t) => t <= o ? approach + (p.entry - approach) * (t - t0) / (o - t0)
+        : t <= c ? p.entry + (exit - p.entry) * Math.pow((t - o) / (c - o), .85) + Math.sin((t - o) / 1800) * Math.abs(exit - p.entry) * .06
+        : exit + Math.sin((t - c) / 2400) * 2.5;
+      const guard = p.pips >= 0 && p.sl != null ? (p.side === "sell" ? (v) => Math.min(v, p.sl - .4) : (v) => Math.max(v, p.sl + .4)) : (v) => v;
+      const out = []; let prev = at(t0);
+      for (let t = t0; t <= t9; t += step) {
+        const close = at(t + step) + (rnd() - .5) * 1.6, open = prev;
+        out.push({ t, o: +open.toFixed(2), h: +guard(Math.max(open, close) + rnd() * 1.3).toFixed(2), l: +guard(Math.min(open, close) - rnd() * 1.3).toFixed(2), c: +close.toFixed(2) });
+        prev = close;
+      }
+      return { tf: step === 300 ? "5min" : step === 900 ? "15min" : "1h", candles: out, sample: true };
+    },
     async chartSetup() {
       const last = 3480, r = (x) => +(Math.round(x * 2) / 2).toFixed(1);
       return { sample: true, source: "sample", tf: "15m", side: "buy", entry_lo: r(last - 3), entry_hi: r(last - 1), sl: r(last - 15),
@@ -426,6 +462,20 @@
       const pick = {}; ["url", "title", "is_live"].forEach((k) => { if (k in f) pick[k] = f[k]; });
       pick.updated_at = new Date().toISOString();
       return must(await sb.from("site_live").update(pick).eq("id", 1).select().single());
+    },
+    async signalPositions(room) {
+      const { data, error } = await sb.rpc("signal_positions", { p_room: room, p_limit: 60 });
+      if (error) throw new Error(/function|schema cache/i.test(error.message) ? "not-configured" : error.message);
+      return (data || []).map((r) => ({ ...numify(r), id: r.id, tps: (r.tps || []).map(Number) }));
+    },
+    async signalCandles(id) {
+      const { data, error } = await sb.functions.invoke("signal-candles", { body: { id } });
+      if (error) {
+        let code = "not-configured";
+        try { const j = await error.context.json(); code = j.error || code; } catch (_) { /* function not deployed or offline */ }
+        throw new Error(code);
+      }
+      return data;
     },
     async chartSetup() {
       const { data, error } = await sb.from("chart_setups").select("*").is("closed_at", null).order("created_at", { ascending: false }).limit(1);

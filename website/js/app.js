@@ -397,8 +397,69 @@
   // ------------------------------------------------------------ signal results (same view as the home page)
   function signals(v) {
     v.innerHTML = `<div class="view-head"><div><p class="muted">${t("sig.kicker")}</p><h2>${t("sig.title")}</h2></div></div>
-      <div class="sig" data-signals></div>${riskNote()}`;
-    if (window.OTMSignals) window.OTMSignals.render(v.querySelector("[data-signals]"), { room: state.sigRoom });
+      <div class="sig" data-signals></div>
+      ${approved() && window.OTMPosChart ? `<section class="card sp" id="sig-pos"></section>` : ""}${riskNote()}`;
+    const box = $("#sig-pos", v);
+    let shown = "";
+    if (window.OTMSignals) window.OTMSignals.render(v.querySelector("[data-signals]"), { room: state.sigRoom, onRoom: (room, from) => {
+      if (!box || shown === room + "|" + from) return;
+      shown = room + "|" + from; positions(box, room, from);
+    } });
+  }
+
+  // each closed signal of a room, drawn as a position on gold candles
+  let posCleanup = null;
+  async function positions(box, room, from) {
+    if (posCleanup) { posCleanup(); posCleanup = null; }
+    box.innerHTML = `<div class="sp__head"><h3>${t("sp.title")}</h3><small class="muted">${t("sp.lead")}</small></div><p class="muted">${t("gc.loading")}</p>`;
+    let list;
+    try { list = await state.store.signalPositions(room); }
+    catch (e) { box.innerHTML = `<div class="sp__head"><h3>${t("sp.title")}</h3></div><p class="muted">${t(e.message === "not-configured" ? "sp.notReady" : "sp.fail")}</p>`; return; }
+    if (currentRoute() !== "signals") return;
+    list = list.filter((p) => !from || p.opened_at.slice(0, 10) >= from).sort((a, b) => b.opened_at.localeCompare(a.opened_at));
+    if (!list.length) { box.innerHTML = `<div class="sp__head"><h3>${t("sp.title")}</h3></div><p class="muted">${t("sp.none")}</p>`; return; }
+    const P = window.OTMPosChart, n2 = (x) => (x == null ? "–" : fmt.num(+x, 2));
+    const when = (iso) => fmt.date(iso, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+    const rr = (p) => (p.risk > 0 && p.pips != null ? p.pips / p.risk : null);
+    const rrTxt = (r, sep = " : ") => (r == null ? "–" : r >= 0 ? `1${sep}${fmt.num(r, 1)}` : `${fmt.num(r, 1)}R`);   // a loss reads as −1.0R
+    const held = (p) => { const m = Math.max(0, Math.round((Date.parse(p.closed_at) - Date.parse(p.opened_at)) / 60e3)), h = Math.floor(m / 60);
+      return I.lang === "th" ? (h ? `${h} ชม. ${m % 60} น.` : `${m} นาที`) : (h ? `${h}h ${m % 60}m` : `${m}m`); };
+    const zone = (p) => (p.entry2 != null && +p.entry2 !== +p.entry ? `${n2(Math.min(p.entry, p.entry2))} – ${n2(Math.max(p.entry, p.entry2))}` : n2(p.entry));
+    let sel = list[0].id;
+    const render = async () => {
+      const p = list.find((x) => x.id === sel), ex = P.exitPrice(p), r = rr(p);
+      box.innerHTML = `<div class="sp__head"><h3>${t("sp.title")}</h3><small class="muted">${t("sp.lead")}</small></div>
+        <div class="sp__top"><span class="sp__side sp__side--${p.side}">${String(p.side).toUpperCase()}</span><b>XAUUSD</b><span class="muted">${when(p.opened_at)}</span>
+          ${p.sample ? `<span class="badge badge--warn">${t("sp.sample")}</span>` : ""}<span class="muted sp__tf" id="sp-tf"></span></div>
+        <div class="sp__chips">
+          <div><span>Entry</span><b>${zone(p)}</b></div><div><span>SL</span><b class="down">${n2(p.sl)}</b></div>
+          <div><span>${t("sp.exit")}</span><b class="gold">${n2(ex)}</b></div>
+          <div><span>${t("sp.result")}</span><b class="${p.pips >= 0 ? "up" : "down"}">${p.pips > 0 ? "+" : ""}${fmt.num(p.pips, 0)} pips</b></div>
+          <div><span>RR</span><b class="${r != null && r < 0 ? "down" : "gold"}">${rrTxt(r)}</b></div><div><span>${t("sp.held")}</span><b>${held(p)}</b></div>
+        </div>
+        <div class="sp__chart" id="sp-chart"><p class="muted sp__msg">${t("gc.loading")}</p></div>
+        <p class="sp__note">${t("sp.note")}</p>
+        <div class="sp__list" role="list">${list.map((x) => { const rx = rr(x); return `<button type="button" role="listitem" class="sp__row ${x.id === sel ? "is-on" : ""}" data-pos="${esc(x.id)}">
+            <small>${when(x.opened_at)}</small><span class="sp__pill sp__pill--${x.side}">${String(x.side).toUpperCase()}</span>
+            <small class="muted">Entry ${n2(x.entry)} · SL ${n2(x.sl)}</small>
+            <b class="${x.pips >= 0 ? "up" : "down"}">${x.pips > 0 ? "+" : ""}${fmt.num(x.pips, 0)} pips</b><b class="${rx != null && rx < 0 ? "down" : "gold"}">${rx == null ? "" : rrTxt(rx, ":")}</b></button>`; }).join("")}</div>`;
+      box.querySelectorAll("[data-pos]").forEach((b) => b.addEventListener("click", () => { sel = b.dataset.pos; render(); }));
+      if (posCleanup) { posCleanup(); posCleanup = null; }
+      try {
+        const c = await state.store.signalCandles(p.id);
+        if (sel !== p.id || currentRoute() !== "signals") return;
+        const tf = $("#sp-tf", box); if (tf) tf.textContent = { "5min": "5m", "15min": "15m", "1h": "1H" }[c.tf] || "";
+        const slPips = p.risk != null ? Math.round(p.risk) : null;
+        posCleanup = await P.draw($("#sp-chart", box), p, c.candles, {
+          exitLabel: `EXIT ${p.pips > 0 ? "+" : ""}${fmt.num(p.pips, 0)}`,
+          slTag: `SL ${n2(p.sl)}${slPips != null ? ` · −${slPips} pips (1R)` : ""}`,
+          exitTag: `${String(p.side).toUpperCase()} · ${t("sp.exit")} ${n2(ex)} · ${p.pips > 0 ? "+" : ""}${fmt.num(p.pips, 0)} pips${r != null ? ` · ${r >= 0 ? "RR " : ""}${rrTxt(r, ":")}` : ""}`,
+        });
+      } catch (e) {
+        const m = $("#sp-chart", box); if (m) m.innerHTML = `<p class="muted sp__msg">${t(e.message === "not-configured" ? "sp.notReady" : e.message === "chart-lib" ? "gc.tvFail" : "sp.noCandles")}</p>`;
+      }
+    };
+    render();
   }
 
   // ------------------------------------------------------------ journal

@@ -188,6 +188,7 @@
       wire();
     };
     const wire = () => {
+      if (opts.onRoom) opts.onRoom(rooms[cur].id, periodFrom(per));
       el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
       el.querySelectorAll("[data-per]").forEach((b) => b.addEventListener("click", () => { per = b.dataset.per; draw(); }));
     };

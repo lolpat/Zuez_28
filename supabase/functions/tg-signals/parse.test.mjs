@@ -1,6 +1,6 @@
 // node supabase/functions/tg-signals/parse.test.mjs  — checks the reader against the rooms' real message formats.
 import assert from "node:assert/strict";
-import { parseSignal, parseResult, applyResult, outcome } from "./parse.js";
+import { parseSignal, parseResult, applyResult, outcome, parseTargets } from "./parse.js";
 
 const sig = (t, room = "rr") => parseSignal(t, room);
 const res = (t) => parseResult(t);
@@ -49,4 +49,14 @@ assert.equal(res("แหก❌").kind, "sl");
 assert.equal(res("ไม้นี้ไม่เอานะครับยกเลย").kind, "cancel");
 assert.deepEqual(outcome(applyResult({}, res("เก็บ Full Tp 3812")), 35.8, 3865.04), { status: "win", pips: 530 });
 assert.deepEqual(res("✅+2700 แล้วTP1/2/3"), { kind: "tp", pips: 270 });
+// take-profit prices
+const tps = (t, room = "rr") => parseTargets(t, parseSignal(t, room));
+assert.deepEqual(tps("🥇 SWING ELITE\n\n#XAUUSD Sell\nENTRY: 3590//3600\n\n🎯 TP1: @ 3486\nTP2: @ 3582\nTP3: @ 3578\nTP4: @ 3574\nTP5: @ 3570\nTP6: @ 3000\n\n🛑 SL: @ 3610", "swing"),
+  [3486, 3582, 3578, 3574, 3570, 3000]);
+assert.deepEqual(tps("XAUUSD BUY 4261/4251\n\nTP1. @ 4265\nTP6. @ 4800\n\nSL     @ 4241", "swing"), [4265, 4800]);
+assert.deepEqual(tps("⚡ OTM SCALPING PRO\n\n🟢 BUY NOW\n\n📍 ENTRY ZONE: 4053–4056\n🛑 STOP LOSS: 4052\n\n🎯 TAKE PROFIT: 4063", "scalp"), [4063]);
+assert.deepEqual(tps("SELL NOW 5160-62 SL 5164 TP 5155 TP 5152", "scalp"), [5155, 5152]);
+assert.deepEqual(tps("BUY GOLD | 4564-63 ▪️SL: 4561.5 ▫️TP: 4580", "scalp"), [4580]);
+assert.deepEqual(tps("[ 17-11-2026 ] 📉SELL XAUUSD | Now SL: 3877.42 [ 345 POINTs ] TP 3868.80"), [3868.8]);   // no entry price: TP kept as posted
+assert.deepEqual(parseTargets("BUY GOLD 4000 SL 3990 TP 3980 TP 4010", parseSignal("BUY GOLD 4000 SL 3990", "scalp")), [4010]);   // wrong-side TP dropped
 console.log("parse.js: all checks passed");

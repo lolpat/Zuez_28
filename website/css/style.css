@@ -1462,3 +1462,27 @@ th.ibr-pcol { color: var(--accent-hi); }
 .sig-per { display: flex; justify-content: flex-end; margin: 4px 0 2px; }
 .dlast__num { display: grid; justify-items: end; gap: 1px; } .dlast__num small { font-size: .76rem; font-weight: 600; } .dlast__num small.up { color: var(--accent-hi); } .dlast__num small.down { color: var(--loss); }
 .dlast__num small { margin: 0; }
+/* per-signal position charts */
+.sp { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+.sp__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; } .sp__head h3 { margin: 0; }
+.sp__top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; } .sp__top b { font: 600 1.05rem var(--font-head); }
+.sp__tf { margin-left: auto; }
+.sp__side { font: 700 .78rem var(--font-head); letter-spacing: .08em; padding: 4px 12px; border-radius: 999px; }
+.sp__side--sell { background: var(--accent-2); color: #fff; } .sp__side--buy { background: var(--profit); color: #0b1405; }
+.sp__chips { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.sp__chips div { background: var(--surface); padding: 10px 14px; min-width: 0; }
+.sp__chips span { display: block; color: var(--muted); font-size: .74rem; letter-spacing: .05em; text-transform: uppercase; }
+.sp__chips b { font: 600 1.02rem var(--font-head); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sp__chips .up, .sp__row .up { color: var(--profit); } .sp__chips .down, .sp__row .down { color: var(--loss); } .sp__chips .gold, .sp__row .gold { color: var(--accent-hi); }
+@media (max-width: 760px) { .sp__chips { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sp__chart { position: relative; height: 520px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: rgba(0, 0, 0, .18); }
+.sp__chart .pc__chart { position: absolute; inset: 0; } .sp__chart .pc__boxes { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.sp__msg { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; padding: 20px; text-align: center; }
+.sp__note { margin: 0; font-size: .78rem; color: var(--muted); }
+.sp__list { display: grid; gap: 6px; max-height: 360px; overflow-y: auto; padding-right: 2px; }
+.sp__row { display: grid; grid-template-columns: 120px 64px minmax(0, 1fr) 110px 64px; align-items: center; gap: 10px; text-align: left; width: 100%;
+  padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; font-size: .9rem; cursor: pointer; }
+.sp__row:hover { border-color: rgba(var(--accent-rgb), .35); } .sp__row.is-on { border-color: rgba(var(--accent-rgb), .6); box-shadow: inset 3px 0 0 var(--accent); }
+.sp__row b { text-align: right; font-variant-numeric: tabular-nums; }
+.sp__pill { font: 700 .7rem var(--font-head); letter-spacing: .06em; padding: 3px 9px; border-radius: 999px; justify-self: start; }
+.sp__pill--sell { background: rgba(var(--accent-2-rgb), .18); color: #ff8aa5; } .sp__pill--buy { background: rgba(124, 252, 0, .12); color: var(--profit); }

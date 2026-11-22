@@ -4,7 +4,9 @@
 // Telegram sends every new or edited message in the VIP group here (the bot must be an admin of the group).
 //   - a message in a topic listed in public.signal_rooms is stored in public.tg_messages
 //   - a signal (BUY/SELL with an entry and a stop loss) opens a row in public.signal_trades
-//   - a reply under a signal (TARGET HIT, +pips, hit sl, BE, cancel) updates that row's result
+//   - a reply under a signal (TARGET HIT, +pips, hit sl, BE, cancel) updates that row's result, and closed_at
+//     (the time of the last reply about the result) once the trade is won, lost or break-even
+//   - the signal's take-profit prices are kept in tps (drawn on the portal's per-signal chart)
 // The reading rules live in parse.js, the same file that built the history on the website.
 //
 // Secrets (Supabase dashboard -> Edge Functions -> Secrets):
@@ -13,7 +15,7 @@
 //                       (shown on the home page). Without it everything else still works.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { parseSignal, parseResult, applyResult, outcome } from "./parse.js";
+import { parseSignal, parseResult, applyResult, outcome, parseTargets } from "./parse.js";
 
 const SECRET = Deno.env.get("TG_WEBHOOK_SECRET") ?? "";
 const BOT = Deno.env.get("TG_BOT_TOKEN") ?? "";
@@ -65,7 +67,7 @@ async function rootTrade(chatId: number, replyTo: number | null) {
 // Re-read every reply under a trade, in order, and store the result.
 async function recompute(trade: Record<string, any>) {
   const until = new Date(new Date(trade.opened_at).getTime() + 30 * 864e5).toISOString();
-  const { data } = await db.from("tg_messages").select("message_id, reply_to, text")
+  const { data } = await db.from("tg_messages").select("message_id, reply_to, text, sent_at")
     .eq("chat_id", trade.chat_id).gt("sent_at", trade.opened_at).lte("sent_at", until)
     .order("sent_at").order("message_id").limit(5000);
   const rows = data ?? [];
@@ -82,10 +84,15 @@ async function recompute(trade: Record<string, any>) {
     }
     return false;
   };
-  let st = {};
-  for (const m of rows) if (belongs(m.message_id)) st = applyResult(st, parseResult(m.text ?? ""));
+  let st = {}, lastAt: string | null = null;
+  for (const m of rows) {
+    if (!belongs(m.message_id)) continue;
+    const r = parseResult(m.text ?? "");
+    if (r) { st = applyResult(st, r); lastAt = m.sent_at; }      // the last reply that said something about the result
+  }
   const o = outcome(st, trade.risk, trade.entry, trade.symbol);
-  await db.from("signal_trades").update({ status: o.status, pips: o.pips, updated_at: new Date().toISOString() })
+  const closedAt = o.status === "win" || o.status === "loss" || o.status === "be" ? lastAt : null;
+  await db.from("signal_trades").update({ status: o.status, pips: o.pips, closed_at: closedAt, updated_at: new Date().toISOString() })
     .eq("chat_id", trade.chat_id).eq("message_id", trade.message_id);
 }
 
@@ -125,7 +132,7 @@ Deno.serve(async (req) => {
       const trade = {
         chat_id: chatId, message_id: msg.message_id, opened_at: sentAt,
         room: sig.symbol === "XAUUSD" ? room : "hype", symbol: sig.symbol, side: sig.side,
-        entry: sig.entry, entry2: sig.entry2, sl: sig.sl, risk: sig.risk,
+        entry: sig.entry, entry2: sig.entry2, sl: sig.sl, risk: sig.risk, tps: parseTargets(text, sig),
       };
       await db.from("signal_trades").upsert(trade, { onConflict: "chat_id,message_id", ignoreDuplicates: false });
       const { data: t } = await db.from("signal_trades").select("*").eq("chat_id", chatId).eq("message_id", msg.message_id).single();
