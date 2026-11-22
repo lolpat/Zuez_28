@@ -102,6 +102,16 @@
     if (!db || !db.users) { db = seed(); saveDemo(); }
     if (!db.lb) addLeaderboardDemo();
     if (db.lb < 2) addMoreDemoMembers();
+    if (!db.ownerSample) {   // the owner's demo login gets sample accounts and trades too, so every page shows something
+      const at = new Date().toISOString();
+      if (!db.accounts.some((a) => a.user_id === "owner")) {
+        db.accounts.push(
+          { id: "a-own1", user_id: "owner", broker: "puprime", account_number: "81109001", server: "PUPrime-Live 2", platform: "MT5", currency: "USD", start_balance: 2000, account_type: "live", created_at: at },
+          { id: "a-own2", user_id: "owner", broker: "vantage", account_number: "58009001", server: "VantageInternational-Live 3", platform: "MT5", currency: "USD", start_balance: 1000, account_type: "live", created_at: at });
+        db.trades.push(...makeTrades("owner", "a-own1", 120, 0.68, 120), ...makeTrades("owner", "a-own2", 45, 0.62, 60));
+      }
+      db.ownerSample = 1; saveDemo();
+    }
     if (!db.flags) {   // sample members' countries for the leaderboard flags ("me" picks their own)
       const C = { ib1: "TH", ib2: "TH", m2: "TH", m3: "TH", m4: "TH", m5: "LA", ib3: "MY", m6: "TH" };
       const S = ["TH", "TH", "TH", "LA", "TH", "MY", "TH", "NO", "TH", "SG", "TH", "KH"];
