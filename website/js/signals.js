@@ -128,14 +128,28 @@
     const hasData = (r) => (r.trades && r.trades.length) || (r.days && r.days.length);
     const rooms = D.rooms.map((r, k) => hasData(r) ? { ...r, real: true } : { ...r, real: false, trades: live ? [] : sample(r, k) });
     let cur = Math.max(0, rooms.findIndex((r) => r.id === opts.room));
+    // period filter (signal dates are UTC days, like the rest of the site; weeks start on Monday)
+    let per = opts.per || "all";
+    const periodFrom = (p) => {
+      if (p === "all") return "";
+      const now = new Date(), today = now.toISOString().slice(0, 10);
+      if (p === "day") return today;
+      if (p === "month") return today.slice(0, 8) + "01";
+      const m = new Date(now); m.setUTCDate(m.getUTCDate() - ((m.getUTCDay() + 6) % 7)); return m.toISOString().slice(0, 10);
+    };
+    const inPer = (r) => { const f = periodFrom(per); return f ? { ...r, trades: (r.trades || []).filter((x) => x[0] >= f), days: r.days ? r.days.filter((x) => x[0] >= f) : r.days } : r; };
+    const perSeg = () => `<div class="sig-per"><div class="seg seg--sm" role="group" aria-label="${esc(t("sig.per"))}">${["all", "day", "week", "month"].map((k) => `<button type="button" data-per="${k}" aria-pressed="${per === k}">${t("sig.per." + k)}</button>`).join("")}</div></div>`;
+    const perNone = () => `<p class="sig-soon">${t("sig.per.none")}</p>`;
     const months = (m) => new Date(m + "-15T12:00:00").toLocaleDateString(root.OTMI18n.lang === "th" ? "th-TH" : "en-GB", { month: "long", year: "numeric" });
     const draw = () => {
-      const r = rooms[cur], isSample = !r.real && !live;
-      if (r.days && r.days.length) return drawDays(r);
+      const r0 = rooms[cur];
+      if (r0.days && r0.days.length) return drawDays(inPer(r0));
+      const r = inPer(r0), isSample = !r.real && !live;
       const s = compute(r, D.deduct ?? 0.15);
       const bars = s.months.slice().reverse();
       el.innerHTML = `
         ${tabs()}
+        ${perSeg()}
         ${isSample ? `<div class="sig-sample"><b>${t("sig.sample.t")}</b> ${t("sig.sample.d")}</div>` : ""}
         <div class="sig-head card">
           <span class="sig-head__b">${badge(r)}</span>
@@ -168,20 +182,28 @@
             <tbody>${s.months.map((g) => `<tr><td>${months(g.m)}</td><td class="r">${g.n}</td><td class="r gold">${num((g.w / g.n) * 100, 0)}%</td><td class="r">${g.w}</td><td class="r">${g.l}</td>${s.rr ? `<td class="r">${g.rn ? sgn(g.r, 1) : "–"}</td>` : ""}<td class="r ${g.pips >= 0 ? "up" : "down"}">${sgn(g.pips)}</td></tr>`).join("")}</tbody></table></div></section>
           <section class="card sig-card"><h4>📈 ${t("sig.byMonth")}</h4>
             ${root.OTMCharts ? root.OTMCharts.bars(bars.map((g) => ({ label: bars.length > 7 ? new Date(g.m + "-15T12:00:00").toLocaleDateString(root.OTMI18n.lang === "th" ? "th-TH" : "en-GB", { month: "short" }) : months(g.m).replace(/\s*\d{4}$/, ""), value: g.pips, sub: bars.length > 7 ? "" : String(g.m.slice(0, 4)) })), { fmt: (x) => sgn(x) + " pips", short: (x) => (Math.abs(x) >= 1000 ? sgn(x / 1000, 1) + "k" : sgn(x)), label: t("sig.byMonth"), w: 420, h: 230 }) : ""}</section>
-        </div>` : `<p class="sig-soon">${t("sig.soon")}</p>`}
+        </div>` : per !== "all" && (r0.trades || []).length ? perNone() : `<p class="sig-soon">${t("sig.soon")}</p>`}
         ${r.real && (r.unresolved || r.cancelled) ? `<p class="sig-note">${t("sig.unres", { n: r.unresolved || 0, c: r.cancelled || 0 })}</p>` : ""}
         <p class="sig-note">${t("sig.note")}</p>`;
       wire();
     };
-    const wire = () => el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
+    const wire = () => {
+      el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
+      el.querySelectorAll("[data-per]").forEach((b) => b.addEventListener("click", () => { per = b.dataset.per; draw(); }));
+    };
     const tabs = () => `<div class="sig-tabs" role="tablist" aria-label="${esc(t("sig.rooms"))}">${rooms.map((x, i) => `
           <button type="button" role="tab" class="sig-tab ${i === cur ? "is-on" : ""}" aria-selected="${i === cur}" data-room="${i}">
             <span class="sig-tab__b">${badge(x)}</span><span>${esc(x.name)}</span></button>`).join("")}</div>`;
     // a room recorded from its weekly summaries
     const drawDays = (r) => {
+      if (!r.days.length) {
+        el.innerHTML = `${tabs()}${perSeg()}<div class="sig-head card"><span class="sig-head__b">${badge(r)}</span><div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}</small></div></div>${perNone()}`;
+        return wire();
+      }
       const s = computeDays(r, D.deduct ?? 0.15), bars = s.months.slice().reverse(), pf = s.pf === Infinity ? "∞" : num(s.pf, 1);
       el.innerHTML = `
         ${tabs()}
+        ${perSeg()}
         <div class="sig-head card">
           <span class="sig-head__b">${badge(r)}</span>
           <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })} · ${t("sig.range", { a: nb(s.from), b: nb(s.to) })} · ${t("sig.fromWeekly", { n: s.weeks })}</small></div>
@@ -272,7 +294,7 @@
       const s = compute(r, D.deduct ?? 0.15), x = r.trades.reduce((a, y) => (key(y) >= key(a) ? y : a));
       const same = r.trades.filter((y) => y[0] === x[0]);
       const day = { date: x[0], pips: same.reduce((t, y) => t + y[3], 0), n: same.length, at: x[5] || "" };
-      const byDay = r.trades.map((y) => ({ date: y[0], pips: y[3], n: 1, wins: y[3] > 0 ? 1 : 0, losses: y[3] < 0 ? 1 : 0 }));
+      const byDay = r.trades.map((y) => ({ date: y[0], pips: y[3], n: 1, wins: y[3] > 0 ? 1 : 0, losses: y[3] < 0 ? 1 : 0, r: y[4] > 0 ? y[3] / y[4] : null }));
       return { ...base, kind: "trades", wr: s.wr, total: s.total, n: s.n, rr: s.rr, day, byDay,
         last: { date: x[0], symbol: x[1], side: x[2], pips: x[3], r: x[4] > 0 ? x[3] / x[4] : null, at: x[5] || "" } };
     });

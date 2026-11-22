@@ -1459,3 +1459,6 @@ th.ibr-pcol { color: var(--accent-hi); }
 .lv__err { grid-column: 1 / -1; margin: 0; color: var(--loss); font-size: .85rem; }
 .lv__help { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .8rem; }
 @media (max-width: 760px) { .lv__form { grid-template-columns: minmax(0, 1fr); } }
+.sig-per { display: flex; justify-content: flex-end; margin: 4px 0 2px; }
+.dlast__num { display: grid; justify-items: end; gap: 1px; } .dlast__num small { font-size: .76rem; font-weight: 600; } .dlast__num small.up { color: var(--accent-hi); } .dlast__num small.down { color: var(--loss); }
+.dlast__num small { margin: 0; }

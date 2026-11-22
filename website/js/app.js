@@ -300,8 +300,9 @@
       const n = rows.every((x) => x.n != null) ? rows.reduce((a, x) => a + x.n, 0) : null;
       const sl = rows.reduce((a, x) => a + (x.losses || 0), 0);
       const sub = !rows.length ? t("dash.per.none") : [n != null ? t("dash.latest.n", { n }) : "", sl ? t("dash.per.sl", { n: sl }) : ""].filter(Boolean).join(" · ");
+      const rr = rows.filter((x) => x.r != null), R = rr.reduce((a, x) => a + x.r, 0);
       return `<li><span aria-hidden="true">${ROOM_ICON[r.id] || "•"}</span>
-        <span>${esc(r.name)}<small>${sub}</small></span>${rows.length ? `<b class="${pips >= 0 ? "up" : "down"}">${pipsTxt(pips)}</b>` : `<b class="muted">–</b>`}</li>`;
+        <span>${esc(r.name)}<small>${sub}</small></span>${rows.length ? `<span class="dlast__num"><b class="${pips >= 0 ? "up" : "down"}">${pipsTxt(pips)}</b>${rr.length ? `<small class="${R >= 0 ? "up" : "down"}" title="${esc(t("dash.per.rTip", { n: rr.length }))}">${R >= 0 ? "+" : ""}${fmt.num(R, 1)}R</small>` : ""}</span>` : `<b class="muted">–</b>`}</li>`;
     }).join("") + `<li class="dlast__span"><small>${span}</small></li>`;
   }
   function latestHtml(list) {
