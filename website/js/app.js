@@ -1458,7 +1458,7 @@
             <label class="field"><span>${t("tools.deposit")}</span><input class="input" name="dep" type="number" inputmode="decimal" value="100" min="0"></label>
             <label class="field"><span>${t("tools.months")}</span><input class="input" name="months" type="number" inputmode="numeric" value="12" min="1" max="120"></label>
           </form>
-          <div class="kpis" style="grid-template-columns:repeat(3,1fr);margin-top:18px" id="cmp-out"></div>
+          <div class="kpis cmp-out" id="cmp-out"></div>
           <div id="cmp-chart"></div>
           <p class="muted" style="font-size:.84rem">${t("tools.note")}</p>
         </section>

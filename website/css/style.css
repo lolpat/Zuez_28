@@ -1518,3 +1518,14 @@ th.ibr-pcol { color: var(--accent-hi); }
 .step::after { background: var(--line); height: 1px; }
 
 .hero__dot { animation: none; }
+
+/* layout fixes: nothing overlaps at the phone's scaled width */
+.lb-join__form .field { flex: 1 1 200px; min-width: 0; }
+.lb-join__form .field .input { width: 100%; }
+.lb-join__form > .btn { flex: none; }
+@media (min-width: 900px) { .net-row { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) minmax(0, .9fr) auto; } }
+.net-row > * { min-width: 0; }
+.net-row__who { overflow: hidden; }
+.net-row__meta { overflow-wrap: anywhere; }
+.cmp-out { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 18px; }
+.cmp-out .kpi__val { font-size: clamp(1.2rem, 2.2vw, 1.6rem); white-space: nowrap; }
