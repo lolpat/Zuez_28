@@ -24,7 +24,7 @@
     box.innerHTML = `<div class="pc__chart"></div><canvas class="pc__boxes" aria-hidden="true"></canvas>`;
     const el = box.querySelector(".pc__chart"), cv = box.querySelector(".pc__boxes"), ctx = cv.getContext("2d");
     const css = getComputedStyle(document.documentElement), col = (n, f) => (css.getPropertyValue(n) || "").trim() || f;
-    const gold = col("--accent", "#dcb84a"), hi = col("--accent-hi", "#f0d68c"), pink = col("--accent-2", "#e52150"), loss = col("--loss", "#ff6b5e"), profit = col("--profit", "#7cfc00");
+    const gold = col("--accent", "#dcb84a"), hi = col("--accent-hi", "#f0d68c"), pink = col("--accent-2", "#e52150"), loss = col("--loss", "#ff6b5e"), profit = col("--profit", "#5ad17f");
     const tz = -new Date().getTimezoneOffset() * 60;               // the viewer's own clock
     const chart = LW.createChart(el, {
       autoSize: true,
@@ -68,7 +68,7 @@
       const rect = (a, b, fill, stroke) => { const ya = y(a), yb = y(b); if (ya == null || yb == null) return; const top = Math.min(ya, yb), h = Math.abs(yb - ya);
         ctx.fillStyle = fill; ctx.fillRect(x1, top, w, h); ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.strokeRect(x1 + .5, top + .5, w, h); };
       if (sl != null) rect(entry, sl, "rgba(255,107,94,.15)", "rgba(255,107,94,.55)");
-      if (ex != null && ex !== entry) rect(entry, ex, p.pips >= 0 ? "rgba(124,252,0,.12)" : "rgba(255,107,94,.28)", p.pips >= 0 ? "rgba(124,252,0,.5)" : "rgba(255,107,94,.8)");
+      if (ex != null && ex !== entry) rect(entry, ex, p.pips >= 0 ? "rgba(90, 209, 127,.12)" : "rgba(255,107,94,.28)", p.pips >= 0 ? "rgba(90, 209, 127,.5)" : "rgba(255,107,94,.8)");
       if (zoneHi != null && y(zoneHi) != null) { ctx.fillStyle = "rgba(243,238,233,.08)"; const a = y(zoneHi), b = y(entry); ctx.fillRect(x1, Math.min(a, b), w, Math.abs(b - a)); }
       ctx.setLineDash([4, 4]); ctx.strokeStyle = "rgba(240,214,140,.6)"; ctx.font = "600 11px Kanit, sans-serif";
       (p.tps || []).map(Number).forEach((v, i) => { if (!reached.includes(v)) return; const yy = y(v); if (yy == null) return;
@@ -83,7 +83,7 @@
         const x = Math.min(x1 + 6, r.width - tw - 70); ctx.fillStyle = bg; ctx.beginPath(); (ctx.roundRect ? ctx.roundRect(x, yy - 11, tw, 22, 6) : ctx.rect(x, yy - 11, tw, 22)); ctx.fill(); ctx.fillStyle = fg; ctx.fillText(txt, x + 7, yy + 4); };
       const away = (v) => { const a = y(v), b = y(entry); return a == null ? null : a + (a >= b ? 16 : -16); };   // just outside the box
       if (sl != null) tag(opts.slTag, away(sl), "rgba(255,107,94,.92)", "#1a0b0a");
-      if (ex != null && ex !== entry) tag(opts.exitTag, away(ex), p.pips >= 0 ? "rgba(124,252,0,.92)" : "rgba(255,107,94,.92)", p.pips >= 0 ? "#0b1405" : "#1a0b0a");
+      if (ex != null && ex !== entry) tag(opts.exitTag, away(ex), p.pips >= 0 ? "rgba(90, 209, 127,.92)" : "rgba(255,107,94,.92)", p.pips >= 0 ? "#0b1405" : "#1a0b0a");
     };
     const redraw = () => requestAnimationFrame(paint);
     chart.timeScale().subscribeVisibleLogicalRangeChange(redraw);
