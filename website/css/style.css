@@ -1494,7 +1494,7 @@ th.ibr-pcol { color: var(--accent-hi); }
 /* colour: solid gold headings, no colour washes behind content */
 .hero h1, .netcard__num, .wins__head h2 em, .sig .gold, .jt__val.gold {
   background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--accent-hi); -webkit-text-fill-color: currentColor; }
-.hero::before, .netcard::after, .orbit__glow, .cosmos__rays, .cosmos__stars, .cosmos__orb, .orbit__arc, .band__arc { display: none; }
+.hero::before, .netcard::after, .band__arc { display: none; }   /* the hero orbit is kept as it was (owner's choice) */
 .band { background: var(--surface); border-color: var(--line); }
 .sig-kpis { background: var(--surface); border-color: var(--line); }
 .sig-kpis > div + div { border-left-color: var(--line); }
@@ -1517,5 +1517,4 @@ th.ibr-pcol { color: var(--accent-hi); }
 /* one accent: the step cards get a hairline instead of a red bar */
 .step::after { background: var(--line); height: 1px; }
 
-/* motion: the logo and its ring stay still */
-.orbit__mark, .orbit__ring, .hero__dot { animation: none; }
+.hero__dot { animation: none; }
