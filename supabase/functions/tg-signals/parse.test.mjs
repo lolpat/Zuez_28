@@ -59,6 +59,10 @@ assert.deepEqual(tps("SELL NOW 5160-62 SL 5164 TP 5155 TP 5152", "scalp"), [5155
 assert.deepEqual(tps("BUY GOLD | 4564-63 ▪️SL: 4561.5 ▫️TP: 4580", "scalp"), [4580]);
 assert.deepEqual(tps("[ 17-11-2026 ] 📉SELL XAUUSD | Now SL: 3877.42 [ 345 POINTs ] TP 3868.80"), [3868.8]);   // no entry price: TP kept as posted
 assert.deepEqual(parseTargets("BUY GOLD 4000 SL 3990 TP 3980 TP 4010", parseSignal("BUY GOLD 4000 SL 3990", "scalp")), [4010]);   // wrong-side TP dropped
+// "Stop Loss (SL): …" (BTCUSD room)
+const btc = sig("🚨 BTCUSD SELL SIGNAL 🔴\n\n🔴 Direction: SELL NOW\n💰 Entry: 61,300\n🛑 Stop Loss (SL): 61,800\n\n🎯 Take Profit: 60,500", "hype");
+assert.equal(btc.sl, 61800); assert.equal(btc.entry, 61300); assert.equal(btc.risk, 50);
+assert.equal(sig("🚨 BTCUSD SELL SIGNAL 🔴\n\n🔴 Direction: SELL\n💰 Entry: 60,260\n🛑 SL: 60,570\n\n🎯 Take Profit: 59,000", "hype").risk, 31);
 // results posted on their own
 assert.deepEqual(res("BTCUSD ENDED WITH 1500points 4.8RR"), { kind: "run", pips: 150 });
 assert.equal(mentionedSymbol("BTCUSD ENDED WITH 1500points 4.8RR"), "BTCUSD");

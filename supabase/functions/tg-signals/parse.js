@@ -57,7 +57,7 @@ export function parseSignal(text, room) {
   const em =
     t.match(new RegExp(`(?:ENTRY(?:\\s*ZONE)?|LIMIT|BUY\\s*STOP|SELL\\s*STOP)[^:\\n]*:\\s*(?:(?:BUY|SELL)\\s*NOW|NOW)?\\s*\\(?\\s*${R}`, "i")) ||
     t.match(new RegExp(`\\b(?:BUY|SELL)\\b(?:\\s+(?:GOLD|XAUUSD|BTCUSD|NAS100))?(?:\\s+(?:NOW|LIMIT|STOP|AGAIN|HIGH ?RISK))*\\s*[|:@]?\\s*\\(?\\s*${R}`, "i"));
-  const slm = t.match(/(?:STOP\s*LOSS|\bSL\b)\.?\s*[:@]?\s*@?\s*(\d[\d,]*(?:\.\d+)?)/i);
+  const slm = t.match(/(?:STOP\s*LOSS(?:\s*\(\s*SL\s*\))?|\bSL\b)\.?\s*[:@]?\s*@?\s*(\d[\d,]*(?:\.\d+)?)/i);   // also "Stop Loss (SL): 61,800"
   let e1 = em ? num(em[1]) : null, e2 = em ? expand(e1, em[2]) : null, sl = slm ? num(slm[1]) : null;
   const plausible = (v) => v != null && (sym === "XAUUSD" ? v > 1500 && v < 9000 : v > 1000);
   if (!plausible(e1)) { e1 = null; e2 = null; }
