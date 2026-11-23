@@ -17,6 +17,9 @@
 const norm = (t) => String(t || "").normalize("NFKC");
 const num = (s) => Number(String(s).replace(/,/g, ""));
 
+// the instrument a message names, if any (used to match a result posted without replying to its signal)
+export function mentionedSymbol(text) { return symbolOf(norm(text)); }
+
 function symbolOf(t) {
   if (/\bBTC/i.test(t)) return "BTCUSD";
   if (/NAS100|US100|NASDAQ/i.test(t)) return "NAS100";

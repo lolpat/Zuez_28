@@ -7,6 +7,8 @@
 //   - a reply under a signal (TARGET HIT, +pips, hit sl, BE, cancel) updates that row's result, and closed_at
 //     (the time of the last reply about the result) once the trade is won, lost or break-even
 //   - the signal's take-profit prices are kept in tps (drawn on the portal's per-signal chart)
+//   - a result posted without replying to its signal is matched to the newest open signal in the same room
+//     (same instrument when the message names one) and remembered in tg_messages.trade_ref
 // The reading rules live in parse.js, the same file that built the history on the website.
 //
 // Secrets (Supabase dashboard -> Edge Functions -> Secrets):
@@ -15,7 +17,7 @@
 //                       (shown on the home page). Without it everything else still works.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { parseSignal, parseResult, applyResult, outcome, parseTargets } from "./parse.js";
+import { parseSignal, parseResult, applyResult, outcome, parseTargets, mentionedSymbol } from "./parse.js";
 
 const SECRET = Deno.env.get("TG_WEBHOOK_SECRET") ?? "";
 const BOT = Deno.env.get("TG_BOT_TOKEN") ?? "";
@@ -67,7 +69,7 @@ async function rootTrade(chatId: number, replyTo: number | null) {
 // Re-read every reply under a trade, in order, and store the result.
 async function recompute(trade: Record<string, any>) {
   const until = new Date(new Date(trade.opened_at).getTime() + 30 * 864e5).toISOString();
-  const { data } = await db.from("tg_messages").select("message_id, reply_to, text, sent_at")
+  const { data } = await db.from("tg_messages").select("message_id, reply_to, text, sent_at, trade_ref")
     .eq("chat_id", trade.chat_id).gt("sent_at", trade.opened_at).lte("sent_at", until)
     .order("sent_at").order("message_id").limit(5000);
   const rows = data ?? [];
@@ -75,7 +77,9 @@ async function recompute(trade: Record<string, any>) {
   const { data: others } = await db.from("signal_trades").select("message_id").eq("chat_id", trade.chat_id)
     .gt("opened_at", trade.opened_at).lte("opened_at", until);
   const otherTrades = new Set((others ?? []).map((t) => t.message_id));
+  const linked = new Set(rows.filter((m) => m.trade_ref === trade.message_id).map((m) => m.message_id));
   const belongs = (id: number) => {
+    if (linked.has(id)) return true;                          // a result posted without replying, matched to this trade
     let r = parent.get(id) ?? null;
     for (let i = 0; r != null && i < 30; i++) {
       if (r === trade.message_id) return true;
@@ -139,7 +143,18 @@ Deno.serve(async (req) => {
       if (t) await recompute(t);                              // an edited signal may already have replies
       return ok();
     }
-    const trade = await rootTrade(chatId, replyTo);
+    let trade = await rootTrade(chatId, replyTo);
+    // a result posted on its own (not as a reply), like "BTCUSD ENDED WITH 1500points 4.8RR": match it to the newest
+    // open signal in the same room from the last 3 days, of the instrument the message names if it names one
+    if (!trade && parseResult(text)) {
+      const sym = mentionedSymbol(text);
+      let q = db.from("signal_trades").select("*").eq("chat_id", chatId).eq("room", room).eq("status", "open")
+        .lt("opened_at", sentAt).gte("opened_at", new Date(msg.date * 1000 - 3 * 864e5).toISOString());
+      if (sym && sym !== "OTHER") q = q.eq("symbol", sym);
+      const { data: open } = await q.order("opened_at", { ascending: false }).limit(1);
+      trade = open?.[0] ?? null;
+      if (trade) await db.from("tg_messages").update({ trade_ref: trade.message_id }).eq("chat_id", chatId).eq("message_id", msg.message_id);
+    }
     if (trade) await recompute(trade);
   } catch (e) {
     console.error("tg-signals", e);                           // still 200, so Telegram doesn't resend forever

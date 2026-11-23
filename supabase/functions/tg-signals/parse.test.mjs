@@ -1,6 +1,6 @@
 // node supabase/functions/tg-signals/parse.test.mjs  — checks the reader against the rooms' real message formats.
 import assert from "node:assert/strict";
-import { parseSignal, parseResult, applyResult, outcome, parseTargets } from "./parse.js";
+import { parseSignal, parseResult, applyResult, outcome, parseTargets, mentionedSymbol } from "./parse.js";
 
 const sig = (t, room = "rr") => parseSignal(t, room);
 const res = (t) => parseResult(t);
@@ -59,4 +59,8 @@ assert.deepEqual(tps("SELL NOW 5160-62 SL 5164 TP 5155 TP 5152", "scalp"), [5155
 assert.deepEqual(tps("BUY GOLD | 4564-63 ▪️SL: 4561.5 ▫️TP: 4580", "scalp"), [4580]);
 assert.deepEqual(tps("[ 17-11-2026 ] 📉SELL XAUUSD | Now SL: 3877.42 [ 345 POINTs ] TP 3868.80"), [3868.8]);   // no entry price: TP kept as posted
 assert.deepEqual(parseTargets("BUY GOLD 4000 SL 3990 TP 3980 TP 4010", parseSignal("BUY GOLD 4000 SL 3990", "scalp")), [4010]);   // wrong-side TP dropped
+// results posted on their own
+assert.deepEqual(res("BTCUSD ENDED WITH 1500points 4.8RR"), { kind: "run", pips: 150 });
+assert.equal(mentionedSymbol("BTCUSD ENDED WITH 1500points 4.8RR"), "BTCUSD");
+assert.equal(mentionedSymbol("Full TP let's close 50%"), null);
 console.log("parse.js: all checks passed");

@@ -3,11 +3,14 @@
 --
 --   signal_trades.tps        the signal's take-profit prices, in the order posted (the bot fills it from now on)
 --   signal_trades.closed_at  when the trade closed: the time of the last reply about its result
+--   tg_messages.trade_ref    for a result posted without replying to its signal, the signal it was matched to
 --   signal_positions(room)   closed signals with their prices, for APPROVED members only. Open trades stay hidden.
 --   price_candles / price_windows   gold candles fetched for those charts by the signal-candles function (Twelve Data)
 
 alter table public.signal_trades add column if not exists tps numeric[];
 alter table public.signal_trades add column if not exists closed_at timestamptz;
+-- a result posted without replying to its signal: which signal the bot matched it to
+alter table public.tg_messages add column if not exists trade_ref bigint;
 
 -- fill tps for the signals already stored (same reading as the bot: TP / TAKE PROFIT / TARGET followed by a price,
 -- on the profit side of the entry)
