@@ -63,6 +63,9 @@ assert.deepEqual(parseTargets("BUY GOLD 4000 SL 3990 TP 3980 TP 4010", parseSign
 const btc = sig("🚨 BTCUSD SELL SIGNAL 🔴\n\n🔴 Direction: SELL NOW\n💰 Entry: 61,300\n🛑 Stop Loss (SL): 61,800\n\n🎯 Take Profit: 60,500", "hype");
 assert.equal(btc.sl, 61800); assert.equal(btc.entry, 61300); assert.equal(btc.risk, 50);
 assert.equal(sig("🚨 BTCUSD SELL SIGNAL 🔴\n\n🔴 Direction: SELL\n💰 Entry: 60,260\n🛑 SL: 60,570\n\n🎯 Take Profit: 59,000", "hype").risk, 31);
+// "hit -50pips" (no "SL" in the text) is a stop loss
+assert.deepEqual(res("hit -50pips"), { kind: "sl", pips: 50 });
+assert.deepEqual(res("+43pips"), { kind: "run", pips: 43 });
 // results posted on their own
 assert.deepEqual(res("BTCUSD ENDED WITH 1500points 4.8RR"), { kind: "run", pips: 150 });
 assert.equal(mentionedSymbol("BTCUSD ENDED WITH 1500points 4.8RR"), "BTCUSD");

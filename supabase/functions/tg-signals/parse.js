@@ -118,6 +118,8 @@ export function parseResult(text) {
     const neg = am.map(Math.abs);
     return { kind: "sl", pips: neg.length ? Math.max(...neg) : null };
   }
+  // only a loss posted, like "hit -50pips": a stop loss
+  if (!notSl && am.length && am.every((v) => v < 0) && /\bhit\b|❌/.test(low)) return { kind: "sl", pips: Math.max(...am.map(Math.abs)) };
   if (/\b(be|break-?even)\b.*\b(hit|count)|count\w*\b.{0,20}\bbe\b|hit\s+be|run\s+and\s+be\b|กินหน้าทุน/.test(low)) return { kind: "be" };
   if (!am.length) { const bare = t.match(/[✅👑]\s*\+\s*(\d[\d,]{2,})/); if (bare) am.push(num(bare[1]) / 10); }
   const pos = am.filter((v) => v > 0);
