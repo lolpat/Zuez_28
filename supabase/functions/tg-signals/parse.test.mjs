@@ -66,6 +66,12 @@ assert.equal(sig("🚨 BTCUSD SELL SIGNAL 🔴\n\n🔴 Direction: SELL\n💰 Ent
 // "hit -50pips" (no "SL" in the text) is a stop loss
 assert.deepEqual(res("hit -50pips"), { kind: "sl", pips: 50 });
 assert.deepEqual(res("+43pips"), { kind: "run", pips: 43 });
+// a missed entry counts as cancelled; a TP posted before it still wins
+assert.deepEqual(res("Missed entry"), { kind: "cancel" });
+assert.deepEqual(res("Fuck we missed 😭"), { kind: "cancel" });
+assert.deepEqual(res("Lottery — not in time, 10 sec SL"), { kind: "cancel" });
+assert.deepEqual(res("เข้าไม่ทัน"), { kind: "cancel" });
+assert.deepEqual(outcome(applyResult(applyResult({}, res("✅ +600 POINTS TP1")), res("Missed entry")), 35), { status: "win", pips: 60 });
 // results posted on their own
 assert.deepEqual(res("BTCUSD ENDED WITH 1500points 4.8RR"), { kind: "run", pips: 150 });
 assert.equal(mentionedSymbol("BTCUSD ENDED WITH 1500points 4.8RR"), "BTCUSD");

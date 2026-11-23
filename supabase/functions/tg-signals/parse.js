@@ -107,7 +107,8 @@ function amounts(t) {
 export function parseResult(text) {
   const t = norm(text), low = t.toLowerCase();
   if (!t.trim()) return null;
-  if (/\bcancel|ยกเลิก|ยกเลย|ไม่เอานะ|^\s*ยกครับ/.test(low)) return { kind: "cancel" };
+  // cancelled, or the entry was missed ("Missed entry", "we missed", "not in time", "เข้าไม่ทัน"): the trade didn't happen
+  if (/\bcancel|ยกเลิก|ยกเลย|ไม่เอานะ|^\s*ยกครับ|\bmissed\b|not in time|เข้าไม่ทัน/.test(low)) return { kind: "cancel" };
   const full = t.match(/full\s*tp\s*@?\s*(\d{4}(?:\.\d+)?)/i);
   if (full) return { kind: "tpprice", price: num(full[1]) };
   const tgt = t.match(/TARGET\s*(\d)\.?\s*HIT\s*(\d+)/i);
