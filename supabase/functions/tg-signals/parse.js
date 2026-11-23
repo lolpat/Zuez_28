@@ -80,7 +80,7 @@ export function parseSignal(text, room) {
 export function parseTargets(text, sig) {
   if (!sig) return [];
   const t = norm(text), out = [];
-  const re = /(?:\bTP\s*(?:\d{1,2}(?!\d))?|TAKE\s*PROFIT\s*(?:\d{1,2}(?!\d))?|TARGET\s*(?:\d{1,2}(?!\d))?)\s*[.:@=]*\s*@?\s*(\d[\d,]*(?:\.\d+)?)/gi;
+  const re = /(?:\bTP\s*(?:\d{1,2}(?!\d))?|TAKE\s*PROFIT\s*(?:\d{1,2}(?!\d))?|TARGET\s*(?:\d{1,2}(?!\d))?)\s*(?:\(\s*TP\s*\d{0,2}\s*\))?\s*[.:@=]*\s*@?\s*(\d[\d,]*(?:\.\d+)?)/gi;
   const plausible = (v) => (sig.symbol === "XAUUSD" ? v > 1500 && v < 9000 : v > 1000);
   const ref = sig.entry ?? sig.entry2;
   const add = (v) => {
