@@ -73,9 +73,9 @@ alter table public.tg_messages enable row level security;
 alter table public.signal_trades enable row level security;
 alter table public.tg_chats enable row level security;
 
--- Public: closed trades only, without entry or stop-loss prices.
+-- Public: closed trades only, with their entry and stop-loss prices (the home page lists them by day). Open trades stay hidden.
 create or replace view public.signal_results as
-  select room, opened_at, symbol, side, status, pips, risk
+  select room, opened_at, symbol, side, status, pips, risk, entry, entry2, sl, closed_at
   from public.signal_trades
   where status in ('win', 'loss', 'be');
 

@@ -1460,6 +1460,20 @@ th.ibr-pcol { color: var(--accent-hi); }
 .lv__help { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .8rem; }
 @media (max-width: 760px) { .lv__form { grid-template-columns: minmax(0, 1fr); } }
 .sig-per { display: flex; justify-content: flex-end; margin: 4px 0 2px; }
+/* day / week / month: the list of signals */
+.sig-day { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px 0 2px; }
+.sig-day b { font-weight: 600; min-width: 0; text-align: center; }
+.sig-day__b { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 22px; line-height: 1; cursor: pointer; }
+.sig-day__b:disabled { opacity: .35; cursor: default; }
+.sig-ltab td, .sig-ltab th { white-space: nowrap; }
+.sig-ltab .muted { color: var(--muted); }
+.sig-l__d { color: var(--muted); }
+.sig-l__sl, .sig-l__r { display: block; margin-top: 2px; font-size: .78rem; font-weight: 400; color: var(--muted); }
+.sig-ltab td { vertical-align: middle; }
+@media (max-width: 560px) { .sig-ltab th, .sig-ltab td { padding-left: 6px; padding-right: 6px; } .sig-l__d { display: block; } }
+.sig-side { display: inline-block; min-width: 52px; text-align: center; padding: 3px 8px; border-radius: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .06em; }
+.sig-side--buy { color: #8fe3a9; background: rgba(90, 209, 127, .12); border: 1px solid rgba(90, 209, 127, .3); }
+.sig-side--sell { color: #ff9cb0; background: rgba(229, 33, 80, .12); border: 1px solid rgba(229, 33, 80, .35); }
 .dlast__num { display: grid; justify-items: end; gap: 1px; } .dlast__num small { font-size: .76rem; font-weight: 600; } .dlast__num small.up { color: var(--accent-hi); } .dlast__num small.down { color: var(--loss); }
 .dlast__num small { margin: 0; }
 /* per-signal position charts */

@@ -9,6 +9,8 @@
   const sgn = (v, d = 0) => (v > 0 ? "+" : v < 0 ? "−" : "") + num(Math.abs(v), d);
   const nb = (d) => String(d).replace(/-/g, "\u2011"); // keep dates on one line
   const usd = (v) => (v >= 0 ? "+$" : "−$") + num(Math.abs(v));
+  // closed signals from the bot with their prices (entry, SL), used by the day / week / month lists
+  let liveRows = root.OTM_SIGNALS_LIVE || [];
 
   // ---------------------------------------------------------------- sample data (demo preview only)
   function sample(room, k) {
@@ -130,10 +132,11 @@
     let cur = Math.max(0, rooms.findIndex((r) => r.id === opts.room));
     // period filter (signal dates are UTC days, like the rest of the site; weeks start on Monday)
     let per = opts.per || "all";
+    let dayPick = "";
     const periodFrom = (p) => {
       if (p === "all") return "";
       const now = new Date(), today = now.toISOString().slice(0, 10);
-      if (p === "day") return today;
+      if (p === "day") return dayPick || today;
       if (p === "month") return today.slice(0, 8) + "01";
       const m = new Date(now); m.setUTCDate(m.getUTCDate() - ((m.getUTCDay() + 6) % 7)); return m.toISOString().slice(0, 10);
     };
@@ -143,6 +146,7 @@
     const months = (m) => new Date(m + "-15T12:00:00").toLocaleDateString(root.OTMI18n.lang === "th" ? "th-TH" : "en-GB", { month: "long", year: "numeric" });
     const draw = () => {
       const r0 = rooms[cur];
+      if (per !== "all") return drawList(r0);
       if (r0.days && r0.days.length) return drawDays(inPer(r0));
       const r = inPer(r0), isSample = !r.real && !live;
       const s = compute(r, D.deduct ?? 0.15);
@@ -190,7 +194,81 @@
     const wire = () => {
       if (opts.onRoom) opts.onRoom(rooms[cur].id, periodFrom(per));
       el.querySelectorAll("[data-room]").forEach((b) => b.addEventListener("click", () => { cur = +b.dataset.room; draw(); }));
-      el.querySelectorAll("[data-per]").forEach((b) => b.addEventListener("click", () => { per = b.dataset.per; draw(); }));
+      el.querySelectorAll("[data-per]").forEach((b) => b.addEventListener("click", () => { per = b.dataset.per; if (per !== "day") dayPick = ""; draw(); }));
+      el.querySelectorAll("[data-day]").forEach((b) => b.addEventListener("click", () => { dayPick = b.dataset.day; draw(); }));
+    };
+
+    // ---- day / week / month: how many signals and each one with its prices
+    const L = () => (root.OTMI18n.lang === "th" ? "th-TH" : "en-GB");
+    const dayName = (d) => new Date(d + "T12:00:00Z").toLocaleDateString(L(), { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+    const hhmm = (iso) => new Date(iso).toLocaleTimeString(L(), { hour: "2-digit", minute: "2-digit" });
+    const px = (v) => (v == null ? "–" : num(v, Number(v) % 1 ? 2 : 0).replace(/(\.\d)0$/, "$1"));
+    // every signal of a room: [{ d, at, side, symbol, pips, risk, entry, entry2, sl }] or day summaries { d, sum: true, pips, n, sl }
+    const itemsOf = (r) => {
+      const mine = liveRows.filter((x) => x.room === r.id && x.pips != null);
+      const liveDays = new Set(mine.map((x) => x.opened_at.slice(0, 10)));
+      const used = new Set();
+      const fromLive = (x) => ({ d: x.opened_at.slice(0, 10), at: x.opened_at, side: x.side, symbol: x.symbol, pips: Number(x.pips), risk: x.risk == null ? null : Number(x.risk),
+        entry: x.entry, entry2: x.entry2, sl: x.sl });
+      const out = [];
+      if (r.days && r.days.length) {
+        for (const g of r.days) if (!liveDays.has(g[0])) out.push({ d: g[0], sum: true, pips: g[1] - g[2], n: g[4], sl: g[3] });
+        for (const x of mine) out.push(fromLive(x));
+      } else {
+        for (const x of r.trades || []) {
+          // attach prices from the bot: same opening time, or the same day, side and result
+          const m = mine.find((y, i) => !used.has(i) && (x[5] ? y.opened_at === x[5] : y.opened_at.slice(0, 10) === x[0] && y.side === x[2] && Math.round(y.pips) === Math.round(x[3])));
+          if (m) used.add(mine.indexOf(m));
+          out.push(m ? fromLive(m) : { d: x[0], at: x[5] || "", side: x[2], symbol: x[1], pips: x[3], risk: x[4] ?? null });
+        }
+      }
+      return out.sort((a, b) => (a.d + (a.at || "")).localeCompare(b.d + (b.at || "")));
+    };
+    const drawList = (r) => {
+      const all = itemsOf(r), dates = [...new Set(all.map((x) => x.d))].sort();
+      const today = new Date().toISOString().slice(0, 10);
+      if (per === "day" && !dayPick) dayPick = dates.includes(today) || !dates.length ? today : dates[dates.length - 1];
+      const from = periodFrom(per), to = per === "day" ? dayPick : "9999";
+      const rows = all.filter((x) => x.d >= from && x.d <= to);
+      const showR = !(r.days && r.days.length);
+      const n = rows.reduce((a, x) => a + (x.sum ? x.n : 1), 0);
+      const w = rows.filter((x) => !x.sum && x.pips > 0).length, l = rows.reduce((a, x) => a + (x.sum ? x.sl : x.pips < 0 ? 1 : 0), 0);
+      const net = rows.reduce((a, x) => a + x.pips, 0);
+      const rs = rows.filter((x) => !x.sum && x.risk > 0), R = rs.reduce((a, x) => a + x.pips / x.risk, 0);
+      const prev = per === "day" ? dates.filter((d) => d < dayPick).pop() : null, next = per === "day" ? dates.find((d) => d > dayPick) : null;
+      const nav = per === "day" ? `<div class="sig-day">
+          <button type="button" class="sig-day__b" ${prev ? `data-day="${prev}"` : "disabled"} aria-label="${esc(t("sig.l.prev"))}">‹</button>
+          <b>${dayName(dayPick)}${dayPick === today ? ` · ${t("sig.per.day")}` : ""}</b>
+          <button type="button" class="sig-day__b" ${next ? `data-day="${next}"` : "disabled"} aria-label="${esc(t("sig.l.next"))}">›</button></div>` : "";
+      const row = (x) => x.sum
+        ? `<tr><td>${per === "day" ? "–" : dayName(x.d)}</td><td colspan="2" class="muted">${t("sig.l.sum", { n: x.n })}</td><td class="r ${x.pips >= 0 ? "up" : "down"}"><b>${sgn(x.pips)}</b></td></tr>`
+        : `<tr><td>${per === "day" ? "" : `<span class="sig-l__d">${dayName(x.d)}</span> `}${x.at ? hhmm(x.at) : ""}</td>
+            <td><span class="sig-side sig-side--${x.side}">${(x.side || "").toUpperCase()}</span>${r.id === "hype" && x.symbol ? ` <small>${esc(x.symbol)}</small>` : ""}</td>
+            <td class="r">${x.entry == null ? (x.sl != null ? t("sig.l.market") : "–") : px(x.entry) + (x.entry2 != null && Number(x.entry2) !== Number(x.entry) ? "–" + px(x.entry2) : "")}${x.sl != null ? `<small class="sig-l__sl">SL ${px(x.sl)}</small>` : ""}</td>
+            <td class="r ${x.pips >= 0 ? "up" : "down"}"><b>${sgn(x.pips)}</b>${showR && x.risk > 0 ? `<small class="sig-l__r">${sgn(x.pips / x.risk, 1)}R</small>` : ""}</td></tr>`;
+      el.innerHTML = `
+        ${tabs()}
+        ${perSeg()}
+        ${nav}
+        <div class="sig-head card">
+          <span class="sig-head__b">${badge(r)}</span>
+          <div><h3>${esc(r.name)}</h3><small>${t("sig.source", { s: esc(r.source || "") })}</small></div>
+        </div>
+        ${rows.length ? `
+        <div class="sig-kpis">
+          <div><b>${n}</b><span>${t("sig.l.n")}</span></div>
+          <div><b class="gold">${w || (rows.some((x) => x.sum) ? "–" : 0)}</b><span>${t("sig.k.tp")}</span></div>
+          <div><b>${l}</b><span>${t("sig.k.sl")}</span></div>
+          <div><b class="${net >= 0 ? "gold" : ""}">${sgn(net)}</b><span>${t("sig.pips")}</span></div>
+          ${showR && rs.length ? `<div><b class="gold">${sgn(R, 1)}R</b><span>${t("sig.rr")}</span></div>` : ""}
+        </div>
+        <section class="card sig-card sig-l">
+          <h4>${t("sig.l.title", { n })}</h4>
+          <div class="table-wrap"><table class="table sig-ltab"><thead><tr><th>${t(per === "day" ? "sig.l.time" : "sig.l.when")}</th><th>${t("sig.l.side")}</th><th class="r">${t("sig.l.entry")}</th><th class="r">${showR ? "Pips · R" : "Pips"}</th></tr></thead>
+          <tbody>${rows.slice().reverse().map(row).join("")}</tbody></table></div>
+        </section>` : perNone()}
+        <p class="sig-note">${t("sig.l.note")}</p>`;
+      wire();
     };
     const tabs = () => `<div class="sig-tabs" role="tablist" aria-label="${esc(t("sig.rooms"))}">${rooms.map((x, i) => `
           <button type="button" role="tab" class="sig-tab ${i === cur ? "is-on" : ""}" aria-selected="${i === cur}" data-room="${i}">
@@ -240,11 +318,11 @@
     draw();
     document.addEventListener("otm:lang", draw);
     // live results from the Telegram bot (closed trades only), added after the last day already in signals-data.js
-    if (live) fetchLive().then((rows) => { if (mergeLive(rooms, rows)) draw(); }).catch(() => {});
+    if (live) fetchLive().then((rows) => { liveRows = rows || []; mergeLive(rooms, rows); draw(); }).catch(() => {});
   }
 
   async function fetchLive() {
-    const res = await fetch(`${cfg.SUPABASE_URL}/rest/v1/signal_results?select=room,opened_at,symbol,side,status,pips,risk&order=opened_at.asc&limit=20000`,
+    const res = await fetch(`${cfg.SUPABASE_URL}/rest/v1/signal_results?select=room,opened_at,symbol,side,status,pips,risk,entry,entry2,sl&order=opened_at.asc&limit=20000`,
       { headers: { apikey: cfg.SUPABASE_ANON_KEY, Authorization: `Bearer ${cfg.SUPABASE_ANON_KEY}` } });
     if (!res.ok) throw new Error("signal_results " + res.status);
     return res.json();
