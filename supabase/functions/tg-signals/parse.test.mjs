@@ -76,4 +76,17 @@ assert.deepEqual(outcome(applyResult(applyResult({}, res("✅ +600 POINTS TP1"))
 assert.deepEqual(res("BTCUSD ENDED WITH 1500points 4.8RR"), { kind: "run", pips: 150 });
 assert.equal(mentionedSymbol("BTCUSD ENDED WITH 1500points 4.8RR"), "BTCUSD");
 assert.equal(mentionedSymbol("Full TP let's close 50%"), null);
+// the OTM SCALPING PRO format from the Junction forwarder: every TP in a list, short TPs expanded
+{
+  const otm = "⚡ OTM SCALPING PRO\n🏆 | XAUUSD\n\n🔴 SELL NOW\n\n📍 ENTRY ZONE: 3785–3786\n🛑 STOP LOSS: 3789\n\n🎯 TAKE PROFIT: 3780 / 3774 / 3765\n🚀 RUNNER: Let profits run\n\nFor educational purposes only.";
+  const s = parseSignal(otm);
+  assert.equal(s.side, "sell"); assert.equal(s.sl, 3789);
+  assert.deepEqual(parseTargets(otm, s), [3780, 3774, 3765]);
+  const short = "SELL NOW 3785-86 / SL 3789 / TP 3780-74-65 / RUN";
+  assert.deepEqual(parseTargets(short, parseSignal(short, "scalp")), [3780, 3774, 3765]);
+}
+assert.deepEqual(res("Break-even"), { kind: "be" });
+assert.deepEqual(res("BE hit"), { kind: "be" });
+assert.equal(res("Move SL to break-even"), null);
+assert.deepEqual(res("SL hit -50 pips"), { kind: "sl", pips: 50 });
 console.log("parse.js: all checks passed");

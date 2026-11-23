@@ -83,11 +83,25 @@ export function parseTargets(text, sig) {
   const re = /(?:\bTP\s*(?:\d{1,2}(?!\d))?|TAKE\s*PROFIT\s*(?:\d{1,2}(?!\d))?|TARGET\s*(?:\d{1,2}(?!\d))?)\s*[.:@=]*\s*@?\s*(\d[\d,]*(?:\.\d+)?)/gi;
   const plausible = (v) => (sig.symbol === "XAUUSD" ? v > 1500 && v < 9000 : v > 1000);
   const ref = sig.entry ?? sig.entry2;
-  for (const m of t.matchAll(re)) {
-    const v = num(m[1]);
-    if (!plausible(v)) continue;
-    if (ref != null && (sig.side === "buy" ? v <= ref : v >= ref)) continue;
+  const add = (v) => {
+    if (!plausible(v)) return;
+    if (ref != null && (sig.side === "buy" ? v <= ref : v >= ref)) return;
     if (!out.includes(v)) out.push(v);
+  };
+  for (const m of t.matchAll(re)) {
+    let prev = num(m[1]);
+    add(prev);
+    // a list after one label: "TAKE PROFIT: 3780 / 3774 / 3765", "TP 3780-74-65" (short numbers keep the leading digits)
+    const rest = t.slice(m.index + m[0].length).split("\n")[0];
+    let r = rest;
+    for (;;) {
+      const n = r.match(/^\s*[\/|–—-]\s*(\d[\d,]*(?:\.\d+)?)/);
+      if (!n) break;
+      let v = num(n[1]);
+      const d = String(Math.trunc(v)).length, full = String(Math.trunc(prev)).length;
+      if (d < full) v = Number(String(Math.trunc(prev)).slice(0, full - d) + n[1]);
+      add(v); prev = v; r = r.slice(n[0].length);
+    }
   }
   return out.slice(0, 10);
 }
@@ -121,7 +135,7 @@ export function parseResult(text) {
   }
   // only a loss posted, like "hit -50pips": a stop loss
   if (!notSl && am.length && am.every((v) => v < 0) && /\bhit\b|❌/.test(low)) return { kind: "sl", pips: Math.max(...am.map(Math.abs)) };
-  if (/\b(be|break-?even)\b.*\b(hit|count)|count\w*\b.{0,20}\bbe\b|hit\s+be|run\s+and\s+be\b|กินหน้าทุน/.test(low)) return { kind: "be" };
+  if (/\b(be|break-?even)\b.*\b(hit|count)|count\w*\b.{0,20}\bbe\b|hit\s+be|run\s+and\s+be\b|กินหน้าทุน|^\s*(be|break-?even)\s*[.!✅]*\s*$/.test(low)) return { kind: "be" };
   if (!am.length) { const bare = t.match(/[✅👑]\s*\+\s*(\d[\d,]{2,})/); if (bare) am.push(num(bare[1]) / 10); }
   const pos = am.filter((v) => v > 0);
   if (!pos.length) return null;
