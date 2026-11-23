@@ -146,7 +146,9 @@ Deno.serve(async (req) => {
     let trade = await rootTrade(chatId, replyTo);
     // a result posted on its own (not as a reply), like "BTCUSD ENDED WITH 1500points 4.8RR": match it to the newest
     // open signal in the same room from the last 3 days, of the instrument the message names if it names one
-    if (!trade && parseResult(text)) {
+    // recaps ("this week 3000pips", "วันนี้กับเมื่อวาน รวมกัน 10,000จุด") and near-misses are never a trade's result
+    const RECAP = /\b(today|yesterday|this week|weekly|week|total|summary|in total|so far)\b|รวม|สัปดาห์|วันนี้|เมื่อวาน|\d\s*วัน|เกือบ|ตกรถ/i;
+    if (!trade && parseResult(text) && !RECAP.test(text)) {
       const sym = mentionedSymbol(text);
       let q = db.from("signal_trades").select("*").eq("chat_id", chatId).eq("room", room).eq("status", "open")
         .lt("opened_at", sentAt).gte("opened_at", new Date(msg.date * 1000 - 3 * 864e5).toISOString());
