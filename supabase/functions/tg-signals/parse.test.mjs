@@ -93,4 +93,7 @@ assert.deepEqual(res("SL hit -50 pips"), { kind: "sl", pips: 50 });
   const b = "🚨 BTCUSD SELL SIGNAL 🔴\n🔴 Direction: SELL NOW\n💰 Entry: 61,300\n🛑 Stop Loss (SL): 61,800\n🎯 Take Profit (TP): 59,000\n";
   assert.deepEqual(parseTargets(b, parseSignal(b, "hype")), [59000]);
 }
+assert.deepEqual(res("Okay, SL ❌ Let’s take a break for now—2 sets."), { kind: "sl", pips: null });
+assert.equal(res("SET BE NOW"), null);
+assert.equal(res("Move SL to entry"), null);
 console.log("parse.js: all checks passed");

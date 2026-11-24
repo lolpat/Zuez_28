@@ -128,7 +128,7 @@ export function parseResult(text) {
   const tgt = t.match(/TARGET\s*(\d)\.?\s*HIT\s*(\d+)/i);
   if (tgt) return { kind: "tp", pips: num(tgt[2]) };
   const am = amounts(t);
-  const notSl = /set|move|update|tight|keep|hasn|has not|not been|yet|ยังไม่/.test(low);
+  const notSl = /\bset\b|\bmove|\bupdate|tight|\bkeep|hasn|has not|not been|\byet\b|ยังไม่/.test(low);   // "2 sets" is not "set SL"
   if (!notSl && /(hit\s*sl|sl\s*hit|stop[- ]?loss (was )?hit|^\s*sl\s*$|^\s*sl\b.*\d+\s*(pips|pts|points)|sl\s*❌|^\s*❌|\bsl\s*-\s*\d|แหก\s*❌|โดน\s*sl)/m.test(low)) {
     const neg = am.map(Math.abs);
     return { kind: "sl", pips: neg.length ? Math.max(...neg) : null };
