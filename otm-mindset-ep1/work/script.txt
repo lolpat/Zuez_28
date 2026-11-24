@@ -1,0 +1,6 @@
+[hook] Stop asking, why did this trade lose? [ask] Start asking, what is this trade teaching me?
+[shift] One question keeps you stuck. [better] The other one makes you better.
+[sl] A stop loss isn't a punishment. [tuition] It's tuition. [paid] You already paid for the lesson, [learn] so learn it.
+[journal] Write it down. Find the mistake. [next] And the next time the market shows you that setup, [ready] you'll be ready.
+[data] Every loss becomes data. [edge] Every mistake becomes your edge.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.
