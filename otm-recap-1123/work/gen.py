@@ -1,5 +1,7 @@
 """OTM trade recap, 23 Nov 2026: two XAUUSD trades on the 30M, built from the trader's own screenshots, in the same
 white-slide layout as otm-recap-1106 / 1116.
+  assets/h4.png       4H chart: the CRT range candle (CRH 3,587 / CRL 3,520) and the next candle sweeping the CRL
+                      and closing back inside; the trader zoomed into the 30M for the entry
   assets/m30.png      30M chart: CRT range (CRH 3,587, CRL ~3,520), sweep to the low 3,502.99, long position tool
                       (entry 3,503.93, SL 3,500.05, TP 3,587), sell position tool (entry 3,690, SL 3,697.137, TP 3,630)
   assets/account.jpg  MT5 history: buy 15 @3504.00 -> 3587.00 +124,500.00 (closed 2026.11.23 01:31:00) and the account
@@ -94,17 +96,35 @@ chart(s, *M30, x1)
 subtitle(s, [(0.05, [("Gold, 23 Nov: ", INK), ("two trades", RED2)]), (K("result") - 0.1, [("Together: ", INK), ("+$172,500", GRN2)])], c1)
 cue(0.3, "whoosh-short_1", -22)
 
-# 2  the CRT buy
-o2, c2 = K("crt") - 0.1, K("buypnl") - 0.1
+# 2a  the CRT on the 4H: the range candle and the sweep
+H4 = ("assets/h4.png", (1320, 2868), (0, 690, 1320, 1550))
+def y4(p): return 1534 + (3587.0 - p) * 7.186          # same scale as the 30M screenshot: CRH at y 1534, CRL at y 2013
+o2, c2 = K("crt") - 0.1, K("zoom") - 0.1
+s = S(o2, c2)
+slide_bg(s)
+def x2a():
+    t0 = tag(s, 945, 1700, "CRT · 4H", INK, "#fff", 38); s.pop(t0, K("crt") + 0.3, 0.35, 0.5)
+    r = boxhl(s, (468, y4(BTP), 552, y4(CRL)), ORG, pad=6); s.pop(r, K("range") + 0.3, 0.4, 0.6)
+    th = tag(s, 945, y4(BTP), "CRH 3,587", ORG, "#fff", 34); s.pop(th, KW("range", 5), 0.35, 0.5)
+    tl_ = tag(s, 945, y4(CRL), "CRL 3,520", ORG, "#fff", 34); s.pop(tl_, KW("range", 9), 0.35, 0.5)
+    rg = ring(s, 567, 2132, 36, RED2); s.pop(rg, KW("sweep", 4), 0.35, 0.3)
+    sw = tag(s, 945, 2100, "SWEPT THE CRL", RED2, "#fff", 28); s.pop(sw, KW("sweep", 5), 0.35, 0.5)
+    ci = tag(s, 945, 1880, "CLOSED INSIDE", GRN2, "#fff", 28); s.pop(ci, KW("sweep", 10), 0.35, 0.5)
+chart(s, *H4, x2a)
+cue(K("range") + 0.3, "bell_G4", -22); cue(KW("sweep", 4), "bell_E5", -22)
+subtitle(s, [(o2 + 0.1, [("Trade 1: a ", INK), ("CRT", ORG), (" on the 4H", INK)]),
+             (K("range") - 0.1, [("The range: ", INK), ("CRH 3,587", ORG), (" / ", INK), ("CRL 3,520", ORG)]),
+             (K("sweep") - 0.1, [("Next 4H candle ", INK), ("sweeps the CRL", RED2)]),
+             (KW("sweep", 10) - 0.1, [("…and ", INK), ("closes back inside", GRN2)])], c2)
+
+# 2b  zoom into the 30M: entry, stop, target, hit
+o2, c2 = K("zoom") - 0.1, K("buypnl") - 0.1
 s = S(o2, c2)
 slide_bg(s)
 def x2():
-    t0 = tag(s, TX, 1520, "CRT · 30M", INK, "#fff", 40); s.pop(t0, K("crt") + 0.3, 0.35, 0.5); out(t0, K("tp") - 0.2)
-    r = boxhl(s, (RX0, ym(BTP), RX1, ym(CRL)), ORG, pad=6); s.pop(r, K("range") + 0.3, 0.4, 0.6); out(r, K("sweep"), 0.3, 0.35)
-    th = tag(s, TX, ym(BTP), "CRH 3,587", ORG, "#fff", 36); s.pop(th, KW("range", 5), 0.35, 0.5); out(th, K("sweep"))
-    tl_ = tag(s, TX, ym(CRL), "CRL ~3,520", ORG, "#fff", 36); s.pop(tl_, KW("range", 9), 0.35, 0.5); out(tl_, K("sweep"))
-    rg = ring(s, 408, 2290, 34, RED2); s.pop(rg, K("sweep") + 0.4, 0.35, 0.3)
-    sw = tag(s, TX, 2175, "SWEPT BELOW CRL", RED2, "#fff", 34); s.pop(sw, K("sweep") + 0.5, 0.35, 0.5)
+    t0 = tag(s, TX, 1520, "ZOOM: 30M", INK, "#fff", 40); s.pop(t0, K("zoom") + 0.3, 0.35, 0.5); out(t0, K("tp") - 0.2)
+    rg = ring(s, 408, 2290, 34, RED2); s.pop(rg, K("zoom") + 0.6, 0.35, 0.3)
+    sw = tag(s, TX, 2175, "THE SWEEP", RED2, "#fff", 34); s.pop(sw, K("zoom") + 0.7, 0.35, 0.5)
     le = hline(s, ym(BE), RX0, 760, BLU, 6, glow=True); s.fade(le, K("entry") + 0.3, 0.3)
     te = tag(s, TX, 2262, "BUY 15 @ 3,504", BLU, "#fff", 36); s.pop(te, KW("entry", 3), 0.35, 0.5)
     ls = hline(s, ym(BSL_), RX0, 760, RED2, 5, "12 8"); s.fade(ls, K("sl") + 0.2, 0.3)
@@ -114,10 +134,8 @@ def x2():
     ar = arrow(s, 425, 2240, 468, 1745, GRN2, 10, 36); show_arrow(s, ar, K("hit") + 0.2, 0.8)
     ck = check(s, 470, 1640, 28, GRN2, 9); s.draw(ck, K("hit") + 1.1, 0.35)
 chart(s, *M30, x2)
-cue(K("range") + 0.3, "bell_G4", -22); cue(K("entry") + 0.3, "bell_E5", -22); cue(K("hit") + 0.2, "whoosh-short_2", -22); cue(K("hit") + 1.1, "bell_G5", -20)
-subtitle(s, [(o2 + 0.1, [("Trade 1: a ", INK), ("CRT", ORG), (" on the 30M", INK)]),
-             (K("range") - 0.1, [("The range: ", INK), ("CRH 3,587", ORG), (" / ", INK), ("CRL ~3,520", ORG)]),
-             (K("sweep") - 0.1, [("Price ", INK), ("sweeps below the CRL", RED2)]),
+cue(K("zoom") + 0.3, "whoosh-short_1", -24); cue(K("entry") + 0.3, "bell_E5", -22); cue(K("hit") + 0.2, "whoosh-short_2", -22); cue(K("hit") + 1.1, "bell_G5", -20)
+subtitle(s, [(o2 + 0.1, [("Zoom into the ", INK), ("30M", BLU), (" for the entry", INK)]),
              (K("entry") - 0.1, [("Buy 15 lots at ", INK), ("3,504", BLU)]),
              (K("sl") - 0.1, [("Stop at ", INK), ("3,500", RED2), (": under $4 of risk", INK)]),
              (K("tp") - 0.1, [("Target: the ", INK), ("range high", GRN2)]),
