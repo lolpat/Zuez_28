@@ -144,19 +144,21 @@ Deno.serve(async (req) => {
       return ok();
     }
     let trade = await rootTrade(chatId, replyTo);
-    // a result posted on its own (not as a reply), like "BTCUSD ENDED WITH 1500points 4.8RR": match it to the newest
-    // open signal in the same room from the last 3 days, of the instrument the message names if it names one
+    // a result posted on its own (not as a reply), like "BTCUSD ENDED WITH 1500points 4.8RR": match it to the room's
+    // newest signal (of the instrument the message names, if it names one), only while that signal is still open and
+    // from the last 3 days. An older signal left open is never picked: a lone "+700 pips" after a newer signal closed
+    // is a running total, not that old signal's result.
     // recaps ("this week 3000pips", "วันนี้กับเมื่อวาน รวมกัน 10,000จุด") and near-misses are never a trade's result
     const RECAP = /\b(today|yesterday|this week|weekly|week|total|summary|in total|so far)\b|รวม|สัปดาห์|วันนี้|เมื่อวาน|\d\s*วัน|เกือบ|ตกรถ/i;
     // "cancel" / "missed" only counts as a reply under its signal: on its own it is usually chat ("I missed itttt!")
     const said = parseResult(text);
     if (!trade && said && said.kind !== "cancel" && !RECAP.test(text)) {
       const sym = mentionedSymbol(text);
-      let q = db.from("signal_trades").select("*").eq("chat_id", chatId).eq("room", room).eq("status", "open")
+      let q = db.from("signal_trades").select("*").eq("chat_id", chatId).eq("room", room)
         .lt("opened_at", sentAt).gte("opened_at", new Date(msg.date * 1000 - 3 * 864e5).toISOString());
       if (sym && sym !== "OTHER") q = q.eq("symbol", sym);
-      const { data: open } = await q.order("opened_at", { ascending: false }).limit(1);
-      trade = open?.[0] ?? null;
+      const { data: newest } = await q.order("opened_at", { ascending: false }).limit(1);
+      trade = newest?.[0]?.status === "open" ? newest[0] : null;
       if (trade) await db.from("tg_messages").update({ trade_ref: trade.message_id }).eq("chat_id", chatId).eq("message_id", msg.message_id);
     }
     if (trade) await recompute(trade);
