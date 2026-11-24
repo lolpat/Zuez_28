@@ -1,6 +1,6 @@
 [hook] Trade recap. Gold, November twenty-third. [two] Two trades, [result] plus one hundred seventy-two thousand five hundred dollars.
 [crt] First, a C.R.T. on the thirty-minute. [range] The candle range: high at thirty-five eighty-seven, low around thirty-five twenty. [sweep] Price swept below the range low, [entry] and I bought fifteen lots at thirty-five oh-four, [sl] with a stop at thirty-five hundred. Under four dollars of risk. [tp] Target: the range high. [hit] Price ran all the way back up and hit it. [buypnl] Eighty-three dollars on fifteen lots: plus one hundred twenty-four thousand five hundred.
 [next] Then price kept running, [zone] straight into my sell zone at thirty-six ninety. [sell] Eight lots short, stop at thirty-six ninety-seven, [tp2] target thirty-six thirty. [hit2] Price fell sixty dollars. [sellpnl] Plus forty-eight thousand.
-[acct] And the bigger picture. [dep] This account started with a one-hundred-dollar deposit. [profit] Total profit: two hundred thirty-seven thousand, eight hundred forty-nine dollars. [wd] One hundred fifty thousand, already withdrawn.
+[acct] And the bigger picture. [dep] This account started with a one-hundred-dollar deposit. [profit] Total profit: two hundred eighty-five thousand, eight hundred fifty dollars. [wd] One hundred fifty thousand, already withdrawn.
 [recap] Wait for the sweep. Buy the range low. Target the range high. [let] Then let price do the work.
 [order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

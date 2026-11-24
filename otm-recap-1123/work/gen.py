@@ -3,8 +3,10 @@ white-slide layout as otm-recap-1106 / 1116.
   assets/m30.png      30M chart: CRT range (CRH 3,587, CRL ~3,520), sweep to the low 3,502.99, long position tool
                       (entry 3,503.93, SL 3,500.05, TP 3,587), sell position tool (entry 3,690, SL 3,697.137, TP 3,630)
   assets/account.jpg  MT5 history: buy 15 @3504.00 -> 3587.00 +124,500.00 (closed 2026.11.23 01:31:00) and the account
-                      summary (deposit 100.00, credit 20.00, withdrawal -150,000.00, profit 237,849.88, balance 87,849.88).
-                      The trader's own redacted withdrawal-comment row (y 190-320) is never shown.
+                      summary taken before the sell closed (not shown).
+  assets/account2.jpg updated account summary after both trades: deposit 100.00, credit 20.00, withdrawal
+                      -150,000.00, profit 285,850.36 (rows Deposit..Profit shown; the Balance row is cropped out because
+                      its 285,950.36 does not net the withdrawal).
   assets/sell.jpg     sell 8 @3690.00 -> 3630.00 +48,000.00 (closed 2026.11.23 21:37:41)
 The trader asked for the account summary to be shown. English (Quentin)."""
 import os, sys
@@ -170,21 +172,21 @@ subtitle(s, [(o5 + 0.1, [("Sell: ", INK), ("+$48,000", GRN2)])], c5)
 o6, c6 = K("acct") - 0.1, K("recap") - 0.1
 s = S(o6, c6)
 slide_bg(s)
-bot = shot_open(s, "assets/account.jpg", (1320, 874), (0, 360, 1320, 460), panel=(40, 470, 1000))
-for b, t, col in [((14, 378, 1306, 434), K("dep") + 0.3, BLU), ((14, 566, 1306, 616), K("profit") + 0.3, GRN2), ((14, 503, 1306, 553), K("wd") + 0.2, ORG)]:
+bot = shot_open(s, "assets/account2.jpg", (1320, 504), (0, 12, 1320, 262), panel=(40, 520, 1000))
+for b, t, col in [((14, 25, 1306, 78), K("dep") + 0.3, BLU), ((14, 214, 1306, 259), K("profit") + 0.3, GRN2), ((14, 152, 1306, 196), K("wd") + 0.2, ORG)]:
     h = boxhl(s, b, col, pad=4); s.pop(h, t, 0.35, 0.6)
 shot_close(s)
 s.label(540, bot + 40, "* my MT5 account history", 22, "#8a8f98", 1, 600, 0.02)
 d = tag(s, 540, bot + 120, "FROM A $100 DEPOSIT", BLU, "#fff", 40); s.pop(d, K("dep") + 0.4, 0.35, 0.5)
 pf = s.raw(f'<text id="@ID@" x="540" y="{bot + 290:.0f}" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="112" '
-           f'fill="{GRN2}" style="opacity:0">+$237,849.88</text>', "pf")
+           f'fill="{GRN2}" style="opacity:0">+$285,850.36</text>', "pf")
 s.pop(pf, KW("profit", 2), 0.5, 0.5); cue(KW("profit", 2), "bell_A4", -16)
 pl = s.label(540, bot + 350, "TOTAL PROFIT", 30, INK, 0, 800, 0.08); s.fade(pl, KW("profit", 2) + 0.2, 0.3)
 w = tag(s, 540, bot + 450, "$150,000 ALREADY WITHDRAWN", ORG, "#fff", 38); s.pop(w, K("wd") + 0.3, 0.35, 0.5); cue(K("wd") + 0.3, "swell_1", -24)
 s.label(540, bot + 540, "Past results don't guarantee future ones.", 24, "#8a8f98", 1, 600, 0.02)
 subtitle(s, [(o6 + 0.1, [("The ", INK), ("bigger picture", RED2)]),
              (K("dep") - 0.1, [("Started with a ", INK), ("$100", BLU), (" deposit", INK)]),
-             (K("profit") - 0.1, [("Total profit: ", INK), ("+$237,849", GRN2)]),
+             (K("profit") - 0.1, [("Total profit: ", INK), ("+$285,850", GRN2)]),
              (K("wd") - 0.1, [("$150,000", ORG), (" already withdrawn", INK)])], c6)
 
 # 7  summary
