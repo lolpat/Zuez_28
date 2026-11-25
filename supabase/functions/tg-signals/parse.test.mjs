@@ -96,4 +96,12 @@ assert.deepEqual(res("SL hit -50 pips"), { kind: "sl", pips: 50 });
 assert.deepEqual(res("Okay, SL ❌ Let’s take a break for now—2 sets."), { kind: "sl", pips: null });
 assert.equal(res("SET BE NOW"), null);
 assert.equal(res("Move SL to entry"), null);
+// the website's lot calculator runs a copy of this file: it must match
+{
+  const { readFileSync } = await import("node:fs");
+  const here = new URL(".", import.meta.url).pathname;
+  const mine = readFileSync(here + "parse.js", "utf8").replaceAll("export function", "function");
+  const copy = readFileSync(here + "../../../website/js/sigparse.js", "utf8");
+  assert.ok(copy.includes(mine), "website/js/sigparse.js is out of date: copy parse.js again");
+}
 console.log("parse.js: all checks passed");

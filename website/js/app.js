@@ -1343,7 +1343,7 @@
   }
 
   // ------------------------------------------------------------ tools
-  const PIP = { EURUSD: 10, GBPUSD: 10, AUDUSD: 10, NZDUSD: 10, USDJPY: 6.4, XAUUSD: 10, NAS100: 1, US30: 1 };
+  const PIP = { EURUSD: 10, GBPUSD: 10, AUDUSD: 10, NZDUSD: 10, USDJPY: 6.4, XAUUSD: 10, BTCUSD: 10, NAS100: 1, US30: 1 };
   // gold chart: TradingView's free Advanced Chart widget (live prices and every timeframe come from TradingView),
   // with the current setup's levels in a panel next to it (the widget can't draw our own lines)
   function indicator(v) {
@@ -1469,6 +1469,15 @@
             <button type="button" data-pt="25000,1.5,3,5">${t("pt.p25")}</button>
             <button type="button" data-pt="25000,0.5,3,5">${t("pt.p25safe")}</button>
             <button type="button" data-pt="100000,1,3,5">${t("pt.p100")}</button></div></div>
+        <div class="pt__read">
+          <div class="pt__btns">
+            <label class="btn btn--gold btn--sm"><input type="file" accept="image/*" id="pt-img" hidden>${t("pt.shot")}</label>
+            <button type="button" class="btn btn--ghost btn--sm" id="pt-pastebtn">${t("pt.pasteBtn")}</button>
+          </div>
+          <textarea class="input pt__text" id="pt-text" rows="5" placeholder="${esc(t("pt.pastePh"))}" hidden></textarea>
+          <p class="pt__status" id="pt-status" hidden></p>
+          <div class="pt__sig" id="pt-sig" hidden></div>
+        </div>
         <form class="form-grid pt__form" id="pt">
           <label class="field"><span>${t("tools.balance")}</span><input class="input" name="bal" type="number" inputmode="decimal" value="25000" min="0"></label>
           <label class="field"><span>${t("tools.risk")}</span><input class="input" name="risk" type="number" inputmode="decimal" value="1.5" step="0.1" min="0"></label>
@@ -1490,7 +1499,7 @@
       const sls = [...new Set([20, 25, 30, 35, 38, 40, 50, 60, 75, 100, 120, 140, mine].filter((x) => x > 0))].sort((a, b) => a - b);
       const maxOpen = risk > 0 ? Math.floor(openCap / risk + 1e-9) : 0, stopAfter = risk > 0 ? Math.max(1, Math.ceil(dayCap / risk) - 1) : 0;
       $("#pt-kpis", v).innerHTML = `<div class="card kpi"><span class="kpi__lbl">${t("tools.riskAmt")}</span><span class="kpi__val">${usd0(risk)}</span></div>
-        <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("pt.yourLots", { sl: fmt.num(mine, 0) })}</span><span class="kpi__val">${mine ? fmt.num(lotsFor(mine), 2) : "–"}</span></div>
+        <div class="card kpi kpi--hero"><span class="kpi__lbl">${t("pt.yourLots", { sl: fmt.num(mine, mine % 1 ? 1 : 0) })}</span><span class="kpi__val">${mine ? fmt.num(lotsFor(mine), 2) : "–"}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("pt.maxTrades")}</span><span class="kpi__val">${maxOpen}</span><span class="kpi__sub">${t("pt.maxTrades.d", { cap: usd0(openCap) })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("pt.stop")}</span><span class="kpi__val">${stopAfter}</span><span class="kpi__sub">${t("pt.stop.d", { cap: usd0(dayCap) })}</span></div>`;
       $("#pt-rows", v).innerHTML = sls.map((sl) => {
@@ -1500,6 +1509,76 @@
       }).join("");
     };
     pt.addEventListener("input", calcPt);
+
+    // ---- read a signal from a screenshot or its text, then fill in the stop loss
+    const P = window.OTMParse, status = $("#pt-status", v), sigBox = $("#pt-sig", v), txt = $("#pt-text", v);
+    const say = (k, bad) => { status.textContent = k ? t(k) : ""; status.hidden = !k; status.classList.toggle("down", !!bad); };
+    // SL distance in the units the table uses: gold pips (price × 10), BTC pips (10 points), index points
+    const dist = (sym, a, b) => Math.abs(a - b) * (sym === "XAUUSD" ? 10 : sym === "BTCUSD" ? 0.1 : 1);
+    const showSig = (sig) => {
+      const sym = sig.symbol in PIP ? sig.symbol : "XAUUSD";
+      const far = sig.entry2 != null && sig.sl != null && Math.abs(sig.entry2 - sig.sl) > Math.abs((sig.entry ?? sig.entry2) - sig.sl) ? sig.entry2 : sig.entry;
+      sigBox.innerHTML = `<p class="pt__got">${t("pt.got")} <b>${esc(sym)} ${esc(sig.side.toUpperCase())}</b></p>
+        <div class="form-grid pt__fix">
+          <label class="field"><span>${t(far == null ? "pt.myEntry" : "pt.entry")}</span><input class="input" name="e" type="number" inputmode="decimal" step="any" value="${far ?? ""}" placeholder="${esc(t("pt.myEntryPh"))}"></label>
+          <label class="field"><span>Stop loss</span><input class="input" name="s" type="number" inputmode="decimal" step="any" value="${sig.sl ?? ""}"></label>
+        </div>
+        <p class="pt__hint">${t(far == null ? "pt.nowHint" : "pt.checkHint")}</p>`;
+      sigBox.hidden = false;
+      pt.sym.value = sym;
+      const upd = () => {
+        const e = +sigBox.querySelector('[name="e"]').value, s = +sigBox.querySelector('[name="s"]').value;
+        if (e > 0 && s > 0) { pt.sl.value = Math.round(dist(sym, e, s) * 10) / 10; calcPt(); say("pt.done"); }
+        else if (sig.risk && !(e > 0)) { pt.sl.value = sig.risk; calcPt(); say("pt.fromText"); }
+        else say(far == null ? "pt.needEntry" : "pt.needSl", true);
+      };
+      sigBox.querySelectorAll("input").forEach((i) => i.addEventListener("input", upd));
+      upd();
+      pt.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    const read = (text) => {
+      const sig = P && P.parseSignal(text, "rr");
+      if (!sig) { sigBox.hidden = true; say("pt.noSig", true); return; }
+      showSig(sig);
+    };
+    $("#pt-pastebtn", v).addEventListener("click", () => { txt.hidden = false; txt.focus(); });
+    txt.addEventListener("input", () => { if (txt.value.trim().length > 12) read(txt.value); });
+    // photos: recognised in the browser (Tesseract, loaded only when someone picks a picture); nothing is uploaded
+    let tess = null;
+    const loadTess = () => tess || (tess = new Promise((ok, no) => {
+      if (window.Tesseract) return ok(window.Tesseract);
+      const sc = document.createElement("script"); sc.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";
+      sc.onload = () => ok(window.Tesseract); sc.onerror = () => { tess = null; no(new Error("ocr")); }; document.head.appendChild(sc);
+    }));
+    // larger, grey, dark text on light: Telegram's dark mode reads much better this way
+    const prep = (file) => new Promise((ok, no) => {
+      const img = new Image(); img.onload = () => {
+        const k = Math.min(3, Math.max(1, 1600 / img.width)), c = document.createElement("canvas");
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        const g = c.getContext("2d"); g.drawImage(img, 0, 0, c.width, c.height);
+        const d = g.getImageData(0, 0, c.width, c.height), a = d.data; let sum = 0;
+        for (let i = 0; i < a.length; i += 4) { const y = 0.299 * a[i] + 0.587 * a[i + 1] + 0.114 * a[i + 2]; a[i] = a[i + 1] = a[i + 2] = y; sum += y; }
+        if (sum / (a.length / 4) < 128) for (let i = 0; i < a.length; i += 4) a[i] = a[i + 1] = a[i + 2] = 255 - a[i];
+        g.putImageData(d, 0, 0); URL.revokeObjectURL(img.src); ok(c);
+      };
+      img.onerror = no; img.src = URL.createObjectURL(file);
+    });
+    const readImage = async (file) => {
+      if (!file || !/^image\//.test(file.type)) return;
+      say("pt.reading"); sigBox.hidden = true;
+      try {
+        const [T, canvas] = await Promise.all([loadTess(), prep(file)]);
+        const { data } = await T.recognize(canvas, "eng");
+        txt.value = data.text.trim(); txt.hidden = false;
+        read(data.text);
+      } catch (e) { say("pt.ocrFail", true); txt.hidden = false; }
+    };
+    $("#pt-img", v).addEventListener("change", (e) => { readImage(e.target.files[0]); e.target.value = ""; });
+    // a screenshot pasted straight into the box (Ctrl+V / long-press Paste)
+    txt.addEventListener("paste", (e) => {
+      const f = [...(e.clipboardData?.files || [])].find((x) => /^image\//.test(x.type));
+      if (f) { e.preventDefault(); readImage(f); }
+    });
     v.querySelectorAll("[data-pt]").forEach((b) => b.addEventListener("click", () => {
       const [bal, risk, open, daily] = b.dataset.pt.split(","); pt.bal.value = bal; pt.risk.value = risk; pt.open.value = open; pt.daily.value = daily; calcPt();
     }));
