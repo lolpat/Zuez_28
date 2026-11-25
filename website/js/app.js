@@ -1466,9 +1466,10 @@
       <section class="card pt" style="margin-top:18px">
         <div class="pt__head"><div><h3>${t("pt.title")}</h3><p class="card__sub">${t("pt.lead")}</p></div>
           <div class="seg seg--sm pt__presets" role="group" aria-label="${esc(t("pt.presets"))}">
-            <button type="button" data-pt="25000,1.5,3,5">${t("pt.p25")}</button>
-            <button type="button" data-pt="25000,0.5,3,5">${t("pt.p25safe")}</button>
-            <button type="button" data-pt="100000,1,3,5">${t("pt.p100")}</button></div></div>
+            <button type="button" data-pt="25000,1,3,5">${t("pt.p25")}</button>
+            <button type="button" data-pt="50000,1,3,5">${t("pt.p50")}</button>
+            <button type="button" data-pt="100000,1,3,5">${t("pt.p100")}</button>
+            <button type="button" data-pt="25000,0.5,3,5">${t("pt.p25safe")}</button></div></div>
         <div class="pt__read">
           <div class="pt__btns">
             <label class="btn btn--gold btn--sm"><input type="file" accept="image/*" id="pt-img" hidden>${t("pt.shot")}</label>
@@ -1480,11 +1481,12 @@
         </div>
         <form class="form-grid pt__form" id="pt">
           <label class="field"><span>${t("tools.balance")}</span><input class="input" name="bal" type="number" inputmode="decimal" value="25000" min="0"></label>
-          <label class="field"><span>${t("tools.risk")}</span><input class="input" name="risk" type="number" inputmode="decimal" value="1.5" step="0.1" min="0"></label>
+          <label class="field"><span>${t("tools.risk")}</span><input class="input" name="risk" type="number" inputmode="decimal" value="1" step="0.1" min="0"></label>
           <label class="field"><span>${t("pt.maxOpen")}</span><input class="input" name="open" type="number" inputmode="decimal" value="3" step="0.5" min="0"></label>
           <label class="field"><span>${t("pt.daily")}</span><input class="input" name="daily" type="number" inputmode="decimal" value="5" step="0.5" min="0"></label>
           <label class="field"><span>${t("tools.symbol")}</span><select class="input" name="sym">${Object.keys(PIP).map((k) => `<option${k === "XAUUSD" ? " selected" : ""}>${k}</option>`).join("")}</select></label>
           <label class="field"><span>${t("pt.mySl")}</span><input class="input" name="sl" type="number" inputmode="decimal" value="38" min="0"></label>
+          <label class="field"><span>${t("pt.spread")}</span><input class="input" name="spr" type="number" inputmode="decimal" value="6" step="0.5" min="0"><small>${t("pt.spread.hint")}</small></label>
         </form>
         <div class="kpis pt__kpis" id="pt-kpis"></div>
         <div class="table-wrap"><table class="table pt__tab"><thead><tr><th class="r">SL (pips)</th><th class="r">${t("pt.lots")}</th><th class="r pt__act">${t("pt.atRisk")}</th><th class="r">${t("pt.oneLot")}</th></tr></thead><tbody id="pt-rows"></tbody></table></div>
@@ -1494,7 +1496,8 @@
     const calcPt = () => {
       const bal = +pt.bal.value || 0, risk = bal * (+pt.risk.value || 0) / 100, pip = PIP[pt.sym.value] || 10;
       const openCap = bal * (+pt.open.value || 0) / 100, dayCap = bal * (+pt.daily.value || 0) / 100;
-      const lotsFor = (sl) => Math.floor((risk / (sl * pip || Infinity)) * 100) / 100;
+      const spr = Math.max(0, +pt.spr.value || 0);                // spread (and slippage) on top of the signal's stop
+      const lotsFor = (sl) => Math.floor((risk / ((sl + spr) * pip || Infinity)) * 100) / 100;
       const mine = +pt.sl.value || 0, usd0 = (x) => "$" + fmt.num(Math.round(x), 0);
       const sls = [...new Set([20, 25, 30, 35, 38, 40, 50, 60, 75, 100, 120, 140, mine].filter((x) => x > 0))].sort((a, b) => a - b);
       const maxOpen = risk > 0 ? Math.floor(openCap / risk + 1e-9) : 0, stopAfter = risk > 0 ? Math.max(1, Math.ceil(dayCap / risk) - 1) : 0;
@@ -1503,8 +1506,8 @@
         <div class="card kpi"><span class="kpi__lbl">${t("pt.maxTrades")}</span><span class="kpi__val">${maxOpen}</span><span class="kpi__sub">${t("pt.maxTrades.d", { cap: usd0(openCap) })}</span></div>
         <div class="card kpi"><span class="kpi__lbl">${t("pt.stop")}</span><span class="kpi__val">${stopAfter}</span><span class="kpi__sub">${t("pt.stop.d", { cap: usd0(dayCap) })}</span></div>`;
       $("#pt-rows", v).innerHTML = sls.map((sl) => {
-        const l = lotsFor(sl), one = sl * pip, over = one > openCap || one > dayCap;
-        return `<tr class="${sl === mine ? "is-mine" : ""}"><td class="r">${fmt.num(sl, sl % 1 ? 1 : 0)}</td><td class="r"><b>${l >= 0.01 ? fmt.num(l, 2) : "–"}</b></td><td class="r pt__act">${usd0(l * sl * pip)}</td>
+        const l = lotsFor(sl), one = (sl + spr) * pip, over = one > openCap || one > dayCap;
+        return `<tr class="${sl === mine ? "is-mine" : ""}"><td class="r">${fmt.num(sl, sl % 1 ? 1 : 0)}</td><td class="r"><b>${l >= 0.01 ? fmt.num(l, 2) : "–"}</b></td><td class="r pt__act">${usd0(l * (sl + spr) * pip)}</td>
           <td class="r ${over ? "down" : "muted"}">${usd0(one)}${over ? ` <small>${t("pt.tooBig")}</small>` : ""}</td></tr>`;
       }).join("");
     };
