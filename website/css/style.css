@@ -1543,3 +1543,16 @@ th.ibr-pcol { color: var(--accent-hi); }
 .net-row__meta { overflow-wrap: anywhere; }
 .cmp-out { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 18px; }
 .cmp-out .kpi__val { font-size: clamp(1.2rem, 2.2vw, 1.6rem); white-space: nowrap; }
+
+/* prop firm lot table (Calculators) */
+.pt__head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 20px; }
+.pt__head > div:first-child { min-width: 0; flex: 1 1 320px; }
+.pt__form { margin-top: 18px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pt__kpis { margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pt__tab { margin-top: 14px; }
+.pt__tab tr.is-mine td { background: rgba(240, 214, 140, .08); }
+.pt__tab tr.is-mine td:first-child { box-shadow: inset 3px 0 0 #f0d68c; }
+.pt__tab small { font-size: .72rem; }
+.pt__presets { flex-wrap: wrap; max-width: 100%; }
+@media (max-width: 560px) { .pt__act { display: none; } .pt__tab small { display: block; } }
+@media (max-width: 720px) { .pt__form { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pt__kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
