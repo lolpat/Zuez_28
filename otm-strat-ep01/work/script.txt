@@ -1,0 +1,16 @@
+# Ep 0 (until its next card) + Ep 1 + the outro line from the otm-mindset-ep1 take (same voice). Marks prefixed a: / b:.
+[a:hook] Fair value gaps. Order blocks. Liquidity sweeps. [a:lost] There are so many strategies, and most traders jump from one to the next, and never master any.
+[a:series] So in this series, we learn them one by one, on gold.
+[a:grid] Break of structure, change of character, and the liquidity sweep. Support and resistance, supply and demand, order blocks and breakers. Fair value gaps, inverse gaps, and the optimal trade entry. Breakouts, the silver bullet, and the power of three.
+[a:jobs] Here's the secret. Every strategy does one of three jobs. [a:where] Some tell you where price should react. [a:when] Some tell you when to act. [a:entry] And some tell you exactly where your order goes.
+[a:stack] A clean trade uses one of each. [a:last] And in the last episode, we put them all together.
+[b:hook] Break of structure. Learn this one first, because almost every other strategy in this series uses it.
+[b:struct] Start with the structure. [b:up] In an uptrend, price makes higher highs and higher lows. [b:down] In a downtrend, lower highs and lower lows.
+[b:bos] A break of structure is when price breaks the last swing in the same direction as the trend. [b:cont] In an uptrend, that's a close above the last high. [b:notrev] It's not a reversal signal. It tells you the trend is still alive.
+[b:close] Rule one: it has to be a candle close. [b:wick] A wick above the high that snaps back down doesn't count. That's just a stop hunt.
+[b:swing] Rule two: use the right high. [b:small] Not every little bump. Use the high that came from the low that actually pushed price higher.
+[b:tf] Rule three: on the one and three minute charts, you'll see fake breaks everywhere. Use the five and fifteen minute, or higher.
+[b:use] So how do we use it? [b:sweep] After a liquidity sweep, wait for the break of structure. [b:pull] Then don't chase the big candle. Wait for the pullback, and enter from a zone inside it. [b:later] We'll learn those zones later in the series.
+[b:ex] On gold, the last high was thirty-eight eighty. A candle closed above it: break of structure. [b:ex2] Price pulled back to the higher low. I bought there, with the stop under that low.
+[b:next] Next: change of character, when the trend starts to turn.
+[b:order] Order the market. [b:dont] Don't let the market order you. [b:follow] Follow for more.

@@ -1,12 +1,14 @@
 # OTM STRATEGIES series (XAUUSD)
 
 One strategy per episode, on gold, in the OTM glowing style. English (Quentin) and Thai (Patinya) versions.
-Only the last episode ends on the Order the Market outro; the others end on the next-episode card.
+Ending (changed by the trader, Nov 2026): every episode ends with a short "next episode" teaser and then the Order the
+Market outro (FOLLOW FOR MORE, handles, educational-only line), instead of ending on the next-episode card.
 
 | Ep | Strategy | Job | Folder |
 |---|---|---|---|
-| 0 | Every strategy we'll learn (the map + the 3 jobs) | - | otm-strat-ep0 / -th |
-| 1 | Break of Structure (BOS) | WHEN | otm-strat-ep1 / -th |
+| 0 + 1 | **Posted as one video:** the map + Break of Structure, ending on the outro (about 2:18) | - / WHEN | **otm-strat-ep01 / -th** |
+| 0 | Every strategy we'll learn (the map + the 3 jobs), standalone version | - | otm-strat-ep0 / -th |
+| 1 | Break of Structure (BOS), standalone version | WHEN | otm-strat-ep1 / -th |
 | 2 | Change of Character (CHoCH) | WHEN | next |
 | 3 | Liquidity Sweep | WHEN | |
 | 4 | Support & Resistance | WHERE | |
@@ -43,6 +45,24 @@ Rebuild (in each folder): python3 work/gen.py && bash work/mix.sh && python3 wor
 npx hyperframes@0.8.214 render
 
 ## Captions
+
+### Ep 0 + 1 in one video (otm-strat-ep01)
+
+Instagram (EN)
+1. Every trading strategy, one by one, on gold 📌 Start here: the 3 jobs every strategy does, then ep 1: Break of Structure. Close, not wick.
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. Sweep, then BOS, then buy the pullback. The first lesson of the series. Save it and follow for the rest. Not financial advice.
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+Instagram (TH)
+1. ทุกกลยุทธ์เทรด เรียนทีละอัน บนทองคำ 📌 เริ่มที่นี่: 3 หน้าที่ของทุกกลยุทธ์ แล้วตอนที่ 1 Break of Structure ต้องปิดแท่ง ไม่ใช่แค่ไส้
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. Sweep แล้ว BOS แล้วเข้าตอน pullback บทเรียนแรกของซีรีส์ เซฟไว้ แล้วกดติดตามตอนต่อไป ไม่ใช่คำแนะนำทางการเงิน
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+TikTok
+EN: Trading strategies series ep 0 + 1: every strategy on gold, then Break of Structure 📌 #forex #priceaction #forexeducation #OrderTheMarket
+TH: ซีรีส์กลยุทธ์เทรด ตอน 0 + 1: ทุกกลยุทธ์บนทองคำ แล้ว Break of Structure 📌 #forex #priceaction #forexeducation #OrderTheMarket
 
 Hashtags: the Technical set from HASHTAGS.md.
 

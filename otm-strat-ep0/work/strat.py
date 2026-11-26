@@ -9,6 +9,7 @@ from story import FW, panel, mini, pos_box
 from pro import hl
 
 TOT = 14
+CFG = dict(end0=True, start1=0.0, outro1=False)     # merged ep 0 + 1: end0=False, start1=<ep 1 start>, outro1=True
 BLUEJ, GOLDJ, GREENJ = "#4f7bff", GOLD, GREEN          # job colours: WHERE / WHEN / ENTRY
 
 
@@ -125,6 +126,8 @@ def ep0():
                  (K("stack") - 0.1, L("ONE OF EACH = A CLEAN TRADE", "อย่างละหนึ่ง = เทรดที่คลีน"), GREEN),
                  (K("last") - 0.1, L("LAST EPISODE: ALL TOGETHER", "ตอนสุดท้าย: รวมทุกอย่าง"), GOLD)], c2, 1352 + 40)
 
+    if not CFG["end0"]:
+        return
     s = next_ep(K("next") - 0.1, G["TOTAL"], 1, "BREAK OF STRUCTURE", "BREAK OF STRUCTURE")
     sv = s.label(540, 1060, L("SAVE THE SERIES  ·  FOLLOW", "เซฟซีรีส์ไว้  ·  กดติดตาม"), 34, WHITE, 0, 800, 0.1); s.fade(sv, K("go") + 0.1, 0.4)
     cue(K("go") + 0.1, "swell_1", -24)
@@ -139,17 +142,17 @@ def zig(s, pts, t, d, col=WHITE, w=6):
 
 def ep1():
     # 1  title
-    o, c = 0, K("struct") - 0.1
-    s = S(o, c, first=True)
+    o, c = CFG["start1"], K("struct") - 0.1
+    s = S(o, c, first=(o == 0))
     tag(s, 1)
     s.label(540, 450, "BREAK OF STRUCTURE", 64, WHITE, 1, 800, 0.03)
     s.label(540, 530, L("EP 1  ·  LEARN THIS ONE FIRST", "EP 1  ·  ต้องรู้อันนี้ก่อน"), 34, GOLD, 1, 700, 0.14)
-    zig(s, [(160, 1150), (330, 900), (430, 1010), (620, 760), (720, 870), (930, 620)], 0.4, 1.6)
-    l1 = hl(s, 330, 760, 900, GOLD, 4, "14 10"); s.fade(l1, 1.0, 0.3)
-    l2 = hl(s, 620, 960, 760, GOLD, 4, "14 10"); s.fade(l2, 1.5, 0.3)
+    zig(s, [(160, 1150), (330, 900), (430, 1010), (620, 760), (720, 870), (930, 620)], o + 0.4, 1.6)
+    l1 = hl(s, 330, 760, 900, GOLD, 4, "14 10"); s.fade(l1, o + 1.0, 0.3)
+    l2 = hl(s, 620, 960, 760, GOLD, 4, "14 10"); s.fade(l2, o + 1.5, 0.3)
     for x, y, t in ((560, 885, 1.2), (850, 745, 1.7)):
-        b = s.label(x, y, "BOS", 26, GOLD, 0, 800, 0.1); s.fade(b, t, 0.3)
-    captions(s, [(0.1, L("MOST STRATEGIES USE IT", "เกือบทุกกลยุทธ์ใช้มัน"), WHITE)], c)
+        b = s.label(x, y, "BOS", 26, GOLD, 0, 800, 0.1); s.fade(b, o + t, 0.3)
+    captions(s, [(o + 0.1, L("MOST STRATEGIES USE IT", "เกือบทุกกลยุทธ์ใช้มัน"), WHITE)], c)
 
     # 2  structure: uptrend / downtrend
     o, c = K("struct") - 0.1, K("bos") - 0.1
@@ -291,4 +294,8 @@ def ep1():
     captions(s, [(o + 0.1, L("LAST HIGH: 3,880", "HIGH ล่าสุด: 3,880"), GOLD), (t_b - 0.1, L("CLOSED ABOVE: BOS", "ปิดเหนือ: BOS"), GOLD),
                  (K("ex2") - 0.1, L("BUY THE PULLBACK, SL UNDER THE LOW", "ซื้อตอนย่อ SL ใต้ LOW"), GREEN)], c, 1352 + 40)
 
-    next_ep(K("next") - 0.1, G["TOTAL"], 2, "CHANGE OF CHARACTER", "CHANGE OF CHARACTER")
+    if CFG["outro1"]:
+        next_ep(K("next") - 0.1, K("order") - 0.05, 2, "CHANGE OF CHARACTER", "CHANGE OF CHARACTER")
+        outro(K("order") - 0.05)
+    else:
+        next_ep(K("next") - 0.1, G["TOTAL"], 2, "CHANGE OF CHARACTER", "CHANGE OF CHARACTER")

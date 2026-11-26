@@ -1,0 +1,16 @@
+# Ep 0 (until its next card) + Ep 1 + the outro line from the otm-mindset-ep1 take (same voice). Marks prefixed a: / b:.
+[a:hook] Fair value gap. Order block. Liquidity sweep. [a:lost] กลยุทธ์มีเยอะมาก และเทรดเดอร์ส่วนใหญ่ ก็กระโดดจากอันนึงไปอีกอัน แล้วไม่เก่งสักอัน
+[a:series] ซีรีส์นี้ เราจะเรียนไปทีละอัน บนทองคำ
+[a:grid] Break of structure, change of character และ liquidity sweep. Support กับ resistance, supply กับ demand, order block และ breaker. Fair value gap, inverse gap และ optimal trade entry. Breakout, silver bullet และ power of three
+[a:jobs] ความลับคือ ทุกกลยุทธ์ ทำหน้าที่แค่หนึ่งในสามอย่าง [a:where] บางอันบอกว่า ราคาควรจะเด้งที่ไหน [a:when] บางอันบอกว่า ต้องลงมือเมื่อไหร่ [a:entry] และบางอันบอกว่า ออเดอร์ต้องวางตรงไหนเป๊ะๆ
+[a:stack] เทรดที่คลีน ใช้อย่างละหนึ่ง [a:last] และตอนสุดท้าย เราจะเอาทุกอย่างมารวมกัน
+[b:hook] Break of structure ต้องเรียนอันนี้ก่อน เพราะเกือบทุกกลยุทธ์ในซีรีส์นี้ ใช้มัน
+[b:struct] เริ่มจากดูโครงสร้างก่อน [b:up] ขาขึ้น ราคาทำ higher high และ higher low [b:down] ขาลง ทำ lower high และ lower low
+[b:bos] Break of structure คือ ราคาทะลุ swing ล่าสุด ไปทางเดียวกับเทรนด์ [b:cont] ขาขึ้น คือแท่งเทียนปิดเหนือ high ล่าสุด [b:notrev] มันไม่ใช่สัญญาณกลับตัว มันบอกว่าเทรนด์ยังไปต่อ
+[b:close] กฎข้อหนึ่ง ต้องเป็นการปิดแท่ง [b:wick] แค่ไส้ทะลุ high แล้วเด้งกลับลงมา ไม่นับ นั่นแค่ล่า stop loss
+[b:swing] กฎข้อสอง ใช้ high ให้ถูกตัว [b:small] ไม่ใช่ทุกยอดเล็กๆ ใช้ high ที่เกิดจาก low ที่ดันราคาขึ้นไปจริงๆ
+[b:tf] กฎข้อสาม บนกราฟ หนึ่งนาที กับสามนาที จะเจอทะลุหลอกเต็มไปหมด ใช้ห้านาที กับสิบห้านาที หรือสูงกว่านั้น
+[b:use] แล้วใช้ยังไง [b:sweep] หลัง liquidity sweep ให้รอ break of structure [b:pull] แล้วอย่าไล่ซื้อแท่งใหญ่ รอ pullback แล้วเข้าจากโซนข้างในนั้น [b:later] โซนพวกนั้น เราจะเรียนกันในตอนถัดๆไป
+[b:ex] บนทองคำ high ล่าสุดอยู่ที่ สามพันแปดร้อยแปดสิบ แท่งเทียนปิดเหนือมัน คือ break of structure [b:ex2] ราคาย่อกลับมาที่ higher low ผมซื้อตรงนั้น stop loss ใต้ low นั้น
+[b:next] ตอนต่อไป change of character ตอนที่เทรนด์เริ่มเปลี่ยน
+[b:order] Order the market... [b:dont] อย่าให้ตลาดเป็นฝ่ายสั่งคุณ [b:follow] กดติดตามไว้นะครับ
