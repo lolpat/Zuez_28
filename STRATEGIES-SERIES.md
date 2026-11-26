@@ -101,3 +101,11 @@ Instagram (TH)
 TikTok
 EN: Break of structure explained: close, not wick 📌 #forex #priceaction #forexeducation #OrderTheMarket
 TH: Break of structure (BOS) คืออะไร: ต้องปิดแท่ง ไม่ใช่แค่ไส้ 📌 #forex #priceaction #forexeducation #OrderTheMarket
+
+## TikTok version
+
+TikTok fills tall phone screens by zooming the 9:16 video, which cuts about 100 px off each side. The TikTok upload is
+the same video scaled to 80% and centred on black (nothing is redrawn):
+
+    ffmpeg -i in.mp4 -vf "scale=864:1536:flags=lanczos,pad=1080:1920:108:192:black,setsar=1" \
+      -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -c:a copy -movflags +faststart out-tiktok.mp4
