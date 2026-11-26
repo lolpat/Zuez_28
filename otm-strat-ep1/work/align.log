@@ -1,0 +1,24 @@
+  setup 0: matched 95%, marks ok
+  setup 1: matched 98%, marks ok
+  setup 2: matched 98%, marks ok
+233 tokens, 19 marks, matched 98% of script characters; whisper heard:
+ Break  of  Structure  Learn  this  one  first  because  almost  every  other  strategy  in  this  series  uses  it.  Start  with  the  structure.  In  an  uptrend,  price  makes  higher  highs  and  higher  lows.  In  a  downtrend,  lower  highs  and  lower  lows.  A  break  of  structure  is  when  price  breaks  the  last  swing  in  the  same  direction  as  the  trend.  In  an  uptrend,  that's  a  close  above  the  last  high.  It's  not  a  reversal  signal,  It  tells  you  the  trend  is  still  alive  rule  one  It  has  to  be  a  candle  close  a  wick  above  the  high  that  sna
+  [hook]   0.00  Break
+  [struct]   6.81  Start
+  [up]   8.56  In
+  [down]  12.34  In
+  [bos]  15.82  A
+  [cont]  21.18  In
+  [notrev]  24.61  It's
+  [close]  28.73  Rule
+  [wick]  32.25  A
+  [swing]  37.04  Rule
+  [small]  39.86  Not
+  [tf]  45.51  Rule
+  [use]  53.66  So
+  [sweep]  55.90  After
+  [pull]  59.00  Then
+  [later]  64.69  We'll
+  [ex]  67.24  On
+  [ex2]  73.34  Price
+  [next]  78.66  Next:

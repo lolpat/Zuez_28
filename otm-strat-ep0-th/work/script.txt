@@ -1,0 +1,6 @@
+[hook] Fair value gap. Order block. Liquidity sweep. [lost] กลยุทธ์มีเยอะมาก และเทรดเดอร์ส่วนใหญ่ ก็กระโดดจากอันนึงไปอีกอัน แล้วไม่เก่งสักอัน
+[series] ซีรีส์นี้ เราจะเรียนไปทีละอัน บนทองคำ
+[grid] Break of structure, change of character และ liquidity sweep. Support กับ resistance, supply กับ demand, order block และ breaker. Fair value gap, inverse gap และ optimal trade entry. Breakout, silver bullet และ power of three
+[jobs] ความลับคือ ทุกกลยุทธ์ ทำหน้าที่แค่หนึ่งในสามอย่าง [where] บางอันบอกว่า ราคาควรจะเด้งที่ไหน [when] บางอันบอกว่า ต้องลงมือเมื่อไหร่ [entry] และบางอันบอกว่า ออเดอร์ต้องวางตรงไหนเป๊ะๆ
+[stack] เทรดที่คลีน ใช้อย่างละหนึ่ง [last] และตอนสุดท้าย เราจะเอาทุกอย่างมารวมกัน
+[next] ตอนที่หนึ่ง break of structure [go] เซฟซีรีส์นี้ไว้ แล้วกดติดตาม จะได้ไม่พลาดครับ

@@ -1,0 +1,9 @@
+[hook] Break of structure. Learn this one first, because almost every other strategy in this series uses it.
+[struct] Start with the structure. [up] In an uptrend, price makes higher highs and higher lows. [down] In a downtrend, lower highs and lower lows.
+[bos] A break of structure is when price breaks the last swing in the same direction as the trend. [cont] In an uptrend, that's a close above the last high. [notrev] It's not a reversal signal. It tells you the trend is still alive.
+[close] Rule one: it has to be a candle close. [wick] A wick above the high that snaps back down doesn't count. That's just a stop hunt.
+[swing] Rule two: use the right high. [small] Not every little bump. Use the high that came from the low that actually pushed price higher.
+[tf] Rule three: on the one and three minute charts, you'll see fake breaks everywhere. Use the five and fifteen minute, or higher.
+[use] So how do we use it? [sweep] After a liquidity sweep, wait for the break of structure. [pull] Then don't chase the big candle. Wait for the pullback, and enter from a zone inside it. [later] We'll learn those zones later in the series.
+[ex] On gold, the last high was thirty-eight eighty. A candle closed above it: break of structure. [ex2] Price pulled back to the higher low. I bought there, with the stop under that low.
+[next] Next: change of character, when the trend starts to turn.

@@ -1,0 +1,24 @@
+  setup 0: matched 76%, marks broken
+  setup 1: matched 83%, marks ok
+  setup 2: matched 83%, marks ok
+99 tokens, 19 marks, matched 83% of script characters; whisper heard:
+B RE AK  OF  STR U CT URE  ต ้ อง เร ี ย น อ ั นน ี้ ก ่ อน เพ ร า ะ เก ื อ บ ท ุ ก โ ก ล โ ย ต ใ น  series  น ี้  ใช ้ ม ั น เร ิ ่ ม จ าก ด ู คร อง ส ่ าง ก ่ อน ข า ข ึ ้ น  ร า ค า ทำ  H IGH ER  H IGH  แล ะ  H IGH ER  L OW ข า ล ง ทำ  L OW ER  H IGH  แล ะ  L OW ER  L OW B RE AK  OF  STR U CT URE  ค ื อ  ร า ค า ท ล ุ ส ว ิ ง ล ่ า ส ุ ด ไป ท าง เด ี ย วก ั บ  trend ข า ข ึ ้ น  ค ื อ แ ท ่ ง เท ี ย น ป ิ ด เ น ื ้ อ ห าย ล ่ า ส ุ ด ม ั น ไม ่ ใช ่ ส ั ญ ญ า ณ ก ล ั บ ต ั ว  ม ั น บ อก ว ่ า  trend  ย ั ง ไป ต ่ อ ก ด ข ้ อน  1  ต ้ อง เป ็ น ก าร ป ิ ด แ ท ้ ง แ ค ่ ใ ส ่ ท ะ ล ู ก ห าย แ
+  [hook]   0.03  Break
+  [struct]   6.03  เริ่มจากดูโครงสร้างก่อน
+  [up]   7.99  ขาขึ้น
+  [down]  11.85  ขาลง
+  [bos]  15.19  Break
+  [cont]  20.35  ขาขึ้น
+  [notrev]  23.64  มันไม่ใช่สัญญาณกลับตัว
+  [close]  27.18  กฎข้อหนึ่ง
+  [wick]  29.88  แค่ไส้ทะลุ
+  [swing]  34.64  กฎข้อสอง
+  [small]  37.48  ไม่ใช่ทุกยอดเล็กๆ
+  [tf]  42.28  กฎข้อสาม
+  [use]  50.83  แล้วใช้ยังไง
+  [sweep]  52.05  หลัง
+  [pull]  55.34  แล้วอย่าไล่ซื้อแท่งใหญ่
+  [later]  59.68  โซนพวกนั้น
+  [ex]  62.84  บนทองคำ
+  [ex2]  70.00  ราคาย่อกลับมาที่
+  [next]  75.03  ตอนต่อไป

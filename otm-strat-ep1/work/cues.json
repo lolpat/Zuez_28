@@ -1,0 +1,47 @@
+[
+{
+"t": 22.879,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 30.33,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 33.89,
+"snd": "whoosh-short_1",
+"gain": -25
+},
+{
+"t": 57.15,
+"snd": "bell_G4",
+"gain": -25
+},
+{
+"t": 59.14,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 60.69,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 71.65,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 75.9,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 78.99,
+"snd": "whoosh-long_1",
+"gain": -25
+}
+]

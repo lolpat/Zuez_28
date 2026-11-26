@@ -1,0 +1,6 @@
+[hook] Fair value gaps. Order blocks. Liquidity sweeps. [lost] There are so many strategies, and most traders jump from one to the next, and never master any.
+[series] So in this series, we learn them one by one, on gold.
+[grid] Break of structure, change of character, and the liquidity sweep. Support and resistance, supply and demand, order blocks and breakers. Fair value gaps, inverse gaps, and the optimal trade entry. Breakouts, the silver bullet, and the power of three.
+[jobs] Here's the secret. Every strategy does one of three jobs. [where] Some tell you where price should react. [when] Some tell you when to act. [entry] And some tell you exactly where your order goes.
+[stack] A clean trade uses one of each. [last] And in the last episode, we put them all together.
+[next] Episode one: break of structure. [go] Save the series, and follow so you don't miss it.
