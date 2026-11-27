@@ -1,0 +1,9 @@
+[hook] Last episode, I asked: price is falling, and a candle closes above the last lower high. Break of structure, or change of character? [answer] The answer is change of character.
+[what] A change of character is the first time price breaks a swing against the trend. [down] In a downtrend, it's the first close above the last lower high. [up] In an uptrend, the first close below the last higher low.
+[seq] The usual order: break of structure, break of structure, then the change of character. [warn] It's a warning that the trend may be turning. Not a guarantee.
+[close] Same rule as before: it has to be a candle close. [wick] A wick through the level is just a liquidity grab.
+[mistake] The big mistake is selling right at the change of character. [wait] Wait for the pullback. Let price make a lower high and show a rejection candle. Then enter.
+[ex] On gold, price was rising, and the last higher low sat at thirty-eight forty. A candle closed below it: change of character. [ex2] Price pulled back up to thirty-eight fifty-five and got rejected. I sold there, stop at thirty-eight sixty-five, target thirty-eight twenty-five. One to three.
+[save] Save this. [s1] The first break against the trend. [s2] A close, not a wick. [s3] Don't enter on it. Wait for the pullback.
+[quiz] Now, think along. [q] Price wicks below an old low, then snaps back up and closes above it. [ask] Is that a breakdown, or a liquidity sweep? [ans] Comment your answer. Next episode: the liquidity sweep.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.
