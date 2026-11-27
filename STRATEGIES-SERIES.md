@@ -10,8 +10,8 @@ Market outro (FOLLOW FOR MORE, handles, educational-only line), instead of endin
 | 0 + 1 end | **Ending clip** (about 29 s): "save this" recap of the 3 BOS rules + think-along quiz (downtrend, close above the last LH: BOS or CHoCH? answer: CHoCH, revealed in ep 2) + follow-for-more outro | - | **otm-strat-ep01-end / -th** |
 | 0 | Every strategy we'll learn (the map + the 3 jobs), standalone version | - | otm-strat-ep0 / -th |
 | 1 | Break of Structure (BOS), standalone version | WHEN | otm-strat-ep1 / -th |
-| 2 | Change of Character (CHoCH) | WHEN | next |
-| 3 | Liquidity Sweep | WHEN | |
+| 2 | Change of Character (CHoCH): answer to ep 1's quiz, 3 rules (close; a real swing after the IDM sweep; a BOS to confirm), enter on the pullback into OB / FVG / 62-79%, gold example (sell 3,855, SL 3,865, TP 3,825, 1:3), save-this recap, quiz (breakdown or sweep?) and outro | WHEN | **otm-strat-ep2 / -th** |
+| 3 | Liquidity Sweep (opens with the answer to ep 2's quiz) | WHEN | next |
 | 4 | Support & Resistance | WHERE | |
 | 5 | Supply & Demand | WHERE | |
 | 6 | Order Block (mean threshold) | WHERE / ENTRY | |
@@ -36,6 +36,9 @@ illustration, not a real trade, and says so on screen. Thai visuals keep trading
 References the trader shared (ideas only; no words, images or footage reused): a "every trading strategy" overview
 video (the 3-jobs idea: where / when / entry); for BOS, five Market Movers Signals slides and three Thai TikTok lessons
 (close vs wick, the swing that made the new high, 5M/15M over 1M/3M, sweep -> BOS -> entry, BOS vs CHoCH).
+For CHoCH: a Thai TikTok on IDM (a swing counts once its inducement is swept; a strong CHoCH breaks a confirmed swing and
+its zone; wait for the pullback) and a YouTube lesson (youtu.be/bItfkMUC490: CHoCH can be a liquidity grab, confirm with
+a BOS in the new direction, enter on the pullback into an FVG or the 0.618-0.786 OTE, about 1:3).
 A YouTube lesson (youtu.be/FE1bgD9N6DM) could not be watched: the Gemini video service was overloaded on every model.
 
 Voice: ElevenLabs eleven_v4, "Quentin - Narrator and Educator" (EN) and "Patinya - Calm Thai Narrator & Explainer"
@@ -75,6 +78,24 @@ Instagram (TH): คิดตาม 🤔 ราคากำลังลง แล
    #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
 TikTok (EN): BOS or CHoCH? Think along before ep 2 🤔 #forex #priceaction #forexeducation #OrderTheMarket
 TikTok (TH): BOS หรือ CHoCH? คิดตามก่อนดูตอนหน้า 🤔 #forex #priceaction #forexeducation #OrderTheMarket
+
+### Ep 2: Change of Character
+
+Instagram (EN)
+1. Change of character (CHoCH), ep 2: the FIRST close against the trend. A warning, not a guarantee. Wait for a BOS to confirm 📌
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. Don't sell the CHoCH candle. Break a real swing (after the IDM sweep), get the BOS, then sell the pullback into the zone. Not financial advice.
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+Instagram (TH)
+1. Change of character (CHoCH) ตอนที่ 2: ปิดแท่งสวนเทรนด์ครั้งแรก เป็นสัญญาณเตือน ยังไม่ใช่การยืนยัน รอ BOS ก่อน 📌
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. อย่ารีบขายตรงแท่ง CHoCH ทะลุ swing จริง (หลังกวาด IDM) รอ BOS แล้วขายตอนย่อเข้าโซน ไม่ใช่คำแนะนำทางการเงิน
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+TikTok
+EN: Change of character explained: first break against the trend, then wait for the BOS 📌 #forex #priceaction #forexeducation #OrderTheMarket
+TH: CHoCH คืออะไร: ทะลุสวนเทรนด์ครั้งแรก แล้วรอ BOS ยืนยัน 📌 #forex #priceaction #forexeducation #OrderTheMarket
 
 ### Ep 0: every strategy we'll learn
 

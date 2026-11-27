@@ -1,0 +1,112 @@
+[
+{
+"t": 10.62,
+"snd": "bell_A4",
+"gain": -21
+},
+{
+"t": 19.72,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 24.02,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 28.25,
+"snd": "bell_C5",
+"gain": -27
+},
+{
+"t": 29.45,
+"snd": "bell_C5",
+"gain": -27
+},
+{
+"t": 31.94,
+"snd": "bell_E5",
+"gain": -27
+},
+{
+"t": 39.13,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 41.41,
+"snd": "whoosh-short_1",
+"gain": -25
+},
+{
+"t": 48.95,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 52.99,
+"snd": "whoosh-short_1",
+"gain": -27
+},
+{
+"t": 56.42,
+"snd": "bell_C5",
+"gain": -27
+},
+{
+"t": 59.59,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 60.19,
+"snd": "swell_1",
+"gain": -27
+},
+{
+"t": 62.69,
+"snd": "whoosh-short_2",
+"gain": -27
+},
+{
+"t": 65.74,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 80.12,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 86.52,
+"snd": "bell_C5",
+"gain": -25
+},
+{
+"t": 105.38,
+"snd": "bell_E5",
+"gain": -25
+},
+{
+"t": 109.08,
+"snd": "bell_C5",
+"gain": -27
+},
+{
+"t": 110.63,
+"snd": "bell_C5",
+"gain": -27
+},
+{
+"t": 111.48,
+"snd": "swell_1",
+"gain": -27
+},
+{
+"t": 114.63,
+"snd": "bell_A4",
+"gain": -19
+}
+]

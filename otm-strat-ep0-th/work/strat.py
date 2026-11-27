@@ -414,11 +414,11 @@ def ep2():
     wn = s.pill(540, 1260, L("A WARNING, NOT A GUARANTEE", "สัญญาณเตือน ยังไม่ใช่การยืนยัน"), "#2a1d0e", GOLD, 30, 0, False); s.pop(wn, K("warn") + 0.2, 0.4, 0.5)
     captions(s, [(o + 0.1, "BOS  ·  BOS  ·  CHoCH", GOLD), (K("warn") - 0.1, L("THE TREND MAY BE TURNING", "เทรนด์อาจกำลังเปลี่ยน"), WHITE)], c, 1352 + 40)
 
-    # 4  close, not wick
-    o, c = K("close") - 0.1, K("mistake") - 0.1
+    # 4  rule 1: close, not wick
+    o, c = K("close") - 0.1, K("swing") - 0.1
     s = S(o, c)
     tag(s, 2)
-    hd = s.label(540, 450, L("A CLOSE, NOT A WICK", "ต้องปิดแท่ง ไม่ใช่แค่ไส้"), 42, WHITE, 0, 800, 0.04); s.pop(hd, o + 0.2, 0.4, 0.6)
+    hd = s.label(540, 450, L("RULE 1  ·  A CANDLE CLOSE", "กฎข้อ 1  ·  ต้องปิดแท่ง"), 42, WHITE, 0, 800, 0.04); s.pop(hd, o + 0.2, 0.4, 0.6)
     for k, (x0, key, ok) in enumerate(((60, "close", True), (560, "wick", False))):
         t = K(key) + (0.3 if ok else 0.1)
         pn = panel(s, x0, 560, 460, 600); s.fade(pn, t, 0.3)
@@ -433,6 +433,47 @@ def ep2():
         cue(t + 1.0, "bell_C5" if ok else "whoosh-short_1", -22)
     captions(s, [(o + 0.1, L("SAME RULE: IT HAS TO CLOSE", "กฎเดิม: ต้องปิดแท่ง"), WHITE), (K("wick") - 0.1, L("A WICK THROUGH IT = LIQUIDITY GRAB", "ไส้ทะลุ = ล่า LIQUIDITY"), RED)], c)
 
+    # 4b  rule 2: break a real swing (after the inducement is swept)
+    o, c = K("swing") - 0.1, K("confirm") - 0.1
+    s = S(o, c)
+    tag(s, 2)
+    hd = s.label(540, 450, L("RULE 2  ·  A REAL SWING", "กฎข้อ 2  ·  SWING จริง"), 42, WHITE, 0, 800, 0.04); s.pop(hd, o + 0.2, 0.4, 0.6)
+    pts = [(90, 640), (250, 1010), (380, 800), (450, 890), (500, 850), (610, 990), (700, 900), (800, 700)]
+    zig(s, pts, K("idm") - 0.2, 3.0)
+    sh = ring(s, 380, 800, 20, GOLD); s.pop(sh, K("idm") + 0.1, 0.35, 0.3)
+    sht = s.label(380, 770, "SWING HIGH?", 22, GOLD, 0, 800, 0.06); s.fade(sht, K("idm") + 0.2)
+    il = hl(s, 450, 700, 890, LBLUE, 4, "10 7"); s.fade(il, FW("idm", "inducement", "inducement") + 0.1, 0.3)
+    it = s.label(700, 925, "IDM", 24, LBLUE, 0, 800, 0.1, "end"); s.fade(it, FW("idm", "inducement", "inducement") + 0.2)
+    t_sw = K("idm") - 0.2 + 3.0 * 0.62
+    sw = ring(s, 610, 990, 20, LBLUE); s.pop(sw, t_sw, 0.35, 0.3)
+    swt = s.label(610, 1050, L("IDM SWEPT", "กวาด IDM แล้ว"), 22, LBLUE, 0, 800, 0.06); s.fade(swt, t_sw + 0.1)
+    out(sht, t_sw + 0.2, 0.2)
+    rl = hl(s, 380, 880, 800, GOLD, 5, "14 9"); s.fade(rl, t_sw + 0.3, 0.3)
+    rt = s.label(380, 770, L("REAL SWING HIGH", "SWING HIGH จริง"), 22, GOLD, 0, 800, 0.06); s.fade(rt, t_sw + 0.35)
+    cp = s.pill(840, 660, "CHoCH", GOLD, "#0b0b0b", 26); s.pop(cp, K("idm") + 2.9, 0.35, 0.5); cue(K("idm") + 2.9, "bell_E5", -22)
+    tr = s.path("M 500 850 L 560 760", RED, 5, style="stroke-dasharray:10 8;opacity:0"); s.fade(tr, K("trap") + 0.1, 0.3)
+    tx = xmark(s, 575, 740, 14, RED, 5); s.draw(tx, K("trap") + 0.4, 0.25)
+    tp_ = s.pill(540, 1180, L("BREAK BEFORE THE SWEEP = OFTEN A TRAP", "ทะลุก่อนกวาด IDM = มักเป็นกับดัก"), "#2a0e12", RED, 24, 0, False); s.pop(tp_, K("trap") + 0.5, 0.35, 0.5)
+    cue(K("trap") + 0.4, "whoosh-short_1", -24)
+    captions(s, [(o + 0.1, L("BREAK A REAL SWING", "ทะลุ SWING จริง"), WHITE), (K("idm") - 0.1, L("IT COUNTS AFTER THE IDM IS SWEPT", "นับได้หลังกวาด IDM"), LBLUE),
+                 (K("trap") - 0.1, L("BEFORE THAT: OFTEN A TRAP", "ก่อนนั้น: มักเป็นกับดัก"), RED)], c, 1352 + 40)
+
+    # 4c  rule 3: confirmation, a BOS in the new direction
+    o, c = K("confirm") - 0.1, K("mistake") - 0.1
+    s = S(o, c)
+    tag(s, 2)
+    hd = s.label(540, 450, L("RULE 3  ·  WAIT FOR CONFIRMATION", "กฎข้อ 3  ·  รอการยืนยัน"), 40, WHITE, 0, 800, 0.04); s.pop(hd, o + 0.2, 0.4, 0.6)
+    pts = [(90, 640), (220, 900), (300, 820), (430, 1080), (540, 780), (630, 920), (800, 620)]
+    zig(s, pts, o + 0.3, 2.6)
+    l1 = hl(s, 300, 600, 820, GOLD, 4, "12 8"); s.fade(l1, o + 1.2, 0.3)
+    p1 = s.pill(560, 870, "CHoCH", GOLD, "#0b0b0b", 24); s.pop(p1, o + 1.4, 0.35, 0.5)
+    t_b = FW("bos2", "break", "break")
+    l2 = hl(s, 540, 860, 780, GREEN, 4, "12 8"); s.fade(l2, t_b, 0.3)
+    p2 = s.pill(860, 740, "BOS", GREEN, "#0b0b0b", 26); s.pop(p2, t_b + 0.2, 0.35, 0.5)
+    cf = s.pill(540, 1180, L("CHoCH + BOS = CONFIRMED", "CHoCH + BOS = ยืนยันแล้ว"), GREEN, "#0b0b0b", 30); s.pop(cf, t_b + 0.8, 0.4, 0.5)
+    cue(o + 1.4, "bell_C5", -24); cue(t_b + 0.2, "bell_E5", -22); cue(t_b + 0.8, "swell_1", -24)
+    captions(s, [(o + 0.1, L("WAIT FOR CONFIRMATION", "รอการยืนยัน"), WHITE), (K("bos2") - 0.1, L("A BOS IN THE NEW DIRECTION", "BOS ในทิศทางใหม่"), GREEN)], c, 1352 + 40)
+
     # 5  the mistake: entering on the CHoCH candle; wait for the pullback
     o, c = K("mistake") - 0.1, K("ex") - 0.1
     s = S(o, c)
@@ -440,7 +481,7 @@ def ep2():
     C = path_candles([(0, 42), (4, 56), (6, 50), (10, 66), (12, 60), (15, 72), (18, 52), (21, 62), (25, 44)], seed=5, noise=0.8, wick=1.3)
     ch = Chart(C, 27, 70, 960, 560, 1200, 38, 78, 0.62)
     rid = candles_clip(s, ch)
-    reveal(rid, ch, [(o + 0.2, 17), (K("wait"), 17), (K("wait") + 1.6, 21), (FW("wait", "rejection", "ปฏิเสธ") + 0.3, 21), (FW("wait", "rejection", "ปฏิเสธ") + 2.0, 25)], o)
+    reveal(rid, ch, [(o + 0.2, 17), (K("wait"), 17), (K("wait") + 1.6, 21), (FW("wait", "then", "ค่อยเข้า"), 21), (FW("wait", "then", "ค่อยเข้า") + 1.6, 25)], o)
     lv = hline(s, ch, 60, 12, 26, GOLD, 4); s.fade(lv, o + 0.4, 0.3)
     s.label(ch.x(12), ch.y(60) + 34, L("LAST HL", "HL ล่าสุด"), 20, GOLD, 1, 800, 0.06)
     cp = s.pill(ch.x(17), ch.y(60) + 80, "CHoCH", GOLD, "#0b0b0b", 22); s.pop(cp, o + 0.6, 0.35, 0.5)
@@ -448,9 +489,11 @@ def ep2():
     xm = xmark(s, ch.x(17) - 120, ch.y(48), 14, RED, 5); s.draw(xm, K("mistake") + 1.3, 0.25)
     lh = ring(s, ch.x(21), ch.y(62), 20, LBLUE); s.pop(lh, K("wait") + 1.6, 0.35, 0.3)
     lht = s.label(ch.x(21), ch.y(62) - 30, "LH", 22, LBLUE, 0, 800, 0.08); s.fade(lht, K("wait") + 1.7)
-    se = s.pill(ch.x(21) + 30, ch.y(66) - 40, L("SELL ON THE PULLBACK", "ขายตอน PULLBACK"), GREEN, "#0b0b0b", 22); s.pop(se, FW("wait", "rejection", "ปฏิเสธ") + 0.3, 0.35, 0.5)
-    cue(K("mistake") + 1.0, "whoosh-short_2", -24); cue(FW("wait", "rejection", "ปฏิเสธ") + 0.3, "bell_E5", -22)
-    captions(s, [(o + 0.1, L("DON'T ENTER ON THE CHoCH CANDLE", "อย่าเข้าตรงแท่ง CHoCH"), RED), (K("wait") - 0.1, L("WAIT: LOWER HIGH + REJECTION", "รอ: LOWER HIGH + แท่งปฏิเสธ"), GREEN)], c, 1352 + 40)
+    zb = rbox(s, ch.x(19.5), ch.y(63.5), ch.x(23), ch.y(59.5), GREEN, 0.18, 0.85, 2.5); s.fade(zb, FW("wait", "zone", "โซน") + 0.1, 0.35)
+    zt = s.label(ch.x(21.2), ch.y(63.5) - 50, "OB  ·  FVG  ·  62–79%", 22, GREEN, 0, 800, 0.04); s.fade(zt, FW("wait", "order", "order") , 0.3)
+    se = s.pill(ch.x(21.2), ch.y(52), L("SELL IN THE ZONE", "ขายในโซน"), GREEN, "#0b0b0b", 22); s.pop(se, FW("wait", "then", "ค่อยเข้า") , 0.35, 0.5)
+    cue(K("mistake") + 1.0, "whoosh-short_2", -24); cue(FW("wait", "zone", "โซน") + 0.1, "bell_E5", -22)
+    captions(s, [(o + 0.1, L("DON'T ENTER ON THE CHoCH CANDLE", "อย่าเข้าตรงแท่ง CHoCH"), RED), (K("wait") - 0.1, L("WAIT FOR THE PULLBACK INTO A ZONE", "รอย่อกลับเข้าโซน"), GREEN)], c, 1352 + 40)
 
     # 6  example on gold (short)
     o, c = K("ex") - 0.1, K("save") - 0.1
@@ -482,8 +525,8 @@ def ep2():
     tag(s, 2)
     s.label(540, 450, L("SAVE THIS", "เซฟไว้"), 64, WHITE, 1, 800, 0.06)
     s.label(540, 530, "CHANGE OF CHARACTER  ·  3 RULES" if not TH() else "CHANGE OF CHARACTER  ·  3 กฎ", 28, GOLD, 1, 700, 0.12)
-    rows(s, [("FIRST BREAK AGAINST THE TREND", "ครั้งแรกที่ทะลุสวนเทรนด์", WHITE), ("A CLOSE, NOT A WICK", "ต้องปิดแท่ง ไม่ใช่แค่ไส้", WHITE),
-             ("DON'T ENTER ON IT: WAIT FOR THE PULLBACK", "อย่าเข้าตรงนั้น รอ PULLBACK", GOLD)], [K("s1"), K("s2"), K("s3")], y0=690, dy=150, size=30)
+    rows(s, [("FIRST BREAK AGAINST THE TREND, A CLOSE", "ทะลุสวนเทรนด์ครั้งแรก ต้องปิดแท่ง", WHITE), ("A REAL SWING, AFTER THE IDM SWEEP", "SWING จริง หลังกวาด IDM", WHITE),
+             ("WAIT FOR THE BOS, THEN THE PULLBACK", "รอ BOS ยืนยัน แล้วเข้าตอน PULLBACK", GOLD)], [K("s1"), K("s2"), K("s3")], y0=690, dy=150, size=28)
     sc = s.label(540, 1200, L("SCREENSHOT IT", "แคปเก็บไว้"), 26, GREY, 0, 700, 0.2); s.fade(sc, K("s3") + 1.0, 0.4)
 
     # 8  think along: breakdown or liquidity sweep? (answer: sweep, ep 3)
