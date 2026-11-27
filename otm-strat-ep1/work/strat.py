@@ -5,7 +5,7 @@ teach one each. Built on the CRT engine (work/otm.py). Original drawings and syn
 terms in English. Only the last episode ends on the Order the Market outro; the others end on the next-episode card."""
 from otm import *
 from msnr import title_block
-from story import FW, panel, mini, pos_box
+from story import FW, panel, mini, pos_box, rows
 from pro import hl
 
 TOT = 14
@@ -299,3 +299,39 @@ def ep1():
         outro(K("order") - 0.05)
     else:
         next_ep(K("next") - 0.1, G["TOTAL"], 2, "CHANGE OF CHARACTER", "CHANGE OF CHARACTER")
+
+
+# ======================================================================================================== ep 1 ending: remember + think along
+def end1():
+    """a short ending clip for ep 0 + 1: a 'save this' recap of the 3 BOS rules, a think-along quiz (downtrend, a close
+    above the last lower high: BOS or CHoCH? the answer, CHoCH, opens ep 2), then the follow-for-more outro"""
+    o, c = 0, K("quiz") - 0.1
+    s = S(o, c, first=True)
+    tag(s, 1)
+    s.label(540, 450, L("SAVE THIS", "เซฟไว้"), 64, WHITE, 1, 800, 0.06)
+    s.label(540, 530, L("BREAK OF STRUCTURE  ·  3 RULES", "BREAK OF STRUCTURE  ·  3 กฎ"), 30, GOLD, 1, 700, 0.14)
+    rows(s, [("CLOSE, NOT WICK", "ต้องปิดแท่ง ไม่ใช่แค่ไส้", WHITE), ("THE MAJOR SWING, NOT EVERY BUMP", "ใช้ SWING หลัก ไม่ใช่ยอดเล็ก", WHITE),
+             ("5M / 15M OR HIGHER", "5M / 15M ขึ้นไป", GOLD)], [K("r1"), K("r2"), K("r3")], y0=690, dy=150, size=32)
+    sc = s.label(540, 1200, L("SCREENSHOT IT", "แคปเก็บไว้"), 26, GREY, 0, 700, 0.2); s.fade(sc, K("r3") + 0.8, 0.4)
+
+    o, c = K("quiz") - 0.1, K("order") - 0.05
+    s = S(o, c)
+    tag(s, 1)
+    hd = s.label(540, 450, L("THINK ALONG", "คิดตาม"), 64, GOLD, 0, 800, 0.06); s.pop(hd, o + 0.15, 0.4, 0.6)
+    C = path_candles([(0, 76), (3, 64), (5, 70), (9, 55), (11, 62), (14, 46), (16, 52)], seed=11, noise=0.8, wick=1.3)
+    C += [(52, 53, 50.5, 51), (51, 64, 50.5, 63.5)]
+    ch = Chart(C, 22, 70, 960, 600, 1120, 40, 80, 0.62)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(o + 0.2, 8), (K("q") + 0.2, 8), (K("q") + 1.8, 17), (K("q") + 2.6, 17), (K("q") + 3.1, 18)], o)
+    for k, (i, p, t) in enumerate(((3, 64, "LL"), (5, 70, "LH"), (9, 55, "LL"), (11, 62, "LH"), (14, 46, "LL"))):
+        lb = s.label(ch.x(i), ch.y(p) + (34 if t == "LL" else -16), t, 20, RED if t == "LL" else LBL, 0, 800, 0.06); s.fade(lb, K("q") + 0.3 + 0.12 * k)
+    lv = hline(s, ch, 62, 11, 20, GOLD, 4); s.fade(lv, K("q") + 1.6, 0.3)
+    lt = s.label(ch.x(12.2), ch.y(62) - 14, L("LAST LH", "LOWER HIGH ล่าสุด"), 22, GOLD, 0, 800, 0.06, "start"); s.fade(lt, K("q") + 1.7)
+    rg = ring(s, ch.x(18), ch.y(63.5), 22, WHITE); s.pop(rg, K("q") + 3.2, 0.35, 0.3); cue(K("q") + 3.2, "bell_E5", -22)
+    q = s.label(ch.x(18), ch.y(63.5) - 50, "?", 90, GOLD, 0, 800, 0); s.pop(q, K("ask") + 0.1, 0.4, 0.5)
+    for k, (txt, x, key) in enumerate((("BOS", 330, FW("ask", "break", "break")), ("CHoCH", 750, FW("ask", "change", "change")))):
+        p = s.pill(x, 1230, txt, "#1b1e23", WHITE, 40, 0, False); s.pop(p, key, 0.35, 0.5); cue(key, "bell_C5", -24)
+    o_ = s.label(540, 1236, L("OR", "หรือ"), 30, GREY, 0, 800, 0.1); s.fade(o_, FW("ask", "change", "change") - 0.2)
+    cm = s.label(540, 1320, L("COMMENT YOUR ANSWER  ·  ANSWER IN EP 2", "ตอบในคอมเมนต์  ·  เฉลยตอนหน้า"), 26, GOLD, 0, 800, 0.08); s.fade(cm, K("ans") + 0.1, 0.4)
+    cue(K("ans") + 0.1, "swell_1", -24)
+    outro(K("order") - 0.05)

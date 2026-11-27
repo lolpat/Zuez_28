@@ -1,0 +1,3 @@
+[save] Save this, so you remember it later. [r1] Close, not wick. [r2] The major swing, not every little bump. [r3] Five and fifteen minute, or higher.
+[quiz] Now, think along. [q] Price is falling, and a candle closes above the last lower high. [ask] Is that a break of structure, or a change of character? [ans] Comment your answer. We'll reveal it in the next episode.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

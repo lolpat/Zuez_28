@@ -7,6 +7,7 @@ Market outro (FOLLOW FOR MORE, handles, educational-only line), instead of endin
 | Ep | Strategy | Job | Folder |
 |---|---|---|---|
 | 0 + 1 | **Posted as one video:** the map + Break of Structure, ending on the outro (about 2:18) | - / WHEN | **otm-strat-ep01 / -th** |
+| 0 + 1 end | **Ending clip** (about 29 s): "save this" recap of the 3 BOS rules + think-along quiz (downtrend, close above the last LH: BOS or CHoCH? answer: CHoCH, revealed in ep 2) + follow-for-more outro | - | **otm-strat-ep01-end / -th** |
 | 0 | Every strategy we'll learn (the map + the 3 jobs), standalone version | - | otm-strat-ep0 / -th |
 | 1 | Break of Structure (BOS), standalone version | WHEN | otm-strat-ep1 / -th |
 | 2 | Change of Character (CHoCH) | WHEN | next |
@@ -65,6 +66,15 @@ EN: Trading strategies series ep 0 + 1: every strategy on gold, then Break of St
 TH: ซีรีส์กลยุทธ์เทรด ตอน 0 + 1: ทุกกลยุทธ์บนทองคำ แล้ว Break of Structure 📌 #forex #priceaction #forexeducation #OrderTheMarket
 
 Hashtags: the Technical set from HASHTAGS.md.
+
+### Ep 0 + 1 ending clip (otm-strat-ep01-end)
+
+Instagram (EN): Think along 🤔 Price is falling and a candle closes above the last lower high. BOS or CHoCH? Comment your answer, revealed in ep 2.
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+Instagram (TH): คิดตาม 🤔 ราคากำลังลง แล้วมีแท่งปิดเหนือ lower high ล่าสุด แบบนี้คือ BOS หรือ CHoCH? ตอบในคอมเมนต์ เฉลยตอนหน้า
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+TikTok (EN): BOS or CHoCH? Think along before ep 2 🤔 #forex #priceaction #forexeducation #OrderTheMarket
+TikTok (TH): BOS หรือ CHoCH? คิดตามก่อนดูตอนหน้า 🤔 #forex #priceaction #forexeducation #OrderTheMarket
 
 ### Ep 0: every strategy we'll learn
 

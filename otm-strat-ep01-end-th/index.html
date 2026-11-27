@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="th" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-thai-600-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 600; font-display: block; src: url('assets/fonts/kanit-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-thai-700-normal.woff2') format('woff2'); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: 'Kanit'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/kanit-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: Montserrat, sans-serif; color: #fff; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(40,44,52,0.35) 0%, transparent 55%, rgba(0,0,0,0.6) 100%); }
+#mark { position: absolute; left: 495px; top: 1560px; width: 90px; opacity: 0.85; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="otm-strat-ep01-end-th" data-start="0" data-duration="28.35" data-width="1080" data-height="1920">
+      <div id="vig"></div>
+      <svg id="stage" viewBox="0 0 1080 1920" width="1080" height="1920" data-layout-allow-overlap>
+        <g id="dust"><circle id="d0" cx="350" cy="290" r="2.5" fill="#fff" opacity="0.06"/><circle id="d1" cx="63" cy="974" r="1.3" fill="#fff" opacity="0.12"/><circle id="d2" cx="458" cy="1588" r="1.4" fill="#fff" opacity="0.09"/><circle id="d3" cx="623" cy="762" r="3.2" fill="#fff" opacity="0.06"/><circle id="d4" cx="156" cy="226" r="1.8" fill="#fff" opacity="0.19"/><circle id="d5" cx="690" cy="715" r="2.3" fill="#fff" opacity="0.06"/><circle id="d6" cx="735" cy="821" r="1.8" fill="#fff" opacity="0.15"/><circle id="d7" cx="858" cy="1342" r="1.7" fill="#fff" opacity="0.15"/><circle id="d8" cx="788" cy="553" r="3.2" fill="#fff" opacity="0.07"/><circle id="d9" cx="164" cy="939" r="1.3" fill="#fff" opacity="0.16"/><circle id="d10" cx="946" cy="602" r="2.6" fill="#fff" opacity="0.15"/><circle id="d11" cx="907" cy="1814" r="2.1" fill="#fff" opacity="0.16"/><circle id="d12" cx="699" cy="1907" r="2.8" fill="#fff" opacity="0.10"/><circle id="d13" cx="24" cy="886" r="1.5" fill="#fff" opacity="0.07"/><circle id="d14" cx="140" cy="475" r="2.0" fill="#fff" opacity="0.20"/><circle id="d15" cx="593" cy="1696" r="2.8" fill="#fff" opacity="0.20"/><circle id="d16" cx="387" cy="1698" r="3.1" fill="#fff" opacity="0.08"/><circle id="d17" cx="252" cy="931" r="2.4" fill="#fff" opacity="0.09"/><circle id="d18" cx="399" cy="1087" r="3.1" fill="#fff" opacity="0.17"/><circle id="d19" cx="730" cy="104" r="3.0" fill="#fff" opacity="0.18"/><circle id="d20" cx="424" cy="766" r="1.4" fill="#fff" opacity="0.16"/><circle id="d21" cx="225" cy="312" r="1.9" fill="#fff" opacity="0.06"/><circle id="d22" cx="110" cy="698" r="1.3" fill="#fff" opacity="0.20"/><circle id="d23" cx="272" cy="667" r="1.9" fill="#fff" opacity="0.07"/><circle id="d24" cx="503" cy="929" r="1.4" fill="#fff" opacity="0.07"/><circle id="d25" cx="895" cy="310" r="1.2" fill="#fff" opacity="0.21"/><circle id="d26" cx="587" cy="52" r="2.3" fill="#fff" opacity="0.22"/><circle id="d27" cx="282" cy="704" r="1.5" fill="#fff" opacity="0.18"/><circle id="d28" cx="356" cy="428" r="2.8" fill="#fff" opacity="0.22"/><circle id="d29" cx="884" cy="1421" r="1.7" fill="#fff" opacity="0.14"/><circle id="d30" cx="30" cy="536" r="1.7" fill="#fff" opacity="0.17"/><circle id="d31" cx="1012" cy="1897" r="3.1" fill="#fff" opacity="0.11"/><circle id="d32" cx="212" cy="392" r="2.4" fill="#fff" opacity="0.20"/><circle id="d33" cx="705" cy="1535" r="1.4" fill="#fff" opacity="0.16"/><circle id="d34" cx="810" cy="918" r="1.6" fill="#fff" opacity="0.18"/><circle id="d35" cx="1049" cy="760" r="2.0" fill="#fff" opacity="0.21"/><circle id="d36" cx="137" cy="290" r="3.0" fill="#fff" opacity="0.19"/><circle id="d37" cx="1059" cy="1262" r="1.9" fill="#fff" opacity="0.14"/><circle id="d38" cx="1049" cy="1247" r="2.3" fill="#fff" opacity="0.21"/><circle id="d39" cx="892" cy="405" r="1.7" fill="#fff" opacity="0.10"/></g>
+<g id="sc1" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t2" x="540" y="300" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="26" letter-spacing="0.2em" fill="#e8c26a" style="opacity:1">XAUUSD  ·  STRATEGIES  ·  EP 1/14</text><text id="t3" x="540" y="450" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="70" letter-spacing="0em" fill="#ffffff" style="opacity:1">เซฟไว้</text><text id="t4" x="540" y="530" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#e8c26a" style="opacity:1">BREAK OF STRUCTURE  ·  3 กฎ</text><g id="rw5" style="opacity:0"><rect x="70" y="640" width="940" height="100" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/><circle cx="130" cy="690" r="30" fill="#e8c26a"/><text x="130" y="702" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" fill="#111">1</text><text x="185" y="702" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0em" fill="#ffffff">ต้องปิดแท่ง ไม่ใช่แค่ไส้</text></g><g id="rw6" style="opacity:0"><rect x="70" y="790" width="940" height="100" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/><circle cx="130" cy="840" r="30" fill="#e8c26a"/><text x="130" y="852" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" fill="#111">2</text><text x="185" y="852" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0em" fill="#ffffff">ใช้ SWING หลัก ไม่ใช่ยอดเล็ก</text></g><g id="rw7" style="opacity:0"><rect x="70" y="940" width="940" height="100" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/><circle cx="130" cy="990" r="30" fill="#e8c26a"/><text x="130" y="1002" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" fill="#111">3</text><text x="185" y="1002" font-family="Kanit" font-weight="700" font-size="35" letter-spacing="0em" fill="#e8c26a">5M / 15M ขึ้นไป</text></g><text id="t8" x="540" y="1200" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="29" letter-spacing="0em" fill="#7d838c" style="opacity:0">แคปเก็บไว้</text></g>
+<g id="sc9" style="opacity:0;visibility:hidden" data-layout-allow-overlap><text id="t10" x="540" y="300" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="26" letter-spacing="0.2em" fill="#e8c26a" style="opacity:1">XAUUSD  ·  STRATEGIES  ·  EP 1/14</text><text id="t11" x="540" y="450" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="70" letter-spacing="0em" fill="#e8c26a" style="opacity:0">คิดตาม</text><defs><clipPath id="cp12"><rect id="cr13" x="0" y="0" width="0" height="1920"/></clipPath></defs><g id="cg14" clip-path="url(#cp12)" style="opacity:1.0"><g ><line x1="90.2" y1="652.0" x2="90.2" y2="674.6" stroke="#2962ff" stroke-width="2"/><rect x="77.7" y="659.2" width="25.1" height="5.7" fill="#2962ff"/></g><g ><line x1="130.7" y1="654.0" x2="130.7" y2="709.7" stroke="#ffffff" stroke-width="2"/><rect x="118.1" y="659.2" width="25.1" height="44.7" fill="#ffffff"/></g><g ><line x1="171.1" y1="691.9" x2="171.1" y2="769.9" stroke="#ffffff" stroke-width="2"/><rect x="158.6" y="703.8" width="25.1" height="51.9" fill="#ffffff"/></g><g ><line x1="211.6" y1="755.8" x2="211.6" y2="808.0" stroke="#ffffff" stroke-width="2"/><rect x="199.1" y="755.8" width="25.1" height="46.8" fill="#ffffff"/></g><g ><line x1="252.0" y1="761.0" x2="252.0" y2="806.0" stroke="#2962ff" stroke-width="2"/><rect x="239.5" y="765.0" width="25.1" height="37.6" fill="#2962ff"/></g><g ><line x1="292.5" y1="730.0" x2="292.5" y2="765.0" stroke="#2962ff" stroke-width="2"/><rect x="280.0" y="737.8" width="25.1" height="27.2" fill="#2962ff"/></g><g ><line x1="333.0" y1="732.0" x2="333.0" y2="793.0" stroke="#ffffff" stroke-width="2"/><rect x="320.4" y="737.8" width="25.1" height="51.0" fill="#ffffff"/></g><g ><line x1="373.4" y1="782.2" x2="373.4" y2="837.7" stroke="#ffffff" stroke-width="2"/><rect x="360.9" y="788.8" width="25.1" height="45.1" fill="#ffffff"/></g><g ><line x1="413.9" y1="824.6" x2="413.9" y2="891.8" stroke="#ffffff" stroke-width="2"/><rect x="401.3" y="833.9" width="25.1" height="43.1" fill="#ffffff"/></g><g ><line x1="454.3" y1="877.0" x2="454.3" y2="925.0" stroke="#ffffff" stroke-width="2"/><rect x="441.8" y="877.0" width="25.1" height="40.3" fill="#ffffff"/></g><g ><line x1="494.8" y1="873.2" x2="494.8" y2="923.0" stroke="#2962ff" stroke-width="2"/><rect x="482.2" y="880.4" width="25.1" height="36.9" fill="#2962ff"/></g><g ><line x1="535.2" y1="834.0" x2="535.2" y2="880.4" stroke="#2962ff" stroke-width="2"/><rect x="522.7" y="843.1" width="25.1" height="37.3" fill="#2962ff"/></g><g ><line x1="575.7" y1="836.0" x2="575.7" y2="913.3" stroke="#ffffff" stroke-width="2"/><rect x="563.1" y="843.1" width="25.1" height="65.9" fill="#ffffff"/></g><g ><line x1="616.1" y1="900.2" x2="616.1" y2="982.0" stroke="#ffffff" stroke-width="2"/><rect x="603.6" y="909.0" width="25.1" height="58.2" fill="#ffffff"/></g><g ><line x1="656.6" y1="967.1" x2="656.6" y2="1042.0" stroke="#ffffff" stroke-width="2"/><rect x="644.1" y="967.1" width="25.1" height="65.0" fill="#ffffff"/></g><g ><line x1="697.0" y1="993.4" x2="697.0" y2="1040.0" stroke="#2962ff" stroke-width="2"/><rect x="684.5" y="1009.0" width="25.1" height="23.1" fill="#2962ff"/></g><g ><line x1="737.5" y1="964.0" x2="737.5" y2="1009.0" stroke="#2962ff" stroke-width="2"/><rect x="725.0" y="970.1" width="25.1" height="39.0" fill="#2962ff"/></g><g ><line x1="778.0" y1="951.0" x2="778.0" y2="983.5" stroke="#ffffff" stroke-width="2"/><rect x="765.4" y="970.1" width="25.1" height="6.9" fill="#ffffff"/></g><g ><line x1="818.4" y1="808.0" x2="818.4" y2="983.5" stroke="#2962ff" stroke-width="2"/><rect x="805.9" y="814.5" width="25.1" height="162.5" fill="#2962ff"/></g></g><text id="t15" x="211.5909090909091" y="842.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="20" letter-spacing="0.06em" fill="#ff4d5e" style="opacity:0">LL</text><text id="t16" x="292.5" y="714.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="20" letter-spacing="0.06em" fill="#c9ced6" style="opacity:0">LH</text><text id="t17" x="454.3181818181818" y="959.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="20" letter-spacing="0.06em" fill="#ff4d5e" style="opacity:0">LL</text><text id="t18" x="535.2272727272727" y="818.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="20" letter-spacing="0.06em" fill="#c9ced6" style="opacity:0">LH</text><text id="t19" x="656.5909090909091" y="1076.0" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="20" letter-spacing="0.06em" fill="#ff4d5e" style="opacity:0">LL</text><line id="hl20" x1="535.2" y1="834.0" x2="899.3" y2="834.0" stroke="#e8c26a" stroke-width="4" stroke-dasharray="14 10" style="opacity:0"/><text id="t21" x="583.7727272727273" y="820.0" text-anchor="start" font-family="Kanit" font-weight="700" font-size="24" letter-spacing="0em" fill="#e8c26a" style="opacity:0">LOWER HIGH ล่าสุด</text><circle id="c22" cx="818.4" cy="814.5" r="22" fill="none" stroke="#ffffff" stroke-width="4" style="opacity:0;filter:drop-shadow(0 0 10px #ffffff)"/><text id="t23" x="818.4090909090909" y="764.5" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="90" letter-spacing="0em" fill="#e8c26a" style="opacity:0">?</text><g id="pl24" style="opacity:0"><rect x="257" y="1196" width="146" height="68" rx="34.0" fill="#1b1e23" /><text x="330" y="1244" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" letter-spacing="0.06em" fill="#ffffff">BOS</text></g><g id="pl25" style="opacity:0"><rect x="649" y="1196" width="201" height="68" rx="34.0" fill="#1b1e23" /><text x="750" y="1244" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="40" letter-spacing="0.06em" fill="#ffffff">CHoCH</text></g><text id="t26" x="540" y="1236" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="33" letter-spacing="0em" fill="#7d838c" style="opacity:0">หรือ</text><text id="t27" x="540" y="1320" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="29" letter-spacing="0em" fill="#e8c26a" style="opacity:0">ตอบในคอมเมนต์  ·  เฉลยตอนหน้า</text></g>
+<g id="sc28" style="opacity:0;visibility:hidden" data-layout-allow-overlap><g id="sp30" style="opacity:0"><defs><linearGradient id="gr29" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgb(232,194,106)" stop-opacity="0.26"/><stop offset="1" stop-color="rgb(232,194,106)" stop-opacity="0.04"/></linearGradient></defs><path d="M 500 380 L 580 380 L 770 1240 L 310 1240 Z" fill="url(#gr29)"/><ellipse cx="540" cy="1240" rx="240" ry="26" fill="none" stroke="rgb(232,194,106)" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="8 8"/></g><image id="i31" href="assets/otm_emblem.png" x="390" y="900" width="300" height="291" style="opacity:0;filter:drop-shadow(0 0 26px rgba(232,194,106,0.6))"/><text id="t32" x="540" y="1300" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="32" letter-spacing="0.3em" fill="#e8c26a" style="opacity:0">ORDER THE MARKET</text><text id="t33" x="540" y="1362" text-anchor="middle" font-family="Kanit" font-weight="700" font-size="31" letter-spacing="0em" fill="#ffffff" style="opacity:0">อย่าให้ตลาดเป็นฝ่ายสั่งคุณ</text><g id="pl34" style="opacity:0"><rect x="350" y="1441" width="379" height="58" rx="29.0" fill="#e8c26a" style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3))"/><text x="540" y="1481" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="30" letter-spacing="0.06em" fill="#111">FOLLOW FOR MORE</text></g><g id="so35" style="opacity:0"><rect x="290" y="1548" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="3"/><circle cx="308" cy="1566" r="8.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="318" cy="1556" r="2.4" fill="#fff"/><text x="338" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@fxzuez_28</text><path d="M 612 1546 V 1574 A 9 9 0 1 1 603 1565 M 612 1546 Q 616 1557 628 1558" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><text x="638" y="1577" font-family="Montserrat" font-weight="700" font-size="30" fill="#fff">@zuez_28</text></g><text id="t36" x="540" y="1650" text-anchor="middle" font-family="Montserrat" font-weight="600" font-size="28" letter-spacing="0.12em" fill="#7d838c" style="opacity:0">EDUCATIONAL ONLY · NOT FINANCIAL ADVICE</text></g>
+      </svg>
+      <img id="mark" src="assets/otm_emblem.png" alt="OTM" />
+      <audio id="otm-strat-ep01-end-th-audio" class="clip" src="assets/audio/mix_st01endth.wav" data-start="0" data-duration="28.35" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#sc1", {opacity: 1, visibility: "visible"}, 0);
+        tl.fromTo("#sc1", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 10.600, ease: "none", immediateRender: false}, 0.000);
+        tl.to("#sc1", {opacity: 0, duration: 0.25, ease: "power2.in"}, 10.350);
+        tl.set("#sc1", {opacity: 0, visibility: "hidden"}, 10.600);
+        tl.fromTo("#rw5", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 2.620);
+        tl.fromTo("#rw6", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 4.730);
+        tl.fromTo("#rw7", {opacity: 0, y: 14}, {opacity: 1, y: 0, duration: 0.350, ease: "power2.out", immediateRender: false}, 7.820);
+        tl.fromTo("#t8", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 8.620);
+        tl.set("#sc9", {visibility: "visible"}, 10.600);
+        tl.fromTo("#sc9", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 10.600);
+        tl.fromTo("#sc9", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 11.570, ease: "none", immediateRender: false}, 10.600);
+        tl.to("#sc9", {opacity: 0, duration: 0.25, ease: "power2.in"}, 21.920);
+        tl.set("#sc9", {opacity: 0, visibility: "hidden"}, 22.170);
+        tl.set("#t11", {opacity: 0}, 10.600);
+        tl.fromTo("#t11", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 10.750);
+        tl.set("#cr13", {attr: {width: 436.1}}, 10.600);
+        tl.fromTo("#cr13", {attr: {width: 436.1}}, {attr: {width: 800.2}, duration: 1.600, ease: "none", immediateRender: false}, 12.070);
+        tl.fromTo("#cr13", {attr: {width: 800.2}}, {attr: {width: 840.7}, duration: 0.500, ease: "none", immediateRender: false}, 14.470);
+        tl.fromTo("#t15", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 12.170);
+        tl.fromTo("#t16", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 12.290);
+        tl.fromTo("#t17", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 12.410);
+        tl.fromTo("#t18", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 12.530);
+        tl.fromTo("#t19", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 12.650);
+        tl.fromTo("#hl20", {opacity: 0}, {opacity: 1, duration: 0.300, ease: "power2.out", immediateRender: false}, 13.470);
+        tl.fromTo("#t21", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 13.570);
+        tl.set("#c22", {opacity: 0}, 10.600);
+        tl.fromTo("#c22", {opacity: 0, scale: 0.3, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 15.070);
+        tl.set("#t23", {opacity: 0}, 10.600);
+        tl.fromTo("#t23", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 15.850);
+        tl.set("#pl24", {opacity: 0}, 10.600);
+        tl.fromTo("#pl24", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 16.440);
+        tl.set("#pl25", {opacity: 0}, 10.600);
+        tl.fromTo("#pl25", {opacity: 0, scale: 0.5, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.350, ease: "back.out(1.8)", immediateRender: false}, 18.040);
+        tl.fromTo("#t26", {opacity: 0}, {opacity: 1, duration: 0.350, ease: "power2.out", immediateRender: false}, 17.840);
+        tl.fromTo("#t27", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 19.760);
+        tl.set("#sc28", {visibility: "visible"}, 22.170);
+        tl.fromTo("#sc28", {opacity: 0}, {opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false}, 22.170);
+        tl.fromTo("#sc28", {scale: 1}, {scale: 1.03, transformOrigin: "50% 55%", duration: 6.180, ease: "none", immediateRender: false}, 22.170);
+        tl.to("#sc28", {opacity: 0, duration: 0.25, ease: "power2.in"}, 28.100);
+        tl.set("#sc28", {opacity: 0, visibility: "hidden"}, 28.350);
+        tl.fromTo("#sp30", {opacity: 0}, {opacity: 1, duration: 0.600, ease: "power2.out", immediateRender: false}, 22.220);
+        tl.fromTo("#i31", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.700, ease: "back.out(1.8)", immediateRender: false}, 22.220);
+        tl.fromTo("#t32", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 22.520);
+        tl.fromTo("#t33", {opacity: 0}, {opacity: 1, duration: 0.400, ease: "power2.out", immediateRender: false}, 23.610);
+        tl.set("#pl34", {opacity: 0}, 22.170);
+        tl.fromTo("#pl34", {opacity: 0, scale: 0.6, transformOrigin: "50% 50%"}, {opacity: 1, scale: 1, duration: 0.400, ease: "back.out(1.8)", immediateRender: false}, 25.820);
+        tl.fromTo("#so35", {opacity: 0, y: 12}, {opacity: 1, y: 0, duration: 0.500, ease: "power2.out", immediateRender: false}, 24.210);
+        tl.fromTo("#t36", {opacity: 0}, {opacity: 1, duration: 0.500, ease: "power2.out", immediateRender: false}, 24.510);
+        tl.to("#mark", {opacity: 0, duration: 0.3}, 22.020);
+        tl.fromTo("#d0", {x: 0, y: 0}, {x: 5, y: -271, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d1", {x: 0, y: 0}, {x: -60, y: -180, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d2", {x: 0, y: 0}, {x: 18, y: -463, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d3", {x: 0, y: 0}, {x: 50, y: -246, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d4", {x: 0, y: 0}, {x: -45, y: -342, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d5", {x: 0, y: 0}, {x: -62, y: -218, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d6", {x: 0, y: 0}, {x: -7, y: -249, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d7", {x: 0, y: 0}, {x: 4, y: -439, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d8", {x: 0, y: 0}, {x: -11, y: -400, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d9", {x: 0, y: 0}, {x: 37, y: -339, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d10", {x: 0, y: 0}, {x: 11, y: -301, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d11", {x: 0, y: 0}, {x: -62, y: -381, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d12", {x: 0, y: 0}, {x: -16, y: -371, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d13", {x: 0, y: 0}, {x: -62, y: -404, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d14", {x: 0, y: 0}, {x: -59, y: -298, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d15", {x: 0, y: 0}, {x: -31, y: -287, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d16", {x: 0, y: 0}, {x: -45, y: -227, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d17", {x: 0, y: 0}, {x: -69, y: -288, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d18", {x: 0, y: 0}, {x: 2, y: -354, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d19", {x: 0, y: 0}, {x: 52, y: -413, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d20", {x: 0, y: 0}, {x: -61, y: -172, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d21", {x: 0, y: 0}, {x: -70, y: -200, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d22", {x: 0, y: 0}, {x: 16, y: -199, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d23", {x: 0, y: 0}, {x: 49, y: -478, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d24", {x: 0, y: 0}, {x: -22, y: -237, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d25", {x: 0, y: 0}, {x: 4, y: -198, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d26", {x: 0, y: 0}, {x: 51, y: -380, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d27", {x: 0, y: 0}, {x: 5, y: -407, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d28", {x: 0, y: 0}, {x: 49, y: -416, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d29", {x: 0, y: 0}, {x: -20, y: -160, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d30", {x: 0, y: 0}, {x: 64, y: -298, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d31", {x: 0, y: 0}, {x: -39, y: -225, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d32", {x: 0, y: 0}, {x: 48, y: -308, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d33", {x: 0, y: 0}, {x: 57, y: -408, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d34", {x: 0, y: 0}, {x: -23, y: -414, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d35", {x: 0, y: 0}, {x: 31, y: -206, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d36", {x: 0, y: 0}, {x: -50, y: -423, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d37", {x: 0, y: 0}, {x: -52, y: -155, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d38", {x: 0, y: 0}, {x: -9, y: -438, duration: 28.35, ease: "none"}, 0);
+        tl.fromTo("#d39", {x: 0, y: 0}, {x: -36, y: -344, duration: 28.35, ease: "none"}, 0);
+        window.__timelines["otm-strat-ep01-end-th"] = tl;
+      })();
+    </script>
+  </body>
+</html>
