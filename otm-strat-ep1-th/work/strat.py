@@ -550,3 +550,195 @@ def ep2():
     cm = s.label(540, 1320, L("COMMENT YOUR ANSWER  ·  ANSWER IN EP 3", "ตอบในคอมเมนต์  ·  เฉลยตอนหน้า"), 26, GOLD, 0, 800, 0.08); s.fade(cm, K("ans") + 0.1, 0.4)
     cue(K("ans") + 0.1, "swell_1", -24)
     outro(K("order") - 0.05)
+
+
+# ======================================================================================================== 3  liquidity sweep
+def sweep_quiz_chart(s, t0, t_w, t_c):
+    """ep 2's quiz chart: an old low, a candle wicks below it and closes back above"""
+    C = path_candles([(0, 66), (3, 52), (6, 62), (9, 50.5), (12, 60), (14, 54)], seed=12, noise=0.8, wick=1.2)
+    C += [(54, 55, 52.5, 53), (53, 54, 46, 53.8), (53.8, 58, 53, 57.5)]
+    ch = Chart(C, 20, 70, 960, 600, 1120, 40, 72, 0.62)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(t0, 14), (t_w - 0.2, 14), (t_w + 0.8, 16), (t_c, 16), (t_c + 0.6, 17)], t0 - 0.2)
+    hline(s, ch, 50.5, 9, 19, LBLUE, 4, op=1)
+    s.label(ch.x(9), ch.y(50.5) + 34, L("OLD LOW", "LOW เก่า"), 22, LBLUE, 1, 800, 0.06, "start")
+    return ch
+
+
+def fvg_index(C, i0, up=True):
+    for i in range(i0, len(C) - 2):
+        if up and C[i + 2][2] > C[i][1]: return i
+        if not up and C[i + 2][1] < C[i][2]: return i
+    return None
+
+
+def ep3():
+    # 1  the answer to ep 2's quiz
+    o, c = 0, K("what") - 0.1
+    s = S(o, c, first=True)
+    tag(s, 3)
+    s.label(540, 450, L("LAST EPISODE'S QUESTION", "คำถามตอนที่แล้ว"), 44, WHITE, 1, 800, 0.04)
+    ch = sweep_quiz_chart(s, 0.3, FW("hook", "wicks", "ไส้"), FW("hook", "closes", "ปิด"))
+    rg = ring(s, ch.x(16), ch.y(46), 22, WHITE); s.pop(rg, FW("hook", "wicks", "ไส้") + 0.8, 0.35, 0.3)
+    b1 = s.pill(320, 1230, "BREAKDOWN", "#1b1e23", WHITE, 38, 0, False); s.pop(b1, FW("hook", "breakdown", "breakdown"), 0.35, 0.5)
+    b2 = s.pill(760, 1230, "SWEEP", "#1b1e23", WHITE, 38, 0, False); s.pop(b2, FW("hook", "sweep", "sweep"), 0.35, 0.5)
+    out(b1, K("answer") + 0.3, 0.3, 0.25)
+    b3 = s.pill(760, 1230, "SWEEP", GREEN, "#0b0b0b", 38); s.pop(b3, K("answer") + 0.4, 0.4, 0.5)
+    ck = check(s, 900, 1230, 22, GREEN, 7); s.draw(ck, K("answer") + 0.7, 0.3); cue(K("answer") + 0.4, "bell_A4", -18)
+    captions(s, [(0.1, L("BREAKDOWN OR SWEEP?", "BREAKDOWN หรือ SWEEP?"), WHITE), (K("answer") - 0.1, L("ANSWER: A LIQUIDITY SWEEP", "คำตอบ: LIQUIDITY SWEEP"), GREEN)], c, 1352 + 40)
+
+    # 2  what liquidity is: BSL above highs, SSL below lows, equal highs / lows
+    o, c = K("what") - 0.1, K("valid") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    s.label(540, 450, "LIQUIDITY", 64, WHITE, 1, 800, 0.06)
+    s.label(540, 525, L("WHERE THE STOPS PILE UP", "จุดที่ STOP LOSS กองกันอยู่"), 28, GOLD, 1, 700, 0.12)
+    C = path_candles([(0, 58), (3, 70), (6, 60), (9, 70), (12, 50.5), (15, 62), (18, 50.5), (20, 56)], seed=21, noise=0.7, wick=1.1)
+    ch = Chart(C, 22, 70, 960, 640, 1160, 42, 78, 0.62)
+    s.raw('<g id="@ID@">' + ch.candles() + "</g>", "cg")
+    lb = hline(s, ch, 70, 2, 21, LBLUE, 4); s.fade(lb, K("bsl"), 0.3)
+    ls = hline(s, ch, 50.5, 11, 21, RED, 4); s.fade(ls, K("ssl"), 0.3)
+    tb = s.label(ch.x(21), ch.y(70) - 14, L("BUY-SIDE LIQUIDITY", "BUY-SIDE LIQUIDITY"), 22, LBLUE, 0, 800, 0.06, "end"); s.fade(tb, K("bsl") + 0.1)
+    ts = s.label(ch.x(21), ch.y(50.5) + 34, L("SELL-SIDE LIQUIDITY", "SELL-SIDE LIQUIDITY"), 22, RED, 0, 800, 0.06, "end"); s.fade(ts, K("ssl") + 0.1)
+    for k, x in enumerate((ch.x(3), ch.x(6), ch.x(9))):
+        a = s.pill(x, ch.y(70) - 60, "SL", "#16223f", LBLUE, 18, 0, False); s.fade(a, K("bsl") + 0.3 + 0.1 * k, 0.25)
+    for k, x in enumerate((ch.x(12), ch.x(15), ch.x(18))):
+        b = s.pill(x, ch.y(50.5) + 76, "SL", "#2a0e12", RED, 18, 0, False); s.fade(b, K("ssl") + 0.3 + 0.1 * k, 0.25)
+    for i, p, col in ((3, 70, LBLUE), (9, 70, LBLUE), (12, 50.5, RED), (18, 50.5, RED)):
+        r = ring(s, ch.x(i), ch.y(p), 18, col); s.pop(r, K("eq") + 0.2, 0.35, 0.3)
+    eq = s.pill(540, 1240, L("EQUAL HIGHS / LOWS = THE MOST STOPS", "EQUAL HIGH / LOW = STOP เยอะสุด"), GOLD, "#0b0b0b", 26); s.pop(eq, K("eq") + 0.4, 0.35, 0.5)
+    cue(K("bsl"), "bell_C5", -24); cue(K("ssl"), "bell_C5", -24); cue(K("eq") + 0.4, "bell_E5", -22)
+    captions(s, [(o + 0.1, L("STOPS + PENDING ORDERS", "STOP LOSS + ออเดอร์ที่รออยู่"), WHITE), (K("bsl") - 0.1, L("ABOVE HIGHS: BSL", "เหนือ HIGH: BSL"), LBLUE),
+                 (K("ssl") - 0.1, L("BELOW LOWS: SSL", "ใต้ LOW: SSL"), RED)], c, 1352 + 40)
+
+    # 3  valid liquidity: the low's move broke the previous high
+    o, c = K("valid") - 0.1, K("two") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    hd = s.label(540, 450, L("NOT EVERY LOW COUNTS", "ไม่ใช่ทุก LOW ที่นับได้"), 44, WHITE, 0, 800, 0.04); s.pop(hd, o + 0.2, 0.4, 0.6)
+    pts = [(90, 1120), (230, 880), (300, 990), (420, 760), (480, 860), (550, 800), (620, 920), (780, 640), (900, 720)]
+    zig(s, pts, o + 0.3, 2.2)
+    for x0, x1, y in ((230, 440, 880), (420, 800, 760)):
+        ln = hl(s, x0, x1, y, GREY, 3, "10 7"); s.fade(ln, K("valid2") + 0.1, 0.3)
+    for k, (x, y, ok) in enumerate(((300, 990, True), (480, 860, False), (620, 920, True))):
+        t = K("valid2") + 0.6 + 0.5 * k
+        r = ring(s, x, y, 20, GREEN if ok else RED); s.pop(r, t, 0.35, 0.3)
+        mk = (check if ok else xmark)(s, x, y + 62, 18, GREEN if ok else RED, 6); s.draw(mk, t + 0.15, 0.3)
+        lb = s.label(x, y + 116, L("VALID", "นับได้") if ok else L("NOT VALID", "ไม่นับ"), 22, GREEN if ok else RED, 0, 800, 0.08); s.fade(lb, t + 0.2)
+    nt = s.label(540, 1250, L("ITS MOVE MUST BREAK THE PREVIOUS HIGH", "แรงจาก LOW ต้องทะลุ HIGH ก่อนหน้า"), 26, GOLD, 0, 800, 0.06); s.fade(nt, K("valid2") + 2.2, 0.4)
+    cue(K("valid2") + 0.6, "bell_C5", -24)
+    captions(s, [(o + 0.1, L("IS THAT LOW REAL LIQUIDITY?", "LOW นั้นเป็น LIQUIDITY จริงไหม?"), WHITE), (K("valid2") - 0.1, L("ONLY IF IT BROKE THE PREVIOUS HIGH", "ต้องทะลุ HIGH ก่อนหน้าได้"), GOLD)], c, 1352 + 40)
+
+    # 4  run vs sweep
+    o, c = K("two") - 0.1, K("warn") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    hd = s.label(540, 450, L("RUN  OR  SWEEP", "RUN  หรือ  SWEEP"), 52, WHITE, 0, 800, 0.06); s.pop(hd, o + 0.2, 0.4, 0.6)
+    for k, (x0, key, run) in enumerate(((60, "run", True), (560, "sweep", False))):
+        t = K(key) + 0.1
+        pn = panel(s, x0, 560, 460, 600); s.fade(pn, t, 0.3)
+        lv = hl(s, x0 + 20, x0 + 440, 820, LBLUE, 4, "12 8"); s.fade(lv, t + 0.1, 0.3)
+        lt = s.label(x0 + 30, 806, "HIGH", 22, LBLUE, 0, 800, 0.08, "start"); s.fade(lt, t + 0.15)
+        a = big_candle(s, x0 + 120, 56, 840, 900, 850, 910, 0, UP, False); s.fade(a, t + 0.3, 0.25)
+        if run:
+            b = big_candle(s, x0 + 230, 56, 715, 850, 730, 860, 0, UP, False)
+            d = big_candle(s, x0 + 340, 56, 640, 730, 650, 745, 0, UP, False)
+            fv = rbox(s, x0 + 200, 745, x0 + 420, 840, GREEN, 0.22, 0.8, 2); s.fade(fv, t + 1.4, 0.35)
+            ft = s.label(x0 + 420, 800, "FVG", 22, GREEN, 0, 800, 0.08, "end"); s.fade(ft, t + 1.5)
+            lab, col = L("CLOSES THROUGH + FVG", "ปิดทะลุ + มี FVG"), GREEN
+        else:
+            b = big_candle(s, x0 + 230, 56, 745, 850, 872, 880, 0, DOWN, False)
+            d = big_candle(s, x0 + 340, 56, 865, 872, 980, 990, 0, DOWN, False)
+            rg = ring(s, x0 + 230, 745, 20, RED); s.pop(rg, t + 0.9, 0.35, 0.3)
+            lab, col = L("WICK THROUGH, CLOSES BACK", "ไส้ทะลุ แล้วปิดกลับ"), RED
+        s.fade(b, t + 0.7, 0.3); s.fade(d, t + 1.1, 0.3)
+        hh = s.label(x0 + 230, 630, "RUN" if run else "SWEEP", 36, col, 0, 800, 0.1); s.fade(hh, t + 0.1)
+        lb = s.label(x0 + 230, 1110, lab, 22, col, 0, 800, 0.04); s.fade(lb, t + 1.3)
+        cue(t + 0.7, "bell_C5" if run else "whoosh-short_1", -22)
+    captions(s, [(K("run") - 0.1, L("RUN: CLOSES THROUGH, KEEPS GOING", "RUN: ปิดทะลุ แล้ววิ่งต่อ"), GREEN), (K("sweep") - 0.1, L("SWEEP: WICK THROUGH, SNAPS BACK", "SWEEP: ไส้ทะลุ แล้วเด้งกลับ"), RED)], c, 1352 + 40)
+
+    # 5  a sweep is a warning: sweep -> CHoCH -> FVG / OB -> pullback entry
+    o, c = K("warn") - 0.1, K("ex") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    C = path_candles([(0, 72), (3, 60), (5, 66), (8, 54), (10, 60), (12, 54.2)], seed=31, noise=0.7, wick=1.1)
+    C += [(54.2, 55.2, 48.5, 55.6), (55.6, 59.5, 55.2, 59.2), (59.2, 63.5, 58.6, 63.2), (63.2, 64, 60.4, 60.8), (60.8, 61.4, 57.6, 58.9), (58.9, 66, 58.6, 65.6), (65.6, 70, 65.2, 69.6)]
+    ch = Chart(C, 22, 70, 960, 600, 1180, 44, 74, 0.62)
+    connect(C)
+    sw = 13; i_f = fvg_index(C, sw)
+    rid = candles_clip(s, ch)
+    t1, t2, t3 = K("steps"), FW("steps", "fair", "fair"), FW("steps", "pullback", "pullback")
+    reveal(rid, ch, [(o + 0.2, 12), (K("warn") + 0.6, 12), (K("warn") + 1.2, 13), (t1, 13), (t1 + 1.0, 15), (t2 + 0.6, 15), (t2 + 2.2, 19)], o)
+    ll = hline(s, ch, 54, 8, 14, RED, 3); s.fade(ll, o + 0.3, 0.3)
+    p1 = s.pill(ch.x(13), ch.y(48.5) + 50, L("1  SWEEP", "1  SWEEP"), RED, "#fff", 22); s.pop(p1, K("warn") + 1.3, 0.35, 0.5)
+    lh = hline(s, ch, 60, 10, 16, GOLD, 3); s.fade(lh, t1 - 0.2, 0.3)
+    p2 = s.pill(ch.x(13.5), ch.y(60) - 40, L("2  CHoCH", "2  CHoCH"), GOLD, "#0b0b0b", 22); s.pop(p2, t1 + 1.0, 0.35, 0.5)
+    if i_f is not None:
+        fv = rbox(s, ch.x(i_f) - 12, ch.y(C[i_f + 2][2]), ch.x(21), ch.y(C[i_f][1]), GREEN, 0.2, 0.8, 2); s.fade(fv, t2 + 0.1, 0.35)
+        p3 = s.pill(ch.x(19), ch.y(C[i_f][1]) + 46, L("3  FVG / OB", "3  FVG / OB"), GREEN, "#0b0b0b", 22); s.pop(p3, t2 + 0.2, 0.35, 0.5)
+    p4 = s.pill(ch.x(17), ch.y(70) - 30, L("4  PULLBACK ENTRY", "4  เข้าตอน PULLBACK"), WHITE, "#0b0b0b", 22); s.pop(p4, min(t3, t2 + 1.8), 0.35, 0.5)
+    wn = s.pill(540, 520, L("A SWEEP IS A WARNING, NOT AN ENTRY", "SWEEP = สัญญาณเตือน ยังไม่ใช่จุดเข้า"), "#2a1d0e", GOLD, 26, 0, False); s.pop(wn, o + 0.3, 0.4, 0.5)
+    cue(K("warn") + 1.3, "bell_G4", -22); cue(t1 + 1.0, "bell_E5", -22); cue(t2 + 0.2, "bell_C5", -22); cue(min(t3, t2 + 1.8), "bell_A4", -20)
+    captions(s, [(o + 0.1, L("DON'T ENTER ON THE SWEEP", "อย่าเข้าตรง SWEEP"), RED), (K("steps") - 0.1, L("CHoCH  ·  FVG / OB  ·  PULLBACK", "CHoCH  ·  FVG / OB  ·  PULLBACK"), GREEN)], c, 1352 + 40)
+
+    # 6  gold example (long)
+    o, c = K("ex") - 0.1, K("save") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    hp = s.pill(540, 450, "XAUUSD  ·  15M  ·  EXAMPLE", WHITE, "#0b0b0b", 26); s.pop(hp, o + 0.2, 0.4, 0.5)
+    C = path_candles([(0, 3858), (2, 3870), (5, 3838), (7, 3846), (10, 3810), (12, 3830), (15, 3810.3)], seed=33, noise=1.4, wick=2.0)
+    C += [(3811, 3812, 3802, 3813), (3813, 3826, 3812, 3825), (3825, 3836, 3824, 3835), (3835, 3837, 3820, 3822), (3822, 3824, 3816.5, 3819), (3819, 3838, 3818, 3837), (3837, 3852, 3836, 3850), (3850, 3864, 3848, 3862)]
+    connect(C)
+    ch = Chart(C, 26, 70, 880, 560, 1200, 3796, 3876, 0.62)
+    rid = candles_clip(s, ch)
+    t_w = FW("ex", "wicked", "ไส้"); t_c = K("ex2"); t_b = FW("ex2", "bought", "ซื้อ")
+    reveal(rid, ch, [(o + 0.2, 15), (t_w - 0.2, 15), (t_w + 0.6, 16), (t_c, 16), (t_c + 1.2, 18), (t_b - 0.4, 18), (t_b + 0.6, 20), (t_b + 4.0, 20), (t_b + 6.0, 23)], o)
+    eq = hline(s, ch, 3810, 9, 17, RED, 3); s.fade(eq, o + 0.5, 0.3)
+    et = s.label(ch.x(9), ch.y(3810) + 30, L("EQUAL LOWS 3,810", "EQUAL LOW 3,810"), 20, RED, 0, 800, 0.04, "start"); s.fade(et, o + 0.6)
+    rg = ring(s, ch.x(16), ch.y(3802), 18, RED); s.pop(rg, t_w + 0.6, 0.35, 0.3)
+    swt = s.label(ch.x(16), ch.y(3802) + 40, "3,802", 20, RED, 0, 800, 0.04); s.fade(swt, t_w + 0.7)
+    lh = hline(s, ch, 3830, 12, 19, GOLD, 3); s.fade(lh, t_c - 0.2, 0.3)
+    cp = s.pill(ch.x(15), ch.y(3830) - 36, "CHoCH", GOLD, "#0b0b0b", 22); s.pop(cp, t_c + 1.0, 0.35, 0.5); cue(t_c + 1.0, "bell_E5", -22)
+    bl = hline(s, ch, 3870, 2, 25, LBLUE, 3); s.fade(bl, FW("ex2", "target", "เป้า"), 0.3)
+    bt = s.label(990, ch.y(3870) - 10, "BSL 3,870", 22, LBLUE, 0, 800, 0.04, "end"); s.fade(bt, FW("ex2", "target", "เป้า") + 0.1)
+    tp, slb = pos_box(s, ch.x(20), 990, ch.y(3818), ch.y(3870), ch.y(3800), t_b + 0.2)
+    e = s.label(990, ch.y(3818) - 8, "BUY 3,818", 22, WHITE, 0, 800, 0.04, "end"); s.fade(e, t_b + 0.3)
+    sl_ = s.label(990, ch.y(3800) + 28, "SL 3,800", 22, RED, 0, 800, 0.04, "end"); s.fade(sl_, FW("ex2", "stop", "stop") + 0.1)
+    rr = s.pill(ch.x(13), ch.y(3856), "1 : 3", GREEN, "#0b0b0b", 26); s.pop(rr, FW("ex2", "about", "ประมาณ"), 0.35, 0.5)
+    cue(t_b + 0.2, "bell_C5", -22)
+    s.label(540, 1260, L("* ILLUSTRATION, NOT A REAL TRADE", "* ภาพตัวอย่าง ไม่ใช่เทรดจริง"), 20, GREY, 1, 600, 0.06)
+    captions(s, [(o + 0.1, L("SWEEP OF THE EQUAL LOWS", "SWEEP EQUAL LOW"), RED), (t_c - 0.1, L("CHoCH, THEN BUY THE PULLBACK", "CHoCH แล้วซื้อตอนย่อ"), GREEN)], c, 1352 + 40)
+
+    # 7  save this
+    o, c = K("save") - 0.1, K("quiz") - 0.1
+    s = S(o, c)
+    tag(s, 3)
+    s.label(540, 450, L("SAVE THIS", "เซฟไว้"), 64, WHITE, 1, 800, 0.06)
+    s.label(540, 530, "LIQUIDITY SWEEP  ·  3 RULES" if not TH() else "LIQUIDITY SWEEP  ·  3 กฎ", 28, GOLD, 1, 700, 0.12)
+    rows(s, [("LIQUIDITY: ABOVE HIGHS, BELOW LOWS", "LIQUIDITY: เหนือ HIGH และใต้ LOW", WHITE), ("WICK THROUGH + CLOSE BACK = SWEEP", "ไส้ทะลุ + ปิดกลับเข้ามา = SWEEP", WHITE),
+             ("WAIT FOR THE CHoCH, THEN THE PULLBACK", "รอ CHoCH แล้วเข้าตอน PULLBACK", GOLD)], [K("s1"), K("s2"), K("s3")], y0=690, dy=150, size=28)
+    sc = s.label(540, 1200, L("SCREENSHOT IT", "แคปเก็บไว้"), 26, GREY, 0, 700, 0.2); s.fade(sc, K("s3") + 1.0, 0.4)
+
+    # 8  think along: support tested 3 times, stronger or weaker? (answer: weaker, ep 4)
+    o, c = K("quiz") - 0.1, K("order") - 0.05
+    s = S(o, c)
+    tag(s, 3)
+    hd = s.label(540, 450, L("THINK ALONG", "คิดตาม"), 64, GOLD, 0, 800, 0.06); s.pop(hd, o + 0.15, 0.4, 0.6)
+    C = path_candles([(0, 70), (3, 52), (6, 64), (9, 52.3), (12, 61), (15, 52.2), (17, 57)], seed=41, noise=0.7, wick=1.1)
+    ch = Chart(C, 19, 70, 960, 600, 1120, 46, 74, 0.62)
+    rid = candles_clip(s, ch)
+    reveal(rid, ch, [(o + 0.2, 1), (K("q") + 0.2, 1), (K("q") + 3.0, 17)], o)
+    sp = hline(s, ch, 52, 1, 18, GREEN, 4); s.fade(sp, K("q") + 0.2, 0.3)
+    stt = s.label(ch.x(18), ch.y(52) + 34, "SUPPORT", 22, GREEN, 0, 800, 0.08, "end"); s.fade(stt, K("q") + 0.3)
+    for k, i in enumerate((3, 9, 15)):
+        tt = K("q") + 0.2 + 2.8 * i / 17
+        r = ring(s, ch.x(i), ch.y(52), 20, WHITE); s.pop(r, tt, 0.3, 0.3)
+        n = s.label(ch.x(i), ch.y(52) + 62, str(k + 1), 30, GOLD, 0, 800, 0); s.fade(n, tt + 0.05)
+        cue(tt, "bell_C5", -26)
+    q = s.label(540, 1160, "?", 90, GOLD, 0, 800, 0); s.pop(q, K("ask") + 0.1, 0.4, 0.5)
+    for txt, x, key in ((L("STRONGER", "แข็งแรงขึ้น"), 300, FW("ask", "stronger", "แข็งแรง")), (L("WEAKER", "อ่อนแอลง"), 780, FW("ask", "weaker", "อ่อนแอ"))):
+        p = s.pill(x, 1230, txt, "#1b1e23", WHITE, 38, 0, False); s.pop(p, key, 0.35, 0.5); cue(key, "bell_C5", -24)
+    o_ = s.label(540, 1236, L("OR", "หรือ"), 30, GREY, 0, 800, 0.1); s.fade(o_, FW("ask", "weaker", "อ่อนแอ") - 0.2)
+    cm = s.label(540, 1320, L("COMMENT YOUR ANSWER  ·  ANSWER IN EP 4", "ตอบในคอมเมนต์  ·  เฉลยตอนหน้า"), 26, GOLD, 0, 800, 0.08); s.fade(cm, K("ans") + 0.1, 0.4)
+    cue(K("ans") + 0.1, "swell_1", -24)
+    outro(K("order") - 0.05)

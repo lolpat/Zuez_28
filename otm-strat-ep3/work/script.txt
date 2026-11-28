@@ -1,0 +1,9 @@
+[hook] Last episode, I asked: price wicks below an old low, then closes back above it. Breakdown, or liquidity sweep? [answer] The answer is a liquidity sweep.
+[what] Liquidity is where stop losses and pending orders pile up. [bsl] Above old highs sits buy-side liquidity. [ssl] Below old lows sits sell-side liquidity. [eq] Equal highs and equal lows hold the most.
+[valid] But not every low is real liquidity. [valid2] In an uptrend, a low only counts if the move from it broke the previous high.
+[two] When price reaches liquidity, it does one of two things. [run] A run: it closes through the level and keeps going, usually leaving a fair value gap behind. [sweep] A sweep: it pokes through with a wick, fails to close beyond, and snaps back.
+[warn] A sweep is a warning, not an entry. [steps] Wait for the change of character, then a fair value gap or an order block, then the pullback.
+[ex] On gold, equal lows sat at thirty-eight ten. Price wicked down to thirty-eight oh-two and closed back above. [ex2] Then it broke the last lower high: change of character. I bought the pullback at thirty-eight eighteen, stop under the sweep at thirty-eight hundred. Target: the buy-side liquidity at thirty-eight seventy. About one to three.
+[save] Save this. [s1] Liquidity sits above highs and below lows. [s2] A wick through and a close back inside is a sweep. [s3] Wait for the change of character, then the pullback.
+[quiz] Now, think along. [q] Price drops into the same support three times, and bounces each time. [ask] Is that support getting stronger, or weaker? [ans] Comment your answer. Next episode: support and resistance.
+[order] Order the market. [dont] Don't let the market order you. [follow] Follow for more.

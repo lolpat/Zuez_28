@@ -1,0 +1,9 @@
+[hook] ตอนที่แล้วผมถามว่า ราคาไส้ทะลุ low เก่า แล้วเด้งกลับขึ้นมาปิดเหนือมัน แบบนี้คือ breakdown หรือ liquidity sweep [answer] คำตอบคือ liquidity sweep
+[what] Liquidity คือจุดที่ stop loss กับออเดอร์ที่รออยู่ กองกันอยู่เยอะ [bsl] เหนือ high เก่า คือ buy-side liquidity [ssl] ใต้ low เก่า คือ sell-side liquidity [eq] Equal high กับ equal low มีเยอะที่สุด
+[valid] แต่ไม่ใช่ทุก low ที่เป็น liquidity จริง [valid2] ในขาขึ้น low จะนับได้ ก็ต่อเมื่อแรงจาก low นั้น ทะลุ high ก่อนหน้าได้
+[two] พอราคาไปถึง liquidity จะเกิดได้สองแบบ [run] แบบแรก run คือปิดทะลุระดับแล้ววิ่งต่อ มักทิ้ง fair value gap ไว้ข้างหลัง [sweep] แบบที่สอง sweep คือแค่ไส้ทะลุ ปิดเลยระดับไม่ได้ แล้วเด้งกลับ
+[warn] Sweep คือสัญญาณเตือน ยังไม่ใช่จุดเข้า [steps] ให้รอ change of character แล้วรอ fair value gap หรือ order block แล้วค่อยเข้าตอน pullback
+[ex] บนทองคำ equal low อยู่ที่ สามพันแปดร้อยสิบ ราคาไส้ลงไปถึง สามพันแปดร้อยสอง แล้วปิดกลับขึ้นมา [ex2] จากนั้นทะลุ lower high ล่าสุด คือ change of character ผมซื้อตอนย่อที่ สามพันแปดร้อยสิบแปด stop loss ใต้ sweep ที่ สามพันแปดร้อย เป้าคือ buy-side liquidity ที่ สามพันแปดร้อยเจ็ดสิบ ประมาณหนึ่งต่อสาม
+[save] เซฟไว้ [s1] Liquidity อยู่เหนือ high และใต้ low [s2] ไส้ทะลุแล้วปิดกลับเข้ามา คือ sweep [s3] รอ change of character แล้วเข้าตอน pullback
+[quiz] คิดตามนะครับ [q] ราคาลงมาที่แนวรับเดิมสามครั้ง และเด้งทุกครั้ง [ask] แนวรับนั้นกำลังแข็งแรงขึ้น หรืออ่อนแอลง [ans] คอมเมนต์คำตอบไว้ ตอนหน้า support กับ resistance
+[order] Order the market... [dont] อย่าให้ตลาดเป็นฝ่ายสั่งคุณ [follow] กดติดตามไว้นะครับ

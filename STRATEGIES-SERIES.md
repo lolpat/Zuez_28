@@ -11,8 +11,8 @@ Market outro (FOLLOW FOR MORE, handles, educational-only line), instead of endin
 | 0 | Every strategy we'll learn (the map + the 3 jobs), standalone version | - | otm-strat-ep0 / -th |
 | 1 | Break of Structure (BOS), standalone version | WHEN | otm-strat-ep1 / -th |
 | 2 | Change of Character (CHoCH): answer to ep 1's quiz, 3 rules (close; a real swing after the IDM sweep; a BOS to confirm), enter on the pullback into OB / FVG / 62-79%, gold example (sell 3,855, SL 3,865, TP 3,825, 1:3), save-this recap, quiz (breakdown or sweep?) and outro | WHEN | **otm-strat-ep2 / -th** |
-| 3 | Liquidity Sweep (opens with the answer to ep 2's quiz) | WHEN | next |
-| 4 | Support & Resistance | WHERE | |
+| 3 | Liquidity Sweep: answer to ep 2's quiz, BSL / SSL and equal highs / lows, valid liquidity (the low's move broke the previous high), run vs sweep, sweep -> CHoCH -> FVG / OB -> pullback, gold example (equal lows 3,810, sweep 3,802, buy 3,818, SL 3,800, TP BSL 3,870, about 1:3), save-this recap, quiz (support tested 3 times: stronger or weaker?) and outro | WHEN | **otm-strat-ep3 / -th** |
+| 4 | Support & Resistance (opens with the answer to ep 3's quiz: weaker) | WHERE | next |
 | 5 | Supply & Demand | WHERE | |
 | 6 | Order Block (mean threshold) | WHERE / ENTRY | |
 | 7 | Breaker Block | WHERE | |
@@ -39,6 +39,9 @@ video (the 3-jobs idea: where / when / entry); for BOS, five Market Movers Signa
 For CHoCH: a Thai TikTok on IDM (a swing counts once its inducement is swept; a strong CHoCH breaks a confirmed swing and
 its zone; wait for the pullback) and a YouTube lesson (youtu.be/bItfkMUC490: CHoCH can be a liquidity grab, confirm with
 a BOS in the new direction, enter on the pullback into an FVG or the 0.618-0.786 OTE, about 1:3).
+For the sweep: a TikTok lesson (cyforex: BSL / SSL, external vs internal liquidity, run vs sweep, CHoCH + FVG + BOS
+after a sweep) and a TikTok on valid liquidity (thetradinglab: a low counts only if its move broke the previous high).
+Three YouTube links (AMlev-gYyHo, xvt5AH17KEo, Vulini8xbB0) could not be watched: Gemini was overloaded on every model.
 A YouTube lesson (youtu.be/FE1bgD9N6DM) could not be watched: the Gemini video service was overloaded on every model.
 
 Voice: ElevenLabs eleven_v4, "Quentin - Narrator and Educator" (EN) and "Patinya - Calm Thai Narrator & Explainer"
@@ -78,6 +81,24 @@ Instagram (TH): คิดตาม 🤔 ราคากำลังลง แล
    #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
 TikTok (EN): BOS or CHoCH? Think along before ep 2 🤔 #forex #priceaction #forexeducation #OrderTheMarket
 TikTok (TH): BOS หรือ CHoCH? คิดตามก่อนดูตอนหน้า 🤔 #forex #priceaction #forexeducation #OrderTheMarket
+
+### Ep 3: Liquidity Sweep
+
+Instagram (EN)
+1. Liquidity sweep, ep 3: a wick through the old low that closes back inside. It's a warning, not an entry 📌
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. Run or sweep? A run closes through and leaves an FVG. A sweep wicks through and snaps back. Then wait for the CHoCH and the pullback. Not financial advice.
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+Instagram (TH)
+1. Liquidity sweep ตอนที่ 3: ไส้ทะลุ low เก่า แล้วปิดกลับเข้ามา เป็นสัญญาณเตือน ยังไม่ใช่จุดเข้า 📌
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+2. Run หรือ sweep? Run ปิดทะลุแล้วทิ้ง FVG ส่วน sweep ไส้ทะลุแล้วเด้งกลับ จากนั้นรอ CHoCH แล้วเข้าตอนย่อ ไม่ใช่คำแนะนำทางการเงิน
+   #forex #forextrading #priceaction #technicalanalysis #OrderTheMarket
+
+TikTok
+EN: Liquidity sweep explained: wick through, close back, then wait for the CHoCH 📌 #forex #priceaction #forexeducation #OrderTheMarket
+TH: Liquidity sweep คืออะไร: ไส้ทะลุ ปิดกลับ แล้วรอ CHoCH 📌 #forex #priceaction #forexeducation #OrderTheMarket
 
 ### Ep 2: Change of Character
 
